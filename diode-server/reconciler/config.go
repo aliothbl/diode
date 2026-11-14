@@ -39,8 +39,13 @@ type Config struct {
 	IngestionLogProcessorConcurrency           int   `envconfig:"INGESTION_LOG_PROCESSOR_CONCURRENCY" default:"1"`
 	IngestionLogProcessorBackpressureThreshold int64 `envconfig:"INGESTION_LOG_PROCESSOR_BACKPRESSURE_THRESHOLD" default:"100"`
 
-	AutoApplyProcessorBatchSize   int32 `envconfig:"AUTO_APPLY_PROCESSOR_BATCH_SIZE" default:"100"`
-	AutoApplyProcessorConcurrency int   `envconfig:"AUTO_APPLY_PROCESSOR_CONCURRENCY" default:"1"`
+	AutoApplyProcessorBatchSize int32 `envconfig:"AUTO_APPLY_PROCESSOR_BATCH_SIZE" default:"100"`
+	// Concurrent /bulk-plan-apply batches. The plugin applies a batch serially
+	// in one NetBox worker, so with 1 only one worker is ever busy. 4 matches
+	// the default NetBox worker count; it is safe now that an apply is never
+	// resent once NetBox received it (end-to-end benchmark: 11 -> 20 entities/s,
+	// identical NetBox end state).
+	AutoApplyProcessorConcurrency int `envconfig:"AUTO_APPLY_PROCESSOR_CONCURRENCY" default:"4"`
 
 	// Experimental
 	EnableGraphDB bool `envconfig:"ENABLE_GRAPH_DB" default:"false"`
