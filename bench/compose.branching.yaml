@@ -1,0 +1,10 @@
+# netbox-branching overlay: runs NetBox with the netbox_branching package from
+# a checkout (BRANCHING_SRC) mounted over the pip-installed one (1.2.0 in the
+# image). Branch jobs (provision, merge) are driven synchronously through
+# nbshell by branch_scenarios.py, so no RQ worker is needed. Used by the
+# netbox-branching scenarios (aliothbl/netbox-branching SPEC-20261114-1736);
+# run.sh adds it automatically when BRANCHING_SRC is set.
+services:
+  netbox:
+    volumes:
+      - ${BRANCHING_SRC:?}/netbox_branching:/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching:ro

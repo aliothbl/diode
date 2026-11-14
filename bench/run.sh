@@ -35,6 +35,10 @@ case "$SCENARIO" in
   smoke) LOAD_ARGS=(--devices 10 --ifaces 2);;
   std)   LOAD_ARGS=(--devices 200 --ifaces 4);;
   large) LOAD_ARGS=(--devices 1000 --ifaces 8 --timeout 7200);;
+  # netbox-branching scenarios: driven by branch_scenarios.py instead of
+  # loadgen.py, always with the netbox-branching overlay.
+  branch-*) LOAD_ARGS=()
+            BRANCHING_SRC="${BRANCHING_SRC:-$NETBOX_ROOT/netbox-branching}";;
   *) echo "unknown scenario $SCENARIO" >&2; exit 2;;
 esac
 
@@ -83,10 +87,21 @@ COMPOSE=(docker compose -f "$HERE/compose.yaml")
 # Extra overlays (e.g. bench/compose.profile.yaml). Results from such runs are
 # tagged and must not be compared with measured runs.
 for extra in ${BENCH_COMPOSE_EXTRA:-}; do COMPOSE+=(-f "$extra"); done
+TAG=""; [[ "${BENCH_COMPOSE_EXTRA:-}" == *profile* ]] && TAG="+profile"
+
+# netbox-branching from a checkout instead of the image's pip 1.2.0.
+BRANCHING_REV="pip-1.2.0"
+if [[ -n "${BRANCHING_SRC:-}" ]]; then
+  export BRANCHING_SRC
+  BRANCHING_REV="$(git -C "$BRANCHING_SRC" rev-parse --short=7 HEAD)$(dirty "$BRANCHING_SRC")"
+  COMPOSE+=(-f "$HERE/compose.branching.yaml")
+fi
 
 # NetBox DB seed: snapshot of the migrated Postgres data dir, keyed by the
-# plugin revision (its migrations are part of the schema).
-SEED="$HERE/out/seed/$PLUGIN_REV/pgdata.tgz"
+# plugin revision (its migrations are part of the schema), and by the
+# netbox-branching revision when a checkout is mounted.
+SEED_KEY="$PLUGIN_REV"; [[ -n "${BRANCHING_SRC:-}" ]] && SEED_KEY="$PLUGIN_REV-nbb-$BRANCHING_REV"
+SEED="$HERE/out/seed/$SEED_KEY/pgdata.tgz"
 PGVOL=diode-bench-netbox-pgdata
 reset_stack() {
   "${COMPOSE[@]}" down -v --remove-orphans >/dev/null 2>&1 || true
@@ -112,7 +127,7 @@ RESULTS="$HERE/results"; mkdir -p "$RESULTS"
 TS="$(date +%Y%m%d-%H%M%S)"
 
 for run in $(seq 1 "$RUNS"); do
-  echo "==> [$VERSION diode=$DIODE_REV plugin=$PLUGIN_REV] scenario=$SCENARIO run $run/$RUNS"
+  echo "==> [$VERSION diode=$DIODE_REV plugin=$PLUGIN_REV branching=$BRANCHING_REV] scenario=$SCENARIO run $run/$RUNS"
   reset_stack
   restore_seed
   "${COMPOSE[@]}" up -d --build --wait --wait-timeout 600 >/dev/null
@@ -126,7 +141,11 @@ for run in $(seq 1 "$RUNS"); do
 
   OUT="$RESULTS/$TS-$VERSION-$SCENARIO-run$run.json"
   set +e
-  "$VENV/bin/python" "$HERE/loadgen.py" "${LOAD_ARGS[@]}" > "$OUT.load"
+  if [[ "$SCENARIO" == branch-* ]]; then
+    "$VENV/bin/python" "$HERE/branch_scenarios.py" "$SCENARIO" > "$OUT.load"
+  else
+    "$VENV/bin/python" "$HERE/loadgen.py" "${LOAD_ARGS[@]}" > "$OUT.load"
+  fi
   RC=$?
   set -e
   kill "$STATS_PID" 2>/dev/null; wait "$STATS_PID" 2>/dev/null || true
@@ -149,7 +168,7 @@ for run in $(seq 1 "$RUNS"); do
 import json, sys, collections
 out, load, stats = sys.argv[1:4]
 doc = {"version": "$VERSION", "diode_rev": "$DIODE_REV", "plugin_rev": "$PLUGIN_REV",
-       "scenario": "$SCENARIO" + ("+profile" if "${BENCH_COMPOSE_EXTRA:-}" else ""), "run": $run, "rc": $RC, "apply_timeouts": int("${APPLY_TIMEOUTS:-0}" or 0),
+       "scenario": "$SCENARIO$TAG", "branching_rev": "$BRANCHING_REV", "run": $run, "rc": $RC, "apply_timeouts": int("${APPLY_TIMEOUTS:-0}" or 0),
        "plugin_deadlock_retries": int("${DEADLOCKS:-0}" or 0), "reconciler_errors": int("${RECONCILER_ERRORS:-0}" or 0),
        "knobs": {k: __import__("os").environ.get(k) for k in
                  ["RATE_RPS","RATE_BURST","BATCH_SIZE","CONCURRENCY","PLUGIN_TIMEOUT","NETBOX_WORKERS"]}}
