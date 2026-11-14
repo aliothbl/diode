@@ -47,6 +47,16 @@ const (
 	// defaultHTTPTimeoutSeconds is the default HTTP timeout
 	defaultHTTPTimeoutSeconds = 5
 
+	// ApplyTimeoutSecondsEnvVarName is the environment variable name for the
+	// response timeout of /bulk-plan-apply, which writes to NetBox.
+	ApplyTimeoutSecondsEnvVarName = "NETBOX_DIODE_PLUGIN_APPLY_TIMEOUT_SECONDS"
+
+	// defaultApplyTimeoutSeconds is the default /bulk-plan-apply response
+	// timeout. A batch is applied serially inside one request, so the wait
+	// scales with the batch size; the plan/read timeout (5s) is far too short
+	// for it and expiring it does not stop the work on the NetBox side.
+	defaultApplyTimeoutSeconds = 120
+
 	// NetBoxBranchHeader is an HTTP header that indicates the NetBox branch to target
 	NetBoxBranchHeader = "X-NetBox-Branch"
 
@@ -94,8 +104,12 @@ type Branch struct {
 
 // Client is a NetBox Diode plugin client
 type Client struct {
-	logger    *slog.Logger
-	http      *http.Client
+	logger *slog.Logger
+	http   *http.Client
+	// applyHTTP serves /bulk-plan-apply. It has its own response timeout and
+	// never retries a request NetBox may already be applying (see
+	// applyRetryPolicy).
+	applyHTTP *http.Client
 	baseURL   *url.URL
 	userAgent string
 	limiter   *rate.Limiter
@@ -191,15 +205,9 @@ func NewClient(options ClientOptions) (*Client, error) {
 		return nil, err
 	}
 
-	baseTransport := NewHTTPTransport()
-	// Use per-request timeout on the transport instead of http.Client.Timeout.
-	// Client.Timeout cancels the request context, which prevents retryablehttp
-	// from retrying. ResponseHeaderTimeout only limits the server response wait
-	// per attempt, allowing retries on timeout errors.
-	baseTransport.ResponseHeaderTimeout = timeout
-
-	headerRT := &headerRoundTripper{
-		transport: baseTransport,
+	applyTimeout, err := applyHTTPTimeout()
+	if err != nil {
+		return nil, err
 	}
 
 	oauthConfig := &clientcredentials.Config{
@@ -209,24 +217,36 @@ func NewClient(options ClientOptions) (*Client, error) {
 		Scopes:         []string{authutil.ScopeNetBoxRead, authutil.ScopeNetBoxWrite},
 		EndpointParams: options.TokenEndpointParams,
 	}
+	// One token source for both clients, so they share the cached token.
+	tokenSource := oauthConfig.TokenSource(context.Background())
 
-	oauthTransport := &oauth2.Transport{
-		Source: oauthConfig.TokenSource(context.Background()),
-		Base:   otelhttp.NewTransport(headerRT),
+	newRetryableClient := func(responseTimeout time.Duration, checkRetry retryablehttp.CheckRetry) *http.Client {
+		baseTransport := NewHTTPTransport()
+		// Use per-request timeout on the transport instead of http.Client.Timeout.
+		// Client.Timeout cancels the request context, which prevents retryablehttp
+		// from retrying. ResponseHeaderTimeout only limits the server response wait
+		// per attempt, allowing retries on timeout errors where checkRetry allows.
+		baseTransport.ResponseHeaderTimeout = responseTimeout
+
+		oauthTransport := &oauth2.Transport{
+			Source: tokenSource,
+			Base:   otelhttp.NewTransport(&headerRoundTripper{transport: baseTransport}),
+		}
+
+		rhttp := retryablehttp.NewClient()
+		rhttp.HTTPClient = &http.Client{Transport: oauthTransport}
+		rhttp.RetryMax = options.MaxRetries
+		rhttp.RetryWaitMin = 150 * time.Millisecond
+		rhttp.RetryWaitMax = 2 * time.Second
+		rhttp.Logger = options.Logger
+		rhttp.CheckRetry = checkRetry
+		return rhttp.StandardClient()
 	}
-
-	rhttp := retryablehttp.NewClient()
-	rhttp.HTTPClient = &http.Client{Transport: oauthTransport}
-	rhttp.RetryMax = options.MaxRetries
-	rhttp.RetryWaitMin = 150 * time.Millisecond
-	rhttp.RetryWaitMax = 2 * time.Second
-	rhttp.Logger = options.Logger
-
-	httpClient := rhttp.StandardClient()
 
 	client := &Client{
 		logger:    options.Logger,
-		http:      httpClient,
+		http:      newRetryableClient(timeout, retryablehttp.DefaultRetryPolicy),
+		applyHTTP: newRetryableClient(applyTimeout, applyRetryPolicy),
 		baseURL:   u,
 		userAgent: fmt.Sprintf("%s/%s", SDKName, SDKVersion),
 		limiter:   rate.NewLimiter(rate.Limit(options.RateLimitRPS), options.RateLimitBurstRPS),
@@ -258,6 +278,43 @@ func httpTimeout() (time.Duration, error) {
 		return 0, ErrInvalidTimeout
 	}
 	return time.Duration(timeout) * time.Second, nil
+}
+
+func applyHTTPTimeout() (time.Duration, error) {
+	s, ok := os.LookupEnv(ApplyTimeoutSecondsEnvVarName)
+	if !ok || len(s) == 0 {
+		return defaultApplyTimeoutSeconds * time.Second, nil
+	}
+	timeout, err := strconv.Atoi(s)
+	if err != nil || timeout <= 0 {
+		return 0, ErrInvalidTimeout
+	}
+	return time.Duration(timeout) * time.Second, nil
+}
+
+// applyRetryPolicy is the retry policy for /bulk-plan-apply, which is not
+// idempotent: it creates objects. Once the request has reached NetBox, a
+// timeout or a dropped connection does not mean it was not applied; the
+// worker keeps applying the batch. Resending it then races the first request
+// and can create the same objects twice (NetBox allows duplicate IP
+// addresses, for one). So it retries only when the request provably did not
+// start: the connection could not be established, or the server answered
+// 429/503 (rejected before processing, e.g. granian backpressure).
+func applyRetryPolicy(ctx context.Context, resp *http.Response, err error) (bool, error) {
+	if ctx.Err() != nil {
+		return false, ctx.Err()
+	}
+	if err != nil {
+		var opErr *net.OpError
+		if errors.As(err, &opErr) && opErr.Op == "dial" {
+			return true, nil
+		}
+		return false, err
+	}
+	if resp.StatusCode == http.StatusTooManyRequests || resp.StatusCode == http.StatusServiceUnavailable {
+		return true, nil
+	}
+	return false, nil
 }
 
 func (c *Client) waitForRateLimit(ctx context.Context) (err error) {
@@ -445,7 +502,7 @@ func (c *Client) BulkPlanApply(ctx context.Context, payload BulkPlanApplyRequest
 		req.Header.Set(NetBoxBranchHeader, branchID)
 	}
 
-	resp, err := c.http.Do(req)
+	resp, err := c.applyHTTP.Do(req)
 	if err != nil {
 		return nil, err
 	}
