@@ -51,7 +51,15 @@ func NewRepository(pool *pgxpool.Pool) *Repository {
 // the second one sees the first one's committed row and dedups against it
 // instead of inserting its own. fn receives a tx-scoped repository; returning
 // an error rolls the whole transaction back.
+//
+// A transaction that loses a deadlock is run again from the start (see
+// withTxRetry), so fn may be called more than once and must only write
+// through the repository it receives.
 func (r *Repository) WithDedupLocks(ctx context.Context, entityHashes []string, fn func(ops.DedupRepository) error) error {
+	return withTxRetry(ctx, func() error { return r.withDedupLocksOnce(ctx, entityHashes, fn) })
+}
+
+func (r *Repository) withDedupLocksOnce(ctx context.Context, entityHashes []string, fn func(ops.DedupRepository) error) error {
 	tx, err := r.pool.Begin(ctx)
 	if err != nil {
 		return fmt.Errorf("failed to start transaction: %w", err)
@@ -655,72 +663,18 @@ func (r *Repository) allocateIngestionLogIDs(ctx context.Context, n int) ([]int3
 }
 
 // BulkPersistChangeSets persists multiple changesets and their changes in a
-// single transaction, then bulk-updates ingestion log states.
+// single transaction, then bulk-updates ingestion log states. The transaction
+// is run again if it loses a deadlock (see withTxRetry); the change set
+// truncation runs once, after it commits.
 func (r *Repository) BulkPersistChangeSets(ctx context.Context, items []ops.BulkPersistItem, maxChangeSetsPerLog int32) ([]ops.BulkPersistResult, error) {
-	results := make([]ops.BulkPersistResult, len(items))
-
+	var results []ops.BulkPersistResult
 	var withChanges []int
-	for i, item := range items {
-		results[i].IngestionLogID = item.IngestionLogID
-		if len(item.ChangeSet.Changes) > 0 {
-			withChanges = append(withChanges, i)
-		}
-	}
-
-	tx, err := r.pool.Begin(ctx)
-	if err != nil {
-		return nil, fmt.Errorf("failed to start transaction: %w", err)
-	}
-	defer func() { _ = tx.Rollback(ctx) }()
-
-	qtx := r.queries.WithTx(tx)
-
-	if len(withChanges) > 0 {
-		csIDs, err := r.allocateChangeSetIDs(ctx, len(withChanges))
-		if err != nil {
-			return nil, fmt.Errorf("failed to allocate change set IDs: %w", err)
-		}
-
-		csParams := make([]postgres.BulkCreateChangeSetsParams, 0, len(withChanges))
-		var allChangeParams []postgres.BulkCreateChangesParams
-
-		for j, idx := range withChanges {
-			item := items[idx]
-			csID := csIDs[j]
-			results[idx].ChangeSetID = &csID
-
-			csParams = append(csParams, buildChangeSetParams(csID, item.IngestionLogID, item.ChangeSet))
-
-			changeParams, err := buildChangeParams(csID, item.ChangeSet)
-			if err != nil {
-				return nil, err
-			}
-			allChangeParams = append(allChangeParams, changeParams...)
-		}
-
-		if _, err := qtx.BulkCreateChangeSets(ctx, csParams); err != nil {
-			return nil, fmt.Errorf("failed to bulk create change sets: %w", err)
-		}
-		if _, err := qtx.BulkCreateChanges(ctx, allChangeParams); err != nil {
-			return nil, fmt.Errorf("failed to bulk create changes: %w", err)
-		}
-	}
-
-	stateIDs := make([]int32, len(items))
-	states := make([]int32, len(items))
-	for i, item := range items {
-		stateIDs[i] = item.IngestionLogID
-		states[i] = int32(item.NewState)
-	}
-	if err := qtx.BulkUpdateIngestionLogStates(ctx, postgres.BulkUpdateIngestionLogStatesParams{
-		Ids:    stateIDs,
-		States: states,
+	if err := withTxRetry(ctx, func() error {
+		var err error
+		results, withChanges, err = r.bulkPersistChangeSetsOnce(ctx, items)
+		return err
 	}); err != nil {
-		return nil, fmt.Errorf("failed to bulk update ingestion log states: %w", err)
-	}
-
-	if err := tx.Commit(ctx); err != nil {
-		return nil, fmt.Errorf("failed to commit transaction: %w", err)
+		return nil, err
 	}
 
 	if maxChangeSetsPerLog > 0 && len(withChanges) > 0 {
@@ -737,6 +691,76 @@ func (r *Repository) BulkPersistChangeSets(ctx context.Context, items []ops.Bulk
 	}
 
 	return results, nil
+}
+
+func (r *Repository) bulkPersistChangeSetsOnce(ctx context.Context, items []ops.BulkPersistItem) ([]ops.BulkPersistResult, []int, error) {
+	results := make([]ops.BulkPersistResult, len(items))
+
+	var withChanges []int
+	for i, item := range items {
+		results[i].IngestionLogID = item.IngestionLogID
+		if len(item.ChangeSet.Changes) > 0 {
+			withChanges = append(withChanges, i)
+		}
+	}
+
+	tx, err := r.pool.Begin(ctx)
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to start transaction: %w", err)
+	}
+	defer func() { _ = tx.Rollback(ctx) }()
+
+	qtx := r.queries.WithTx(tx)
+
+	if len(withChanges) > 0 {
+		csIDs, err := r.allocateChangeSetIDs(ctx, len(withChanges))
+		if err != nil {
+			return nil, nil, fmt.Errorf("failed to allocate change set IDs: %w", err)
+		}
+
+		csParams := make([]postgres.BulkCreateChangeSetsParams, 0, len(withChanges))
+		var allChangeParams []postgres.BulkCreateChangesParams
+
+		for j, idx := range withChanges {
+			item := items[idx]
+			csID := csIDs[j]
+			results[idx].ChangeSetID = &csID
+
+			csParams = append(csParams, buildChangeSetParams(csID, item.IngestionLogID, item.ChangeSet))
+
+			changeParams, err := buildChangeParams(csID, item.ChangeSet)
+			if err != nil {
+				return nil, nil, err
+			}
+			allChangeParams = append(allChangeParams, changeParams...)
+		}
+
+		if _, err := qtx.BulkCreateChangeSets(ctx, csParams); err != nil {
+			return nil, nil, fmt.Errorf("failed to bulk create change sets: %w", err)
+		}
+		if _, err := qtx.BulkCreateChanges(ctx, allChangeParams); err != nil {
+			return nil, nil, fmt.Errorf("failed to bulk create changes: %w", err)
+		}
+	}
+
+	stateIDs := make([]int32, len(items))
+	states := make([]int32, len(items))
+	for i, item := range items {
+		stateIDs[i] = item.IngestionLogID
+		states[i] = int32(item.NewState)
+	}
+	if err := qtx.BulkUpdateIngestionLogStates(ctx, postgres.BulkUpdateIngestionLogStatesParams{
+		Ids:    stateIDs,
+		States: states,
+	}); err != nil {
+		return nil, nil, fmt.Errorf("failed to bulk update ingestion log states: %w", err)
+	}
+
+	if err := tx.Commit(ctx); err != nil {
+		return nil, nil, fmt.Errorf("failed to commit transaction: %w", err)
+	}
+
+	return results, withChanges, nil
 }
 
 func buildChangeSetParams(csID int32, ingestionLogID int32, cs changeset.ChangeSet) postgres.BulkCreateChangeSetsParams {
@@ -795,7 +819,20 @@ func buildChangeParams(csID int32, cs changeset.ChangeSet) ([]postgres.BulkCreat
 // per item (clone of the prior with a fresh external ID) carrying the drift
 // change set, and restores each prior log to APPLIED so its history stays
 // intact.
+//
+// The whole operation (ID allocation included) is run again if its
+// transaction loses a deadlock (see withTxRetry).
 func (r *Repository) BulkCreateDriftDeviations(ctx context.Context, items []ops.DriftDeviationItem) ([]ops.DriftDeviationResult, error) {
+	var results []ops.DriftDeviationResult
+	err := withTxRetry(ctx, func() error {
+		var err error
+		results, err = r.bulkCreateDriftDeviationsOnce(ctx, items)
+		return err
+	})
+	return results, err
+}
+
+func (r *Repository) bulkCreateDriftDeviationsOnce(ctx context.Context, items []ops.DriftDeviationItem) ([]ops.DriftDeviationResult, error) {
 	results := make([]ops.DriftDeviationResult, len(items))
 
 	csIDs, err := r.allocateChangeSetIDs(ctx, len(items))
@@ -888,7 +925,12 @@ func (r *Repository) allocateChangeSetIDs(ctx context.Context, n int) ([]int32, 
 
 // ClaimQueuedIngestionLogs returns a batch of ingestion logs in QUEUED state for processing.
 func (r *Repository) ClaimQueuedIngestionLogs(ctx context.Context, batchSize int32) ([]ops.QueuedIngestionLog, error) {
-	dbLogs, err := r.queries.ClaimQueuedIngestionLogs(ctx, batchSize)
+	var dbLogs []postgres.IngestionLog
+	err := withTxRetry(ctx, func() error {
+		var err error
+		dbLogs, err = r.queries.ClaimQueuedIngestionLogs(ctx, batchSize)
+		return err
+	})
 	if err != nil {
 		return nil, err
 	}
@@ -914,7 +956,12 @@ func (r *Repository) ClaimQueuedIngestionLogs(ctx context.Context, batchSize int
 // APPLYING for the duration of the NetBox round-trip; stuck rows are returned
 // to QUEUED on startup via ResetApplyingIngestionLogs.
 func (r *Repository) ClaimQueuedForAutoApply(ctx context.Context, batchSize int32) ([]ops.QueuedIngestionLog, error) {
-	dbLogs, err := r.queries.ClaimQueuedForAutoApply(ctx, batchSize)
+	var dbLogs []postgres.IngestionLog
+	err := withTxRetry(ctx, func() error {
+		var err error
+		dbLogs, err = r.queries.ClaimQueuedForAutoApply(ctx, batchSize)
+		return err
+	})
 	if err != nil {
 		return nil, fmt.Errorf("failed to claim queued ingestion logs for auto-apply: %w", err)
 	}
