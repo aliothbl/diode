@@ -126,14 +126,40 @@ O reconciler e o ingester (Go) usam menos de 1% de CPU em média: **não são ga
 - **Estado final** (`bench/netbox/dump_state.py`): todas as linhas dos modelos tocados, sem PKs nem timestamps, com relações renderizadas pelo objeto (inclusive GenericFK) e caminho de árvore ignorado. Duas execuções corretas produzem o mesmo hash.
 - **Recursos:** amostragem contínua de `docker stats`.
 
-## 6. Limitações e próximos passos
+## 6. Escala maior e padrão de concorrência
+
+Cenário `large` (1000 devices, 8000 interfaces, 8000 IPs = 17 000 entidades por fase), fork com concorrência 4 (2 execuções) e concorrência 1 (1 execução):
+
+| Fase | Concorrência 4 | Concorrência 1 | Ganho |
+|---|---|---|---|
+| Criação | 18,1 ent/s (~15,6 min) | 9,4 ent/s (~30 min) | 1,9× |
+| Reingestão idêntica | 73,7 ± 3,2 ent/s (~3,9 min) | 43,2 ent/s (~6,6 min) | 1,7× |
+| Atualização | 15,4 ± 0,4 ent/s (~18,5 min) | 5,7 ent/s (~50 min) | 2,7× |
+
+- **0 timeouts de apply, 0 retries de deadlock no plugin, 0 erros no reconciler**, em todas as execuções.
+- Contagens exatas e **estado final idêntico nas 3 execuções**: o mesmo hash com concorrência 1 e 4.
+- Com concorrência 1, a atualização cai de 10,5 ent/s (`std`) para 5,7 ent/s (`large`). Com concorrência 4 a queda é bem menor (20,1 → 15,4). Não investigado. Candidato a profiling no ciclo de otimização do plugin.
+- NetBox em ~253% de CPU e ≤1,5 GB de RAM (limite 4 GB). Reconciler em 20 MB.
+- O throughput cai pouco em relação ao `std` (20,1 → 18,1 ent/s), ou seja, escala de forma quase linear com o volume.
+
+**Padrão novo no fork:** `AUTO_APPLY_PROCESSOR_CONCURRENCY=4` no servidor e no `docker/sample.env` (commit `5564c69` no `develop`). O **chart Helm não foi alterado**, para continuar idêntico ao upstream (decisão do owner): quem instala via Helm deve definir
+
+```yaml
+diodeReconciler:
+  config:
+    autoApplyProcessorConcurrency: 4   # casar com o número de workers do NetBox
+```
+
+Regra prática: concorrência ≈ número de workers do NetBox (granian/gunicorn) dedicados à API. Acima disso, os lotes só ficam na fila do NetBox.
+
+## 7. Limitações e próximos passos
 
 - **O plugin não foi otimizado.** O ganho de throughput do fork vem de não fazer trabalho duplicado (M-1) e de poder usar os workers do NetBox com segurança. Otimizar o caminho do plugin (serializers, transformer, change log) é o próximo passo de performance, com o profile da §4 como mapa.
-- **Uma máquina e uma versão do NetBox** (4.7.0); uma forma de dataset (devices/interfaces/IPs). Cenário `large` (8000 devices) disponível e não executado.
+- **Uma máquina e uma versão do NetBox** (4.7.0); uma forma de dataset (devices/interfaces/IPs). O upstream não foi medido no cenário `large`: no `std` ele já não converge.
 - **Binários compilados com Go 1.27.2** nos dois lados (o `go.mod` pede ≥ 1.26.10). O upstream publica imagens com 1.26.x.
 - **Upstream-first:** M-1 e M-2 são candidatos naturais a PR em `netboxlabs/diode`, com este relatório como evidência. Nada foi enviado (decisão do owner).
 
-## 7. Binários e reprodução
+## 8. Binários e reprodução
 
 Estáticos, linux/amd64, `-trimpath -ldflags "-s -w"`, em `bench/out/bin/<versão>-<commit>/` (fora do git):
 

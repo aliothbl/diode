@@ -34,7 +34,7 @@ done
 case "$SCENARIO" in
   smoke) LOAD_ARGS=(--devices 10 --ifaces 2);;
   std)   LOAD_ARGS=(--devices 200 --ifaces 4);;
-  large) LOAD_ARGS=(--devices 1000 --ifaces 8);;
+  large) LOAD_ARGS=(--devices 1000 --ifaces 8 --timeout 7200);;
   *) echo "unknown scenario $SCENARIO" >&2; exit 2;;
 esac
 
@@ -139,6 +139,10 @@ for run in $(seq 1 "$RUNS"); do
   sed -n 's/^.*BENCH_ROWS //p' "$DUMP" | tail -1 | gzip > "${OUT%.json}.rows.json.gz"
   # Reconciler-side symptoms of the apply timeout/resend problem (P-1).
   APPLY_TIMEOUTS="$(docker logs diode-bench-diode-reconciler-1 2>&1 | grep -c 'bulk-plan-apply.*timeout awaiting' || true)"
+  # Risks of concurrent batches: Postgres deadlocks the plugin retried, and
+  # anything the reconciler logged at ERROR.
+  DEADLOCKS="$(docker logs diode-bench-netbox-1 2>&1 | grep -c 'deadlock on entity' || true)"
+  RECONCILER_ERRORS="$(docker logs diode-bench-diode-reconciler-1 2>&1 | grep -c '"level":"ERROR"' || true)"
   rm -f "$DUMP"
 
   "$VENV/bin/python" - "$OUT" "$OUT.load" "$STATS" <<PY
@@ -146,6 +150,7 @@ import json, sys, collections
 out, load, stats = sys.argv[1:4]
 doc = {"version": "$VERSION", "diode_rev": "$DIODE_REV", "plugin_rev": "$PLUGIN_REV",
        "scenario": "$SCENARIO" + ("+profile" if "${BENCH_COMPOSE_EXTRA:-}" else ""), "run": $run, "rc": $RC, "apply_timeouts": int("${APPLY_TIMEOUTS:-0}" or 0),
+       "plugin_deadlock_retries": int("${DEADLOCKS:-0}" or 0), "reconciler_errors": int("${RECONCILER_ERRORS:-0}" or 0),
        "knobs": {k: __import__("os").environ.get(k) for k in
                  ["RATE_RPS","RATE_BURST","BATCH_SIZE","CONCURRENCY","PLUGIN_TIMEOUT","NETBOX_WORKERS"]}}
 try: doc.update(json.load(open(load)))
