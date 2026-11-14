@@ -31,6 +31,17 @@
 - **P-5 — Consumo do stream no reconciler é serial** (XReadGroup Count=100, uma mensagem por vez, XAck + XDel em duas idas por mensagem).
 
 ## LOG
+- 2026-11-14 18:20 — **Correção de timestamps deste LOG.** Várias entradas abaixo receberam horário estimado em vez do relógio, e algumas estão até no futuro em relação ao commit que as contém. Por ser append-only, as entradas não são reescritas; os horários reais (evidência: horário dos commits e início das execuções no nome dos arquivos em `bench/results/`) são:
+  - "10:30 Seed por snapshot" → ~09:55 (seed às 09:20; smoke `095158`).
+  - "11:40 P-1 vira bug de corretude" → ~10:15 (smoke `101157`).
+  - "11:55 Melhoria M-1" → 10:28 (commit `14f4147`).
+  - "13:30 Medição std" → ~11:45 (execuções `101455` e `105025`).
+  - "13:45 Profiling" → ~12:10 (execução de profiling `120350`).
+  - "13:50 M-2" → 13:05 (commit `14ba79f`).
+  - "13:55 dump_state" → ~13:05.
+  - "15:10 Bateria final" → ~14:40 (commit `ae1e79c` às 14:44).
+  - "18:50 large c=1" → ~18:13 (commit `2c9895e` às 18:14).
+  - "18:10 large c=4" está correto (~18:11, depois do commit `5564c69` às 18:09).
 - 2026-11-14 18:50 — **Cenário large, c=1, ×1:** criação 9.4 ent/s, reingest 43.2, update 5.7; 0 timeout/deadlock/erro; **hash de estado idêntico às 2 execuções c=4** (`4539fdf406fe`). Padrão c=4 validado também em escala. Observação: o update com c=1 degrada com a escala (10.5 → 5.7 ent/s); não investigado.
 - 2026-11-14 18:10 — **Cenário large, c=4, ×2:** criação 18.1 ent/s, reingest 73.7, update 15.4; 0 timeout, 0 deadlock, 0 erro no reconciler; estado idêntico. **M-3** (`5564c69`, develop): padrão `AUTO_APPLY_PROCESSOR_CONCURRENCY=4` no servidor e no sample.env. **DEC: chart Helm sem mudança** (owner, 18:15) para não divergir a versão do chart do upstream; configuração recomendada documentada no relatório §6. `run.sh` passou a registrar retries de deadlock e erros do reconciler. Execução large c=1 em andamento (prova de estado c=1 == c=4 em escala).
 - 2026-11-14 15:10 — **Bateria final.** Candidato M-1+M-2 padrão: 11.34 ± 0.20 ent/s, 1800/1800 `APPLIED` na criação. Concorrência 4: upstream com ~5500 timeouts/execução, NetBox em 400% de CPU, 100% FAILED, 1518–1608 IPs e 136–189 interfaces com update perdido; fork com 20.08 ± 0.17 ent/s, 0 timeout, estado idêntico ao do fork com c=1. Upstream padrão refeito com dump completo (n=6 no total): 150–174 IPs duplicados, sem update perdido com c=1. Campo `path` (árvore por PK no 4.7) excluído do dump. Relatório em `report.md`.
