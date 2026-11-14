@@ -1,0 +1,673 @@
+{
+ "version": "candidate",
+ "diode_rev": "6dbe897",
+ "plugin_rev": "ed63aff",
+ "scenario": "branch-merge-race",
+ "branching_rev": "631943c",
+ "run": 2,
+ "rc": 0,
+ "apply_timeouts": 0,
+ "plugin_deadlock_retries": 0,
+ "reconciler_errors": 0,
+ "knobs": {
+  "RATE_RPS": null,
+  "RATE_BURST": null,
+  "BATCH_SIZE": null,
+  "CONCURRENCY": "4",
+  "PLUGIN_TIMEOUT": null,
+  "NETBOX_WORKERS": null
+ },
+ "params": {
+  "devices": 60,
+  "ifaces": 4,
+  "merge_at": 0.4
+ },
+ "phases": [
+  {
+   "phase": "initial",
+   "entities": 540,
+   "requests": 11,
+   "send_s": 0.074,
+   "send_req_p50_ms": 4.77,
+   "send_req_p95_ms": 6.4,
+   "elapsed_s": 39.795,
+   "entities_per_s": 13.57,
+   "states_before": {},
+   "states_after": {
+    "APPLIED": 534,
+    "NO_CHANGES": 6
+   },
+   "curve": [
+    [
+     0.082,
+     10,
+     0,
+     0
+    ],
+    [
+     0.585,
+     0,
+     540,
+     0
+    ],
+    [
+     1.087,
+     0,
+     540,
+     0
+    ],
+    [
+     1.59,
+     0,
+     540,
+     0
+    ],
+    [
+     2.094,
+     0,
+     540,
+     0
+    ],
+    [
+     2.597,
+     0,
+     540,
+     0
+    ],
+    [
+     3.1,
+     0,
+     540,
+     0
+    ],
+    [
+     3.602,
+     0,
+     540,
+     0
+    ],
+    [
+     4.105,
+     0,
+     540,
+     0
+    ],
+    [
+     4.607,
+     0,
+     540,
+     0
+    ],
+    [
+     5.111,
+     0,
+     540,
+     0
+    ],
+    [
+     5.613,
+     0,
+     540,
+     0
+    ],
+    [
+     6.116,
+     0,
+     540,
+     0
+    ],
+    [
+     6.619,
+     0,
+     540,
+     0
+    ],
+    [
+     7.121,
+     0,
+     540,
+     0
+    ],
+    [
+     7.624,
+     0,
+     540,
+     0
+    ],
+    [
+     8.127,
+     0,
+     540,
+     0
+    ],
+    [
+     8.63,
+     0,
+     540,
+     0
+    ],
+    [
+     9.133,
+     0,
+     540,
+     0
+    ],
+    [
+     9.637,
+     0,
+     540,
+     0
+    ],
+    [
+     10.139,
+     0,
+     540,
+     0
+    ],
+    [
+     10.643,
+     0,
+     540,
+     0
+    ],
+    [
+     11.146,
+     0,
+     540,
+     0
+    ],
+    [
+     11.651,
+     0,
+     540,
+     0
+    ],
+    [
+     12.154,
+     0,
+     540,
+     0
+    ],
+    [
+     12.657,
+     0,
+     540,
+     0
+    ],
+    [
+     13.161,
+     0,
+     540,
+     0
+    ],
+    [
+     13.663,
+     0,
+     540,
+     0
+    ],
+    [
+     14.166,
+     0,
+     540,
+     0
+    ],
+    [
+     14.668,
+     0,
+     540,
+     0
+    ],
+    [
+     15.171,
+     0,
+     540,
+     0
+    ],
+    [
+     15.673,
+     0,
+     540,
+     0
+    ],
+    [
+     16.176,
+     0,
+     540,
+     0
+    ],
+    [
+     16.679,
+     0,
+     540,
+     0
+    ],
+    [
+     17.182,
+     0,
+     540,
+     0
+    ],
+    [
+     17.684,
+     0,
+     540,
+     0
+    ],
+    [
+     18.187,
+     0,
+     540,
+     0
+    ],
+    [
+     18.69,
+     0,
+     540,
+     0
+    ],
+    [
+     19.192,
+     0,
+     540,
+     0
+    ],
+    [
+     19.695,
+     0,
+     540,
+     0
+    ],
+    [
+     20.198,
+     0,
+     540,
+     0
+    ],
+    [
+     20.7,
+     0,
+     540,
+     0
+    ],
+    [
+     21.202,
+     0,
+     440,
+     100
+    ],
+    [
+     21.706,
+     0,
+     440,
+     100
+    ],
+    [
+     22.208,
+     0,
+     440,
+     100
+    ],
+    [
+     22.71,
+     0,
+     440,
+     100
+    ],
+    [
+     23.213,
+     0,
+     440,
+     100
+    ],
+    [
+     23.715,
+     0,
+     440,
+     100
+    ],
+    [
+     24.218,
+     0,
+     440,
+     100
+    ],
+    [
+     24.72,
+     0,
+     440,
+     100
+    ],
+    [
+     25.222,
+     0,
+     440,
+     100
+    ],
+    [
+     25.725,
+     0,
+     440,
+     100
+    ],
+    [
+     26.228,
+     0,
+     440,
+     100
+    ],
+    [
+     26.73,
+     0,
+     440,
+     100
+    ],
+    [
+     27.233,
+     0,
+     440,
+     100
+    ],
+    [
+     27.735,
+     0,
+     440,
+     100
+    ],
+    [
+     28.238,
+     0,
+     440,
+     100
+    ],
+    [
+     28.741,
+     0,
+     440,
+     100
+    ],
+    [
+     29.243,
+     0,
+     440,
+     100
+    ],
+    [
+     29.745,
+     0,
+     440,
+     100
+    ],
+    [
+     30.247,
+     0,
+     440,
+     100
+    ],
+    [
+     30.75,
+     0,
+     440,
+     100
+    ],
+    [
+     31.252,
+     0,
+     440,
+     100
+    ],
+    [
+     31.755,
+     0,
+     440,
+     100
+    ],
+    [
+     32.256,
+     0,
+     440,
+     100
+    ],
+    [
+     32.759,
+     0,
+     440,
+     100
+    ],
+    [
+     33.261,
+     0,
+     440,
+     100
+    ],
+    [
+     33.764,
+     0,
+     440,
+     100
+    ],
+    [
+     34.267,
+     0,
+     140,
+     400
+    ],
+    [
+     34.77,
+     0,
+     40,
+     500
+    ],
+    [
+     35.272,
+     0,
+     40,
+     500
+    ],
+    [
+     35.775,
+     0,
+     40,
+     500
+    ],
+    [
+     36.278,
+     0,
+     40,
+     500
+    ],
+    [
+     36.78,
+     0,
+     40,
+     500
+    ],
+    [
+     37.283,
+     0,
+     40,
+     500
+    ],
+    [
+     37.785,
+     0,
+     40,
+     500
+    ],
+    [
+     38.288,
+     0,
+     40,
+     500
+    ],
+    [
+     38.79,
+     0,
+     40,
+     500
+    ],
+    [
+     39.293,
+     0,
+     0,
+     540
+    ],
+    [
+     39.795,
+     0,
+     0,
+     540
+    ]
+   ]
+  }
+ ],
+ "branching": {
+  "branch": {
+   "id": 1,
+   "schema_id": "3drzajyb",
+   "schema": "branch_3drzajyb",
+   "status": "ready"
+  },
+  "merge": {
+   "started_at_settled": 300,
+   "started_s": 34.218,
+   "status": "merged",
+   "error": null,
+   "merge_s": 34.715,
+   "changes_at_go": 527,
+   "applied_changes": 528
+  },
+  "objects_in_branch": {
+   "device": 60,
+   "interface": 240,
+   "ipaddress": 240
+  },
+  "objects_in_main": {
+   "device": 56,
+   "interface": 222,
+   "ipaddress": 221
+  },
+  "objectchanges_in_branch": 569,
+  "lost_in_merge": {
+   "device": 4,
+   "interface": 18,
+   "ipaddress": 19
+  },
+  "lost_examples": {
+   "device": [
+    "bench-dev-00056",
+    "bench-dev-00057",
+    "bench-dev-00058",
+    "bench-dev-00059"
+   ],
+   "interface": [
+    "bench-dev-00055/eth2",
+    "bench-dev-00055/eth3",
+    "bench-dev-00056/eth0",
+    "bench-dev-00056/eth1",
+    "bench-dev-00056/eth2"
+   ],
+   "ipaddress": [
+    "10.0.0.222/16",
+    "10.0.0.223/16",
+    "10.0.0.224/16",
+    "10.0.0.225/16",
+    "10.0.0.226/16"
+   ]
+  },
+  "ingest_failed": 0
+ },
+ "netbox_state": {
+  "dcim.Device": {
+   "count": 56,
+   "sha256": "d0ab4dc2c6a6824ff5f89830acda7d49c531d002743540b11245b6fac24694e8"
+  },
+  "dcim.DeviceRole": {
+   "count": 3,
+   "sha256": "38be7e9cf9e737c0e4bebf113f59e34fd64411b548ee947d35eb580f1016cb57"
+  },
+  "dcim.DeviceType": {
+   "count": 5,
+   "sha256": "a39993fd6dff17ae06632fbb92623b548acbfbd522f20294716faf7d912f2491"
+  },
+  "dcim.Interface": {
+   "count": 222,
+   "sha256": "cd040f5632616f27983b952e66f82017c3a144aef75f8b14d91514857fd97075"
+  },
+  "dcim.Manufacturer": {
+   "count": 5,
+   "sha256": "2c5c0334774efdf3a67d832daa567cabbf622e142f0e7930668a7f99e5d459cc"
+  },
+  "dcim.Platform": {
+   "count": 5,
+   "sha256": "b91f7c1259197c9f21081af6acc6801a58361de646517b29398c4bcaf6ea2956"
+  },
+  "dcim.Site": {
+   "count": 10,
+   "sha256": "f6e9afac5f5f35f6279710beb902b6e48c31c46525e063dee9304621911dae0d"
+  },
+  "extras.Tag": {
+   "count": 1,
+   "sha256": "ddd9c734ad6992e616dd2d80b03349472bc69e6ff16dc064213addfa3d4585e6"
+  },
+  "ipam.IPAddress": {
+   "count": 221,
+   "sha256": "c364d7d636f7d8260961404d7c58c38c7ece89c35501a8e57be704d2c20b98ba"
+  },
+  "ipam.Prefix": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ipam.VLAN": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+ },
+ "resources": {
+  "bench-auth": {
+   "cpu_avg_pct": 0.0,
+   "cpu_max_pct": 0.2,
+   "mem_max_mib": 11.9
+  },
+  "diode-ingester": {
+   "cpu_avg_pct": 0.0,
+   "cpu_max_pct": 0.1,
+   "mem_max_mib": 9.6
+  },
+  "diode-postgres": {
+   "cpu_avg_pct": 8.7,
+   "cpu_max_pct": 33.4,
+   "mem_max_mib": 56.1
+  },
+  "diode-reconciler": {
+   "cpu_avg_pct": 0.8,
+   "cpu_max_pct": 17.1,
+   "mem_max_mib": 17.4
+  },
+  "diode-redis": {
+   "cpu_avg_pct": 0.9,
+   "cpu_max_pct": 1.3,
+   "mem_max_mib": 4.0
+  },
+  "netbox": {
+   "cpu_avg_pct": 131.7,
+   "cpu_max_pct": 309.2,
+   "mem_max_mib": 1413.1
+  },
+  "netbox-postgres": {
+   "cpu_avg_pct": 42.7,
+   "cpu_max_pct": 180.4,
+   "mem_max_mib": 111.7
+  },
+  "netbox-redis": {
+   "cpu_avg_pct": 1.2,
+   "cpu_max_pct": 2.5,
+   "mem_max_mib": 3.8
+  },
+  "netbox-redis-cache": {
+   "cpu_avg_pct": 1.1,
+   "cpu_max_pct": 2.2,
+   "mem_max_mib": 3.8
+  }
+ }
+}
