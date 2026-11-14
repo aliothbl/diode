@@ -39,10 +39,14 @@ MERGE_AT = float(os.environ.get("MERGE_AT", "0.4"))
 
 def nbshell(code, timeout=1800):
     """Run Python in NetBox's nbshell; return the last 'BENCH ' JSON line."""
+    # nbshell is an interactive console: a compound statement (try/except,
+    # for...) only runs once a blank line closes it, and anything after it is
+    # a syntax error that is silently skipped. Sending the whole script as a
+    # single exec() line sidesteps the console's statement parsing.
     out = subprocess.run(
         ["docker", "exec", "-i", NETBOX, "/opt/netbox/venv/bin/python",
          "/opt/netbox/netbox/manage.py", "nbshell"],
-        input=code, capture_output=True, text=True, timeout=timeout)
+        input=f"exec({code!r})\n", capture_output=True, text=True, timeout=timeout)
     # The interactive console prefixes output with ">>> " prompts.
     lines = [ln.split("BENCH ", 1)[1] for ln in out.stdout.splitlines() if "BENCH " in ln]
     if not lines:
