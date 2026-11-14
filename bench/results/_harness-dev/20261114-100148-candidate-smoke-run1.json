@@ -1,0 +1,404 @@
+{
+ "version": "candidate",
+ "diode_rev": "e8312fe-dirty",
+ "plugin_rev": "d7a0cc4",
+ "scenario": "smoke",
+ "run": 1,
+ "rc": 0,
+ "knobs": {
+  "RATE_RPS": null,
+  "RATE_BURST": null,
+  "BATCH_SIZE": null,
+  "CONCURRENCY": null,
+  "PLUGIN_TIMEOUT": null,
+  "NETBOX_WORKERS": null
+ },
+ "params": {
+  "devices": 10,
+  "ifaces": 2,
+  "batch": 50,
+  "seed": 42,
+  "phases": "initial,reingest,update",
+  "grpc": "127.0.0.1:58081",
+  "pg_port": 55432,
+  "redis_port": 56379,
+  "poll": 0.5,
+  "timeout": 1800
+ },
+ "phases": [
+  {
+   "phase": "initial",
+   "entities": 50,
+   "requests": 1,
+   "send_s": 0.012,
+   "send_req_p50_ms": 11.5,
+   "send_req_p95_ms": null,
+   "elapsed_s": 9.557,
+   "entities_per_s": 5.23,
+   "states_before": {},
+   "states_after": {
+    "NO_CHANGES": 50
+   },
+   "curve": [
+    [
+     0.016,
+     1,
+     0,
+     0
+    ],
+    [
+     0.519,
+     0,
+     50,
+     0
+    ],
+    [
+     1.021,
+     0,
+     50,
+     0
+    ],
+    [
+     1.523,
+     0,
+     50,
+     0
+    ],
+    [
+     2.026,
+     0,
+     50,
+     0
+    ],
+    [
+     2.528,
+     0,
+     50,
+     0
+    ],
+    [
+     3.029,
+     0,
+     50,
+     0
+    ],
+    [
+     3.531,
+     0,
+     50,
+     0
+    ],
+    [
+     4.034,
+     0,
+     50,
+     0
+    ],
+    [
+     4.537,
+     0,
+     50,
+     0
+    ],
+    [
+     5.038,
+     0,
+     50,
+     0
+    ],
+    [
+     5.54,
+     0,
+     50,
+     0
+    ],
+    [
+     6.042,
+     0,
+     50,
+     0
+    ],
+    [
+     6.545,
+     0,
+     50,
+     0
+    ],
+    [
+     7.047,
+     0,
+     50,
+     0
+    ],
+    [
+     7.549,
+     0,
+     50,
+     0
+    ],
+    [
+     8.051,
+     0,
+     50,
+     0
+    ],
+    [
+     8.553,
+     0,
+     50,
+     0
+    ],
+    [
+     9.055,
+     0,
+     0,
+     50
+    ],
+    [
+     9.557,
+     0,
+     0,
+     50
+    ]
+   ]
+  },
+  {
+   "phase": "reingest",
+   "entities": 50,
+   "requests": 1,
+   "send_s": 0.003,
+   "send_req_p50_ms": 2.4,
+   "send_req_p95_ms": null,
+   "elapsed_s": 2.014,
+   "entities_per_s": 24.83,
+   "states_before": {
+    "NO_CHANGES": 50
+   },
+   "states_after": {
+    "NO_CHANGES": 50
+   },
+   "curve": [
+    [
+     0.004,
+     1,
+     0,
+     50
+    ],
+    [
+     0.505,
+     0,
+     50,
+     0
+    ],
+    [
+     1.008,
+     0,
+     50,
+     0
+    ],
+    [
+     1.512,
+     0,
+     0,
+     50
+    ],
+    [
+     2.014,
+     0,
+     0,
+     50
+    ]
+   ]
+  },
+  {
+   "phase": "update",
+   "entities": 50,
+   "requests": 1,
+   "send_s": 0.003,
+   "send_req_p50_ms": 2.87,
+   "send_req_p95_ms": null,
+   "elapsed_s": 6.035,
+   "entities_per_s": 8.29,
+   "states_before": {
+    "NO_CHANGES": 50
+   },
+   "states_after": {
+    "APPLIED": 40,
+    "NO_CHANGES": 50
+   },
+   "curve": [
+    [
+     0.004,
+     1,
+     0,
+     50
+    ],
+    [
+     0.507,
+     0,
+     50,
+     40
+    ],
+    [
+     1.009,
+     0,
+     50,
+     40
+    ],
+    [
+     1.512,
+     0,
+     50,
+     40
+    ],
+    [
+     2.015,
+     0,
+     50,
+     40
+    ],
+    [
+     2.517,
+     0,
+     50,
+     40
+    ],
+    [
+     3.019,
+     0,
+     50,
+     40
+    ],
+    [
+     3.521,
+     0,
+     50,
+     40
+    ],
+    [
+     4.023,
+     0,
+     50,
+     40
+    ],
+    [
+     4.525,
+     0,
+     50,
+     40
+    ],
+    [
+     5.027,
+     0,
+     50,
+     40
+    ],
+    [
+     5.531,
+     0,
+     0,
+     90
+    ],
+    [
+     6.035,
+     0,
+     0,
+     90
+    ]
+   ]
+  }
+ ],
+ "netbox_state": {
+  "dcim.Device": {
+   "count": 10,
+   "sha256": "ea44778f4657dc62e396c00cb390422a986e4b4516cbb2b0d903a9b799b41c3c"
+  },
+  "dcim.DeviceRole": {
+   "count": 3,
+   "sha256": "f589c0ff94dff0590b08485d550cfab48e4a14b0527acfae21e800de81c3535b"
+  },
+  "dcim.DeviceType": {
+   "count": 4,
+   "sha256": "7dd29a1a2e7212863c0dcc526e83a5186ddd20d9bc0ddd3d2e71be76032aedb4"
+  },
+  "dcim.Interface": {
+   "count": 20,
+   "sha256": "2ab5c5d4feb5a8291cd8bc1f3ece8f4b251e9ce602130fd4141b99bddcdbf132"
+  },
+  "dcim.Manufacturer": {
+   "count": 4,
+   "sha256": "5fc6b7871f26bced79ab63827b9963d8659e71c75d796fc8030b368635977d6f"
+  },
+  "dcim.Platform": {
+   "count": 4,
+   "sha256": "d80ac3be350344dde57be482bef777bd0bd63d1e50c535cd8dd6d9b92bca06af"
+  },
+  "dcim.Site": {
+   "count": 10,
+   "sha256": "f6e9afac5f5f35f6279710beb902b6e48c31c46525e063dee9304621911dae0d"
+  },
+  "extras.Tag": {
+   "count": 1,
+   "sha256": "ddd9c734ad6992e616dd2d80b03349472bc69e6ff16dc064213addfa3d4585e6"
+  },
+  "ipam.IPAddress": {
+   "count": 20,
+   "sha256": "a4ed0faecfe027d39192048daed0af314ee616753aaa2e66081ce65f4207bfc4"
+  },
+  "ipam.Prefix": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ipam.VLAN": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+ },
+ "resources": {
+  "bench-auth": {
+   "cpu_avg_pct": 0.0,
+   "cpu_max_pct": 0.0,
+   "mem_max_mib": 11.9
+  },
+  "diode-ingester": {
+   "cpu_avg_pct": 0.1,
+   "cpu_max_pct": 0.7,
+   "mem_max_mib": 7.8
+  },
+  "diode-postgres": {
+   "cpu_avg_pct": 5.7,
+   "cpu_max_pct": 7.5,
+   "mem_max_mib": 42.8
+  },
+  "diode-reconciler": {
+   "cpu_avg_pct": 0.2,
+   "cpu_max_pct": 0.8,
+   "mem_max_mib": 14.4
+  },
+  "diode-redis": {
+   "cpu_avg_pct": 0.9,
+   "cpu_max_pct": 1.4,
+   "mem_max_mib": 3.6
+  },
+  "netbox": {
+   "cpu_avg_pct": 91.4,
+   "cpu_max_pct": 175.2,
+   "mem_max_mib": 1011.0
+  },
+  "netbox-postgres": {
+   "cpu_avg_pct": 23.8,
+   "cpu_max_pct": 46.6,
+   "mem_max_mib": 53.8
+  },
+  "netbox-redis": {
+   "cpu_avg_pct": 1.1,
+   "cpu_max_pct": 1.4,
+   "mem_max_mib": 3.6
+  },
+  "netbox-redis-cache": {
+   "cpu_avg_pct": 1.1,
+   "cpu_max_pct": 1.5,
+   "mem_max_mib": 3.7
+  }
+ }
+}

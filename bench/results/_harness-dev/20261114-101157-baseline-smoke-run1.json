@@ -1,0 +1,499 @@
+{
+ "version": "baseline",
+ "diode_rev": "519ccec",
+ "plugin_rev": "8c3a3bb",
+ "scenario": "smoke",
+ "run": 1,
+ "rc": 0,
+ "knobs": {
+  "RATE_RPS": null,
+  "RATE_BURST": null,
+  "BATCH_SIZE": null,
+  "CONCURRENCY": null,
+  "PLUGIN_TIMEOUT": null,
+  "NETBOX_WORKERS": null
+ },
+ "params": {
+  "devices": 10,
+  "ifaces": 2,
+  "batch": 50,
+  "seed": 42,
+  "phases": "initial,reingest,update",
+  "grpc": "127.0.0.1:58081",
+  "pg_port": 55432,
+  "redis_port": 56379,
+  "poll": 0.5,
+  "timeout": 1800
+ },
+ "phases": [
+  {
+   "phase": "initial",
+   "entities": 50,
+   "requests": 1,
+   "send_s": 0.014,
+   "send_req_p50_ms": 13.74,
+   "send_req_p95_ms": null,
+   "elapsed_s": 14.095,
+   "entities_per_s": 3.55,
+   "states_before": {},
+   "states_after": {
+    "NO_CHANGES": 50
+   },
+   "curve": [
+    [
+     0.019,
+     1,
+     0,
+     0
+    ],
+    [
+     0.522,
+     0,
+     50,
+     0
+    ],
+    [
+     1.025,
+     0,
+     50,
+     0
+    ],
+    [
+     1.528,
+     0,
+     50,
+     0
+    ],
+    [
+     2.031,
+     0,
+     50,
+     0
+    ],
+    [
+     2.534,
+     0,
+     50,
+     0
+    ],
+    [
+     3.036,
+     0,
+     50,
+     0
+    ],
+    [
+     3.539,
+     0,
+     50,
+     0
+    ],
+    [
+     4.041,
+     0,
+     50,
+     0
+    ],
+    [
+     4.544,
+     0,
+     50,
+     0
+    ],
+    [
+     5.047,
+     0,
+     50,
+     0
+    ],
+    [
+     5.549,
+     0,
+     50,
+     0
+    ],
+    [
+     6.052,
+     0,
+     50,
+     0
+    ],
+    [
+     6.555,
+     0,
+     50,
+     0
+    ],
+    [
+     7.057,
+     0,
+     50,
+     0
+    ],
+    [
+     7.56,
+     0,
+     50,
+     0
+    ],
+    [
+     8.062,
+     0,
+     50,
+     0
+    ],
+    [
+     8.566,
+     0,
+     50,
+     0
+    ],
+    [
+     9.069,
+     0,
+     50,
+     0
+    ],
+    [
+     9.571,
+     0,
+     50,
+     0
+    ],
+    [
+     10.073,
+     0,
+     50,
+     0
+    ],
+    [
+     10.575,
+     0,
+     50,
+     0
+    ],
+    [
+     11.078,
+     0,
+     50,
+     0
+    ],
+    [
+     11.581,
+     0,
+     50,
+     0
+    ],
+    [
+     12.083,
+     0,
+     50,
+     0
+    ],
+    [
+     12.587,
+     0,
+     50,
+     0
+    ],
+    [
+     13.089,
+     0,
+     50,
+     0
+    ],
+    [
+     13.592,
+     0,
+     0,
+     50
+    ],
+    [
+     14.095,
+     0,
+     0,
+     50
+    ]
+   ]
+  },
+  {
+   "phase": "reingest",
+   "entities": 50,
+   "requests": 1,
+   "send_s": 0.006,
+   "send_req_p50_ms": 5.02,
+   "send_req_p95_ms": null,
+   "elapsed_s": 3.024,
+   "entities_per_s": 16.54,
+   "states_before": {
+    "NO_CHANGES": 50
+   },
+   "states_after": {
+    "NO_CHANGES": 50
+   },
+   "curve": [
+    [
+     0.008,
+     1,
+     0,
+     50
+    ],
+    [
+     0.512,
+     0,
+     50,
+     0
+    ],
+    [
+     1.014,
+     0,
+     50,
+     0
+    ],
+    [
+     1.516,
+     0,
+     50,
+     0
+    ],
+    [
+     2.019,
+     0,
+     50,
+     0
+    ],
+    [
+     2.521,
+     0,
+     0,
+     50
+    ],
+    [
+     3.024,
+     0,
+     0,
+     50
+    ]
+   ]
+  },
+  {
+   "phase": "update",
+   "entities": 50,
+   "requests": 1,
+   "send_s": 0.005,
+   "send_req_p50_ms": 4.55,
+   "send_req_p95_ms": null,
+   "elapsed_s": 8.551,
+   "entities_per_s": 5.85,
+   "states_before": {
+    "NO_CHANGES": 50
+   },
+   "states_after": {
+    "NO_CHANGES": 90
+   },
+   "curve": [
+    [
+     0.007,
+     1,
+     0,
+     50
+    ],
+    [
+     0.51,
+     0,
+     50,
+     40
+    ],
+    [
+     1.012,
+     0,
+     50,
+     40
+    ],
+    [
+     1.515,
+     0,
+     50,
+     40
+    ],
+    [
+     2.017,
+     0,
+     50,
+     40
+    ],
+    [
+     2.519,
+     0,
+     50,
+     40
+    ],
+    [
+     3.022,
+     0,
+     50,
+     40
+    ],
+    [
+     3.525,
+     0,
+     50,
+     40
+    ],
+    [
+     4.029,
+     0,
+     50,
+     40
+    ],
+    [
+     4.531,
+     0,
+     50,
+     40
+    ],
+    [
+     5.034,
+     0,
+     50,
+     40
+    ],
+    [
+     5.536,
+     0,
+     50,
+     40
+    ],
+    [
+     6.038,
+     0,
+     50,
+     40
+    ],
+    [
+     6.542,
+     0,
+     50,
+     40
+    ],
+    [
+     7.045,
+     0,
+     50,
+     40
+    ],
+    [
+     7.547,
+     0,
+     50,
+     40
+    ],
+    [
+     8.049,
+     0,
+     0,
+     90
+    ],
+    [
+     8.551,
+     0,
+     0,
+     90
+    ]
+   ]
+  }
+ ],
+ "netbox_state": {
+  "dcim.Device": {
+   "count": 10,
+   "sha256": "ea44778f4657dc62e396c00cb390422a986e4b4516cbb2b0d903a9b799b41c3c"
+  },
+  "dcim.DeviceRole": {
+   "count": 3,
+   "sha256": "f589c0ff94dff0590b08485d550cfab48e4a14b0527acfae21e800de81c3535b"
+  },
+  "dcim.DeviceType": {
+   "count": 4,
+   "sha256": "7dd29a1a2e7212863c0dcc526e83a5186ddd20d9bc0ddd3d2e71be76032aedb4"
+  },
+  "dcim.Interface": {
+   "count": 20,
+   "sha256": "2ab5c5d4feb5a8291cd8bc1f3ece8f4b251e9ce602130fd4141b99bddcdbf132"
+  },
+  "dcim.Manufacturer": {
+   "count": 4,
+   "sha256": "5fc6b7871f26bced79ab63827b9963d8659e71c75d796fc8030b368635977d6f"
+  },
+  "dcim.Platform": {
+   "count": 4,
+   "sha256": "d80ac3be350344dde57be482bef777bd0bd63d1e50c535cd8dd6d9b92bca06af"
+  },
+  "dcim.Site": {
+   "count": 10,
+   "sha256": "f6e9afac5f5f35f6279710beb902b6e48c31c46525e063dee9304621911dae0d"
+  },
+  "extras.Tag": {
+   "count": 1,
+   "sha256": "ddd9c734ad6992e616dd2d80b03349472bc69e6ff16dc064213addfa3d4585e6"
+  },
+  "ipam.IPAddress": {
+   "count": 24,
+   "sha256": "435a2145c7a37a7b56bdf69ea8ae85969c30fd218c74b2e426cfe210f501a229"
+  },
+  "ipam.Prefix": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ipam.VLAN": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+ },
+ "resources": {
+  "bench-auth": {
+   "cpu_avg_pct": 0.0,
+   "cpu_max_pct": 0.0,
+   "mem_max_mib": 11.9
+  },
+  "diode-ingester": {
+   "cpu_avg_pct": 0.1,
+   "cpu_max_pct": 1.1,
+   "mem_max_mib": 7.9
+  },
+  "diode-postgres": {
+   "cpu_avg_pct": 8.3,
+   "cpu_max_pct": 20.3,
+   "mem_max_mib": 43.1
+  },
+  "diode-reconciler": {
+   "cpu_avg_pct": 0.2,
+   "cpu_max_pct": 1.6,
+   "mem_max_mib": 13.0
+  },
+  "diode-redis": {
+   "cpu_avg_pct": 1.0,
+   "cpu_max_pct": 1.3,
+   "mem_max_mib": 3.6
+  },
+  "netbox": {
+   "cpu_avg_pct": 94.1,
+   "cpu_max_pct": 181.4,
+   "mem_max_mib": 1078.3
+  },
+  "netbox-postgres": {
+   "cpu_avg_pct": 31.2,
+   "cpu_max_pct": 55.6,
+   "mem_max_mib": 59.3
+  },
+  "netbox-redis": {
+   "cpu_avg_pct": 1.3,
+   "cpu_max_pct": 1.8,
+   "mem_max_mib": 3.6
+  },
+  "netbox-redis-cache": {
+   "cpu_avg_pct": 1.6,
+   "cpu_max_pct": 2.8,
+   "mem_max_mib": 3.9
+  }
+ }
+}

@@ -1,0 +1,159 @@
+# Benchmark stack: identical for baseline and candidate.
+# Only two inputs change between versions:
+#   DIODE_BIN_DIR  -> directory with the ingester/reconciler binaries under test
+#   DIODE_SRC      -> diode checkout (for the reconciler migrations)
+#   PLUGIN_SRC     -> diode-netbox-plugin checkout (mounted into NetBox)
+# Every service has the same CPU/memory limits on both sides.
+name: diode-bench
+
+x-diode-env: &diode-env
+  LOGGING_LEVEL: warn
+  LOGGING_FORMAT: json
+  SENTRY_DSN: ""
+  TELEMETRY_METRICS_EXPORTER: none
+  TELEMETRY_TRACES_EXPORTER: none
+  REDIS_HOST: diode-redis
+  REDIS_PORT: "6379"
+  REDIS_PASSWORD: bench
+  PPROF_ADDR: ":6060"
+
+services:
+  bench-auth:
+    image: python:3.12-alpine
+    command: ["python", "-u", "/srv/auth_stub.py"]
+    volumes:
+      - ./auth_stub.py:/srv/auth_stub.py:ro
+    deploy: { resources: { limits: { cpus: "0.5", memory: 128M } } }
+
+  # ---------------- diode-server ----------------
+  diode-postgres:
+    image: docker.io/postgres:16-alpine
+    environment:
+      POSTGRES_USER: diode
+      POSTGRES_PASSWORD: bench
+      POSTGRES_DB: diode
+    command: ["postgres", "-c", "max_connections=200", "-c", "shared_buffers=256MB"]
+    healthcheck:
+      test: pg_isready -q -U diode -d diode
+      interval: 1s
+      retries: 60
+    ports: ["127.0.0.1:55432:5432"]
+    deploy: { resources: { limits: { cpus: "2", memory: 1G } } }
+
+  diode-redis:
+    image: docker.io/redis:7-alpine
+    command: ["redis-server", "--requirepass", "bench", "--appendonly", "no", "--save", ""]
+    ports: ["127.0.0.1:56379:6379"]
+    deploy: { resources: { limits: { cpus: "1", memory: 512M } } }
+
+  diode-reconciler:
+    image: gcr.io/distroless/static-debian13:nonroot
+    entrypoint: ["/bench/bin/reconciler"]
+    environment:
+      <<: *diode-env
+      MIGRATION_ENABLED: "true"
+      POSTGRES_HOST: diode-postgres
+      POSTGRES_PORT: "5432"
+      POSTGRES_DB_NAME: diode
+      POSTGRES_USER: diode
+      POSTGRES_PASSWORD: bench
+      NETBOX_DIODE_PLUGIN_API_BASE_URL: http://netbox:8080/netbox/api/plugins/diode
+      NETBOX_DIODE_PLUGIN_API_TIMEOUT_SECONDS: "${PLUGIN_TIMEOUT:-5}"
+      DIODE_AUTH_TOKEN_URL: http://bench-auth:8080/token
+      DIODE_TO_NETBOX_CLIENT_ID: diode-to-netbox
+      DIODE_TO_NETBOX_CLIENT_SECRET: bench
+      DIODE_TO_NETBOX_RATE_LIMITER_RPS: "${RATE_RPS:-20}"
+      DIODE_TO_NETBOX_RATE_LIMITER_BURST: "${RATE_BURST:-1}"
+      AUTO_APPLY_PROCESSOR_BATCH_SIZE: "${BATCH_SIZE:-100}"
+      AUTO_APPLY_PROCESSOR_CONCURRENCY: "${CONCURRENCY:-1}"
+      INGESTION_LOG_PROCESSOR_BATCH_SIZE: "${BATCH_SIZE:-100}"
+      INGESTION_LOG_PROCESSOR_CONCURRENCY: "${CONCURRENCY:-1}"
+    volumes:
+      - ${DIODE_BIN_DIR:?}:/bench/bin:ro
+      - ${DIODE_SRC:?}/diode-server/dbstore/postgres/migrations:/etc/diode/migrations:ro
+    ports: ["127.0.0.1:56060:6060"]
+    depends_on:
+      diode-postgres: { condition: service_healthy }
+      diode-redis: { condition: service_started }
+      netbox: { condition: service_healthy }
+    restart: on-failure
+    deploy: { resources: { limits: { cpus: "2", memory: 1G } } }
+
+  diode-ingester:
+    image: gcr.io/distroless/static-debian13:nonroot
+    entrypoint: ["/bench/bin/ingester"]
+    environment:
+      <<: *diode-env
+    volumes:
+      - ${DIODE_BIN_DIR:?}:/bench/bin:ro
+    ports: ["127.0.0.1:58081:8081", "127.0.0.1:56061:6060"]
+    depends_on: [diode-redis]
+    restart: on-failure
+    deploy: { resources: { limits: { cpus: "2", memory: 512M } } }
+
+  # ---------------- NetBox + plugin ----------------
+  netbox:
+    image: diode-bench/netbox:v4.7.0
+    build:
+      context: ${PLUGIN_DOCKER_DIR:?}
+      dockerfile: v4.7.x/Dockerfile
+      args: { NETBOX_VERSION: v4.7.0 }
+    env_file: ${PLUGIN_DOCKER_DIR:?}/common/netbox/env/netbox.env
+    environment:
+      DB_HOST: netbox-postgres
+      REDIS_HOST: netbox-redis
+      REDIS_CACHE_HOST: netbox-redis-cache
+      RELOAD_NETBOX_ON_DIODE_PLUGIN_CHANGE: "false"
+      GRANIAN_WORKERS: "${NETBOX_WORKERS:-4}"
+      DIODE_PROFILE: "${DIODE_PROFILE:-false}"
+    user: "netbox:root"
+    volumes:
+      - ${PLUGIN_DOCKER_DIR:?}/common/netbox/docker-entrypoint.sh:/opt/netbox/docker-entrypoint.sh:ro
+      - ./netbox/launch-netbox.sh:/opt/netbox/launch-netbox.sh:ro
+      - ./netbox/plugins.py:/etc/netbox/config/plugins.py:ro
+      - ${PLUGIN_DOCKER_DIR:?}/common/netbox/granian.py:/opt/netbox/netbox/netbox/granian.py:ro
+      - ${PLUGIN_SRC:?}/netbox_diode_plugin:/opt/netbox/netbox/netbox_diode_plugin:ro
+      - ./netbox/dump_state.py:/opt/bench/dump_state.py:ro
+    ports: ["127.0.0.1:58000:8080"]
+    healthcheck:
+      test: "curl -fs http://localhost:8080/netbox/api/status/ >/dev/null || exit 1"
+      start_period: 900s
+      interval: 5s
+      timeout: 3s
+    depends_on:
+      netbox-postgres: { condition: service_healthy }
+      netbox-redis: { condition: service_started }
+      netbox-redis-cache: { condition: service_started }
+    deploy: { resources: { limits: { cpus: "4", memory: 4G } } }
+
+  netbox-postgres:
+    image: docker.io/postgres:16-alpine
+    env_file: ${PLUGIN_DOCKER_DIR:?}/common/netbox/env/postgres.env
+    command: ["postgres", "-c", "max_connections=200", "-c", "shared_buffers=256MB"]
+    volumes:
+      # Pre-migrated NetBox data dir, restored by run.sh before every run from
+      # a snapshot taken on the first boot of a given plugin revision.
+      # Skips ~8 min of migrations per run.
+      - netbox-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: pg_isready -q -U netbox -d netbox
+      interval: 1s
+      retries: 120
+    deploy: { resources: { limits: { cpus: "2", memory: 1G } } }
+
+  netbox-redis:
+    image: docker.io/redis:7-alpine
+    command: ["sh", "-c", "redis-server --appendonly no --save '' --requirepass $$REDIS_PASSWORD"]
+    env_file: ${PLUGIN_DOCKER_DIR:?}/common/netbox/env/redis.env
+    deploy: { resources: { limits: { cpus: "0.5", memory: 256M } } }
+
+  netbox-redis-cache:
+    image: docker.io/redis:7-alpine
+    command: ["sh", "-c", "redis-server --appendonly no --save '' --requirepass $$REDIS_PASSWORD"]
+    env_file: ${PLUGIN_DOCKER_DIR:?}/common/netbox/env/redis-cache.env
+    deploy: { resources: { limits: { cpus: "0.5", memory: 256M } } }
+
+volumes:
+  netbox-pgdata:
+    external: true
+    name: diode-bench-netbox-pgdata

@@ -1,0 +1,43 @@
+# Journal — SPEC-20261114-0807-benchmark-performance-vs-upstream
+
+## SNAPSHOT
+- **Fase:** 4/4 — relatório entregue (`report.md`); aguardando revisão do owner. Otimização do plugin (P-3) fica como próximo ciclo.
+- **Baseline:** diode `519ccec`, plugin `8c3a3bb` (worktrees em `bench/.baseline/`, criados por `bench/run.sh`).
+- **Candidato:** `perf/bench-vs-upstream` (diode `e8312fe` = baseline + `specs/`; plugin `d7a0cc4` = idem). Ainda sem mudança de código.
+- **Candidato atual:** M-1 (`14f4147`) + M-2 (`14ba79f`).
+- **Próximo passo:** revisão do owner. Opções: (a) PRs upstream de M-1/M-2; (b) otimizar o plugin com o profile como mapa; (c) cenário `large`.
+
+## Plano
+1. **Harness** (`bench/`): stack docker idêntico; carga via SDK; binários gerados por `run.sh` com SHA256SUMS; seed do NetBox por snapshot de pgdata.
+2. **Baseline**: `std` ×3 com a config padrão do upstream (RPS=20/BURST=1, batch 100, concorrência 1, timeout 5s), e ×3 com knobs "de produção" (sem gargalo artificial de rate limit) para separar gargalo de config de gargalo de código.
+3. **Profiling**: pprof do reconciler/ingester (`PPROF_ADDR` já existe) e `DIODE_PROFILE=true` no plugin (contagem de queries e tempo por fase: auth/transform/match/diff/apply).
+4. **Melhorias** no candidato, uma por commit, cada uma com teste + medição; depois relatório.
+
+## Decisões de metodologia
+- **DEC-1 — Hydra e nginx fora do stack.** O reconciler e o plugin falam com `bench/auth_stub.py` (token e introspect falsos). Motivo: medir o plano de dados. O custo de OAuth fica igual para os dois lados. O plugin cacheia a introspecção, então em produção esse custo também é amortizado.
+- **DEC-2 — Carga direto na porta gRPC do ingester**, com protobuf montado pelas classes do SDK (o mesmo que `DiodeClient.ingest` envia). Motivo: o fluxo de token do SDK assume nginx na mesma autoridade.
+- **DEC-3 — Fim de fase** = XLEN do stream = 0 e nenhuma linha em QUEUED(1)/APPLYING(8), em 2 polls seguidos. Uma entidade deduplicada reenfileira a linha existente em vez de criar outra, então contar linhas por `request_id` não funciona.
+- **DEC-4 — Imagem do NetBox** construída do diretório docker do plugin candidato para os dois lados. Só o código do plugin montado muda.
+- **DEC-5 — Seed**: snapshot do diretório de dados do Postgres, não `pg_dump`. O dump não restaura limpo: erro `operator does not exist: public.ltree = public.ltree` por causa do search_path vazio do pg_dump.
+
+## Problemas encontrados (candidatos ao relatório)
+- **P-1 — Timeout de 5s no cliente do plugin + retry do lote inteiro.** `NETBOX_DIODE_PLUGIN_API_TIMEOUT_SECONDS` vira `ResponseHeaderTimeout` (default 5s). `/bulk-plan-apply/` com 100 entidades pode passar disso, e o retryablehttp reenvia o lote inteiro (RetryMax=3) enquanto o primeiro ainda roda no NetBox. Verificar com medição.
+- **P-2 — Rate limiter padrão 20 RPS / burst 1**, compartilhado por todos os workers. Teto teórico de 2000 ent/s com batch 100, então provavelmente não é o gargalo. Medir.
+- **P-3 — Plugin aplica entidade por entidade**, serialmente, uma transação por entidade (`api/views.py:586-629`, `:152`). Lookups do matcher por entidade aninhada (N×matchers com cache frio).
+- **P-4 — Ingester não verifica assinatura do JWT** (só faz parse e checa escopo; a verificação fica no nginx). Já coberto pela SPEC 2142, citar no relatório.
+- **P-1 confirmado no smoke (50 entidades):** 2× `timeout awaiting response headers` em `/bulk-plan-apply/`. Efeito colateral: o NetBox termina o request que deu timeout, o retry replaneja e vê tudo aplicado, e entidades **recém-criadas** ficam registradas como `NO_CHANGES` (15/50 na fase inicial). O log de ingestão mente sobre o que aconteceu, e o trabalho no NetBox é dobrado.
+- **P-6 — Platform compartilhada entre fabricantes faz pingue-pongue.** O SDK copia o `manufacturer` do Device para a `platform`. Se dois devices de fabricantes diferentes usam a mesma platform, cada apply reescreve `platform.manufacturer`, cada reingestão idêntica vira UPDATE, e o reconciler clona a linha como drift (`CloneIngestionLogForDrift`). Comportamento de dado, não de código, mas é um caso real de coletor: vai para o relatório como armadilha. O dataset do benchmark foi corrigido (platform por fabricante).
+- **P-5 — Consumo do stream no reconciler é serial** (XReadGroup Count=100, uma mensagem por vez, XAck + XDel em duas idas por mensagem).
+
+## LOG
+- 2026-11-14 15:10 — **Bateria final.** Candidato M-1+M-2 padrão: 11.34 ± 0.20 ent/s, 1800/1800 `APPLIED` na criação. Concorrência 4: upstream com ~5500 timeouts/execução, NetBox em 400% de CPU, 100% FAILED, 1518–1608 IPs e 136–189 interfaces com update perdido; fork com 20.08 ± 0.17 ent/s, 0 timeout, estado idêntico ao do fork com c=1. Upstream padrão refeito com dump completo (n=6 no total): 150–174 IPs duplicados, sem update perdido com c=1. Campo `path` (árvore por PK no 4.7) excluído do dump. Relatório em `report.md`.
+- 2026-11-14 13:30 — **Medição std (1800 entidades) ×3, configuração padrão.** Baseline: initial 8.07 ± 2.77 ent/s; **IPs no fim: 1276 / 962 / 934 (esperado 800)**; execução 1 com 600 FAILED. Candidato M-1: initial 11.13 ± 0.28 (**+38%**), reingest +12%, update +17%, **800 IPs nas 3 execuções**, NetBox com ~73% de CPU contra ~100-138%.
+- 2026-11-14 13:45 — **Profiling (py-spy, 4 workers, 90s, carga de criação).** 1 de 4 workers ocupado (concorrência 1 no reconciler). Dentro do request: apply 56% (serializers DRF do NetBox: `is_valid` + `create`), plan 27% (transformer 15%, matcher 10%), buffer de change log 14%, espera no Postgres só ~9%. Conclusão: CPU de Python num worker só. Alavanca principal: paralelismo entre workers.
+- 2026-11-14 13:50 — **P-7 / Melhoria M-2** (`14ba79f`). O lote reivindicado vinha fora de ordem (`UPDATE ... RETURNING` via HashAggregate, conforme o plano de execução). Numa carga nova, 173/200 devices ficaram `NO_CHANGES` porque o IP com device aninhado rodava antes. Agora o lote é ordenado por id no repositório, com 2 testes.
+- 2026-11-14 13:55 — dump_state renderiza GenericFK pelo objeto (antes era o `assigned_object_id` cru, dependente da ordem de criação) e grava as linhas completas (`*.rows.json.gz`). A diferença de estado entre execuções do candidato M-1 era esse artefato.
+- 2026-11-14 11:40 — **P-1 vira bug de corretude.** Smoke do baseline com stack mantido: 3 timeouts de `bulk-plan-apply`, **4 IPs duplicados** no NetBox (pares criados com ~20ms de diferença, por dois workers do granian em paralelo) e 100% das entidades registradas como `NO_CHANGES`, inclusive as da fase de update. A comparação de estado acusou a divergência (21 × 20 IPs entre duas execuções do mesmo código), e o invariante de estado idêntico pegou o bug.
+- 2026-11-14 11:55 — **Melhoria M-1** (`14f4147`): cliente de apply separado, timeout próprio (`NETBOX_DIODE_PLUGIN_APPLY_TIMEOUT_SECONDS`, padrão 120s) e retry só em dial error/429/503. 6 testes novos em `netboxdiodeplugin/client_apply_retry_test.go`; `go test ./...` verde.
+- 2026-11-14 08:07 — SPEC criada. Branch `perf/bench-vs-upstream` local nos dois repos.
+- 2026-11-14 08:30 — Primeiro boot do stack: migrações do NetBox 4.7 levam ~8 min, daí o seed.
+- 2026-11-14 10:30 — Seed por snapshot do pgdata funcionando (boot do stack ~1 min). Smoke do baseline via `run.sh`: initial 4.5 ent/s, reingest 14.2, update 5.2. Linhas extras na reingestão eram clones de drift causados pelo P-6. O "todas FAILED" do primeiro smoke não se repetiu; suspeita de partida a frio (branch padrão ainda desconhecida). Vigiar.
+- 2026-11-14 08:45 — Smoke manual no baseline: pipeline funciona de ponta a ponta. Bug no dataset (`10.0.0.0/16` = network ID) corrigido. Na fase inicial **todas** as 50 entidades ficaram FAILED. Causa em investigação: o erro foi sobrescrito pela reingestão.

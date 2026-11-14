@@ -1,0 +1,8 @@
+# Profiling overlay. NOT used for measured runs (ptrace + py-spy sampling
+# perturb timings). Usage:
+#   docker compose -f bench/compose.yaml -f bench/compose.profile.yaml up -d
+services:
+  netbox:
+    cap_add: [SYS_PTRACE]
+    environment:
+      DIODE_PROFILE: "true"
