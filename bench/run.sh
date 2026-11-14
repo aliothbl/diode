@@ -87,7 +87,11 @@ COMPOSE=(docker compose -f "$HERE/compose.yaml")
 # Extra overlays (e.g. bench/compose.profile.yaml). Results from such runs are
 # tagged and must not be compared with measured runs.
 for extra in ${BENCH_COMPOSE_EXTRA:-}; do COMPOSE+=(-f "$extra"); done
-TAG=""; [[ "${BENCH_COMPOSE_EXTRA:-}" == *profile* ]] && TAG="+profile"
+# Tag results with the overlays used, so compare.py never mixes them with
+# plain runs (e.g. "std+nobranching", "std+profile").
+TAG=""; for extra in ${BENCH_COMPOSE_EXTRA:-}; do
+  t="$(basename "$extra" .yaml)"; TAG="$TAG+${t#compose.}"
+done
 
 # netbox-branching from a checkout instead of the image's pip 1.2.0.
 BRANCHING_REV="pip-1.2.0"
@@ -100,7 +104,12 @@ fi
 # NetBox DB seed: snapshot of the migrated Postgres data dir, keyed by the
 # plugin revision (its migrations are part of the schema), and by the
 # netbox-branching revision when a checkout is mounted.
-SEED_KEY="$PLUGIN_REV"; [[ -n "${BRANCHING_SRC:-}" ]] && SEED_KEY="$PLUGIN_REV-nbb-$BRANCHING_REV"
+# Keyed by the content of the code that owns migrations (git tree hash), not
+# by commit: a commit that only touches specs/ or bench/ must not force a new
+# ~8 min migration boot.
+tree() { git -C "$1" rev-parse --short=10 "HEAD:$2" 2>/dev/null || echo "$3"; }
+SEED_KEY="plugin-$(tree "$PLUGIN_SRC" netbox_diode_plugin "$PLUGIN_REV")"
+[[ -n "${BRANCHING_SRC:-}" ]] && SEED_KEY="$SEED_KEY-nbb-$(tree "$BRANCHING_SRC" netbox_branching "$BRANCHING_REV")"
 SEED="$HERE/out/seed/$SEED_KEY/pgdata.tgz"
 PGVOL=diode-bench-netbox-pgdata
 reset_stack() {

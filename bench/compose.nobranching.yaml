@@ -1,0 +1,8 @@
+# Same stack without netbox_branching in PLUGINS: the A/B baseline for the
+# per-request cost of the branching router/middleware/signals on writes to
+# main (aliothbl/netbox-branching SPEC-20261114-1736, findings F7/F8/F9).
+# The DB seed still has the branching tables; they are simply unused.
+services:
+  netbox:
+    volumes:
+      - ./netbox/plugins-nobranching.py:/etc/netbox/config/plugins.py:ro

@@ -1,0 +1,373 @@
+{
+ "version": "candidate",
+ "diode_rev": "28f9e75",
+ "plugin_rev": "ed63aff",
+ "scenario": "branch-double-merge",
+ "branching_rev": "8ab3b38",
+ "run": 2,
+ "rc": 0,
+ "apply_timeouts": 0,
+ "plugin_deadlock_retries": 0,
+ "reconciler_errors": 0,
+ "knobs": {
+  "RATE_RPS": null,
+  "RATE_BURST": null,
+  "BATCH_SIZE": null,
+  "CONCURRENCY": "4",
+  "PLUGIN_TIMEOUT": null,
+  "NETBOX_WORKERS": null
+ },
+ "params": {
+  "devices": 20,
+  "ifaces": 4,
+  "kind": "create"
+ },
+ "phases": [
+  {
+   "phase": "initial",
+   "entities": 180,
+   "requests": 4,
+   "send_s": 0.047,
+   "send_req_p50_ms": 8.48,
+   "send_req_p95_ms": 11.21,
+   "elapsed_s": 15.642,
+   "entities_per_s": 11.51,
+   "states_before": {},
+   "states_after": {
+    "APPLIED": 179,
+    "NO_CHANGES": 1
+   },
+   "curve": [
+    [
+     0.06,
+     4,
+     0,
+     0
+    ],
+    [
+     0.562,
+     0,
+     180,
+     0
+    ],
+    [
+     1.065,
+     0,
+     180,
+     0
+    ],
+    [
+     1.569,
+     0,
+     180,
+     0
+    ],
+    [
+     2.074,
+     0,
+     180,
+     0
+    ],
+    [
+     2.576,
+     0,
+     180,
+     0
+    ],
+    [
+     3.079,
+     0,
+     180,
+     0
+    ],
+    [
+     3.581,
+     0,
+     180,
+     0
+    ],
+    [
+     4.084,
+     0,
+     180,
+     0
+    ],
+    [
+     4.586,
+     0,
+     180,
+     0
+    ],
+    [
+     5.088,
+     0,
+     180,
+     0
+    ],
+    [
+     5.59,
+     0,
+     180,
+     0
+    ],
+    [
+     6.092,
+     0,
+     180,
+     0
+    ],
+    [
+     6.595,
+     0,
+     180,
+     0
+    ],
+    [
+     7.097,
+     0,
+     180,
+     0
+    ],
+    [
+     7.6,
+     0,
+     180,
+     0
+    ],
+    [
+     8.102,
+     0,
+     180,
+     0
+    ],
+    [
+     8.605,
+     0,
+     180,
+     0
+    ],
+    [
+     9.108,
+     0,
+     180,
+     0
+    ],
+    [
+     9.611,
+     0,
+     180,
+     0
+    ],
+    [
+     10.114,
+     0,
+     180,
+     0
+    ],
+    [
+     10.616,
+     0,
+     180,
+     0
+    ],
+    [
+     11.118,
+     0,
+     180,
+     0
+    ],
+    [
+     11.621,
+     0,
+     180,
+     0
+    ],
+    [
+     12.125,
+     0,
+     180,
+     0
+    ],
+    [
+     12.627,
+     0,
+     180,
+     0
+    ],
+    [
+     13.129,
+     0,
+     180,
+     0
+    ],
+    [
+     13.631,
+     0,
+     100,
+     80
+    ],
+    [
+     14.133,
+     0,
+     100,
+     80
+    ],
+    [
+     14.635,
+     0,
+     100,
+     80
+    ],
+    [
+     15.137,
+     0,
+     0,
+     180
+    ],
+    [
+     15.642,
+     0,
+     0,
+     180
+    ]
+   ]
+  }
+ ],
+ "branching": {
+  "branch": {
+   "id": 1,
+   "schema_id": "2jnrg40s",
+   "schema": "branch_2jnrg40s",
+   "status": "ready"
+  },
+  "kind": "create",
+  "merges": [
+   {
+    "status": "ready",
+    "error": "IntegrityError: duplicate key value violates unique constraint \"extras_tag_pkey\"\nDETAIL:  Key (id)=(1) already exists.",
+    "merge_s": 10.215,
+    "changes_at_go": 209,
+    "applied_changes": 209
+   },
+   {
+    "status": "merged",
+    "error": null,
+    "merge_s": 12.918,
+    "changes_at_go": 209,
+    "applied_changes": 209
+   }
+  ],
+  "main_objectchanges_from_merge": 209,
+  "final_status": "merged",
+  "events": {
+   "merged": 1,
+   "provisioned": 1
+  },
+  "objects_in_branch": {
+   "device": 20,
+   "interface": 80,
+   "ipaddress": 80
+  },
+  "rows_in_main": {
+   "device": 20,
+   "interface": 80,
+   "ipaddress": 80
+  },
+  "objectchanges_in_branch": 209,
+  "applied_changes": 209,
+  "merged_then_ready": false
+ },
+ "netbox_state": {
+  "dcim.Device": {
+   "count": 20,
+   "sha256": "c15130c9b3195d5b82ee3acffe4c17100cd750890201aae9877b0c7d931a2d23"
+  },
+  "dcim.DeviceRole": {
+   "count": 3,
+   "sha256": "38be7e9cf9e737c0e4bebf113f59e34fd64411b548ee947d35eb580f1016cb57"
+  },
+  "dcim.DeviceType": {
+   "count": 5,
+   "sha256": "6dc9dc778c9781410945c4a422bee5a9d925a6d73fef4b0b56f1862eb1143d36"
+  },
+  "dcim.Interface": {
+   "count": 80,
+   "sha256": "73d1b138f8bb06e1c818671d180cb240ba2a2147464f030090ca4afc23447454"
+  },
+  "dcim.Manufacturer": {
+   "count": 5,
+   "sha256": "2c5c0334774efdf3a67d832daa567cabbf622e142f0e7930668a7f99e5d459cc"
+  },
+  "dcim.Platform": {
+   "count": 5,
+   "sha256": "b91f7c1259197c9f21081af6acc6801a58361de646517b29398c4bcaf6ea2956"
+  },
+  "dcim.Site": {
+   "count": 10,
+   "sha256": "f6e9afac5f5f35f6279710beb902b6e48c31c46525e063dee9304621911dae0d"
+  },
+  "extras.Tag": {
+   "count": 1,
+   "sha256": "ddd9c734ad6992e616dd2d80b03349472bc69e6ff16dc064213addfa3d4585e6"
+  },
+  "ipam.IPAddress": {
+   "count": 80,
+   "sha256": "edb0d416e4a095a8052b696b67c674103a669fe6da2226eda08ac4be537086e9"
+  },
+  "ipam.Prefix": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ipam.VLAN": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+ },
+ "resources": {
+  "bench-auth": {
+   "cpu_avg_pct": 0.0,
+   "cpu_max_pct": 0.3,
+   "mem_max_mib": 11.9
+  },
+  "diode-ingester": {
+   "cpu_avg_pct": 0.0,
+   "cpu_max_pct": 0.1,
+   "mem_max_mib": 7.9
+  },
+  "diode-postgres": {
+   "cpu_avg_pct": 6.9,
+   "cpu_max_pct": 21.3,
+   "mem_max_mib": 53.4
+  },
+  "diode-reconciler": {
+   "cpu_avg_pct": 0.4,
+   "cpu_max_pct": 2.6,
+   "mem_max_mib": 14.5
+  },
+  "diode-redis": {
+   "cpu_avg_pct": 0.9,
+   "cpu_max_pct": 1.5,
+   "mem_max_mib": 3.9
+  },
+  "netbox": {
+   "cpu_avg_pct": 101.2,
+   "cpu_max_pct": 251.2,
+   "mem_max_mib": 1583.1
+  },
+  "netbox-postgres": {
+   "cpu_avg_pct": 26.7,
+   "cpu_max_pct": 162.4,
+   "mem_max_mib": 86.5
+  },
+  "netbox-redis": {
+   "cpu_avg_pct": 1.0,
+   "cpu_max_pct": 2.0,
+   "mem_max_mib": 3.6
+  },
+  "netbox-redis-cache": {
+   "cpu_avg_pct": 0.9,
+   "cpu_max_pct": 1.7,
+   "mem_max_mib": 3.9
+  }
+ }
+}

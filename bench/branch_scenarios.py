@@ -171,7 +171,85 @@ def branch_merge_race():
     }
 
 
-SCENARIOS = {"branch-merge-race": branch_merge_race}
+def branch_double_merge():
+    """F1: two merges of the same READY branch at the same time.
+
+    Ingest a dataset into the branch and let it drain, then boot two merge
+    shells (two "workers") and release both at once. Report what each merge
+    returned, the branch status at the end, and whether main received the
+    changes once, twice or not at all.
+    """
+    import argparse
+    args = argparse.Namespace(devices=int(os.environ.get("DEVICES", "20")), ifaces=4, batch=50, seed=42,
+                              offset=0, grpc="127.0.0.1:58081", pg_port=55432, redis_port=56379,
+                              poll=0.5, timeout=1800)
+    # create: the branch holds only CREATEs (the 2nd merge hits unique keys).
+    # update: objects are created in main first, so the branch holds only
+    #         UPDATEs and nothing stops the 2nd merge from applying them again.
+    kind = os.environ.get("DOUBLE_MERGE_KIND", "create")
+
+    import grpc
+    from netboxlabs.diode.sdk.diode.v1 import ingester_pb2_grpc
+    stub = ingester_pb2_grpc.IngesterServiceStub(grpc.insecure_channel(args.grpc))
+    md = [("authorization", f"Bearer {loadgen.fake_jwt()}")]
+    pipe = loadgen.Pipeline(args)
+
+    def ingest(phase_name):
+        ents = loadgen.build_dataset(args.devices, args.ifaces, args.seed, phase_name)
+        return loadgen.run_phase(phase_name, ents, args, pipe, stub, md)
+
+    phases = []
+    if kind == "update":
+        phases.append(ingest("initial"))  # into main: no default branch yet
+    branch = nbshell(SETUP, timeout=600)
+    subprocess.run(["docker", "restart", RECONCILER], check=True, capture_output=True)
+    time.sleep(5)
+    phases.append(ingest("update" if kind == "update" else "initial"))
+    main_oc_before_merge = int(psql("SELECT count(*) FROM public.core_objectchange")[0][0])
+
+    results = [{}, {}]
+    shells = [threading.Thread(target=lambda r=r: r.update(nbshell(MERGE)), daemon=True) for r in results]
+    for s in shells:
+        s.start()
+    time.sleep(20)  # both shells booted and waiting on GO_FILE
+    subprocess.run(["docker", "exec", NETBOX, "touch", GO_FILE], check=True)
+    for s in shells:
+        s.join(timeout=1800)
+
+    status = psql(f"SELECT status FROM netbox_branching_branch WHERE id = {branch['id']}")[0][0]
+    events = psql(f"SELECT type, count(*) FROM netbox_branching_branchevent WHERE branch_id = {branch['id']} GROUP BY type")
+    in_branch = object_keys(branch["schema"])
+    in_main_rows = {
+        "device": int(psql("SELECT count(*) FROM public.dcim_device")[0][0]),
+        "interface": int(psql("SELECT count(*) FROM public.dcim_interface")[0][0]),
+        "ipaddress": int(psql("SELECT count(*) FROM public.ipam_ipaddress")[0][0]),
+    }
+    branch_ocs = int(psql(f"SELECT count(*) FROM {branch['schema']}.core_objectchange")[0][0])
+    main_oc_after = int(psql("SELECT count(*) FROM public.core_objectchange")[0][0])
+    return {
+        "params": {"devices": args.devices, "ifaces": args.ifaces, "kind": kind},
+        "phases": phases,
+        "branching": {
+            "branch": branch,
+            "kind": kind,
+            "merges": results,
+            # ObjectChanges the merges wrote into main; == branch changes when
+            # merged once, a multiple of it when applied more than once.
+            "main_objectchanges_from_merge": main_oc_after - main_oc_before_merge,
+            "final_status": status,
+            "events": {t: int(n) for t, n in events},
+            "objects_in_branch": {k: len(v) for k, v in in_branch.items()},
+            # rows, not distinct keys: a change applied twice shows up as > branch
+            "rows_in_main": in_main_rows,
+            "objectchanges_in_branch": branch_ocs,
+            "applied_changes": int(psql(f"SELECT count(*) FROM netbox_branching_appliedchange WHERE branch_id = {branch['id']}")[0][0]),
+            # F1: merged by one job, then put back to READY by the other's rollback
+            "merged_then_ready": status == "ready" and int(dict(events).get("merged", 0)) > 0,
+        },
+    }
+
+
+SCENARIOS = {"branch-merge-race": branch_merge_race, "branch-double-merge": branch_double_merge}
 
 if __name__ == "__main__":
     print(json.dumps(SCENARIOS[sys.argv[1]]()))
