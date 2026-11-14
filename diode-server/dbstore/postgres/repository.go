@@ -905,6 +905,7 @@ func (r *Repository) ClaimQueuedIngestionLogs(ctx context.Context, batchSize int
 			RequeuedFromState: reconcilerpb.State(dbLog.RequeuedFromState.Int32),
 		})
 	}
+	sortQueuedByID(result)
 	return result, nil
 }
 
@@ -930,7 +931,23 @@ func (r *Repository) ClaimQueuedForAutoApply(ctx context.Context, batchSize int3
 			RequeuedFromState: reconcilerpb.State(dbLog.RequeuedFromState.Int32),
 		})
 	}
+	sortQueuedByID(result)
 	return result, nil
+}
+
+// sortQueuedByID puts a claimed batch back in ingestion order.
+//
+// The claim queries pick the oldest rows (ORDER BY id inside the subquery),
+// but UPDATE ... RETURNING does not preserve that order: the planner joins
+// the subquery through a HashAggregate, so rows come back in hash order. The
+// batch is sent to the plugin as is and applied in sequence, so an entity
+// could be applied before an entity ingested ahead of it. For example, an IP
+// address carrying its interface and device nested runs first, creates them,
+// and the device's own entity then lands as NO_CHANGES. NetBox ends in the
+// same state, but the ingestion log attributes the work to the wrong entity
+// and the order varies from run to run.
+func sortQueuedByID(batch []ops.QueuedIngestionLog) {
+	slices.SortFunc(batch, func(a, b ops.QueuedIngestionLog) int { return int(a.ID) - int(b.ID) })
 }
 
 // ResetApplyingIngestionLogs resets any ingestion logs stuck in APPLYING state back to OPEN.
