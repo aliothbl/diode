@@ -22,6 +22,7 @@
 - SPEC-20261113-2144 | Lease nos claims de APPLYING | reset global causa apply duplicado em rolling update
 - SPEC-20261113-2145 | Retry seguro no apply ao plugin | POST não idempotente reenviado; FAILED definitivo em erro transitório
 - SPEC-20261113-2151 | Retenção, keyset, hash versionado, throughput | crescimento sem limite e consumidor sequencial
+- SPEC-20261114-1748 | Branch indisponível = espera, não falha | 400/sync do netbox-branching vira FAILED (par: netbox-branching SPEC-20261114-1741)
 
 ## Estado atual
 **Consumo**: `IngestionProcessor` faz `XREADGROUP` no grupo `diode-reconciler`, com consumidor `diode-reconciler-<hostname>` (`ingestion_processor.go:140`), lendo só `">"` (`:172-177`), sem `XAUTOCLAIM`. Cada mensagem passa por decode (Brotli + proto), cálculo de `entity_hash` e `BulkCreateIngestionLogs` (dedup com advisory locks), e depois recebe **ACK+XDEL incondicional** (`:270-285`). Erro de decode retorna antes do ACK e derruba o loop (`:207`). Type assertions sem `ok` em `:224`/`:250`.
