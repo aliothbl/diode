@@ -77,12 +77,19 @@ s.save()
 print('BENCH ' + json.dumps({{'id': b.pk, 'schema_id': b.schema_id, 'schema': b.schema_name, 'status': b.status}}))
 """
 
+# The merge shell boots Django first (several seconds) and then waits for
+# GO_FILE, so the merge starts at the chosen point of the load instead of
+# whenever the shell finishes booting.
+GO_FILE = "/tmp/bench-merge-go"
 MERGE = f"""
-import json, time, traceback
+import json, os, time
 from django.contrib.auth import get_user_model
 from netbox_branching.models import Branch
 user = get_user_model().objects.get(username='admin')
+while not os.path.exists({GO_FILE!r}):
+    time.sleep(0.02)
 b = Branch.objects.get(name={BRANCH_NAME!r})
+changes_at_go = b.get_unmerged_changes().count()
 t0 = time.time(); err = None
 try:
     b.merge(user=user)
@@ -90,6 +97,7 @@ except Exception as e:
     err = f'{{type(e).__name__}}: {{e}}'
 b.refresh_from_db()
 print('BENCH ' + json.dumps({{'status': b.status, 'error': err, 'merge_s': round(time.time() - t0, 3),
+                              'changes_at_go': changes_at_go,
                               'applied_changes': b.applied_changes.count()}}))
 """
 
@@ -123,13 +131,19 @@ def branch_merge_race():
 
     merge = {}
 
+    merge_result = {}
+    shell = threading.Thread(target=lambda: merge_result.update(nbshell(MERGE)), daemon=True)
+    shell.start()  # boots now, merges on GO_FILE
+
     def merger():
         target = int(len(entities) * MERGE_AT)
         while sum(pipe.states().get(k, 0) for k in loadgen.TERMINAL) < target:
-            time.sleep(0.2)
+            time.sleep(0.1)
+        subprocess.run(["docker", "exec", NETBOX, "touch", GO_FILE], check=True)
         merge["started_at_settled"] = sum(pipe.states().get(k, 0) for k in loadgen.TERMINAL)
         merge["started_s"] = round(time.monotonic() - t0, 3)
-        merge.update(nbshell(MERGE))
+        shell.join(timeout=1800)
+        merge.update(merge_result)
 
     t0 = time.monotonic()
     th = threading.Thread(target=merger, daemon=True)
@@ -148,6 +162,7 @@ def branch_merge_race():
             "merge": merge,
             "objects_in_branch": {k: len(v) for k, v in in_branch.items()},
             "objects_in_main": {k: len(v) for k, v in in_main.items()},
+            "objectchanges_in_branch": int(psql(f"SELECT count(*) FROM {branch['schema']}.core_objectchange")[0][0]),
             # F2: written to the branch, never merged into main.
             "lost_in_merge": {k: len(v) for k, v in lost.items()},
             "lost_examples": {k: v[:5] for k, v in lost.items()},
