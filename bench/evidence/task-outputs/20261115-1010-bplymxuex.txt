@@ -1,0 +1,18 @@
+==> building diode-server 030b22c into /home/alatour/repositories/netbox/diode/bench/out/bin/candidate-030b22c
+==> [candidate diode=030b22c plugin=ae04547 branching=5810e84] scenario=branch-sync-ingest run 1/5
+   initial      540 ent    22.741s     23.75 ent/s  {'APPLIED': 264, 'FAILED': 265, 'NO_CHANGES': 11}
+==> [candidate diode=030b22c plugin=ae04547 branching=5810e84] scenario=branch-sync-ingest run 2/5
+   initial      540 ent   145.436s      3.71 ent/s  {'APPLIED': 335, 'FAILED': 190, 'NO_CHANGES': 15}
+==> [candidate diode=030b22c plugin=ae04547 branching=5810e84] scenario=branch-sync-ingest run 3/5
+   initial      540 ent    26.259s     20.56 ent/s  {'APPLIED': 265, 'FAILED': 265, 'NO_CHANGES': 10}
+==> [candidate diode=030b22c plugin=ae04547 branching=5810e84] scenario=branch-sync-ingest run 4/5
+   initial      540 ent    27.278s      19.8 ent/s  {'APPLIED': 336, 'FAILED': 190, 'NO_CHANGES': 14}
+==> [candidate diode=030b22c plugin=ae04547 branching=5810e84] scenario=branch-sync-ingest run 5/5
+   initial      540 ent   146.397s      3.69 ent/s  {'APPLIED': 312, 'FAILED': 215, 'NO_CHANGES': 13}
+20261115-094726 030b22c sync_s 38.451 failed 215 missing {'device': 23, 'interface': 96, 'ipaddress': 96} errs ['{"code": "ERR_OPS_APPLY_CHANGE_SET", "details": "Selected branch is not ready.",', '{"code": "ERR_INTERNAL", "message": "Post \\"http://netbox:8080/netbox/api/plugin']
+20261115-094726 030b22c sync_s 38.123 failed 190 missing {'device': 21, 'interface': 84, 'ipaddress': 85} errs ['{"code": "ERR_OPS_APPLY_CHANGE_SET", "details": "Selected branch is not ready.",']
+20261115-094726 030b22c sync_s 37.614 failed 265 missing {'device': 29, 'interface': 118, 'ipaddress': 118} errs ['{"code": "ERR_OPS_APPLY_CHANGE_SET", "details": "Selected branch is not ready.",']
+20261115-094726 030b22c sync_s 37.888 failed 190 missing {'device': 21, 'interface': 84, 'ipaddress': 85} errs ['{"code": "ERR_OPS_APPLY_CHANGE_SET", "details": "Selected branch is not ready.",', '{"code": "ERR_INTERNAL", "message": "Post \\"http://netbox:8080/netbox/api/plugin']
+20261115-094726 030b22c sync_s 36.826 failed 265 missing {'device': 29, 'interface': 118, 'ipaddress': 118} errs ['{"code": "ERR_OPS_APPLY_CHANGE_SET", "details": "Selected branch is not ready.",']
+
+[exited with code 0]

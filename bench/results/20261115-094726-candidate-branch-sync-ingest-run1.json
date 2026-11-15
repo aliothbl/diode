@@ -1,0 +1,461 @@
+{
+ "version": "candidate",
+ "diode_rev": "030b22c",
+ "plugin_rev": "ae04547",
+ "scenario": "branch-sync-ingest",
+ "branching_rev": "5810e84",
+ "run": 1,
+ "rc": 0,
+ "apply_timeouts": 0,
+ "plugin_deadlock_retries": 0,
+ "reconciler_errors": 265,
+ "diode_pg_deadlocks": 0,
+ "knobs": {
+  "RATE_RPS": null,
+  "RATE_BURST": null,
+  "BATCH_SIZE": "25",
+  "CONCURRENCY": "4",
+  "PLUGIN_TIMEOUT": null,
+  "NETBOX_WORKERS": null
+ },
+ "error_summary": [
+  "    265 {\"level\":\"ERROR\",\"msg\":\"plan failed in bulk-plan-apply\",\"error\":\"bulk plan-apply failed - ERR_OPS_APPLY_CHANGE_SET - \\\"Selected branch is not ready.\\\"\",\"ingestionLogID\":<n>}"
+ ],
+ "params": {
+  "devices": 60,
+  "ifaces": 4,
+  "sync_at": 0.3,
+  "sync_objects": 2000
+ },
+ "phases": [
+  {
+   "phase": "initial",
+   "entities": 540,
+   "requests": 11,
+   "send_s": 0.075,
+   "send_req_p50_ms": 4.68,
+   "send_req_p95_ms": 6.97,
+   "elapsed_s": 22.741,
+   "entities_per_s": 23.75,
+   "states_before": {},
+   "states_after": {
+    "APPLIED": 264,
+    "FAILED": 265,
+    "NO_CHANGES": 11
+   },
+   "curve": [
+    [
+     0.084,
+     10,
+     50,
+     0
+    ],
+    [
+     0.587,
+     0,
+     540,
+     0
+    ],
+    [
+     1.09,
+     0,
+     540,
+     0
+    ],
+    [
+     1.593,
+     0,
+     540,
+     0
+    ],
+    [
+     2.097,
+     0,
+     540,
+     0
+    ],
+    [
+     2.6,
+     0,
+     540,
+     0
+    ],
+    [
+     3.104,
+     0,
+     540,
+     0
+    ],
+    [
+     3.608,
+     0,
+     540,
+     0
+    ],
+    [
+     4.112,
+     0,
+     540,
+     0
+    ],
+    [
+     4.615,
+     0,
+     540,
+     0
+    ],
+    [
+     5.119,
+     0,
+     540,
+     0
+    ],
+    [
+     5.625,
+     0,
+     540,
+     0
+    ],
+    [
+     6.129,
+     0,
+     540,
+     0
+    ],
+    [
+     6.632,
+     0,
+     540,
+     0
+    ],
+    [
+     7.135,
+     0,
+     540,
+     0
+    ],
+    [
+     7.64,
+     0,
+     540,
+     0
+    ],
+    [
+     8.143,
+     0,
+     540,
+     0
+    ],
+    [
+     8.647,
+     0,
+     490,
+     50
+    ],
+    [
+     9.15,
+     0,
+     490,
+     50
+    ],
+    [
+     9.655,
+     0,
+     490,
+     50
+    ],
+    [
+     10.158,
+     0,
+     490,
+     50
+    ],
+    [
+     10.661,
+     0,
+     490,
+     50
+    ],
+    [
+     11.165,
+     0,
+     465,
+     75
+    ],
+    [
+     11.668,
+     0,
+     440,
+     100
+    ],
+    [
+     12.172,
+     0,
+     440,
+     100
+    ],
+    [
+     12.676,
+     0,
+     440,
+     100
+    ],
+    [
+     13.18,
+     0,
+     415,
+     125
+    ],
+    [
+     13.684,
+     0,
+     415,
+     125
+    ],
+    [
+     14.188,
+     0,
+     390,
+     150
+    ],
+    [
+     14.691,
+     0,
+     390,
+     150
+    ],
+    [
+     15.194,
+     0,
+     390,
+     150
+    ],
+    [
+     15.697,
+     0,
+     390,
+     150
+    ],
+    [
+     16.2,
+     0,
+     390,
+     150
+    ],
+    [
+     16.704,
+     0,
+     390,
+     150
+    ],
+    [
+     17.208,
+     0,
+     390,
+     150
+    ],
+    [
+     17.711,
+     0,
+     390,
+     150
+    ],
+    [
+     18.214,
+     0,
+     365,
+     175
+    ],
+    [
+     18.718,
+     0,
+     340,
+     200
+    ],
+    [
+     19.221,
+     0,
+     115,
+     425
+    ],
+    [
+     19.724,
+     0,
+     25,
+     515
+    ],
+    [
+     20.227,
+     0,
+     25,
+     515
+    ],
+    [
+     20.73,
+     0,
+     25,
+     515
+    ],
+    [
+     21.232,
+     0,
+     25,
+     515
+    ],
+    [
+     21.735,
+     0,
+     25,
+     515
+    ],
+    [
+     22.238,
+     0,
+     0,
+     540
+    ],
+    [
+     22.741,
+     0,
+     0,
+     540
+    ]
+   ]
+  }
+ ],
+ "branching": {
+  "branch": {
+   "id": 1,
+   "schema_id": "hha8a7pg",
+   "schema": "branch_hha8a7pg",
+   "status": "ready"
+  },
+  "main_writes": {
+   "tags": 2000
+  },
+  "sync": {
+   "started_at_settled": 175,
+   "failed_before": 0,
+   "started_s": 18.459,
+   "failed_at_end_of_sync": 265,
+   "status": "ready",
+   "error": null,
+   "sync_s": 36.826,
+   "started_epoch": 1794739813.5665874,
+   "ended_epoch": 1794739850.3929286,
+   "unsynced_at_go": 2000,
+   "unsynced_after": 0
+  },
+  "tags_synced_to_branch": 2000,
+  "ingest_failed": 265,
+  "failed_errors": [
+   [
+    "{\"code\": \"ERR_OPS_APPLY_CHANGE_SET\", \"details\": \"Selected branch is not ready.\", \"message\": \"bulk plan-apply failed\"}",
+    265
+   ]
+  ],
+  "objects_in_branch": {
+   "device": 31,
+   "interface": 122,
+   "ipaddress": 122
+  },
+  "missing_in_branch": {
+   "device": 29,
+   "interface": 118,
+   "ipaddress": 118
+  }
+ },
+ "netbox_state": {
+  "dcim.Device": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.DeviceRole": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.DeviceType": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.Interface": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.Manufacturer": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.Platform": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.Site": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "extras.Tag": {
+   "count": 2000,
+   "sha256": "ccf0254e7af9c7787db53b80c9787ed2c9bec739ff8e10c32270627911b878b1"
+  },
+  "ipam.IPAddress": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ipam.Prefix": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ipam.VLAN": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+ },
+ "resources": {
+  "bench-auth": {
+   "cpu_avg_pct": 0.0,
+   "cpu_max_pct": 0.4,
+   "mem_max_mib": 11.9
+  },
+  "diode-ingester": {
+   "cpu_avg_pct": 0.0,
+   "cpu_max_pct": 0.1,
+   "mem_max_mib": 9.6
+  },
+  "diode-postgres": {
+   "cpu_avg_pct": 8.9,
+   "cpu_max_pct": 102.2,
+   "mem_max_mib": 56.1
+  },
+  "diode-reconciler": {
+   "cpu_avg_pct": 1.1,
+   "cpu_max_pct": 42.2,
+   "mem_max_mib": 13.4
+  },
+  "diode-redis": {
+   "cpu_avg_pct": 0.9,
+   "cpu_max_pct": 1.4,
+   "mem_max_mib": 3.7
+  },
+  "netbox": {
+   "cpu_avg_pct": 113.1,
+   "cpu_max_pct": 368.6,
+   "mem_max_mib": 1365.0
+  },
+  "netbox-postgres": {
+   "cpu_avg_pct": 37.8,
+   "cpu_max_pct": 185.4,
+   "mem_max_mib": 115.7
+  },
+  "netbox-redis": {
+   "cpu_avg_pct": 1.8,
+   "cpu_max_pct": 3.4,
+   "mem_max_mib": 3.8
+  },
+  "netbox-redis-cache": {
+   "cpu_avg_pct": 1.1,
+   "cpu_max_pct": 2.7,
+   "mem_max_mib": 4.0
+  }
+ }
+}

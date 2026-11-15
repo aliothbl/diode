@@ -149,6 +149,19 @@ for run in $(seq 1 "$RUNS"); do
   STATS_PID=$!
 
   OUT="$RESULTS/$TS-$VERSION-$SCENARIO-run$run.json"
+  # Long-running statements in NetBox's Postgres every 2s (P-10: applies that
+  # exceed the 120s timeout without any error in the NetBox log).
+  PGACT="${OUT%.json}.pg_activity.tsv"
+  ( while true; do
+      docker exec diode-bench-netbox-postgres-1 psql -U netbox -d netbox -tA -F $'\t' -c \
+        "SELECT now(), pid, state, wait_event_type, wait_event, round(extract(epoch FROM now()-xact_start)::numeric,1),
+                round(extract(epoch FROM now()-query_start)::numeric,1), left(regexp_replace(query, '\s+', ' ', 'g'), 300)
+           FROM pg_stat_activity
+          WHERE datname = 'netbox' AND pid <> pg_backend_pid() AND state <> 'idle'
+            AND now() - coalesce(xact_start, query_start) > interval '5 seconds'" 2>/dev/null
+      sleep 2
+    done ) > "$PGACT" &
+  PGACT_PID=$!
   set +e
   if [[ "$SCENARIO" == branch-* ]]; then
     "$VENV/bin/python" "$HERE/branch_scenarios.py" "$SCENARIO" > "$OUT.load"
@@ -158,6 +171,7 @@ for run in $(seq 1 "$RUNS"); do
   RC=$?
   set -e
   kill "$STATS_PID" 2>/dev/null; wait "$STATS_PID" 2>/dev/null || true
+  kill "$PGACT_PID" 2>/dev/null; wait "$PGACT_PID" 2>/dev/null || true
 
   DUMP="$(mktemp)"
   "${COMPOSE[@]}" exec -T netbox /opt/netbox/venv/bin/python /opt/netbox/netbox/manage.py nbshell \
@@ -188,6 +202,7 @@ for run in $(seq 1 "$RUNS"); do
     | sort | uniq -c | sort -rn | head -10 | sed 's/^/netbox: /' >> "$OUT.errors" || true
   # Full container logs of the run, kept with the result as evidence.
   LOGDIR="${OUT%.json}.logs"; mkdir -p "$LOGDIR"
+  [[ -s "$PGACT" ]] && gzip -c "$PGACT" > "$LOGDIR/netbox-pg-activity.tsv.gz"; rm -f "$PGACT"
   for c in $(docker ps -a --filter "name=^diode-bench-" --format '{{.Names}}'); do
     docker logs --timestamps "$c" 2>&1 | gzip > "$LOGDIR/${c#diode-bench-}.log.gz" || true
   done

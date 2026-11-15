@@ -1,0 +1,503 @@
+{
+ "version": "candidate",
+ "diode_rev": "030b22c",
+ "plugin_rev": "ae04547",
+ "scenario": "branch-sync-ingest",
+ "branching_rev": "5810e84",
+ "run": 3,
+ "rc": 0,
+ "apply_timeouts": 0,
+ "plugin_deadlock_retries": 0,
+ "reconciler_errors": 265,
+ "diode_pg_deadlocks": 0,
+ "knobs": {
+  "RATE_RPS": null,
+  "RATE_BURST": null,
+  "BATCH_SIZE": "25",
+  "CONCURRENCY": "4",
+  "PLUGIN_TIMEOUT": null,
+  "NETBOX_WORKERS": null
+ },
+ "error_summary": [
+  "    265 {\"level\":\"ERROR\",\"msg\":\"plan failed in bulk-plan-apply\",\"error\":\"bulk plan-apply failed - ERR_OPS_APPLY_CHANGE_SET - \\\"Selected branch is not ready.\\\"\",\"ingestionLogID\":<n>}"
+ ],
+ "params": {
+  "devices": 60,
+  "ifaces": 4,
+  "sync_at": 0.3,
+  "sync_objects": 2000
+ },
+ "phases": [
+  {
+   "phase": "initial",
+   "entities": 540,
+   "requests": 11,
+   "send_s": 0.083,
+   "send_req_p50_ms": 4.95,
+   "send_req_p95_ms": 8.73,
+   "elapsed_s": 26.259,
+   "entities_per_s": 20.56,
+   "states_before": {},
+   "states_after": {
+    "APPLIED": 265,
+    "FAILED": 265,
+    "NO_CHANGES": 10
+   },
+   "curve": [
+    [
+     0.091,
+     10,
+     50,
+     0
+    ],
+    [
+     0.593,
+     0,
+     540,
+     0
+    ],
+    [
+     1.096,
+     0,
+     540,
+     0
+    ],
+    [
+     1.6,
+     0,
+     540,
+     0
+    ],
+    [
+     2.104,
+     0,
+     540,
+     0
+    ],
+    [
+     2.607,
+     0,
+     540,
+     0
+    ],
+    [
+     3.11,
+     0,
+     540,
+     0
+    ],
+    [
+     3.613,
+     0,
+     540,
+     0
+    ],
+    [
+     4.117,
+     0,
+     540,
+     0
+    ],
+    [
+     4.62,
+     0,
+     540,
+     0
+    ],
+    [
+     5.125,
+     0,
+     540,
+     0
+    ],
+    [
+     5.628,
+     0,
+     540,
+     0
+    ],
+    [
+     6.131,
+     0,
+     540,
+     0
+    ],
+    [
+     6.633,
+     0,
+     540,
+     0
+    ],
+    [
+     7.137,
+     0,
+     540,
+     0
+    ],
+    [
+     7.641,
+     0,
+     540,
+     0
+    ],
+    [
+     8.144,
+     0,
+     515,
+     25
+    ],
+    [
+     8.647,
+     0,
+     515,
+     25
+    ],
+    [
+     9.15,
+     0,
+     515,
+     25
+    ],
+    [
+     9.653,
+     0,
+     515,
+     25
+    ],
+    [
+     10.156,
+     0,
+     515,
+     25
+    ],
+    [
+     10.659,
+     0,
+     515,
+     25
+    ],
+    [
+     11.162,
+     0,
+     515,
+     25
+    ],
+    [
+     11.666,
+     0,
+     515,
+     25
+    ],
+    [
+     12.17,
+     0,
+     515,
+     25
+    ],
+    [
+     12.673,
+     0,
+     490,
+     50
+    ],
+    [
+     13.175,
+     0,
+     465,
+     75
+    ],
+    [
+     13.679,
+     0,
+     440,
+     100
+    ],
+    [
+     14.183,
+     0,
+     415,
+     125
+    ],
+    [
+     14.685,
+     0,
+     415,
+     125
+    ],
+    [
+     15.188,
+     0,
+     415,
+     125
+    ],
+    [
+     15.692,
+     0,
+     415,
+     125
+    ],
+    [
+     16.195,
+     0,
+     415,
+     125
+    ],
+    [
+     16.699,
+     0,
+     390,
+     150
+    ],
+    [
+     17.202,
+     0,
+     390,
+     150
+    ],
+    [
+     17.705,
+     0,
+     390,
+     150
+    ],
+    [
+     18.208,
+     0,
+     390,
+     150
+    ],
+    [
+     18.711,
+     0,
+     390,
+     150
+    ],
+    [
+     19.214,
+     0,
+     390,
+     150
+    ],
+    [
+     19.719,
+     0,
+     390,
+     150
+    ],
+    [
+     20.222,
+     0,
+     390,
+     150
+    ],
+    [
+     20.724,
+     0,
+     390,
+     150
+    ],
+    [
+     21.227,
+     0,
+     365,
+     175
+    ],
+    [
+     21.731,
+     0,
+     365,
+     175
+    ],
+    [
+     22.235,
+     0,
+     365,
+     175
+    ],
+    [
+     22.737,
+     0,
+     365,
+     175
+    ],
+    [
+     23.241,
+     0,
+     290,
+     250
+    ],
+    [
+     23.745,
+     0,
+     187,
+     353
+    ],
+    [
+     24.25,
+     0,
+     25,
+     515
+    ],
+    [
+     24.752,
+     0,
+     25,
+     515
+    ],
+    [
+     25.255,
+     0,
+     25,
+     515
+    ],
+    [
+     25.757,
+     0,
+     0,
+     540
+    ],
+    [
+     26.259,
+     0,
+     0,
+     540
+    ]
+   ]
+  }
+ ],
+ "branching": {
+  "branch": {
+   "id": 1,
+   "schema_id": "68n4d5jr",
+   "schema": "branch_68n4d5jr",
+   "status": "ready"
+  },
+  "main_writes": {
+   "tags": 2000
+  },
+  "sync": {
+   "started_at_settled": 175,
+   "failed_before": 0,
+   "started_s": 21.145,
+   "failed_at_end_of_sync": 265,
+   "status": "ready",
+   "error": null,
+   "sync_s": 37.614,
+   "started_epoch": 1794740357.6991355,
+   "ended_epoch": 1794740395.3126702,
+   "unsynced_at_go": 2000,
+   "unsynced_after": 0
+  },
+  "tags_synced_to_branch": 2000,
+  "ingest_failed": 265,
+  "failed_errors": [
+   [
+    "{\"code\": \"ERR_OPS_APPLY_CHANGE_SET\", \"details\": \"Selected branch is not ready.\", \"message\": \"bulk plan-apply failed\"}",
+    265
+   ]
+  ],
+  "objects_in_branch": {
+   "device": 31,
+   "interface": 122,
+   "ipaddress": 122
+  },
+  "missing_in_branch": {
+   "device": 29,
+   "interface": 118,
+   "ipaddress": 118
+  }
+ },
+ "netbox_state": {
+  "dcim.Device": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.DeviceRole": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.DeviceType": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.Interface": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.Manufacturer": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.Platform": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.Site": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "extras.Tag": {
+   "count": 2000,
+   "sha256": "ccf0254e7af9c7787db53b80c9787ed2c9bec739ff8e10c32270627911b878b1"
+  },
+  "ipam.IPAddress": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ipam.Prefix": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ipam.VLAN": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+ },
+ "resources": {
+  "bench-auth": {
+   "cpu_avg_pct": 0.0,
+   "cpu_max_pct": 0.2,
+   "mem_max_mib": 11.9
+  },
+  "diode-ingester": {
+   "cpu_avg_pct": 0.1,
+   "cpu_max_pct": 7.6,
+   "mem_max_mib": 9.6
+  },
+  "diode-postgres": {
+   "cpu_avg_pct": 8.5,
+   "cpu_max_pct": 80.1,
+   "mem_max_mib": 56.4
+  },
+  "diode-reconciler": {
+   "cpu_avg_pct": 1.1,
+   "cpu_max_pct": 34.3,
+   "mem_max_mib": 13.9
+  },
+  "diode-redis": {
+   "cpu_avg_pct": 0.9,
+   "cpu_max_pct": 1.9,
+   "mem_max_mib": 3.7
+  },
+  "netbox": {
+   "cpu_avg_pct": 108.4,
+   "cpu_max_pct": 296.7,
+   "mem_max_mib": 1364.0
+  },
+  "netbox-postgres": {
+   "cpu_avg_pct": 35.2,
+   "cpu_max_pct": 199.1,
+   "mem_max_mib": 104.6
+  },
+  "netbox-redis": {
+   "cpu_avg_pct": 1.6,
+   "cpu_max_pct": 2.8,
+   "mem_max_mib": 3.8
+  },
+  "netbox-redis-cache": {
+   "cpu_avg_pct": 1.0,
+   "cpu_max_pct": 2.5,
+   "mem_max_mib": 3.9
+  }
+ }
+}
