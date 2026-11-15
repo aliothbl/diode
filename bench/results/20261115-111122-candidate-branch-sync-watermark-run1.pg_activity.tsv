@@ -1,1 +1,0 @@
-2026-11-15 12:16:18.08791+00	2052	idle in transaction	Client	ClientRead	5.3	5.1	SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model", "core_objecttype"."contenttype_ptr_id", "core_objecttype"."public", "core_objecttype"."features" FROM "core_objecttype" INNER JOIN "django_content_type" ON ("core_objecttype"."contenttype_ptr_id" = "

@@ -45,5 +45,6 @@ edited by hand; files are copied verbatim from where the work produced them.
 | 20261115-1010-bplymxuex | branch-sync-ingest ×5 with P-11 fix (F6 5/5: 190–265 FAILED; 2 runs with apply timeouts, P-10) |
 | f7-20261115-1038/ | F7: router microbenchmark (micro.json), py-spy profiles of 2026-11-14 (pyspy-*/), console output |
 | 20261115-1119-bl92633bf | branch-sync-watermark trial: F3 reproduced (late main change never synced) |
+| 20261115-1153-b8i78nwct | branch-sync-watermark ×5: F3 reproduced 5/5 |
 
 Helper scripts used for the stress and A/B batteries: `bench/tools/`.

@@ -1,0 +1,160 @@
+{
+ "version": "candidate",
+ "diode_rev": "863857b",
+ "plugin_rev": "ae04547",
+ "scenario": "branch-sync-watermark",
+ "branching_rev": "0efb53f",
+ "run": 5,
+ "rc": 0,
+ "apply_timeouts": 0,
+ "plugin_deadlock_retries": 0,
+ "reconciler_errors": 0,
+ "diode_pg_deadlocks": 0,
+ "knobs": {
+  "RATE_RPS": null,
+  "RATE_BURST": null,
+  "BATCH_SIZE": null,
+  "CONCURRENCY": null,
+  "PLUGIN_TIMEOUT": null,
+  "NETBOX_WORKERS": null
+ },
+ "error_summary": [],
+ "params": {},
+ "phases": [],
+ "branching": {
+  "branch": {
+   "id": 1,
+   "schema_id": "x68j6slb",
+   "schema": "branch_x68j6slb",
+   "status": "ready"
+  },
+  "late_writer": {
+   "saved_epoch": 1794747162.1533136,
+   "committed_epoch": 1794747165.8078377
+  },
+  "sync1": {
+   "unsynced_at_start": 1,
+   "error": null,
+   "status": "ready",
+   "last_sync": "2026-11-15T12:52:42.295140+00:00",
+   "started_epoch": 1794747162.2937841,
+   "ended_epoch": 1794747162.486352
+  },
+  "unsynced_before_sync2": [
+   "bench-after"
+  ],
+  "sync2": {
+   "unsynced_at_start": 1,
+   "error": null,
+   "status": "ready",
+   "last_sync": "2026-11-15T12:53:21.247382+00:00",
+   "started_epoch": 1794747201.2456095,
+   "ended_epoch": 1794747201.4469314
+  },
+  "tags_in_main": [
+   "bench-after",
+   "bench-early",
+   "bench-late"
+  ],
+  "tags_in_branch": [
+   "bench-after",
+   "bench-early"
+  ],
+  "late_change_missing_in_branch": true,
+  "late_saved_before_sync1_start": true,
+  "late_committed_after_sync1_end": true
+ },
+ "netbox_state": {
+  "dcim.Device": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.DeviceRole": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.DeviceType": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.Interface": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.Manufacturer": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.Platform": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.Site": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "extras.Tag": {
+   "count": 3,
+   "sha256": "3b4ee31b3ababc6d5dc28304f70b674ec9be40f0e3542a64bf7a3f5b4ceaebcc"
+  },
+  "ipam.IPAddress": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ipam.Prefix": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ipam.VLAN": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+ },
+ "resources": {
+  "bench-auth": {
+   "cpu_avg_pct": 0.0,
+   "cpu_max_pct": 0.0,
+   "mem_max_mib": 11.9
+  },
+  "diode-ingester": {
+   "cpu_avg_pct": 0.0,
+   "cpu_max_pct": 0.0,
+   "mem_max_mib": 3.3
+  },
+  "diode-postgres": {
+   "cpu_avg_pct": 8.9,
+   "cpu_max_pct": 22.9,
+   "mem_max_mib": 41.2
+  },
+  "diode-reconciler": {
+   "cpu_avg_pct": 0.1,
+   "cpu_max_pct": 0.9,
+   "mem_max_mib": 6.0
+  },
+  "diode-redis": {
+   "cpu_avg_pct": 1.2,
+   "cpu_max_pct": 2.0,
+   "mem_max_mib": 3.8
+  },
+  "netbox": {
+   "cpu_avg_pct": 122.9,
+   "cpu_max_pct": 218.1,
+   "mem_max_mib": 1525.8
+  },
+  "netbox-postgres": {
+   "cpu_avg_pct": 22.6,
+   "cpu_max_pct": 208.8,
+   "mem_max_mib": 73.2
+  },
+  "netbox-redis": {
+   "cpu_avg_pct": 1.2,
+   "cpu_max_pct": 2.0,
+   "mem_max_mib": 3.8
+  },
+  "netbox-redis-cache": {
+   "cpu_avg_pct": 1.1,
+   "cpu_max_pct": 2.2,
+   "mem_max_mib": 3.9
+  }
+ }
+}

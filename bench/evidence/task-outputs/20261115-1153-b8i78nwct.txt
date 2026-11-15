@@ -1,0 +1,13 @@
+==> building diode-server 863857b into /home/alatour/repositories/netbox/diode/bench/out/bin/candidate-863857b
+==> [candidate diode=863857b plugin=ae04547 branching=0efb53f] scenario=branch-sync-watermark run 1/5
+==> [candidate diode=863857b plugin=ae04547 branching=0efb53f] scenario=branch-sync-watermark run 2/5
+==> [candidate diode=863857b plugin=ae04547 branching=0efb53f] scenario=branch-sync-watermark run 3/5
+==> [candidate diode=863857b plugin=ae04547 branching=0efb53f] scenario=branch-sync-watermark run 4/5
+==> [candidate diode=863857b plugin=ae04547 branching=0efb53f] scenario=branch-sync-watermark run 5/5
+20261115-111927 missing True saved<sync1 True commit>sync1end True unsynced2 ['bench-after'] branch ['bench-after', 'bench-early']
+20261115-111927 missing True saved<sync1 True commit>sync1end True unsynced2 ['bench-after'] branch ['bench-after', 'bench-early']
+20261115-111927 missing True saved<sync1 True commit>sync1end True unsynced2 ['bench-after'] branch ['bench-after', 'bench-early']
+20261115-111927 missing True saved<sync1 True commit>sync1end True unsynced2 ['bench-after'] branch ['bench-after', 'bench-early']
+20261115-111927 missing True saved<sync1 True commit>sync1end True unsynced2 ['bench-after'] branch ['bench-after', 'bench-early']
+
+[exited with code 0]
