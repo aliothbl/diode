@@ -131,7 +131,12 @@ def run_phase(name, entities, args, pipe, stub, md):
         else:
             stable = 0
         if time.monotonic() > deadline:
-            return {"phase": name, "timeout": True, "elapsed_s": args.timeout, "curve": curve}
+            # Keep the end state: a scenario can end with rows deliberately left
+            # QUEUED (e.g. Diode failing closed on a merged default branch).
+            return {"phase": name, "timeout": True, "entities": len(entities), "elapsed_s": args.timeout,
+                    "states_before": {TERMINAL.get(k, str(k)): v for k, v in sorted(before.items())},
+                    "states_after": {TERMINAL.get(k, str(k)): v for k, v in sorted(pipe.states().items())},
+                    "curve": curve}
         time.sleep(args.poll)
     elapsed = time.monotonic() - t0
     after = pipe.states()

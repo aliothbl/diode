@@ -1,0 +1,706 @@
+{
+ "version": "candidate",
+ "diode_rev": "9e1cb4b",
+ "plugin_rev": "938afa0",
+ "scenario": "branch-merge-race",
+ "branching_rev": "f45bfcf",
+ "run": 5,
+ "rc": 0,
+ "apply_timeouts": 0,
+ "plugin_deadlock_retries": 0,
+ "reconciler_errors": 0,
+ "diode_pg_deadlocks": 0,
+ "knobs": {
+  "RATE_RPS": null,
+  "RATE_BURST": null,
+  "BATCH_SIZE": null,
+  "CONCURRENCY": "4",
+  "PLUGIN_TIMEOUT": null,
+  "NETBOX_WORKERS": null
+ },
+ "error_summary": [],
+ "params": {
+  "devices": 60,
+  "ifaces": 4,
+  "merge_at": 0.4
+ },
+ "phases": [
+  {
+   "phase": "initial",
+   "entities": 540,
+   "requests": 11,
+   "send_s": 0.088,
+   "send_req_p50_ms": 5.3,
+   "send_req_p95_ms": 8.64,
+   "elapsed_s": 42.422,
+   "entities_per_s": 12.73,
+   "states_before": {},
+   "states_after": {
+    "APPLIED": 533,
+    "NO_CHANGES": 7
+   },
+   "curve": [
+    [
+     0.096,
+     10,
+     0,
+     0
+    ],
+    [
+     0.6,
+     0,
+     540,
+     0
+    ],
+    [
+     1.105,
+     0,
+     540,
+     0
+    ],
+    [
+     1.609,
+     0,
+     540,
+     0
+    ],
+    [
+     2.113,
+     0,
+     540,
+     0
+    ],
+    [
+     2.617,
+     0,
+     540,
+     0
+    ],
+    [
+     3.121,
+     0,
+     540,
+     0
+    ],
+    [
+     3.625,
+     0,
+     540,
+     0
+    ],
+    [
+     4.129,
+     0,
+     540,
+     0
+    ],
+    [
+     4.633,
+     0,
+     540,
+     0
+    ],
+    [
+     5.138,
+     0,
+     540,
+     0
+    ],
+    [
+     5.641,
+     0,
+     540,
+     0
+    ],
+    [
+     6.145,
+     0,
+     540,
+     0
+    ],
+    [
+     6.649,
+     0,
+     540,
+     0
+    ],
+    [
+     7.153,
+     0,
+     540,
+     0
+    ],
+    [
+     7.661,
+     0,
+     540,
+     0
+    ],
+    [
+     8.165,
+     0,
+     540,
+     0
+    ],
+    [
+     8.669,
+     0,
+     540,
+     0
+    ],
+    [
+     9.173,
+     0,
+     540,
+     0
+    ],
+    [
+     9.677,
+     0,
+     540,
+     0
+    ],
+    [
+     10.181,
+     0,
+     540,
+     0
+    ],
+    [
+     10.685,
+     0,
+     540,
+     0
+    ],
+    [
+     11.188,
+     0,
+     540,
+     0
+    ],
+    [
+     11.692,
+     0,
+     540,
+     0
+    ],
+    [
+     12.196,
+     0,
+     540,
+     0
+    ],
+    [
+     12.7,
+     0,
+     540,
+     0
+    ],
+    [
+     13.204,
+     0,
+     540,
+     0
+    ],
+    [
+     13.709,
+     0,
+     540,
+     0
+    ],
+    [
+     14.212,
+     0,
+     540,
+     0
+    ],
+    [
+     14.715,
+     0,
+     540,
+     0
+    ],
+    [
+     15.218,
+     0,
+     540,
+     0
+    ],
+    [
+     15.722,
+     0,
+     540,
+     0
+    ],
+    [
+     16.225,
+     0,
+     540,
+     0
+    ],
+    [
+     16.728,
+     0,
+     540,
+     0
+    ],
+    [
+     17.231,
+     0,
+     540,
+     0
+    ],
+    [
+     17.734,
+     0,
+     540,
+     0
+    ],
+    [
+     18.237,
+     0,
+     540,
+     0
+    ],
+    [
+     18.741,
+     0,
+     540,
+     0
+    ],
+    [
+     19.245,
+     0,
+     540,
+     0
+    ],
+    [
+     19.748,
+     0,
+     540,
+     0
+    ],
+    [
+     20.252,
+     0,
+     540,
+     0
+    ],
+    [
+     20.755,
+     0,
+     540,
+     0
+    ],
+    [
+     21.259,
+     0,
+     540,
+     0
+    ],
+    [
+     21.762,
+     0,
+     540,
+     0
+    ],
+    [
+     22.265,
+     0,
+     540,
+     0
+    ],
+    [
+     22.769,
+     0,
+     540,
+     0
+    ],
+    [
+     23.272,
+     0,
+     540,
+     0
+    ],
+    [
+     23.776,
+     0,
+     440,
+     100
+    ],
+    [
+     24.279,
+     0,
+     440,
+     100
+    ],
+    [
+     24.782,
+     0,
+     440,
+     100
+    ],
+    [
+     25.285,
+     0,
+     340,
+     200
+    ],
+    [
+     25.789,
+     0,
+     340,
+     200
+    ],
+    [
+     26.293,
+     0,
+     340,
+     200
+    ],
+    [
+     26.796,
+     0,
+     340,
+     200
+    ],
+    [
+     27.299,
+     0,
+     340,
+     200
+    ],
+    [
+     27.806,
+     0,
+     340,
+     200
+    ],
+    [
+     28.32,
+     0,
+     340,
+     200
+    ],
+    [
+     28.824,
+     0,
+     340,
+     200
+    ],
+    [
+     29.328,
+     0,
+     340,
+     200
+    ],
+    [
+     29.834,
+     0,
+     340,
+     200
+    ],
+    [
+     30.344,
+     0,
+     340,
+     200
+    ],
+    [
+     30.848,
+     0,
+     340,
+     200
+    ],
+    [
+     31.352,
+     0,
+     340,
+     200
+    ],
+    [
+     31.856,
+     0,
+     340,
+     200
+    ],
+    [
+     32.36,
+     0,
+     340,
+     200
+    ],
+    [
+     32.864,
+     0,
+     340,
+     200
+    ],
+    [
+     33.368,
+     0,
+     340,
+     200
+    ],
+    [
+     33.871,
+     0,
+     340,
+     200
+    ],
+    [
+     34.376,
+     0,
+     140,
+     400
+    ],
+    [
+     34.88,
+     0,
+     140,
+     400
+    ],
+    [
+     35.383,
+     0,
+     100,
+     440
+    ],
+    [
+     35.886,
+     0,
+     100,
+     440
+    ],
+    [
+     36.389,
+     0,
+     100,
+     440
+    ],
+    [
+     36.892,
+     0,
+     100,
+     440
+    ],
+    [
+     37.394,
+     0,
+     100,
+     440
+    ],
+    [
+     37.898,
+     0,
+     100,
+     440
+    ],
+    [
+     38.401,
+     0,
+     100,
+     440
+    ],
+    [
+     38.903,
+     0,
+     100,
+     440
+    ],
+    [
+     39.407,
+     0,
+     100,
+     440
+    ],
+    [
+     39.909,
+     0,
+     100,
+     440
+    ],
+    [
+     40.412,
+     0,
+     100,
+     440
+    ],
+    [
+     40.914,
+     0,
+     100,
+     440
+    ],
+    [
+     41.417,
+     0,
+     100,
+     440
+    ],
+    [
+     41.919,
+     0,
+     0,
+     540
+    ],
+    [
+     42.422,
+     0,
+     0,
+     540
+    ]
+   ]
+  }
+ ],
+ "branching": {
+  "branch": {
+   "id": 1,
+   "schema_id": "dqekglbx",
+   "schema": "branch_dqekglbx",
+   "status": "ready"
+  },
+  "merge": {
+   "started_at_settled": 400,
+   "started_s": 34.424,
+   "status": "merged",
+   "error": null,
+   "merge_s": 41.538,
+   "changes_at_go": 516,
+   "applied_changes": 516
+  },
+  "objects_in_branch": {
+   "device": 60,
+   "interface": 240,
+   "ipaddress": 240
+  },
+  "objects_in_main": {
+   "device": 55,
+   "interface": 216,
+   "ipaddress": 216
+  },
+  "objectchanges_in_branch": 569,
+  "lost_in_merge": {
+   "device": 5,
+   "interface": 24,
+   "ipaddress": 24
+  },
+  "lost_examples": {
+   "device": [
+    "bench-dev-00050",
+    "bench-dev-00051",
+    "bench-dev-00052",
+    "bench-dev-00053",
+    "bench-dev-00054"
+   ],
+   "interface": [
+    "bench-dev-00050/eth0",
+    "bench-dev-00050/eth1",
+    "bench-dev-00050/eth2",
+    "bench-dev-00050/eth3",
+    "bench-dev-00051/eth0"
+   ],
+   "ipaddress": [
+    "10.0.0.201/16",
+    "10.0.0.202/16",
+    "10.0.0.203/16",
+    "10.0.0.204/16",
+    "10.0.0.205/16"
+   ]
+  },
+  "ingest_failed": 0
+ },
+ "netbox_state": {
+  "dcim.Device": {
+   "count": 55,
+   "sha256": "f4a0551a02dee56581f0ae42dd022df9a4addc91076840ea0da804e528e459b8"
+  },
+  "dcim.DeviceRole": {
+   "count": 3,
+   "sha256": "38be7e9cf9e737c0e4bebf113f59e34fd64411b548ee947d35eb580f1016cb57"
+  },
+  "dcim.DeviceType": {
+   "count": 5,
+   "sha256": "8eaa4f2ce04a775bc35928f3d7639e482ba0cd13e669d29ac3fb220b18afa70d"
+  },
+  "dcim.Interface": {
+   "count": 216,
+   "sha256": "efe244297d8fb245ed69a782c49f77b9a1469ed8ea68400cf6e57638b9923f31"
+  },
+  "dcim.Manufacturer": {
+   "count": 5,
+   "sha256": "2c5c0334774efdf3a67d832daa567cabbf622e142f0e7930668a7f99e5d459cc"
+  },
+  "dcim.Platform": {
+   "count": 5,
+   "sha256": "b91f7c1259197c9f21081af6acc6801a58361de646517b29398c4bcaf6ea2956"
+  },
+  "dcim.Site": {
+   "count": 10,
+   "sha256": "f6e9afac5f5f35f6279710beb902b6e48c31c46525e063dee9304621911dae0d"
+  },
+  "extras.Tag": {
+   "count": 1,
+   "sha256": "ddd9c734ad6992e616dd2d80b03349472bc69e6ff16dc064213addfa3d4585e6"
+  },
+  "ipam.IPAddress": {
+   "count": 216,
+   "sha256": "60272cc2a1646eb1c9fdcab2d44299c3b16ef325da3154bacafa84aeb12ba63d"
+  },
+  "ipam.Prefix": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ipam.VLAN": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+ },
+ "resources": {
+  "bench-auth": {
+   "cpu_avg_pct": 0.0,
+   "cpu_max_pct": 0.0,
+   "mem_max_mib": 11.9
+  },
+  "diode-ingester": {
+   "cpu_avg_pct": 0.2,
+   "cpu_max_pct": 8.0,
+   "mem_max_mib": 9.1
+  },
+  "diode-postgres": {
+   "cpu_avg_pct": 11.0,
+   "cpu_max_pct": 37.5,
+   "mem_max_mib": 58.1
+  },
+  "diode-reconciler": {
+   "cpu_avg_pct": 1.1,
+   "cpu_max_pct": 27.2,
+   "mem_max_mib": 15.7
+  },
+  "diode-redis": {
+   "cpu_avg_pct": 1.1,
+   "cpu_max_pct": 2.2,
+   "mem_max_mib": 3.7
+  },
+  "netbox": {
+   "cpu_avg_pct": 163.2,
+   "cpu_max_pct": 370.1,
+   "mem_max_mib": 1418.2
+  },
+  "netbox-postgres": {
+   "cpu_avg_pct": 52.5,
+   "cpu_max_pct": 176.4,
+   "mem_max_mib": 117.4
+  },
+  "netbox-redis": {
+   "cpu_avg_pct": 1.4,
+   "cpu_max_pct": 3.0,
+   "mem_max_mib": 3.8
+  },
+  "netbox-redis-cache": {
+   "cpu_avg_pct": 1.4,
+   "cpu_max_pct": 2.5,
+   "mem_max_mib": 4.0
+  }
+ }
+}

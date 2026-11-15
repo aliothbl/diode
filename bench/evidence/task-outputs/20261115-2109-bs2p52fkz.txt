@@ -1,0 +1,7 @@
+20261115-204522-candid 938afa0 bd9e7be status merged err  merge_s 65.782 at 300 chg 536 applied 569 lost {'device': 0, 'interface': 0, 'ipaddress': 0} failed 0 waiting 0 timeout False
+20261115-204522-candid 938afa0 bd9e7be status merged err  merge_s 67.529 at 400 chg 534 applied 569 lost {'device': 0, 'interface': 0, 'ipaddress': 0} failed 0 waiting 0 timeout False
+20261115-204522-candid 938afa0 bd9e7be status merged err  merge_s 74.907 at 300 chg 489 applied 569 lost {'device': 0, 'interface': 0, 'ipaddress': 0} failed 0 waiting 0 timeout False
+20261115-204522-candid 938afa0 bd9e7be status merged err  merge_s 77.532 at 300 chg 432 applied 569 lost {'device': 0, 'interface': 0, 'ipaddress': 0} failed 0 waiting 0 timeout False
+20261115-204522-candid 938afa0 bd9e7be status merged err  merge_s 79.042 at 300 chg 429 applied 569 lost {'device': 0, 'interface': 0, 'ipaddress': 0} failed 0 waiting 0 timeout False
+
+[exited with code 0]

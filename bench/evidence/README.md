@@ -52,5 +52,8 @@ edited by hand; files are copied verbatim from where the work produced them.
 | 20261115-1610-bdufqrvxo | F6 fix v3 (+ plugin apply atomic on branch connection) ×5: regression, 75–125 FAILED (500 from the create-or-find fallback) |
 | 20261115-1655-bx4jt1ofd | **F6 fix v4 (+ savepoint on branch connection) ×5: 0 FAILED, 0 missing, 0 timeouts in 5/5** |
 | 20261115-1815-bmlpwewgb | **P-10 A/B under granian backpressure=1** (std, c=8, batch 25, ×3 each): diode 2919153 (no Connection: close) 208–338 apply timeouts and 133–309 FAILED per run; current 0 / 0 |
+| 20261115-1954-b0qmpa45b | F2 before the fix (current code, F6 fixed): branch-merge-race ×5, 45–112 objects lost per merge |
+| 20261115-2109-bs2p52fkz | **F2 after the fix (SPEC-1738 bd9e7be): branch-merge-race ×5, 0 lost** |
+| 20261115-2111-bg1bemkeo | netbox-branching full suite on SPEC-1738: same 33 failures as main, none new |
 
 Helper scripts used for the stress and A/B batteries: `bench/tools/`.

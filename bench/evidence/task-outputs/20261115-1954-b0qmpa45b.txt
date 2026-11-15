@@ -1,0 +1,19 @@
+f45bfcf docs(specs): add SPEC 1916 (test suite green on the declared minimum NetBox, 4.7.0)
+==> building diode-server 9e1cb4b into /home/alatour/repositories/netbox/diode/bench/out/bin/candidate-9e1cb4b
+==> [candidate diode=9e1cb4b plugin=938afa0 branching=f45bfcf] scenario=branch-merge-race run 1/5
+   initial      540 ent    59.557s      9.07 ent/s  {'APPLIED': 536, 'NO_CHANGES': 4}
+==> [candidate diode=9e1cb4b plugin=938afa0 branching=f45bfcf] scenario=branch-merge-race run 2/5
+   initial      540 ent      49.5s     10.91 ent/s  {'APPLIED': 534, 'NO_CHANGES': 6}
+==> [candidate diode=9e1cb4b plugin=938afa0 branching=f45bfcf] scenario=branch-merge-race run 3/5
+   initial      540 ent     42.42s     12.73 ent/s  {'APPLIED': 535, 'NO_CHANGES': 5}
+==> [candidate diode=9e1cb4b plugin=938afa0 branching=f45bfcf] scenario=branch-merge-race run 4/5
+   initial      540 ent    48.905s     11.04 ent/s  {'APPLIED': 533, 'NO_CHANGES': 7}
+==> [candidate diode=9e1cb4b plugin=938afa0 branching=f45bfcf] scenario=branch-merge-race run 5/5
+   initial      540 ent    42.422s     12.73 ent/s  {'APPLIED': 533, 'NO_CHANGES': 7}
+20261115-193520-candid 9e1cb4b 938afa0 f45bfcf status merged err None merge_s 41.538 at 400 lost {'device': 5, 'interface': 24, 'ipaddress': 24} failed 0 timeouts 0
+20261115-193520-candid 9e1cb4b 938afa0 f45bfcf status merged err None merge_s 38.972 at 400 lost {'device': 11, 'interface': 50, 'ipaddress': 51} failed 0 timeouts 0
+20261115-193520-candid 9e1cb4b 938afa0 f45bfcf status merged err None merge_s 41.255 at 300 lost {'device': 5, 'interface': 24, 'ipaddress': 24} failed 0 timeouts 0
+20261115-193520-candid 9e1cb4b 938afa0 f45bfcf status merged err None merge_s 58.275 at 300 lost {'device': 6, 'interface': 31, 'ipaddress': 31} failed 0 timeouts 0
+20261115-193520-candid 9e1cb4b 938afa0 f45bfcf status merged err None merge_s 59.058 at 300 lost {'device': 4, 'interface': 19, 'ipaddress': 22} failed 0 timeouts 0
+
+[exited with code 0]

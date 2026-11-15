@@ -115,9 +115,12 @@ def object_keys(schema):
 
 def branch_merge_race():
     import argparse
+    # With the F2 fix, batches arriving after the merge are refused (503, then
+    # 409 once MERGED) and Diode fails closed: they stay QUEUED, so the phase
+    # cannot settle and ends at this timeout instead.
     args = argparse.Namespace(devices=int(os.environ.get("DEVICES", "60")), ifaces=4, batch=50, seed=42,
                               offset=0, grpc="127.0.0.1:58081", pg_port=55432, redis_port=56379,
-                              poll=0.5, timeout=1800)
+                              poll=0.5, timeout=int(os.environ.get("MERGE_RACE_TIMEOUT", "1800")))
     branch = nbshell(SETUP, timeout=600)
     subprocess.run(["docker", "restart", RECONCILER], check=True, capture_output=True)
     time.sleep(5)  # reconciler fetches the default branch at startup
@@ -167,6 +170,10 @@ def branch_merge_race():
             "lost_in_merge": {k: len(v) for k, v in lost.items()},
             "lost_examples": {k: v[:5] for k, v in lost.items()},
             "ingest_failed": phase.get("states_after", {}).get("FAILED", 0),
+            # Rows left waiting (QUEUED=1 / APPLYING=8) when the phase ended:
+            # with the fix, batches refused after the merge (fail closed).
+            "ingest_waiting": phase.get("states_after", {}).get("1", 0) + phase.get("states_after", {}).get("8", 0),
+            "phase_timed_out": bool(phase.get("timeout")),
         },
     }
 
