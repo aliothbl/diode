@@ -1,0 +1,11 @@
+# Probe against netbox-branching 44f5b50 (503 without reading the request body), NetBox 4.7.0/granian,
+# branch 'probe' in status syncing, POST /netbox/api/dcim/sites/ with X-NetBox-Branch.
+# small.json = 13 bytes, big.json = 207795 bytes. Commands as in ...-after-drain.log.
+single request each:
+small.json: 503 0.016478s
+big.json: 503 0.016790s
+== small.json x2 same connection
+1st: 503 0.068722s new_conns=1
+2nd: 503 0.015236s new_conns=0
+== big.json x2 same connection
+TIMEOUT (exit 124)   # 20 s timeout: the second request on the connection never completes

@@ -1,0 +1,8 @@
+== small.json x3 same connection
+1st: 503 0.088462s new_conns=1
+2nd: 503 0.015368s new_conns=0
+3rd: 503 0.013391s new_conns=0
+== big.json x3 same connection
+1st: 503 0.063927s new_conns=1
+2nd: 503 0.015459s new_conns=0
+3rd: 503 0.015828s new_conns=0
