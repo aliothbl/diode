@@ -32,6 +32,7 @@
 - **P-5 — Consumo do stream no reconciler é serial** (XReadGroup Count=100, uma mensagem por vez, XAck + XDel em duas idas por mensagem).
 
 ## LOG
+- 2026-11-14 23:12 — Correção: a entrada "23:24 — P-9 / Melhoria M-4" foi escrita às 23:10 (o horário foi digitado antes de consultar o relógio).
 - 2026-11-14 23:24 — **P-9 / Melhoria M-4** (`91ecf9d`): retry em 40P01/40001 (até 5 tentativas, backoff exponencial com jitter) em `WithDedupLocks`, `BulkPersistChangeSets` (transação; o truncate pós-commit fica fora), `BulkCreateDriftDeviations` e nos dois claims. 4 testes em `dbstore/postgres/retry_internal_test.go`; `go test ./...` verde. **Validação ponta a ponta, parcial:**
   - (a) `std+nobranching`, c=4, ×5: 0 erros, mas também 0 deadlocks detectados, então o retry não foi exercitado e isso não prova nada;
   - (b) estresse c=8, batch 25, ×5: houve deadlock em 2 execuções. Uma terminou com 0 erros (retry funcionou). A outra teve **25 erros e 25 FAILED (um lote)**, com vítima fora das transações cobertas e não identificada.
