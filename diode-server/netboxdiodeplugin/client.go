@@ -505,6 +505,13 @@ func (c *Client) BulkPlanApply(ctx context.Context, payload BulkPlanApplyRequest
 	if branchID != "" {
 		req.Header.Set(NetBoxBranchHeader, branchID)
 	}
+	// One connection per apply call. A server that refuses a request before
+	// reading its body (granian's own 503 under backpressure; netbox-branching
+	// before it drained the body) can leave the unread bytes on a keep-alive
+	// connection, and the retry sent on it then never gets an answer: the
+	// batch hangs until the apply timeout and is recorded as failed. An apply
+	// takes seconds, so a fresh connection costs nothing that matters.
+	req.Close = true
 
 	resp, err := c.applyHTTP.Do(req)
 	if err != nil {
