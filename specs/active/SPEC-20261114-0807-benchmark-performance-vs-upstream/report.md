@@ -48,7 +48,8 @@ Removidas as duplicatas e descontadas as atualizações perdidas, o conteúdo do
 | **P-7** | Média | Lote reivindicado aplicado fora da ordem de ingestão → log credita a entidade errada; ordem varia entre execuções | **Corrigido (M-2)** |
 | P-3 | Alta (performance) | Plugin aplica entidade por entidade, em série, um worker por lote; CPU de Python é o gargalo | Medido; não alterado (ver §6) |
 | **P-9** | Média | Com auto-apply concorrente, um lote inteiro termina `FAILED` (os dados chegam ao NetBox pela reingestão, mas o registro mente). Duas causas: deadlocks no Postgres do Diode e deadlock de árvore (ltree) no NetBox 4.7 que o plugin devolvia como 500 | **Corrigido (M-4 + M-6)**; M-5 fecha um caminho latente |
-| P-10 | A investigar | 1 lote passou dos 120s de apply (1 de 26 execuções de estresse do fork, logo após recriar o seed) | Aberto |
+| **P-11** | Alta | Corpo de erro não-JSON do NetBox (ex.: 400 do netbox-branching durante sync/merge) impede gravar o FAILED: o lote fica em APPLYING sem erro e os dados somem em silêncio | **Corrigido (M-7, `9e453e1`)** |
+| P-10 | A investigar | Lote ocasional passa dos 120 s de apply sem erro no NetBox (1/26 execuções de estresse; 2/5 de `branch-sync-ingest`) | Aberto; amostragem de `pg_stat_activity` adicionada ao harness |
 | P-6 | Média (dados) | Platform compartilhada entre fabricantes → cada apply reescreve `platform.manufacturer` → toda reingestão vira UPDATE + clone de drift | Documentado (comportamento de dado) |
 | P-2 | Baixa | Rate limiter padrão 20 RPS / burst 1 | Não é gargalo (teto ~2000 ent/s com lote 100) |
 | P-4 | Alta (segurança) | Ingester não verifica assinatura do JWT; confia no nginx | Fora do escopo; SPEC 2142 |
