@@ -667,29 +667,54 @@ func (r *Repository) allocateIngestionLogIDs(ctx context.Context, n int) ([]int3
 // is run again if it loses a deadlock (see withTxRetry); the change set
 // truncation runs once, after it commits.
 func (r *Repository) BulkPersistChangeSets(ctx context.Context, items []ops.BulkPersistItem, maxChangeSetsPerLog int32) ([]ops.BulkPersistResult, error) {
-	var results []ops.BulkPersistResult
-	var withChanges []int
-	if err := withTxRetry(ctx, func() error {
-		var err error
-		results, withChanges, err = r.bulkPersistChangeSetsOnce(ctx, items)
-		return err
-	}); err != nil {
-		return nil, err
+	persist := func() ([]ops.BulkPersistResult, []int, error) {
+		var results []ops.BulkPersistResult
+		var withChanges []int
+		err := withTxRetry(ctx, func() error {
+			var err error
+			results, withChanges, err = r.bulkPersistChangeSetsOnce(ctx, items)
+			return err
+		})
+		return results, withChanges, err
 	}
-
-	if maxChangeSetsPerLog > 0 && len(withChanges) > 0 {
+	truncate := func(withChanges []int) error {
+		if maxChangeSetsPerLog <= 0 || len(withChanges) == 0 {
+			return nil
+		}
 		ingLogIDs := make([]int32, len(withChanges))
 		for j, idx := range withChanges {
 			ingLogIDs[j] = items[idx].IngestionLogID
 		}
-		if err := r.queries.BulkTruncateChangeSets(ctx, postgres.BulkTruncateChangeSetsParams{
+		return r.queries.BulkTruncateChangeSets(ctx, postgres.BulkTruncateChangeSetsParams{
 			IngestionLogIds: ingLogIDs,
 			KeepCount:       maxChangeSetsPerLog,
-		}); err != nil {
-			return nil, fmt.Errorf("failed to bulk truncate change sets: %w", err)
-		}
+		})
 	}
+	return persistThenTruncate(ctx, persist, truncate)
+}
 
+// persistThenTruncate runs the persist transaction and, once it has
+// committed, the best-effort retention truncate.
+//
+// A truncate failure must not be reported as a persist failure: the change
+// sets and the new ingestion log states are already committed, so callers
+// that treat the error as "nothing was persisted" would mark an applied batch
+// FAILED (bulk-plan-apply) or persist every change set a second time
+// (plan-only fallback). The per-item path (persistChangeSet) already ignores
+// truncate errors; this keeps the bulk path consistent. Old change sets left
+// behind are removed by the next truncate for the same ingestion log.
+func persistThenTruncate(
+	ctx context.Context,
+	persist func() ([]ops.BulkPersistResult, []int, error),
+	truncate func(withChanges []int) error,
+) ([]ops.BulkPersistResult, error) {
+	results, withChanges, err := persist()
+	if err != nil {
+		return nil, err
+	}
+	if err := truncate(withChanges); err != nil {
+		slog.WarnContext(ctx, "failed to bulk truncate change sets after persist (error ignored)", "error", err)
+	}
 	return results, nil
 }
 
