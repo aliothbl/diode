@@ -1,0 +1,19 @@
+==> building diode-server 117b107 into /home/alatour/repositories/netbox/diode/bench/out/bin/candidate-117b107
+==> no NetBox seed for plugin ae04547: first boot runs migrations (~8 min), then it is snapshotted
+==> [candidate diode=117b107 plugin=ae04547 branching=e3bcd51] scenario=branch-sync-ingest run 1/5
+   initial      540 ent     84.64s      6.38 ent/s  {'APPLIED': 518, 'NO_CHANGES': 22}
+==> [candidate diode=117b107 plugin=ae04547 branching=e3bcd51] scenario=branch-sync-ingest run 2/5
+   initial      540 ent    88.163s      6.13 ent/s  {'APPLIED': 516, 'FAILED': 2, 'NO_CHANGES': 22}
+==> [candidate diode=117b107 plugin=ae04547 branching=e3bcd51] scenario=branch-sync-ingest run 3/5
+   initial      540 ent     87.69s      6.16 ent/s  {'APPLIED': 512, 'FAILED': 4, 'NO_CHANGES': 24}
+==> [candidate diode=117b107 plugin=ae04547 branching=e3bcd51] scenario=branch-sync-ingest run 4/5
+   initial      540 ent    82.663s      6.53 ent/s  {'APPLIED': 515, 'NO_CHANGES': 25}
+==> [candidate diode=117b107 plugin=ae04547 branching=e3bcd51] scenario=branch-sync-ingest run 5/5
+   initial      540 ent    85.673s       6.3 ent/s  {'APPLIED': 515, 'NO_CHANGES': 25}
+20261115-144735-candid 117b107 e3bcd51 sync_s 45.795 failed 0 missing {'device': 0, 'interface': 0, 'ipaddress': 0} timeouts 0 errs []
+20261115-144735-candid 117b107 e3bcd51 sync_s 45.5 failed 0 missing {'device': 0, 'interface': 0, 'ipaddress': 0} timeouts 0 errs []
+20261115-144735-candid 117b107 e3bcd51 sync_s 45.521 failed 4 missing {'device': 0, 'interface': 1, 'ipaddress': 1} timeouts 0 errs ['{"code": "ERR_OPS_APPLY_CHANGE_SET", "details": {"dcim.device": {"__al']
+20261115-144735-candid 117b107 e3bcd51 sync_s 46.062 failed 2 missing {'device': 0, 'interface': 1, 'ipaddress': 1} timeouts 0 errs ['{"code": "ERR_OPS_APPLY_CHANGE_SET", "details": {"dcim.device": {"__al']
+20261115-144735-candid 117b107 e3bcd51 sync_s 43.929 failed 0 missing {'device': 0, 'interface': 0, 'ipaddress': 0} timeouts 0 errs []
+
+[exited with code 0]

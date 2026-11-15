@@ -1,0 +1,18 @@
+ Network diode-netbox-plugin-v47x_default Creating 
+ Network diode-netbox-plugin-v47x_default Created 
+ Container diode-netbox-plugin-v47x-netbox-redis-cache-1 Creating 
+ Container diode-netbox-plugin-v47x-netbox-postgres-1 Creating 
+ Container diode-netbox-plugin-v47x-netbox-redis-1 Creating 
+ Container diode-netbox-plugin-v47x-netbox-redis-cache-1 Created 
+ Container diode-netbox-plugin-v47x-netbox-redis-1 Created 
+ Container diode-netbox-plugin-v47x-netbox-postgres-1 Created 
+ Container diode-netbox-plugin-v47x-netbox-redis-1 Starting 
+ Container diode-netbox-plugin-v47x-netbox-redis-cache-1 Starting 
+ Container diode-netbox-plugin-v47x-netbox-postgres-1 Starting 
+ Container diode-netbox-plugin-v47x-netbox-postgres-1 Started 
+ Container diode-netbox-plugin-v47x-netbox-redis-1 Started 
+ Container diode-netbox-plugin-v47x-netbox-redis-cache-1 Started 
+ Container diode-netbox-plugin-v47x-netbox-run-1c531f7ce7ca Creating 
+ Container diode-netbox-plugin-v47x-netbox-run-1c531f7ce7ca Created 
+/opt/netbox/netbox/netbox/settings.py:278: FutureWarning: LOGIN_REQUIRED is deprecated and will be removed in NetBox v5.0. Unauthenticated access to the application will no longer be supported. Please plan to require authentication for all users before upgrading.
+  warnings.warn(
