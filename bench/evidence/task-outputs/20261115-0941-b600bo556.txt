@@ -1,0 +1,39 @@
+ Container diode-bench-diode-redis-1 Healthy 
+ Container diode-bench-diode-ingester-1 Healthy 
+ Container diode-bench-netbox-1 Healthy 
+   initial        ? ent      1800s         ? ent/s  
+bench/results/20261115-090842-candidate-branch-sync-ingest-run1.json
+{
+ "sync": {
+  "started_at_settled": 175,
+  "failed_before": 0,
+  "started_s": 20.774,
+  "failed_at_end_of_sync": 0,
+  "status": "ready",
+  "error": null,
+  "sync_s": 56.791,
+  "started_epoch": 1794737548.3700664,
+  "ended_epoch": 1794737605.160814,
+  "unsynced_at_go": 2000,
+  "unsynced_after": 0
+ },
+ "ingest_failed": 0,
+ "failed_errors": [],
+ "missing_in_branch": {
+  "device": 21,
+  "interface": 84,
+  "ipaddress": 85
+ },
+ "tags_synced_to_branch": 2000
+}
+bench-auth-1.log.gz
+diode-ingester-1.log.gz
+diode-postgres-1.log.gz
+diode-reconciler-1.log.gz
+diode-redis-1.log.gz
+netbox-1.log.gz
+netbox-postgres-1.log.gz
+netbox-redis-1.log.gz
+netbox-redis-cache-1.log.gz
+
+[exited with code 0]

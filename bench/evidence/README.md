@@ -41,5 +41,6 @@ edited by hand; files are copied verbatim from where the work produced them.
 | 20261115-0802-bwh476wl5 | validation M-6: stress ×5 + std c=4 ×3 |
 | 20261115-0847-bxytgcj0w | interleaved A/B plugin ed63aff × ae04547, 3 pairs |
 | 20261115-0910-bafg4kms4 | branch-sync-ingest trial (batch 100, c=1 default): sync fell inside one in-flight request, F6 window not exercised |
+| 20261115-0941-b600bo556 | branch-sync-ingest trial c=4 batch 25, 2000 main changes: F6 reproduced (400 "branch not ready"), 190 entities stuck in APPLYING (P-11), phase timed out |
 
 Helper scripts used for the stress and A/B batteries: `bench/tools/`.
