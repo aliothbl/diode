@@ -1029,7 +1029,23 @@ func sortQueuedByID(batch []ops.QueuedIngestionLog) {
 	slices.SortFunc(batch, func(a, b ops.QueuedIngestionLog) int { return int(a.ID) - int(b.ID) })
 }
 
-// ResetApplyingIngestionLogs resets any ingestion logs stuck in APPLYING state back to OPEN.
+// RequeueApplyingIngestionLogs returns claimed rows (APPLYING) to QUEUED, for
+// a batch NetBox refused before processing it (see ops.BulkPlanApply). Rows
+// no longer in APPLYING are left alone. A drift re-check keeps its
+// requeued_from_state, so it is re-checked when claimed again.
+func (r *Repository) RequeueApplyingIngestionLogs(ctx context.Context, ids []int32) error {
+	if len(ids) == 0 {
+		return nil
+	}
+	_, err := r.db.Exec(ctx, `UPDATE ingestion_logs SET state = $1 WHERE id = ANY($2) AND state = $3`,
+		int32(reconcilerpb.State_QUEUED), ids, int32(reconcilerpb.State_APPLYING))
+	if err != nil {
+		return fmt.Errorf("failed to requeue ingestion logs: %w", err)
+	}
+	return nil
+}
+
+// ResetApplyingIngestionLogs resets any ingestion logs stuck in APPLYING state back to QUEUED.
 func (r *Repository) ResetApplyingIngestionLogs(ctx context.Context) error {
 	return r.queries.ResetApplyingIngestionLogs(ctx)
 }

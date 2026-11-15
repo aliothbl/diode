@@ -660,6 +660,10 @@ func (o *Ops) BulkPlanApply(ctx context.Context, items []ops.QueuedIngestionLog,
 		Entities: entities,
 		BranchID: branchID,
 	})
+	var unavailable *netboxdiodeplugin.UnavailableError
+	if errors.As(err, &unavailable) {
+		return o.deferBulkPlanApply(ctx, items, branchID, unavailable)
+	}
 	if err != nil {
 		for i, item := range items {
 			results[i] = o.persistPlanApplyFailurePlaceholder(ctx, item, branchID, err)
@@ -800,6 +804,63 @@ func (o *Ops) BulkPlanApply(ctx context.Context, items []ops.QueuedIngestionLog,
 		}
 	}
 
+	return results
+}
+
+const (
+	// unavailableDefaultPause is how long to wait before claiming again after
+	// NetBox refused a batch as transiently unavailable without a Retry-After.
+	unavailableDefaultPause = 5 * time.Second
+	// unusableBranchPause is the wait after NetBox refused a batch because the
+	// default branch will not become usable on its own (merged, archived, ...):
+	// long enough not to hammer NetBox, short enough to resume soon after an
+	// operator fixes the default branch setting.
+	unusableBranchPause = 30 * time.Second
+)
+
+// deferBulkPlanApply handles a batch NetBox refused before processing it
+// (netboxdiodeplugin.UnavailableError): nothing was applied, so the rows go
+// back to QUEUED instead of FAILED, and every result is Deferred so the
+// processor waits before claiming again.
+//
+//   - Transient (503/429, e.g. the default branch is syncing or merging):
+//     wait for the server's Retry-After.
+//   - Default branch unusable (409: merged, archived, failed, pending
+//     migrations): fail closed. Nothing is applied anywhere -- certainly not
+//     to main -- the backlog waits, the default branch is refetched in case
+//     an operator already changed it, and the condition is logged as an error.
+func (o *Ops) deferBulkPlanApply(ctx context.Context, items []ops.QueuedIngestionLog, branchID string, unavailable *netboxdiodeplugin.UnavailableError) []ops.BulkPlanApplyResult {
+	pause := unavailable.RetryAfter
+	if unavailable.Retryable {
+		if pause <= 0 {
+			pause = unavailableDefaultPause
+		}
+		o.logger.Warn("NetBox refused bulk-plan-apply before processing it; batch requeued",
+			"statusCode", unavailable.StatusCode, "branchID", branchID, "retryAfter", pause, "batchSize", len(items))
+	} else {
+		pause = max(pause, unusableBranchPause)
+		o.logger.Error("default branch is not usable (merged, archived, failed or pending migrations); "+
+			"batch requeued and auto-apply paused until the default branch setting is fixed",
+			"statusCode", unavailable.StatusCode, "branchID", branchID, "retryAfter", pause, "batchSize", len(items))
+		if _, err := o.RefreshDefaultBranch(ctx); err != nil {
+			o.logger.Warn("failed to request a default branch refresh", "error", err)
+		}
+	}
+
+	ids := make([]int32, len(items))
+	for i, item := range items {
+		ids[i] = item.ID
+	}
+	if err := o.repository.RequeueApplyingIngestionLogs(ctx, ids); err != nil {
+		// The rows stay APPLYING until the next reconciler start resets them
+		// (ResetApplyingIngestionLogs); they are not lost.
+		o.logger.Error("failed to requeue a refused batch", "error", err, "batchSize", len(items))
+	}
+
+	results := make([]ops.BulkPlanApplyResult, len(items))
+	for i, item := range items {
+		results[i] = ops.BulkPlanApplyResult{IngestionLogID: item.ID, Deferred: true, RetryAfter: pause}
+	}
 	return results
 }
 

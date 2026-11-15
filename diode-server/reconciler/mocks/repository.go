@@ -738,6 +738,53 @@ func (_c *Repository_ResetApplyingIngestionLogs_Call) RunAndReturn(run func(cont
 	return _c
 }
 
+// RequeueApplyingIngestionLogs provides a mock function with given fields: ctx, ids
+func (_m *Repository) RequeueApplyingIngestionLogs(ctx context.Context, ids []int32) error {
+	ret := _m.Called(ctx, ids)
+
+	if len(ret) == 0 {
+		panic("no return value specified for RequeueApplyingIngestionLogs")
+	}
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(context.Context, []int32) error); ok {
+		r0 = rf(ctx, ids)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
+// Repository_RequeueApplyingIngestionLogs_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'RequeueApplyingIngestionLogs'
+type Repository_RequeueApplyingIngestionLogs_Call struct {
+	*mock.Call
+}
+
+// RequeueApplyingIngestionLogs is a helper method to define mock.On call
+//   - ctx context.Context
+//   - ids []int32
+func (_e *Repository_Expecter) RequeueApplyingIngestionLogs(ctx interface{}, ids interface{}) *Repository_RequeueApplyingIngestionLogs_Call {
+	return &Repository_RequeueApplyingIngestionLogs_Call{Call: _e.mock.On("RequeueApplyingIngestionLogs", ctx, ids)}
+}
+
+func (_c *Repository_RequeueApplyingIngestionLogs_Call) Run(run func(ctx context.Context, ids []int32)) *Repository_RequeueApplyingIngestionLogs_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(context.Context), args[1].([]int32))
+	})
+	return _c
+}
+
+func (_c *Repository_RequeueApplyingIngestionLogs_Call) Return(_a0 error) *Repository_RequeueApplyingIngestionLogs_Call {
+	_c.Call.Return(_a0)
+	return _c
+}
+
+func (_c *Repository_RequeueApplyingIngestionLogs_Call) RunAndReturn(run func(context.Context, []int32) error) *Repository_RequeueApplyingIngestionLogs_Call {
+	_c.Call.Return(run)
+	return _c
+}
+
 // RetrieveDeviationByID provides a mock function with given fields: ctx, externalID
 func (_m *Repository) RetrieveDeviationByID(ctx context.Context, externalID string) (*reconcilerpb.Deviation, error) {
 	ret := _m.Called(ctx, externalID)

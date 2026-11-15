@@ -1,16 +1,16 @@
 # SPEC-20261114-1748: Reconciler trata branch indisponível como espera, não como falha
 
-**Status:** draft
+**Status:** active
 **Porte:** M
 **Owner:** @aliothbl
 **Criada:** 2026-11-14 17:48
-**Ativada:** —
+**Ativada:** 2026-11-15 12:43
 **Pausada em:** —
 **Concluída:** —
 **Commit final:** —
 **Keywords:** branch-padrão, default-branch, X-NetBox-Branch, 503, Retry-After, 409, netbox-branching, sync, merge, requeue, FAILED
 **Features:** reconciler
-**Branch:** _(a definir na ativação)_
+**Branch:** `perf/bench-vs-upstream` (junto do harness que valida o critério de bench)
 **Programa:** `specs/programs/diode-stack-hardening.md`
 **Relacionadas:**
   - `aliothbl/netbox-branching:specs/future/SPEC-20261114-1741-http-branch-indisponivel` (**par obrigatório**: define os códigos consumidos aqui)
