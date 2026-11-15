@@ -1,0 +1,19 @@
+==> building diode-server 140d349 into /home/alatour/repositories/netbox/diode/bench/out/bin/candidate-140d349
+==> no NetBox seed for plugin 163d202: first boot runs migrations (~8 min), then it is snapshotted
+==> [candidate diode=140d349 plugin=163d202 branching=e3bcd51] scenario=branch-sync-ingest run 1/5
+   initial      540 ent    84.142s      6.42 ent/s  {'APPLIED': 396, 'FAILED': 125, 'NO_CHANGES': 19}
+==> [candidate diode=140d349 plugin=163d202 branching=e3bcd51] scenario=branch-sync-ingest run 2/5
+   initial      540 ent    82.625s      6.54 ent/s  {'APPLIED': 396, 'FAILED': 125, 'NO_CHANGES': 19}
+==> [candidate diode=140d349 plugin=163d202 branching=e3bcd51] scenario=branch-sync-ingest run 3/5
+   initial      540 ent    86.657s      6.23 ent/s  {'APPLIED': 421, 'FAILED': 100, 'NO_CHANGES': 19}
+==> [candidate diode=140d349 plugin=163d202 branching=e3bcd51] scenario=branch-sync-ingest run 4/5
+   initial      540 ent    84.147s      6.42 ent/s  {'APPLIED': 447, 'FAILED': 75, 'NO_CHANGES': 18}
+==> [candidate diode=140d349 plugin=163d202 branching=e3bcd51] scenario=branch-sync-ingest run 5/5
+   initial      540 ent    81.638s      6.61 ent/s  {'APPLIED': 397, 'FAILED': 125, 'NO_CHANGES': 18}
+20261115-153851-candid 140d349 163d202 e3bcd51 sync_s 44.598 failed 125 missing {'device': 10, 'interface': 45, 'ipaddress': 45} timeouts 0 errs ['{"code": "ERR_OPS_APPLY_CHANGE_SET", "details": {"errors": {"request": {"__all__": ["inter']
+20261115-153851-candid 140d349 163d202 e3bcd51 sync_s 46.523 failed 75 missing {'device': 7, 'interface': 32, 'ipaddress': 33} timeouts 0 errs ['{"code": "ERR_OPS_APPLY_CHANGE_SET", "details": {"errors": {"request": {"__all__": ["inter']
+20261115-153851-candid 140d349 163d202 e3bcd51 sync_s 45.431 failed 100 missing {'device': 9, 'interface': 42, 'ipaddress': 42} timeouts 0 errs ['{"code": "ERR_OPS_APPLY_CHANGE_SET", "details": {"errors": {"request": {"__all__": ["inter']
+20261115-153851-candid 140d349 163d202 e3bcd51 sync_s 44.868 failed 125 missing {'device': 11, 'interface': 46, 'ipaddress': 46} timeouts 0 errs ['{"code": "ERR_OPS_APPLY_CHANGE_SET", "details": {"errors": {"request": {"__all__": ["inter']
+20261115-153851-candid 140d349 163d202 e3bcd51 sync_s 44.416 failed 125 missing {'device': 11, 'interface': 49, 'ipaddress': 49} timeouts 0 errs ['{"code": "ERR_OPS_APPLY_CHANGE_SET", "details": {"errors": {"request": {"__all__": ["inter']
+
+[exited with code 0]

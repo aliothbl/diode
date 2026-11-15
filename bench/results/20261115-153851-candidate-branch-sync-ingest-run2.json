@@ -1,0 +1,1190 @@
+{
+ "version": "candidate",
+ "diode_rev": "140d349",
+ "plugin_rev": "163d202",
+ "scenario": "branch-sync-ingest",
+ "branching_rev": "e3bcd51",
+ "run": 2,
+ "rc": 0,
+ "apply_timeouts": 0,
+ "plugin_deadlock_retries": 0,
+ "reconciler_errors": 125,
+ "diode_pg_deadlocks": 0,
+ "knobs": {
+  "RATE_RPS": null,
+  "RATE_BURST": null,
+  "BATCH_SIZE": "25",
+  "CONCURRENCY": "4",
+  "PLUGIN_TIMEOUT": null,
+  "NETBOX_WORKERS": null
+ },
+ "error_summary": [
+  "    116 {\"level\":\"ERROR\",\"msg\":\"plan failed in bulk-plan-apply\",\"error\":\"bulk plan-apply failed - ERR_OPS_APPLY_CHANGE_SET - {\\\"errors\\\":{\\\"request\\\":{\\\"__all__\\\":[\\\"internal error\\\"]}}}\",\"ingestionLogID\":<n>}",
+  "      1 {\"level\":\"ERROR\",\"msg\":\"plan failed in bulk-plan-apply\",\"error\":\"bulk plan-apply failed - ERR_OPS_APPLY_CHANGE_SET - {\\\"errors\\\":{\\\"request\\\":{\\\"__all__\\\":[\\\"internal error\\\"]}}}\",\"ingestionLogID\":9}",
+  "      1 {\"level\":\"ERROR\",\"msg\":\"plan failed in bulk-plan-apply\",\"error\":\"bulk plan-apply failed - ERR_OPS_APPLY_CHANGE_SET - {\\\"errors\\\":{\\\"request\\\":{\\\"__all__\\\":[\\\"internal error\\\"]}}}\",\"ingestionLogID\":8}",
+  "      1 {\"level\":\"ERROR\",\"msg\":\"plan failed in bulk-plan-apply\",\"error\":\"bulk plan-apply failed - ERR_OPS_APPLY_CHANGE_SET - {\\\"errors\\\":{\\\"request\\\":{\\\"__all__\\\":[\\\"internal error\\\"]}}}\",\"ingestionLogID\":7}",
+  "      1 {\"level\":\"ERROR\",\"msg\":\"plan failed in bulk-plan-apply\",\"error\":\"bulk plan-apply failed - ERR_OPS_APPLY_CHANGE_SET - {\\\"errors\\\":{\\\"request\\\":{\\\"__all__\\\":[\\\"internal error\\\"]}}}\",\"ingestionLogID\":6}",
+  "      1 {\"level\":\"ERROR\",\"msg\":\"plan failed in bulk-plan-apply\",\"error\":\"bulk plan-apply failed - ERR_OPS_APPLY_CHANGE_SET - {\\\"errors\\\":{\\\"request\\\":{\\\"__all__\\\":[\\\"internal error\\\"]}}}\",\"ingestionLogID\":5}",
+  "      1 {\"level\":\"ERROR\",\"msg\":\"plan failed in bulk-plan-apply\",\"error\":\"bulk plan-apply failed - ERR_OPS_APPLY_CHANGE_SET - {\\\"errors\\\":{\\\"request\\\":{\\\"__all__\\\":[\\\"internal error\\\"]}}}\",\"ingestionLogID\":4}",
+  "      1 {\"level\":\"ERROR\",\"msg\":\"plan failed in bulk-plan-apply\",\"error\":\"bulk plan-apply failed - ERR_OPS_APPLY_CHANGE_SET - {\\\"errors\\\":{\\\"request\\\":{\\\"__all__\\\":[\\\"internal error\\\"]}}}\",\"ingestionLogID\":3}",
+  "      1 {\"level\":\"ERROR\",\"msg\":\"plan failed in bulk-plan-apply\",\"error\":\"bulk plan-apply failed - ERR_OPS_APPLY_CHANGE_SET - {\\\"errors\\\":{\\\"request\\\":{\\\"__all__\\\":[\\\"internal error\\\"]}}}\",\"ingestionLogID\":2}",
+  "      1 {\"level\":\"ERROR\",\"msg\":\"plan failed in bulk-plan-apply\",\"error\":\"bulk plan-apply failed - ERR_OPS_APPLY_CHANGE_SET - {\\\"errors\\\":{\\\"request\\\":{\\\"__all__\\\":[\\\"internal error\\\"]}}}\",\"ingestionLogID\":1}",
+  "netbox:       5 Internal Server Error: /netbox/api/plugins/diode/bulk-plan-apply/",
+  "netbox:       5 django.db.transaction.TransactionManagementError: An error occurred in the current transaction. You can't execute queries until the end of the 'atomic' block.",
+  "netbox:       2 django.db.utils.IntegrityError: duplicate key value violates unique constraint \"extras_tag_name_key\"",
+  "netbox:       1 django.db.utils.IntegrityError: duplicate key value violates unique constraint \"dcim_site_name_key\"",
+  "netbox:       1 django.db.utils.IntegrityError: duplicate key value violates unique constraint \"dcim_manufacturer_name_key\"",
+  "netbox:       1 django.db.utils.IntegrityError: duplicate key value violates unique constraint \"dcim_devicerole_parent_name\""
+ ],
+ "params": {
+  "devices": 60,
+  "ifaces": 4,
+  "sync_at": 0.3,
+  "sync_objects": 2000
+ },
+ "phases": [
+  {
+   "phase": "initial",
+   "entities": 540,
+   "requests": 11,
+   "send_s": 0.081,
+   "send_req_p50_ms": 4.85,
+   "send_req_p95_ms": 6.84,
+   "elapsed_s": 82.625,
+   "entities_per_s": 6.54,
+   "states_before": {},
+   "states_after": {
+    "APPLIED": 396,
+    "FAILED": 125,
+    "NO_CHANGES": 19
+   },
+   "curve": [
+    [
+     0.088,
+     11,
+     0,
+     0
+    ],
+    [
+     0.592,
+     0,
+     540,
+     0
+    ],
+    [
+     1.096,
+     0,
+     540,
+     0
+    ],
+    [
+     1.6,
+     0,
+     540,
+     0
+    ],
+    [
+     2.104,
+     0,
+     540,
+     0
+    ],
+    [
+     2.609,
+     0,
+     540,
+     0
+    ],
+    [
+     3.113,
+     0,
+     540,
+     0
+    ],
+    [
+     3.617,
+     0,
+     516,
+     24
+    ],
+    [
+     4.122,
+     0,
+     465,
+     75
+    ],
+    [
+     4.626,
+     0,
+     465,
+     75
+    ],
+    [
+     5.129,
+     0,
+     465,
+     75
+    ],
+    [
+     5.633,
+     0,
+     465,
+     75
+    ],
+    [
+     6.138,
+     0,
+     465,
+     75
+    ],
+    [
+     6.642,
+     0,
+     440,
+     100
+    ],
+    [
+     7.146,
+     0,
+     440,
+     100
+    ],
+    [
+     7.651,
+     0,
+     440,
+     100
+    ],
+    [
+     8.155,
+     0,
+     417,
+     123
+    ],
+    [
+     8.659,
+     0,
+     415,
+     125
+    ],
+    [
+     9.163,
+     0,
+     415,
+     125
+    ],
+    [
+     9.671,
+     0,
+     415,
+     125
+    ],
+    [
+     10.174,
+     0,
+     415,
+     125
+    ],
+    [
+     10.678,
+     0,
+     415,
+     125
+    ],
+    [
+     11.182,
+     0,
+     390,
+     150
+    ],
+    [
+     11.685,
+     0,
+     390,
+     150
+    ],
+    [
+     12.189,
+     0,
+     390,
+     150
+    ],
+    [
+     12.694,
+     0,
+     390,
+     150
+    ],
+    [
+     13.198,
+     0,
+     365,
+     175
+    ],
+    [
+     13.702,
+     0,
+     365,
+     175
+    ],
+    [
+     14.206,
+     0,
+     365,
+     175
+    ],
+    [
+     14.71,
+     0,
+     340,
+     200
+    ],
+    [
+     15.215,
+     0,
+     340,
+     200
+    ],
+    [
+     15.719,
+     0,
+     315,
+     225
+    ],
+    [
+     16.223,
+     0,
+     315,
+     225
+    ],
+    [
+     16.727,
+     0,
+     315,
+     225
+    ],
+    [
+     17.23,
+     0,
+     315,
+     225
+    ],
+    [
+     17.734,
+     0,
+     290,
+     250
+    ],
+    [
+     18.238,
+     0,
+     290,
+     250
+    ],
+    [
+     18.745,
+     0,
+     290,
+     250
+    ],
+    [
+     19.249,
+     0,
+     290,
+     250
+    ],
+    [
+     19.752,
+     0,
+     290,
+     250
+    ],
+    [
+     20.256,
+     0,
+     290,
+     250
+    ],
+    [
+     20.76,
+     0,
+     265,
+     275
+    ],
+    [
+     21.263,
+     0,
+     265,
+     275
+    ],
+    [
+     21.767,
+     0,
+     265,
+     275
+    ],
+    [
+     22.271,
+     0,
+     265,
+     275
+    ],
+    [
+     22.776,
+     0,
+     265,
+     275
+    ],
+    [
+     23.28,
+     0,
+     215,
+     325
+    ],
+    [
+     23.786,
+     0,
+     190,
+     350
+    ],
+    [
+     24.289,
+     0,
+     190,
+     350
+    ],
+    [
+     24.792,
+     0,
+     190,
+     350
+    ],
+    [
+     25.295,
+     0,
+     190,
+     350
+    ],
+    [
+     25.799,
+     0,
+     190,
+     350
+    ],
+    [
+     26.302,
+     0,
+     165,
+     375
+    ],
+    [
+     26.804,
+     0,
+     165,
+     375
+    ],
+    [
+     27.306,
+     0,
+     165,
+     375
+    ],
+    [
+     27.808,
+     0,
+     165,
+     375
+    ],
+    [
+     28.311,
+     0,
+     165,
+     375
+    ],
+    [
+     28.813,
+     0,
+     165,
+     375
+    ],
+    [
+     29.315,
+     0,
+     165,
+     375
+    ],
+    [
+     29.818,
+     0,
+     165,
+     375
+    ],
+    [
+     30.321,
+     0,
+     165,
+     375
+    ],
+    [
+     30.823,
+     0,
+     165,
+     375
+    ],
+    [
+     31.326,
+     0,
+     165,
+     375
+    ],
+    [
+     31.828,
+     0,
+     165,
+     375
+    ],
+    [
+     32.331,
+     0,
+     165,
+     375
+    ],
+    [
+     32.833,
+     0,
+     165,
+     375
+    ],
+    [
+     33.335,
+     0,
+     165,
+     375
+    ],
+    [
+     33.838,
+     0,
+     165,
+     375
+    ],
+    [
+     34.341,
+     0,
+     165,
+     375
+    ],
+    [
+     34.843,
+     0,
+     165,
+     375
+    ],
+    [
+     35.346,
+     0,
+     165,
+     375
+    ],
+    [
+     35.85,
+     0,
+     165,
+     375
+    ],
+    [
+     36.352,
+     0,
+     165,
+     375
+    ],
+    [
+     36.855,
+     0,
+     165,
+     375
+    ],
+    [
+     37.357,
+     0,
+     165,
+     375
+    ],
+    [
+     37.86,
+     0,
+     165,
+     375
+    ],
+    [
+     38.363,
+     0,
+     165,
+     375
+    ],
+    [
+     38.866,
+     0,
+     165,
+     375
+    ],
+    [
+     39.369,
+     0,
+     165,
+     375
+    ],
+    [
+     39.871,
+     0,
+     165,
+     375
+    ],
+    [
+     40.374,
+     0,
+     165,
+     375
+    ],
+    [
+     40.876,
+     0,
+     165,
+     375
+    ],
+    [
+     41.378,
+     0,
+     165,
+     375
+    ],
+    [
+     41.881,
+     0,
+     165,
+     375
+    ],
+    [
+     42.384,
+     0,
+     165,
+     375
+    ],
+    [
+     42.886,
+     0,
+     165,
+     375
+    ],
+    [
+     43.389,
+     0,
+     165,
+     375
+    ],
+    [
+     43.891,
+     0,
+     165,
+     375
+    ],
+    [
+     44.397,
+     0,
+     165,
+     375
+    ],
+    [
+     44.899,
+     0,
+     165,
+     375
+    ],
+    [
+     45.402,
+     0,
+     165,
+     375
+    ],
+    [
+     45.905,
+     0,
+     165,
+     375
+    ],
+    [
+     46.407,
+     0,
+     165,
+     375
+    ],
+    [
+     46.91,
+     0,
+     165,
+     375
+    ],
+    [
+     47.412,
+     0,
+     165,
+     375
+    ],
+    [
+     47.915,
+     0,
+     165,
+     375
+    ],
+    [
+     48.417,
+     0,
+     165,
+     375
+    ],
+    [
+     48.92,
+     0,
+     165,
+     375
+    ],
+    [
+     49.422,
+     0,
+     165,
+     375
+    ],
+    [
+     49.924,
+     0,
+     165,
+     375
+    ],
+    [
+     50.427,
+     0,
+     165,
+     375
+    ],
+    [
+     50.929,
+     0,
+     165,
+     375
+    ],
+    [
+     51.431,
+     0,
+     165,
+     375
+    ],
+    [
+     51.933,
+     0,
+     165,
+     375
+    ],
+    [
+     52.436,
+     0,
+     165,
+     375
+    ],
+    [
+     52.938,
+     0,
+     165,
+     375
+    ],
+    [
+     53.441,
+     0,
+     165,
+     375
+    ],
+    [
+     53.944,
+     0,
+     165,
+     375
+    ],
+    [
+     54.448,
+     0,
+     165,
+     375
+    ],
+    [
+     54.95,
+     0,
+     165,
+     375
+    ],
+    [
+     55.453,
+     0,
+     165,
+     375
+    ],
+    [
+     55.956,
+     0,
+     165,
+     375
+    ],
+    [
+     56.458,
+     0,
+     165,
+     375
+    ],
+    [
+     56.961,
+     0,
+     165,
+     375
+    ],
+    [
+     57.463,
+     0,
+     165,
+     375
+    ],
+    [
+     57.965,
+     0,
+     165,
+     375
+    ],
+    [
+     58.468,
+     0,
+     165,
+     375
+    ],
+    [
+     58.972,
+     0,
+     165,
+     375
+    ],
+    [
+     59.474,
+     0,
+     165,
+     375
+    ],
+    [
+     59.976,
+     0,
+     165,
+     375
+    ],
+    [
+     60.479,
+     0,
+     165,
+     375
+    ],
+    [
+     60.982,
+     0,
+     165,
+     375
+    ],
+    [
+     61.485,
+     0,
+     165,
+     375
+    ],
+    [
+     61.987,
+     0,
+     165,
+     375
+    ],
+    [
+     62.49,
+     0,
+     165,
+     375
+    ],
+    [
+     62.993,
+     0,
+     165,
+     375
+    ],
+    [
+     63.496,
+     0,
+     165,
+     375
+    ],
+    [
+     63.999,
+     0,
+     165,
+     375
+    ],
+    [
+     64.502,
+     0,
+     165,
+     375
+    ],
+    [
+     65.005,
+     0,
+     165,
+     375
+    ],
+    [
+     65.508,
+     0,
+     165,
+     375
+    ],
+    [
+     66.01,
+     0,
+     165,
+     375
+    ],
+    [
+     66.514,
+     0,
+     165,
+     375
+    ],
+    [
+     67.018,
+     0,
+     165,
+     375
+    ],
+    [
+     67.521,
+     0,
+     165,
+     375
+    ],
+    [
+     68.025,
+     0,
+     165,
+     375
+    ],
+    [
+     68.529,
+     0,
+     165,
+     375
+    ],
+    [
+     69.033,
+     0,
+     165,
+     375
+    ],
+    [
+     69.537,
+     0,
+     165,
+     375
+    ],
+    [
+     70.04,
+     0,
+     165,
+     375
+    ],
+    [
+     70.545,
+     0,
+     165,
+     375
+    ],
+    [
+     71.049,
+     0,
+     165,
+     375
+    ],
+    [
+     71.551,
+     0,
+     165,
+     375
+    ],
+    [
+     72.055,
+     0,
+     165,
+     375
+    ],
+    [
+     72.558,
+     0,
+     165,
+     375
+    ],
+    [
+     73.061,
+     0,
+     165,
+     375
+    ],
+    [
+     73.565,
+     0,
+     165,
+     375
+    ],
+    [
+     74.068,
+     0,
+     165,
+     375
+    ],
+    [
+     74.572,
+     0,
+     140,
+     400
+    ],
+    [
+     75.075,
+     0,
+     140,
+     400
+    ],
+    [
+     75.578,
+     0,
+     140,
+     400
+    ],
+    [
+     76.081,
+     0,
+     140,
+     400
+    ],
+    [
+     76.585,
+     0,
+     140,
+     400
+    ],
+    [
+     77.088,
+     0,
+     90,
+     450
+    ],
+    [
+     77.592,
+     0,
+     90,
+     450
+    ],
+    [
+     78.095,
+     0,
+     90,
+     450
+    ],
+    [
+     78.598,
+     0,
+     90,
+     450
+    ],
+    [
+     79.103,
+     0,
+     90,
+     450
+    ],
+    [
+     79.608,
+     0,
+     65,
+     475
+    ],
+    [
+     80.112,
+     0,
+     40,
+     500
+    ],
+    [
+     80.614,
+     0,
+     40,
+     500
+    ],
+    [
+     81.117,
+     0,
+     25,
+     515
+    ],
+    [
+     81.62,
+     0,
+     25,
+     515
+    ],
+    [
+     82.122,
+     0,
+     0,
+     540
+    ],
+    [
+     82.625,
+     0,
+     0,
+     540
+    ]
+   ]
+  }
+ ],
+ "branching": {
+  "branch": {
+   "id": 1,
+   "schema_id": "cc9w8paw",
+   "schema": "branch_cc9w8paw",
+   "status": "ready"
+  },
+  "main_writes": {
+   "tags": 2000
+  },
+  "sync": {
+   "started_at_settled": 175,
+   "failed_before": 125,
+   "started_s": 13.313,
+   "failed_at_end_of_sync": 125,
+   "status": "ready",
+   "error": null,
+   "sync_s": 44.868,
+   "started_epoch": 1794761199.4679477,
+   "ended_epoch": 1794761244.336339,
+   "unsynced_at_go": 2000,
+   "unsynced_after": 0
+  },
+  "tags_synced_to_branch": 2000,
+  "ingest_failed": 125,
+  "failed_errors": [
+   [
+    "{\"code\": \"ERR_OPS_APPLY_CHANGE_SET\", \"details\": {\"errors\": {\"request\": {\"__all__\": [\"internal error\"]}}}, \"message\": \"bulk plan-apply failed\"}",
+    125
+   ]
+  ],
+  "objects_in_branch": {
+   "device": 49,
+   "interface": 194,
+   "ipaddress": 194
+  },
+  "missing_in_branch": {
+   "device": 11,
+   "interface": 46,
+   "ipaddress": 46
+  }
+ },
+ "netbox_state": {
+  "dcim.Device": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.DeviceRole": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.DeviceType": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.Interface": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.Manufacturer": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.Platform": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "dcim.Site": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "extras.Tag": {
+   "count": 2000,
+   "sha256": "ccf0254e7af9c7787db53b80c9787ed2c9bec739ff8e10c32270627911b878b1"
+  },
+  "ipam.IPAddress": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ipam.Prefix": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ipam.VLAN": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+ },
+ "resources": {
+  "bench-auth": {
+   "cpu_avg_pct": 0.0,
+   "cpu_max_pct": 0.0,
+   "mem_max_mib": 11.9
+  },
+  "diode-ingester": {
+   "cpu_avg_pct": 0.1,
+   "cpu_max_pct": 8.3,
+   "mem_max_mib": 9.4
+  },
+  "diode-postgres": {
+   "cpu_avg_pct": 8.6,
+   "cpu_max_pct": 25.9,
+   "mem_max_mib": 55.7
+  },
+  "diode-reconciler": {
+   "cpu_avg_pct": 0.9,
+   "cpu_max_pct": 20.0,
+   "mem_max_mib": 14.0
+  },
+  "diode-redis": {
+   "cpu_avg_pct": 1.0,
+   "cpu_max_pct": 1.9,
+   "mem_max_mib": 3.9
+  },
+  "netbox": {
+   "cpu_avg_pct": 116.9,
+   "cpu_max_pct": 368.7,
+   "mem_max_mib": 1372.2
+  },
+  "netbox-postgres": {
+   "cpu_avg_pct": 42.1,
+   "cpu_max_pct": 181.4,
+   "mem_max_mib": 144.7
+  },
+  "netbox-redis": {
+   "cpu_avg_pct": 1.7,
+   "cpu_max_pct": 3.0,
+   "mem_max_mib": 3.6
+  },
+  "netbox-redis-cache": {
+   "cpu_avg_pct": 1.2,
+   "cpu_max_pct": 2.9,
+   "mem_max_mib": 3.9
+  }
+ }
+}
