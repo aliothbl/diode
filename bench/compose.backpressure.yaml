@@ -1,0 +1,9 @@
+# Backpressure overlay (P-10 reproduction): granian queues at most
+# GRANIAN_BACKPRESSURE requests per worker (bench default = workers = 4) and
+# answers 503 to the rest without reading their body. With 1 and more
+# concurrent auto-apply workers than NetBox workers, granian's 503 becomes
+# frequent instead of rare. Not for throughput measurements.
+services:
+  netbox:
+    environment:
+      GRANIAN_BACKPRESSURE: "${GRANIAN_BACKPRESSURE:-1}"

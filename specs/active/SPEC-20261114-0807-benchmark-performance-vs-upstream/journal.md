@@ -33,6 +33,10 @@
 - **P-5 — Consumo do stream no reconciler é serial** (XReadGroup Count=100, uma mensagem por vez, XAck + XDel em duas idas por mensagem).
 
 ## LOG
+- 2026-11-15 18:05 — **P-10 resolvido.** Hipótese: o 503 de backpressure do granian sai sem ler o corpo, e o retry do Diode reaproveita a conexão keep-alive suja e trava até os 120 s (o mesmo mecanismo do P-12, provado com sonda direta). Reprodução determinística com o overlay novo `bench/compose.backpressure.yaml` (`GRANIAN_BACKPRESSURE=1`) + `std+nobranching`, c=8, lote 25; A/B por `bench/tools/p10-ab.sh`, ×3 cada:
+  - diode `2919153` (sem `Connection: close`): **208 / 286 / 338 timeouts de apply** e 133 / 263 / 309 FAILED por execução (todas as fases afetadas);
+  - diode atual (`117b107` em diante): **0 timeouts e 0 FAILED** nas 3.
+  Resultados `20261115-172036-*` (antes) e `20261115-174518-*` (depois). Sem branching nessas execuções, então a correção que vale aqui é a do Diode (`Connection: close`), não o dreno do netbox-branching.
 - 2026-11-15 11:54 — **P-11 corrigido (M-7, `9e453e1`); P-10 segue aberto; harness ampliado.**
   - **P-11:** quando o NetBox responde com corpo não-JSON (o middleware do netbox-branching manda `400 Selected branch is not ready.` em texto puro durante sync ou merge), `changeset.Error.Details` (`json.RawMessage`) não serializa, `UpdateIngestionLogStateWithError` falha antes de chegar ao banco, e o lote inteiro fica em **APPLYING sem erro** até o reconciler reiniciar. Visto em `20261115-090842`: 190/540 entidades não chegaram ao branch, com o log mostrando 0 FAILED. **M-7:** `NewError` guarda detalhes não-JSON como string JSON, e o repositório usa a mensagem do erro quando o marshal falha. 5 testes; `go test ./...` verde (`bench/evidence/logs/*go-test-p11.log`). Validado em `20261115-094726` ×5: as entidades viram FAILED com o motivo e as execuções terminam normalmente.
   - **P-10:** o timeout de apply (120 s) voltou em 2/5 execuções de `branch-sync-ingest` (1–2 lotes), sem nada no log do NetBox. O `run.sh` agora amostra o `pg_stat_activity` do NetBox a cada 2 s (`<resultado>.logs/netbox-pg-activity.tsv.gz`), para identificar a espera na próxima ocorrência.

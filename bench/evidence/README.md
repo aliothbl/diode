@@ -40,6 +40,7 @@ edited by hand; files are copied verbatim from where the work produced them.
 | 20261115-0650-b66qrlq8s | plugin suite v4.7 with M-6: 1015 tests OK (lint step failed: no ruff in image; ruff run on host instead) |
 | 20261115-0802-bwh476wl5 | validation M-6: stress ×5 + std c=4 ×3 |
 | 20261115-0847-bxytgcj0w | interleaved A/B plugin ed63aff × ae04547, 3 pairs |
+| _harness-dev/20261115-134519 | stack kept up for the keep-alive probe (smoke, not a measurement) |
 | 20261115-0910-bafg4kms4 | branch-sync-ingest trial (batch 100, c=1 default): sync fell inside one in-flight request, F6 window not exercised |
 | 20261115-0941-b600bo556 | branch-sync-ingest trial c=4 batch 25, 2000 main changes: F6 reproduced (400 "branch not ready"), 190 entities stuck in APPLYING (P-11), phase timed out |
 | 20261115-1010-bplymxuex | branch-sync-ingest ×5 with P-11 fix (F6 5/5: 190–265 FAILED; 2 runs with apply timeouts, P-10) |
@@ -50,5 +51,6 @@ edited by hand; files are copied verbatim from where the work produced them.
 | 20261115-1515-bqdh20ih6 | F6 fix v2 (+ body drain + Connection: close) ×5: 3/5 perfect, 2/5 with 2–4 FAILED "deleted in main" (plugin apply not atomic on the branch connection) |
 | 20261115-1610-bdufqrvxo | F6 fix v3 (+ plugin apply atomic on branch connection) ×5: regression, 75–125 FAILED (500 from the create-or-find fallback) |
 | 20261115-1655-bx4jt1ofd | **F6 fix v4 (+ savepoint on branch connection) ×5: 0 FAILED, 0 missing, 0 timeouts in 5/5** |
+| 20261115-1815-bmlpwewgb | **P-10 A/B under granian backpressure=1** (std, c=8, batch 25, ×3 each): diode 2919153 (no Connection: close) 208–338 apply timeouts and 133–309 FAILED per run; current 0 / 0 |
 
 Helper scripts used for the stress and A/B batteries: `bench/tools/`.
