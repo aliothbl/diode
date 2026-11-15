@@ -47,6 +47,8 @@ Removidas as duplicatas e descontadas as atualizações perdidas, o conteúdo do
 | **P-1** | **Crítica** | `bulk-plan-apply` reenviado após timeout → objetos duplicados, atualizações perdidas, log de ingestão falso | **Corrigido (M-1)** |
 | **P-7** | Média | Lote reivindicado aplicado fora da ordem de ingestão → log credita a entidade errada; ordem varia entre execuções | **Corrigido (M-2)** |
 | P-3 | Alta (performance) | Plugin aplica entidade por entidade, em série, um worker por lote; CPU de Python é o gargalo | Medido; não alterado (ver §6) |
+| **P-9** | Média | Com auto-apply concorrente, um lote inteiro termina `FAILED` (os dados chegam ao NetBox pela reingestão, mas o registro mente). Duas causas: deadlocks no Postgres do Diode e deadlock de árvore (ltree) no NetBox 4.7 que o plugin devolvia como 500 | **Corrigido (M-4 + M-6)**; M-5 fecha um caminho latente |
+| P-10 | A investigar | 1 lote passou dos 120s de apply (1 de 26 execuções de estresse do fork, logo após recriar o seed) | Aberto |
 | P-6 | Média (dados) | Platform compartilhada entre fabricantes → cada apply reescreve `platform.manufacturer` → toda reingestão vira UPDATE + clone de drift | Documentado (comportamento de dado) |
 | P-2 | Baixa | Rate limiter padrão 20 RPS / burst 1 | Não é gargalo (teto ~2000 ent/s com lote 100) |
 | P-4 | Alta (segurança) | Ingester não verifica assinatura do JWT; confia no nginx | Fora do escopo; SPEC 2142 |
@@ -93,6 +95,18 @@ O SDK copia o `manufacturer` do Device para a `platform`. Se devices de fabrican
 ### M-2 — Lote aplicado na ordem de ingestão (`14ba79f`)
 - `ClaimQueuedIngestionLogs` e `ClaimQueuedForAutoApply` ordenam o lote por id antes de devolvê-lo (`diode-server/dbstore/postgres/repository.go`, `sortQueuedByID`). Testes: `claim_order_internal_test.go`.
 - Efeito medido: na carga inicial, as 1800 entidades ficam `APPLIED` (antes eram até 146 `NO_CHANGES` falsos com concorrência 1). Com concorrência 4 restam cerca de 23, por concorrência entre lotes diferentes, o que é esperado.
+
+### P-9 — Lote inteiro `FAILED` sob concorrência (M-4, M-5, M-6)
+
+Estresse: `std` sem branching, concorrência 8, lote de auto-apply 25. Antes das correções, 1 lote (25 entidades) `FAILED` em cerca de 1 a cada 8 execuções. A investigação passou por três camadas:
+
+- **M-4 — retry de transação no Diode** (`91ecf9d`; develop `d9dd64f`). Deadlocks 40P01 entre claim, dedup e triggers de contadores do Postgres do Diode. As transações do repositório agora são reexecutadas: até 5 tentativas, com backoff e jitter. Nas execuções seguintes, os deadlocks no claim continuaram ocorrendo, mas foram absorvidos sem erro.
+- **M-5 — truncate pós-commit não invalida o persist** (`cff6f70`; develop `93aa636`). Defeito latente encontrado na análise. `BulkPersistChangeSets` devolvia a falha do truncate de retenção, que roda depois do commit, como falha do persist. Com isso, um lote já `APPLIED` era marcado `FAILED`; no fluxo só de plano, os change sets eram gravados duas vezes. 3 testes unitários. Não é a causa observada.
+- **M-6 — deadlock de árvore no plugin** (plugin `ae04547`, = develop). **Esta é a causa observada**, identificada em `20261115-062938`. O NetBox 4.7 (`netbox/models/ltree.py`) converte o 40P01 dos triggers de árvore em `ValidationError("The hierarchy was modified concurrently; please retry.")`. O retry do plugin só reconhecia `OperationalError`, e o lote inteiro voltava 500. Agora esse erro também recebe retry, e, esgotadas as tentativas, vira erro só da entidade (`db_deadlock_after_retries`). 9 testes; suíte v4.7 completa (1015) verde.
+
+**Validação.** 5 execuções de estresse com M-6: nenhum 500 de árvore. Em uma delas o retry de árvore disparou e salvou o lote. Throughput `std` c=4 num A/B intercalado (3 pares, plugin antes × depois): 24,2 ± 2,3 contra 22,6 ± 1,8 ent/s, com diferença por par de −1,7 ± 3,8. **Inconclusivo:** o ruído entre execuções (~9%) é maior que qualquer efeito plausível, e no caminho sem erro a mudança não executa código novo.
+
+**Upstream:** o defeito de M-6 está no plugin do upstream (`8c3a3bb`) com qualquer NetBox ≥ 4.7. O de M-5 está no diode do upstream.
 
 `go test ./...` passa no fork; a suíte do plugin passou (1006 testes, NetBox 4.7.0) após a sincronização com o upstream.
 

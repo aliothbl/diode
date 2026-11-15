@@ -5,6 +5,7 @@
 - **Baseline:** diode `519ccec`, plugin `8c3a3bb` (worktrees em `bench/.baseline/`, criados por `bench/run.sh`).
 - **Candidato:** `perf/bench-vs-upstream` (diode `e8312fe` = baseline + `specs/`; plugin `d7a0cc4` = idem). Ainda sem mudança de código.
 - **Candidato atual:** M-1 (`14f4147`) + M-2 (`14ba79f`).
+- **2026-11-15:** P-9 resolvido (M-4 + M-6 no plugin; M-5 latente). P-10 aberto (timeout de apply isolado). Report §2/§3 atualizados.
 - **Próximo passo:** revisão do owner. Opções: (a) PRs upstream de M-1/M-2; (b) otimizar o plugin com o profile como mapa; (c) cenário `large`.
 
 ## Plano
@@ -32,6 +33,13 @@
 - **P-5 — Consumo do stream no reconciler é serial** (XReadGroup Count=100, uma mensagem por vez, XAck + XDel em duas idas por mensagem).
 
 ## LOG
+- 2026-11-15 08:49 — **P-9 resolvido (M-5, M-6); throughput inconclusivo.**
+  - **1a.** Estresse c=8 batch 25, ×8 (`20261115-044342`…`051612`): limpo. A análise do código achou o **M-5** (`cff6f70`; develop `93aa636`): o truncate de retenção roda depois do commit, mas a falha dele virava falha de `BulkPersistChangeSets`, e um lote APPLIED era marcado FAILED (ou, no plan-only, persistido 2×). 3 testes. Não é a causa observada.
+  - **Vítima.** Encontrada no estresse seguinte, com o `error_summary` incluindo o NetBox (`fd74bac`), em `20261115-062938`: 25 FAILED com `internal error` e 0 deadlocks no Postgres do Diode. No NetBox, `ValidationError: The hierarchy was modified concurrently` (`netbox/models/ltree.py:445`, 4.7). É um 40P01 nos advisory locks de árvore, convertido em ValidationError `from None`. O retry do plugin não o reconhecia, e o lote inteiro recebia 500.
+  - **M-6** (plugin `ae04547`, develop por fast-forward): retry também nesse erro e, esgotado, erro por entidade. 9 testes; suíte v4.7 com 1015 testes e ruff OK. Os contadores com deltas (plano 1b) ficam descartados como correção do P-9.
+  - **Validação com M-6** (estresse ×5, `072104`…`074112`): 0 respostas 500 de árvore. Em `073622` houve 1 retry de árvore e o lote passou. Em `073154`, 1 deadlock no claim foi absorvido pelo M-4.
+  - **P-10 (novo, aberto):** em `072104`, 1 lote estourou o timeout de 120 s (25 FAILED), sem retry do plugin. Foi a 1ª execução após recriar o seed.
+  - **Throughput** `std` c=4, A/B intercalado (`081402`…`084139`): ed63aff 24,24 ± 2,30; ae04547 22,55 ± 1,78; por par, −1,7 ± 3,8. **Inconclusivo**: o ruído (~9%) é maior que a meta de 3%, e no caminho sem erro a mudança não executa código novo.
 - 2026-11-14 23:12 — Correção: a entrada "23:24 — P-9 / Melhoria M-4" foi escrita às 23:10 (o horário foi digitado antes de consultar o relógio).
 - 2026-11-14 23:24 — **P-9 / Melhoria M-4** (`91ecf9d`): retry em 40P01/40001 (até 5 tentativas, backoff exponencial com jitter) em `WithDedupLocks`, `BulkPersistChangeSets` (transação; o truncate pós-commit fica fora), `BulkCreateDriftDeviations` e nos dois claims. 4 testes em `dbstore/postgres/retry_internal_test.go`; `go test ./...` verde. **Validação ponta a ponta, parcial:**
   - (a) `std+nobranching`, c=4, ×5: 0 erros, mas também 0 deadlocks detectados, então o retry não foi exercitado e isso não prova nada;
