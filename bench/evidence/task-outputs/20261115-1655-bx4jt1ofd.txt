@@ -1,0 +1,19 @@
+==> building diode-server 65f604c into /home/alatour/repositories/netbox/diode/bench/out/bin/candidate-65f604c
+==> no NetBox seed for plugin 938afa0: first boot runs migrations (~8 min), then it is snapshotted
+==> [candidate diode=65f604c plugin=938afa0 branching=e3bcd51] scenario=branch-sync-ingest run 1/5
+   initial      540 ent    87.173s      6.19 ent/s  {'APPLIED': 516, 'NO_CHANGES': 24}
+==> [candidate diode=65f604c plugin=938afa0 branching=e3bcd51] scenario=branch-sync-ingest run 2/5
+   initial      540 ent    88.179s      6.12 ent/s  {'APPLIED': 517, 'NO_CHANGES': 23}
+==> [candidate diode=65f604c plugin=938afa0 branching=e3bcd51] scenario=branch-sync-ingest run 3/5
+   initial      540 ent    87.153s       6.2 ent/s  {'APPLIED': 514, 'NO_CHANGES': 26}
+==> [candidate diode=65f604c plugin=938afa0 branching=e3bcd51] scenario=branch-sync-ingest run 4/5
+   initial      540 ent    89.678s      6.02 ent/s  {'APPLIED': 516, 'NO_CHANGES': 24}
+==> [candidate diode=65f604c plugin=938afa0 branching=e3bcd51] scenario=branch-sync-ingest run 5/5
+   initial      540 ent    93.207s      5.79 ent/s  {'APPLIED': 515, 'NO_CHANGES': 25}
+20261115-162825-candid 65f604c 938afa0 e3bcd51 sync_s 46.273 failed 0 missing {'device': 0, 'interface': 0, 'ipaddress': 0} timeouts 0 errs []
+20261115-162825-candid 65f604c 938afa0 e3bcd51 sync_s 45.203 failed 0 missing {'device': 0, 'interface': 0, 'ipaddress': 0} timeouts 0 errs []
+20261115-162825-candid 65f604c 938afa0 e3bcd51 sync_s 44.481 failed 0 missing {'device': 0, 'interface': 0, 'ipaddress': 0} timeouts 0 errs []
+20261115-162825-candid 65f604c 938afa0 e3bcd51 sync_s 45.292 failed 0 missing {'device': 0, 'interface': 0, 'ipaddress': 0} timeouts 0 errs []
+20261115-162825-candid 65f604c 938afa0 e3bcd51 sync_s 44.661 failed 0 missing {'device': 0, 'interface': 0, 'ipaddress': 0} timeouts 0 errs []
+
+[exited with code 0]

@@ -41,5 +41,5 @@ Consumir o contrato da SPEC par do netbox-branching:
 - Com o branch padrão terminal, nada é aplicado no main por engano: falha fechada.
 
 ## Critério de aceite
-- [ ] Testes: 503 → linhas voltam a QUEUED, sem FAILED, e o próximo claim espera o `Retry-After`; 409 terminal → cache do branch padrão invalidado | verify: `cd diode-server && go test ./reconciler/... ./netboxdiodeplugin/...`
-- [ ] Bench `branch-sync-ingest`: 0 FAILED durante um sync do branch padrão | evidence: manual @aliothbl
+- [x] Testes: 503 → linhas voltam a QUEUED, sem FAILED, e o próximo claim espera o `Retry-After`; 409 terminal → cache do branch padrão invalidado | verify: `cd diode-server && go test ./reconciler/... ./netboxdiodeplugin/...` — 2026-11-15 16:55, `117b107`: verde (`bench/evidence/logs/20261115-go-test-1748-connclose.log`)
+- [x] Bench `branch-sync-ingest`: 0 FAILED durante um sync do branch padrão | evidence: `bench/results/20261115-162825-*` (5/5: 0 FAILED, 0 faltando, 0 timeouts) — 2026-11-15 16:55; aguarda conferência manual @aliothbl

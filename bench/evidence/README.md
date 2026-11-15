@@ -48,5 +48,7 @@ edited by hand; files are copied verbatim from where the work produced them.
 | 20261115-1153-b8i78nwct | branch-sync-watermark ×5: F3 reproduced 5/5 |
 | 20261115-1350-bsgtbrkm2 | F6 fix v1 (503 + requeue) ×5: 0 "not ready", but 100 FAILED/run from 120 s timeouts (retry on a connection left dirty by the 503) |
 | 20261115-1515-bqdh20ih6 | F6 fix v2 (+ body drain + Connection: close) ×5: 3/5 perfect, 2/5 with 2–4 FAILED "deleted in main" (plugin apply not atomic on the branch connection) |
+| 20261115-1610-bdufqrvxo | F6 fix v3 (+ plugin apply atomic on branch connection) ×5: regression, 75–125 FAILED (500 from the create-or-find fallback) |
+| 20261115-1655-bx4jt1ofd | **F6 fix v4 (+ savepoint on branch connection) ×5: 0 FAILED, 0 missing, 0 timeouts in 5/5** |
 
 Helper scripts used for the stress and A/B batteries: `bench/tools/`.
