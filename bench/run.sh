@@ -181,6 +181,11 @@ for run in $(seq 1 "$RUNS"); do
     | sort | uniq -c | sort -rn | head -10 > "$OUT.errors" || true
   docker logs diode-bench-diode-postgres-1 2>&1 | grep -A3 'deadlock detected' \
     | grep -o -- '-- name: [A-Za-z]*' | sort | uniq -c >> "$OUT.errors" || true
+  # NetBox-side failures (a whole bulk-plan-apply batch failing in the plugin
+  # also yields one reconciler ERROR per entity): first line of each error.
+  docker logs diode-bench-netbox-1 2>&1 | grep -E 'ERROR|Error:|Exception:|" 50[0-9] ' \
+    | sed -E 's/[0-9a-f]{8}-[0-9a-f-]{27}/<uuid>/g; s/\b[0-9]{2,}\b/<n>/g' | cut -c1-300 \
+    | sort | uniq -c | sort -rn | head -10 | sed 's/^/netbox: /' >> "$OUT.errors" || true
   rm -f "$DUMP"
 
   "$VENV/bin/python" - "$OUT" "$OUT.load" "$STATS" <<PY
