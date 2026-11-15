@@ -1,0 +1,19 @@
+Using existing test database for alias 'default'...
+F
+======================================================================
+FAIL: test_background_api_request_activates_branch_from_query_param (netbox_branching.tests.test_request.RequestTestCase.test_background_api_request_activates_branch_from_query_param)
+apply_request_processors() only warns when a processor fails, so the background write lands
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_request.py", line 302, in test_background_api_request_activates_branch_from_query_param
+    self.assertEqual(active_branch.get(), branch)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: None != <Branch: Branch 1>
+
+----------------------------------------------------------------------
+Ran 1 test in 0.300s
+
+FAILED (failures=1)
+Preserving test database for alias 'default'...
+Found 1 test(s).
+System check identified no issues (0 silenced).
