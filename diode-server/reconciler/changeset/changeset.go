@@ -78,8 +78,21 @@ func (e *Error) Error() string {
 	return fmt.Sprintf("%s - %s - %s", e.Message, e.Code, string(e.Details))
 }
 
-// NewError creates a new Error
+// NewError creates a new Error.
+//
+// details is usually the JSON body NetBox returned, but not always: a
+// middleware in front of the plugin can answer in plain text (for example
+// netbox-branching's 400 "Selected branch is not ready."). Details is a
+// json.RawMessage, so storing such a body as is makes the Error impossible
+// to marshal, and the ingestion log update that records it fails, leaving
+// the entity in APPLYING with no error. Non-JSON details are kept as a JSON
+// string instead.
 func NewError(message string, code errors.ErrorCode, details []byte) error {
+	if len(details) > 0 && !json.Valid(details) {
+		if quoted, err := json.Marshal(string(details)); err == nil {
+			details = quoted
+		}
+	}
 	return &Error{
 		Message: message,
 		Code:    code,
