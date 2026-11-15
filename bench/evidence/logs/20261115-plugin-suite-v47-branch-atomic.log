@@ -16,3 +16,354 @@
  Container diode-netbox-plugin-v47x-netbox-run-1c531f7ce7ca Created 
 /opt/netbox/netbox/netbox/settings.py:278: FutureWarning: LOGIN_REQUIRED is deprecated and will be removed in NetBox v5.0. Unauthenticated access to the application will no longer be supported. Please plan to require authentication for all users before upgrading.
   warnings.warn(
+Using existing test database for alias 'default'...
+Checking for branches with pending database migrations
+..Error applying change set: Change set ID is required: {'changeset': {'id': ['Change set ID is required']}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+.Error applying change set: Change set ID is required: {'changeset': {'id': ['Change set ID is required']}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+.Error applying change set: Unsupported change type 'None': {'__all__': {'change_type': ["Unsupported change type 'None'"]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+.Error applying change set: validation error: {'dcim.device': {'device_type': [ErrorDetail(string='Related object not found using the provided numeric ID: 3', code='invalid')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+..Error applying change set: validation error: {'dcim.site': {'asns': [ErrorDetail(string='Expected a list of items but got type "int".', code='not_a_list')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+..Error applying change set: Unsupported change type '': {'dcim.site': {'change_type': ["Unsupported change type ''"]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+..Error applying change set: validation error: {'dcim.site': {'asns': [ErrorDetail(string='Expected a list of items but got type "int".', code='not_a_list')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+..Error applying change set: dcim.site with id 30 does not exist: {'dcim.site': {'object_id': ['dcim.site with id 30 does not exist']}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+...Error applying change set: validation error: {'ipam.prefix': {'scope_id': [ErrorDetail(string='Related object not found using the provided value: 99.', code='invalid')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+.....Error applying change set: validation error: {'dcim.device': {'device_type': [ErrorDetail(string='Related object not found using the provided numeric ID: 3', code='invalid')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+.Traceback (most recent call last):
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/views.py", line 553, in post
+    return self._post(request, *args, **kwargs)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/views.py", line 564, in _post
+    raise ValidationError({"change_sets": ["change_sets must be a list"]})
+rest_framework.exceptions.ValidationError: {'change_sets': [ErrorDetail(string='change_sets must be a list', code='invalid')]}
+Bad Request: /netbox/api/plugins/diode/bulk-apply/
+.Traceback (most recent call last):
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/views.py", line 553, in post
+    return self._post(request, *args, **kwargs)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/views.py", line 566, in _post
+    raise ValidationError({"change_sets": ["change_sets must not be empty"]})
+rest_framework.exceptions.ValidationError: {'change_sets': [ErrorDetail(string='change_sets must not be empty', code='invalid')]}
+Bad Request: /netbox/api/plugins/diode/bulk-apply/
+.Error parsing batch entry: 'str' object has no attribute 'get'
+.Traceback (most recent call last):
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/views.py", line 553, in post
+    return self._post(request, *args, **kwargs)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/views.py", line 562, in _post
+    raise ValidationError({"change_sets": ["change_sets is required"]})
+rest_framework.exceptions.ValidationError: {'change_sets': [ErrorDetail(string='change_sets is required', code='invalid')]}
+Bad Request: /netbox/api/plugins/diode/bulk-apply/
+.Error applying change set: validation error: {'dcim.site': {'asns': [ErrorDetail(string='Expected a list of items but got type "int".', code='not_a_list')]}}
+.....Bad Request: /netbox/api/plugins/diode/bulk-plan/
+.Bad Request: /netbox/api/plugins/diode/bulk-plan/
+..done extracting supported diode models in 287.54 milliseconds - extracted_models: 104
+.....Bad Request: /netbox/api/plugins/diode/bulk-plan/
+.........Bad Request: /netbox/api/plugins/diode/bulk-plan-apply/
+.Bad Request: /netbox/api/plugins/diode/bulk-plan-apply/
+...Forbidden: /netbox/api/plugins/diode/bulk-plan-apply/
+.Bad Request: /netbox/api/plugins/diode/bulk-plan-apply/
+.........Forbidden: /netbox/api/plugins/diode/bulk-plan-apply/
+........................Error applying change set: validation error: {'dcim.modulebay': {'__all__': [ErrorDetail(string='A module bay cannot belong to a module installed within it.', code='invalid')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+.................Traceback (most recent call last):
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/applier.py", line 64, in apply_changeset
+    _apply_change(data, model_class, change, created, request, change_set, warnings,
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                  bound_only)
+                  ^^^^^^^^^^^
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/applier.py", line 1349, in _apply_change
+    instance = _create_or_find_instance(
+        data, change.object_type, serializer_class, request, warnings)
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/applier.py", line 1209, in _create_or_find_instance
+    serializer.is_valid(raise_exception=True)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/serializers.py", line 223, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/serializers.py", line 457, in run_validation
+    value = self.validate(value)
+  File "/opt/netbox/netbox/netbox/api/serializers/features.py", line 102, in validate
+    data = super().validate(data)
+  File "/opt/netbox/netbox/netbox/api/serializers/base.py", line 126, in validate
+    instance.full_clean(validate_unique=False)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/base.py", line 1720, in full_clean
+    self.clean()
+    ~~~~~~~~~~^^
+  File "/opt/netbox/netbox/netbox/models/features.py", line 323, in clean
+    cf.validate(value)
+    ~~~~~~~~~~~^^^^^^^
+  File "/opt/netbox/netbox/extras/models/customfields.py", line 1181, in validate
+    date.fromisoformat(value)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^
+TypeError: fromisoformat: argument must be str
+validation raised TypeError error on unspecified field of dcim.site: {'custom_fields': {'mydate': 12}, 'name': 'Site Generate Diff 1', 'slug': 'site-generate-diff-1', 'status': 'active'}: fromisoformat: argument must be str
+Traceback (most recent call last):
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/applier.py", line 64, in apply_changeset
+    _apply_change(data, model_class, change, created, request, change_set, warnings,
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                  bound_only)
+                  ^^^^^^^^^^^
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/applier.py", line 1349, in _apply_change
+    instance = _create_or_find_instance(
+        data, change.object_type, serializer_class, request, warnings)
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/applier.py", line 1209, in _create_or_find_instance
+    serializer.is_valid(raise_exception=True)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/serializers.py", line 223, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/serializers.py", line 457, in run_validation
+    value = self.validate(value)
+  File "/opt/netbox/netbox/netbox/api/serializers/features.py", line 102, in validate
+    data = super().validate(data)
+  File "/opt/netbox/netbox/netbox/api/serializers/base.py", line 126, in validate
+    instance.full_clean(validate_unique=False)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/base.py", line 1720, in full_clean
+    self.clean()
+    ~~~~~~~~~~^^
+  File "/opt/netbox/netbox/netbox/models/features.py", line 323, in clean
+    cf.validate(value)
+    ~~~~~~~~~~~^^^^^^^
+  File "/opt/netbox/netbox/extras/models/customfields.py", line 1181, in validate
+    date.fromisoformat(value)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^
+TypeError: fromisoformat: argument must be str
+
+Error applying change set: invalid data type for field (TypeError): {'dcim.site': {'__all__': ['invalid data type for field (TypeError)']}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+...........Bad Request: /netbox/api/plugins/diode/generate-diff/
+{'id': '83e02b8a-9673-4bd1-8fc3-3a1a1f6257a4', 'errors': {'ipam.vrf': {'__all__': ["Conflicting values for 'description' merging duplicate ipam.routetarget, `Primary import route target` != `Primary export route target` other values : {'name': '65000:100'}"]}}}
+........Bad Request: /netbox/api/plugins/diode/generate-diff/
+.Could not retrieve default branch from settings: Database error
+....Forbidden: /netbox/api/plugins/diode/default-branch/
+...Forbidden: /netbox/api/plugins/diode/default-branch/
+.unresolved reference applying dcim.cable: 'new_object:dcim.interface:missing'
+................Diode Auth token introspection failed: Introspection failed
+..Token audience(s) {'netbox'} not found in set()
+..............................Bad Request: /netbox/api/plugins/diode/generate-diff/
+..............unexpected error in bulk-plan-apply
+Traceback (most recent call last):
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/views.py", line 635, in post
+    return self._post(request, *args, **kwargs)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/views.py", line 673, in _post
+    result = self._process_entity(entry, branch_schema_id, request)
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/views.py", line 725, in _process_entity
+    apply_result = _apply_one_changeset_with_retry(plan_result.change_set, request, entry.get("id"))
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/views.py", line 235, in _apply_one_changeset_with_retry
+    return _apply_one_changeset(change_set, request)
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/views.py", line 211, in _apply_one_changeset
+    return apply_changeset(change_set, request)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/opt/netbox/netbox/netbox_diode_plugin/tests/v4.7.x/tests/test_change_log_buffer.py", line 218, in selective_failing_apply
+    raise RuntimeError("forced rollback for second entity")
+RuntimeError: forced rollback for second entity
+Internal Server Error: /netbox/api/plugins/diode/bulk-plan-apply/
+..unexpected error in bulk-plan-apply
+Traceback (most recent call last):
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/views.py", line 635, in post
+    return self._post(request, *args, **kwargs)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/views.py", line 673, in _post
+    result = self._process_entity(entry, branch_schema_id, request)
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/views.py", line 725, in _process_entity
+    apply_result = _apply_one_changeset_with_retry(plan_result.change_set, request, entry.get("id"))
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/views.py", line 235, in _apply_one_changeset_with_retry
+    return _apply_one_changeset(change_set, request)
+  File "/opt/netbox/netbox/netbox_diode_plugin/api/views.py", line 211, in _apply_one_changeset
+    return apply_changeset(change_set, request)
+  File "/usr/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/unittest/mock.py", line 1247, in _execute_mock_call
+    result = effect(*args, **kwargs)
+  File "/opt/netbox/netbox/netbox_diode_plugin/tests/v4.7.x/tests/test_change_log_buffer.py", line 118, in failing_apply
+    raise RuntimeError("forced rollback")
+RuntimeError: forced rollback
+Internal Server Error: /netbox/api/plugins/diode/bulk-plan-apply/
+...........................................................................dcim.devicetype bound to pk=976 by part number without writing; fields not applied: ['part_number']; warnings passed on for: none
+..dcim.devicetype bound to pk=976 by part number without writing; fields not applied: ['comments']; warnings passed on for: none
+.dcim.devicetype bound to pk=976 by part number without writing; fields not applied: none; warnings passed on for: ['metadata']
+.dcim.devicetype bound to pk=976 by part number without writing; fields not applied: ['description']; warnings passed on for: none
+..dcim.devicetype bound to pk=976 by part number without writing; fields not applied: ['tags']; warnings passed on for: none
+.....objects resolved to the same existing id after deduplication: {'_object_type': 'dcim.manufacturer', '_uuid': 'd8ed9c3e-1491-4baa-99c3-41e37f072ca6', '_refs': set(), '_warnings': {}, 'name': 'pnf-vendor', '_auto_slug': AutoSlug(field_name='slug', value='pnf-vendor'), 'id': 820, '_instance': <Manufacturer: pnf-vendor>} and {'_object_type': 'dcim.manufacturer', '_uuid': '472cb8a1-03e1-4f89-b7c0-76e8df702f89', '_refs': set(), '_warnings': {}, 'slug': 'pnf-vendor'}
+..............objects resolved to the same existing id after deduplication: {'_object_type': 'dcim.devicetype', '_uuid': 'f4e1db73-ec30-46ae-b333-f5ded79b4496', '_refs': {'7f371977-6b48-47c1-ba78-e79a4c9baba0'}, '_warnings': {}, 'model': 'Series 9200 48-port', 'manufacturer': 820, 'part_number': 'SW-9200-48P-B', '_auto_slug': AutoSlug(field_name='slug', value='series-9200-48-port'), 'id': 976, '_instance': <DeviceType: Series 9200 48-port>} and {'_object_type': 'dcim.devicetype', '_uuid': 'cb4c2fe5-1170-4558-897e-1e9f81138e5a', '_refs': {'7f371977-6b48-47c1-ba78-e79a4c9baba0'}, '_warnings': {}, 'model': 'SW-9200-48P', 'manufacturer': 820, 'slug': 'pnf-vendor-sw-9200-48p'}
+...dcim.devicetype bound to pk=976 by part number without writing; fields not applied: ['tags']; warnings passed on for: none
+.objects resolved to the same existing id after deduplication: {'_object_type': 'dcim.manufacturer', '_uuid': '40af3e00-afa1-44bb-8c5e-23f5531717af', '_refs': set(), '_warnings': {}, 'name': 'pnf-vendor', '_auto_slug': AutoSlug(field_name='slug', value='pnf-vendor'), 'id': 820, '_instance': <Manufacturer: pnf-vendor>} and {'_object_type': 'dcim.manufacturer', '_uuid': '950d18f2-8f98-4df3-8102-9abed574e379', '_refs': set(), '_warnings': {}, 'slug': 'pnf-vendor'}
+...........................objects resolved to the same existing id after deduplication: {'_object_type': 'dcim.manufacturer', '_uuid': 'fb4b1fe3-0ff9-46f0-af87-76c34552303c', '_refs': set(), '_warnings': {}, 'name': 'pnf-vendor', '_auto_slug': AutoSlug(field_name='slug', value='pnf-vendor'), 'id': 820, '_instance': <Manufacturer: pnf-vendor>} and {'_object_type': 'dcim.manufacturer', '_uuid': 'df4f53aa-35c5-4724-a7c2-ef752da30229', '_refs': set(), '_warnings': {}, 'slug': 'pnf-vendor'}
+........................dcim.devicetype bound to pk=1003 by part number without writing; fields not applied: ['custom_fields']; warnings passed on for: none
+...........Retrying create_client due to unauthenticated error, attempt 1
+..........................................................................Error applying change set: validation error: {'ipam.vlan': {'qinq_svlan': [ErrorDetail(string='Only Q-in-Q customer VLANs maybe assigned to a service VLAN.', code='invalid')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+...Bad Request: /netbox/api/plugins/diode/generate-diff/
+............................................................................Deprovisioning branch test-branch (branch_64x08lch)
+Deprovisioning completed
+...Deprovisioning branch test-branch-schema (branch_6xfrx3fr)
+Deprovisioning completed
+.Deprovisioning branch test-branch-setter (branch_6ilupq3q)
+Deprovisioning completed
+.................Error applying change set: validation error: {'dcim.module': {'__all__': [ErrorDetail(string='Module must be installed within a module bay belonging to the assigned device (ma-wrong).', code='invalid')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+.....Bad Request: /netbox/api/plugins/diode/generate-diff/
+.Bad Request: /netbox/api/plugins/diode/generate-diff/
+.Bad Request: /netbox/api/plugins/diode/generate-diff/
+.Bad Request: /netbox/api/plugins/diode/generate-diff/
+.Bad Request: /netbox/api/plugins/diode/generate-diff/
+.Bad Request: /netbox/api/plugins/diode/generate-diff/
+.Bad Request: /netbox/api/plugins/diode/generate-diff/
+.Bad Request: /netbox/api/plugins/diode/generate-diff/
+.Bad Request: /netbox/api/plugins/diode/generate-diff/
+.Bad Request: /netbox/api/plugins/diode/generate-diff/
+..objects resolved to the same existing id after deduplication: {'_object_type': 'dcim.modulebay', '_uuid': 'af72096e-d175-4d0c-8c59-6f9f6050ad88', '_refs': set(), '_warnings': {}, 'id': 118, '_instance': <ModuleBay: os-bayA>} and {'_object_type': 'dcim.modulebay', '_uuid': '657524a8-9282-43f2-8048-7a776621a5f9', '_refs': {'b5b01dd9-dcfb-4737-b8fb-b6856f00773f'}, '_warnings': {}, 'device': 1041, 'name': 'os-bayA'}
+objects resolved to the same existing id after deduplication: {'_object_type': 'dcim.modulebay', '_uuid': '7e9940ae-529e-4ef3-a509-523b8f86e722', '_refs': set(), '_warnings': {}, 'id': 118, '_instance': <ModuleBay: os-bayA>} and {'_object_type': 'dcim.modulebay', '_uuid': 'ba60d73e-e7dd-420d-b9ab-749e53361bd4', '_refs': {'04bbbc36-167a-4a51-be01-a323a5b9c553'}, '_warnings': {}, 'device': 1041, 'name': 'os-bayA'}
+.Bad Request: /netbox/api/plugins/diode/generate-diff/
+....Error applying change set: validation error: {'dcim.modulebay': {'__all__': [ErrorDetail(string='A module bay cannot belong to a module installed within it.', code='invalid')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+...........................................................................................................................................................................................................Field password is not in the diode data model, ignoring.
+....................................Bad Request: /netbox/api/plugins/diode/generate-diff/
+..Bad Request: /netbox/api/plugins/diode/generate-diff/
+...Error applying change set: validation error: {'dcim.device': {'virtual_chassis': [ErrorDetail(string='Device cannot be removed from virtual chassis fpd-stack because it is currently designated as its master.', code='invalid')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+..............................................................Modified Settings  (PK: 1)
+..Modified Settings  (PK: 1)
+..........Error applying change set: Cannot designate device 'vce-sw1' (id 1189) as master of VirtualChassis 'vce-stack' (id 19438): the device is a member of 'vce-other' (id 19437). A dcim.virtualchassis payload is not authority to move a device between chassis. Move the device in NetBox -- out of 'vce-other' (id 19437) and into 'vce-stack' (id 19438) -- and this payload applies unchanged on the next pass; or name a different master.: {'dcim.virtualchassis': {'master': ["Cannot designate device 'vce-sw1' (id 1189) as master of VirtualChassis 'vce-stack' (id 19438): the device is a member of 'vce-other' (id 19437). A dcim.virtualchassis payload is not authority to move a device between chassis. Move the device in NetBox -- out of 'vce-other' (id 19437) and into 'vce-stack' (id 19438) -- and this payload applies unchanged on the next pass; or name a different master."]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+......Error applying change set: Ambiguous dcim.virtualchassis reference 'vce-shared': 2 existing virtual chassis named 'vce-shared' are equally consistent with this payload -- id 19452 (domain 'building-a', 2 member(s), mastered); id 19453 (domain 'building-b', 2 member(s), mastered). VirtualChassis.name is not unique in NetBox, so choosing would move devices into a chassis this payload never identified. The payload asserts nothing that tells them apart, and labelling these rows cannot settle it on its own -- a domain narrows only the values a payload asserts, and this one asserts none. Settle it in NetBox, with no change to what the producer sends: merge the duplicates into one row; or put the referencing device into the chassis it belongs to in NetBox -- creating it there if it does not exist yet -- because a reference from a device that is already a member resolves to that member's own chassis. Alternatively the producer starts sending a domain, and the row this payload means is given that value -- both halves are needed, one alone changes nothing.: {'dcim.virtualchassis': {'name': ["Ambiguous dcim.virtualchassis reference 'vce-shared': 2 existing virtual chassis named 'vce-shared' are equally consistent with this payload -- id 19452 (domain 'building-a', 2 member(s), mastered); id 19453 (domain 'building-b', 2 member(s), mastered). VirtualChassis.name is not unique in NetBox, so choosing would move devices into a chassis this payload never identified. The payload asserts nothing that tells them apart, and labelling these rows cannot settle it on its own -- a domain narrows only the values a payload asserts, and this one asserts none. Settle it in NetBox, with no change to what the producer sends: merge the duplicates into one row; or put the referencing device into the chassis it belongs to in NetBox -- creating it there if it does not exist yet -- because a reference from a device that is already a member resolves to that member's own chassis. Alternatively the producer starts sending a domain, and the row this payload means is given that value -- both halves are needed, one alone changes nothing."]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+...Error applying change set: dcim.virtualchassis update addresses ref 'vcb', whose create resolved onto an existing row without writing to it -- that row was matched on criteria no unique constraint enforces, so it may be a different object. Send the update with an explicit object_id to write it deliberately.: {'dcim.virtualchassis': {'ref_id': ["dcim.virtualchassis update addresses ref 'vcb', whose create resolved onto an existing row without writing to it -- that row was matched on criteria no unique constraint enforces, so it may be a different object. Send the update with an explicit object_id to write it deliberately."]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+.......Error applying change set: validation error: {'dcim.virtualchassis': {'description': [ErrorDetail(string='Ensure this field has no more than 200 characters.', code='max_length')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+Error applying change set: validation error: {'dcim.virtualchassis': {'description': [ErrorDetail(string='Ensure this field has no more than 200 characters.', code='max_length')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+Error applying change set: validation error: {'dcim.virtualchassis': {'description': [ErrorDetail(string='Ensure this field has no more than 200 characters.', code='max_length')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+Error applying change set: validation error: {'dcim.virtualchassis': {'description': [ErrorDetail(string='Ensure this field has no more than 200 characters.', code='max_length')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+Error applying change set: validation error: {'dcim.virtualchassis': {'description': [ErrorDetail(string='Ensure this field has no more than 200 characters.', code='max_length')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+Error applying change set: validation error: {'dcim.virtualchassis': {'description': [ErrorDetail(string='Ensure this field has no more than 200 characters.', code='max_length')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+Error applying change set: validation error: {'dcim.virtualchassis': {'domain': [ErrorDetail(string='Ensure this field has no more than 30 characters.', code='max_length')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+Error applying change set: validation error: {'dcim.virtualchassis': {'domain': [ErrorDetail(string='Ensure this field has no more than 30 characters.', code='max_length')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+Error applying change set: validation error: {'dcim.virtualchassis': {'domain': [ErrorDetail(string='Ensure this field has no more than 30 characters.', code='max_length')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+Error applying change set: validation error: {'dcim.virtualchassis': {'domain': [ErrorDetail(string='Ensure this field has no more than 30 characters.', code='max_length')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+Error applying change set: validation error: {'dcim.virtualchassis': {'domain': [ErrorDetail(string='Ensure this field has no more than 30 characters.', code='max_length')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+Error applying change set: validation error: {'dcim.virtualchassis': {'domain': [ErrorDetail(string='Ensure this field has no more than 30 characters.', code='max_length')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+.Error applying change set: validation error: {'dcim.virtualchassis': {'description': [ErrorDetail(string='Ensure this field has no more than 200 characters.', code='max_length')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+Error applying change set: validation error: {'dcim.virtualchassis': {'domain': [ErrorDetail(string='Ensure this field has no more than 30 characters.', code='max_length')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+........Error applying change set: validation error: {'dcim.virtualchassis': {'master': [ErrorDetail(string='Related objects must be referenced by numeric ID or by dictionary of attributes. Received an unrecognized value: abc', code='invalid')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+.Error applying change set: validation error: {'dcim.virtualchassis': {'master': [ErrorDetail(string='Related object not found using the provided numeric ID: 1', code='invalid')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+Error applying change set: validation error: {'dcim.virtualchassis': {'master': [ErrorDetail(string='Related object not found using the provided numeric ID: 0', code='invalid')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+Error applying change set: validation error: {'dcim.virtualchassis': {'master': [ErrorDetail(string='Related object not found using the provided numeric ID: 7', code='invalid')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+Error applying change set: validation error: {'dcim.virtualchassis': {'master': [ErrorDetail(string='Related object not found using the provided numeric ID: 7', code='invalid')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+.....Bad Request: /netbox/api/plugins/diode/generate-diff/
+......Error applying change set: validation error: {'dcim.virtualchassis': {'master': [ErrorDetail(string='Related object not found using the provided numeric ID: 1287', code='invalid')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+....Error applying change set: Cannot designate device 'vce-held' (id 1293) as master of VirtualChassis 'vce-conflicted' (id 19519): the device is a member of 'vce-other' (id 19518). A dcim.virtualchassis payload is not authority to move a device between chassis. Move the device in NetBox -- out of 'vce-other' (id 19518) and into 'vce-conflicted' (id 19519) -- and this payload applies unchanged on the next pass; or name a different master.: {'dcim.virtualchassis': {'master': ["Cannot designate device 'vce-held' (id 1293) as master of VirtualChassis 'vce-conflicted' (id 19519): the device is a member of 'vce-other' (id 19518). A dcim.virtualchassis payload is not authority to move a device between chassis. Move the device in NetBox -- out of 'vce-other' (id 19518) and into 'vce-conflicted' (id 19519) -- and this payload applies unchanged on the next pass; or name a different master."]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+Error applying change set: validation error: {'dcim.virtualchassis': {'master': [ErrorDetail(string='Related object not found using the provided numeric ID: 1294', code='invalid')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+.Bad Request: /netbox/api/plugins/diode/generate-diff/
+..Error applying change set: validation error: {'dcim.device': {'vc_position': [ErrorDetail(string='A device assigned to a virtual chassis must have its position defined.', code='invalid')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+.....Error applying change set: Cannot designate device 'vce-sw1' (id 1307) as master of VirtualChassis 'vce-stack' (id 19529): the device is a member of 'vce-other' (id 19528). A dcim.virtualchassis payload is not authority to move a device between chassis. Move the device in NetBox -- out of 'vce-other' (id 19528) and into 'vce-stack' (id 19529) -- and this payload applies unchanged on the next pass; or name a different master.: {'dcim.virtualchassis': {'master': ["Cannot designate device 'vce-sw1' (id 1307) as master of VirtualChassis 'vce-stack' (id 19529): the device is a member of 'vce-other' (id 19528). A dcim.virtualchassis payload is not authority to move a device between chassis. Move the device in NetBox -- out of 'vce-other' (id 19528) and into 'vce-stack' (id 19529) -- and this payload applies unchanged on the next pass; or name a different master."]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+....Bad Request: /netbox/api/plugins/diode/generate-diff/
+...Bad Request: /netbox/api/plugins/diode/generate-diff/
+.Error applying change set: validation error: {'dcim.device': {'virtual_chassis': [ErrorDetail(string='Device cannot be removed from virtual chassis vce-stack because it is currently designated as its master.', code='invalid')]}}
+Bad Request: /netbox/api/plugins/diode/apply-change-set/
+.......deadlock on entity 1 (attempt 1), retrying in 0.042s
+deadlock on entity 1 (attempt 2), retrying in 0.071s
+..deadlock on entity 1 (attempt 1), retrying in 0.039s
+.apply phase hit hierarchy deadlock for entity 7 after retries
+............................................................................
+----------------------------------------------------------------------
+Ran 1017 tests in 573.103s
+
+OK
+Preserving test database for alias 'default'...
+🧬 loaded config '/etc/netbox/config/configuration.py'
+🧬 loaded config '/etc/netbox/config/extra.py'
+🧬 loaded config '/etc/netbox/config/logging.py'
+🧬 loaded config '/etc/netbox/config/plugins.py'
+Found 1017 test(s).
+System check identified no issues (0 silenced).
+{'id': 'af0a6e37-c2dd-4187-8389-c37297d01a2d', 'errors': {'ipam.prefix': {'scope_id': ['Related object not found using the provided value: 99.']}}}
+
+== adoption census ==
+  ('adopt', False): 280 cells   e.g. (('E',), False, 'free', None, 'standalone', False)
+  ('adopt', True): 32 cells   e.g. (('E',), False, 'in_other', None, 'member_first', False)
+  ('conflict', False): 40 cells   e.g. (('E',), False, 'in_other', None, 'standalone', False)
+  ('create', False): 800 cells   e.g. ((), False, 'free', None, 'standalone', False)
+  ('create', True): 304 cells   e.g. ((), False, 'in_other', None, 'standalone', False)
+  ('dangling', False): 368 cells   e.g. ((), False, 'missing', None, 'standalone', False)
+== cells where the create path pulled the master out of its chassis: 336 ==
+   ((), False, 'in_other', None, 'standalone', False)
+   ((), False, 'in_other', None, 'member_first', False)
+   ((), False, 'in_other', '', 'standalone', False)
+   ((), False, 'in_other', '', 'member_first', False)
+   ((), False, 'in_other', 'mx-lab', 'standalone', False)
+   ((), False, 'in_other', 'mx-lab', 'member_first', False)
+== which licence each adoption used ==
+  domain-identified: 92 cells
+  holds-master: 208 cells
+  single-empty: 52 cells
+== cells that reported the IN_OTHER_CHASSIS conflict: 40 ==
+   (('E',), False, 'in_other', None, 'standalone', False)
+   (('E',), False, 'in_other', '', 'standalone', False)
+   (('E',), True, 'in_other', None, 'standalone', False)
+   (('E',), True, 'in_other', '', 'standalone', False)
+   (('L',), False, 'in_other', 'mx-lab', 'standalone', False)
+   (('L',), False, 'in_other', 'mx-lab', 'standalone', True)
+make[1]: Entering directory '/home/alatour/repositories/netbox/diode-netbox-plugin'
+ Container diode-netbox-plugin-v47x-netbox-postgres-1 Stopping 
+ Container diode-netbox-plugin-v47x-netbox-redis-cache-1 Stopping 
+ Container diode-netbox-plugin-v47x-netbox-redis-1 Stopping 
+ Container diode-netbox-plugin-v47x-netbox-redis-cache-1 Stopped 
+ Container diode-netbox-plugin-v47x-netbox-redis-cache-1 Removing 
+ Container diode-netbox-plugin-v47x-netbox-redis-cache-1 Removed 
+ Container diode-netbox-plugin-v47x-netbox-redis-1 Stopped 
+ Container diode-netbox-plugin-v47x-netbox-redis-1 Removing 
+ Container diode-netbox-plugin-v47x-netbox-redis-1 Removed 
+ Container diode-netbox-plugin-v47x-netbox-postgres-1 Stopped 
+ Container diode-netbox-plugin-v47x-netbox-postgres-1 Removing 
+ Container diode-netbox-plugin-v47x-netbox-postgres-1 Removed 
+ Network diode-netbox-plugin-v47x_default Removing 
+ Network diode-netbox-plugin-v47x_default Removed 
+make[1]: Leaving directory '/home/alatour/repositories/netbox/diode-netbox-plugin'
