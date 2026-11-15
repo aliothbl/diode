@@ -43,5 +43,7 @@ edited by hand; files are copied verbatim from where the work produced them.
 | 20261115-0910-bafg4kms4 | branch-sync-ingest trial (batch 100, c=1 default): sync fell inside one in-flight request, F6 window not exercised |
 | 20261115-0941-b600bo556 | branch-sync-ingest trial c=4 batch 25, 2000 main changes: F6 reproduced (400 "branch not ready"), 190 entities stuck in APPLYING (P-11), phase timed out |
 | 20261115-1010-bplymxuex | branch-sync-ingest ×5 with P-11 fix (F6 5/5: 190–265 FAILED; 2 runs with apply timeouts, P-10) |
+| f7-20261115-1038/ | F7: router microbenchmark (micro.json), py-spy profiles of 2026-11-14 (pyspy-*/), console output |
+| 20261115-1119-bl92633bf | branch-sync-watermark trial: F3 reproduced (late main change never synced) |
 
 Helper scripts used for the stress and A/B batteries: `bench/tools/`.

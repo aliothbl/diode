@@ -366,8 +366,125 @@ def branch_sync_ingest():
     }
 
 
+# F3: a main transaction that saves an object (ObjectChange.time = T1, set in
+# Python at save time) before a sync reads the change set, but commits after
+# the sync stored last_sync = sync_started > T1. The next sync filters
+# time > last_sync, so the late change is never synced.
+WM_DIR = "/tmp/bench-wm"
+WM_REQ = """
+import json, os, time, uuid
+from django.contrib.auth import get_user_model
+from django.db import transaction
+from extras.models import Tag
+from netbox.context_managers import event_tracking
+from utilities.request import NetBoxFakeRequest
+user = get_user_model().objects.get(username='admin')
+def req():
+    return NetBoxFakeRequest({'META': {}, 'COOKIES': {}, 'POST': {}, 'GET': {}, 'FILES': {},
+                              'user': user, 'method': 'POST', 'path': '', 'id': uuid.uuid4()})
+def wait(name):
+    while not os.path.exists('%s/' + name):
+        time.sleep(0.02)
+def mark(name):
+    open('%s/' + name, 'w').close()
+""" % (WM_DIR, WM_DIR)
+
+WM_LATE_WRITER = WM_REQ + """
+wait('go-write')
+with event_tracking(req()):
+    with transaction.atomic():
+        Tag.objects.create(name='bench-late', slug='bench-late')
+        saved_at = time.time()
+        mark('written')
+        wait('go-commit')
+committed_at = time.time()
+print('BENCH ' + json.dumps({'saved_epoch': saved_at, 'committed_epoch': committed_at}))
+"""
+
+WM_SYNC = WM_REQ + """
+from netbox_branching.models import Branch
+wait('go-sync')
+b = Branch.objects.get(name=%r)
+unsynced = b.get_unsynced_changes().count(); err = None
+t0 = time.time()
+try:
+    b.sync(user=user)
+except Exception as e:
+    err = f'{type(e).__name__}: {e}'
+b.refresh_from_db()
+print('BENCH ' + json.dumps({'unsynced_at_start': unsynced, 'error': err, 'status': b.status,
+                              'last_sync': b.last_sync.isoformat() if b.last_sync else None,
+                              'started_epoch': t0, 'ended_epoch': time.time()}))
+""" % BRANCH_NAME
+
+WM_MAIN_WRITE = WM_REQ + """
+with event_tracking(req()):
+    Tag.objects.create(name=%r, slug=%r)
+print('BENCH ' + json.dumps({'ok': True}))
+"""
+
+
+def branch_sync_watermark():
+    """F3: does a sync skip a main change committed after the previous sync read?"""
+    def sh(*args):
+        subprocess.run(["docker", "exec", NETBOX, *args], check=True, capture_output=True)
+
+    sh("sh", "-c", f"rm -rf {WM_DIR} && mkdir -p {WM_DIR} && chmod 777 {WM_DIR}")
+    branch = nbshell(SETUP, timeout=600)
+    # A committed main change so the first sync has something to apply.
+    nbshell(WM_MAIN_WRITE % ("bench-early", "bench-early"))
+
+    writer, sync1 = {}, {}
+    tw = threading.Thread(target=lambda: writer.update(nbshell(WM_LATE_WRITER)), daemon=True)
+    ts = threading.Thread(target=lambda: sync1.update(nbshell(WM_SYNC)), daemon=True)
+    tw.start(); ts.start()
+    time.sleep(15)  # both shells booted and waiting
+    sh("touch", f"{WM_DIR}/go-write")
+    for _ in range(600):  # the late change is saved, not committed
+        if subprocess.run(["docker", "exec", NETBOX, "test", "-e", f"{WM_DIR}/written"]).returncode == 0:
+            break
+        time.sleep(0.1)
+    sh("touch", f"{WM_DIR}/go-sync")
+    ts.join(timeout=600)  # sync 1 done while the writer still holds its transaction
+    sh("touch", f"{WM_DIR}/go-commit")
+    tw.join(timeout=600)
+
+    # Another committed main change, so sync 2 is not a no-op for an
+    # unrelated reason ("No changes found").
+    nbshell(WM_MAIN_WRITE % ("bench-after", "bench-after"))
+    unsynced_before_sync2 = nbshell(
+        "import json\nfrom netbox_branching.models import Branch\n"
+        f"b = Branch.objects.get(name={BRANCH_NAME!r})\n"
+        "print('BENCH ' + json.dumps({'unsynced': list(b.get_unsynced_changes().values_list('object_repr', flat=True))}))")
+    sh("rm", "-f", f"{WM_DIR}/go-sync")
+    sync2 = nbshell(WM_SYNC.replace("wait('go-sync')", "pass"))
+
+    def tags(schema):
+        rows = psql(f"SELECT slug FROM {schema}.extras_tag WHERE slug LIKE 'bench-%' ORDER BY slug")
+        return [r[0] for r in rows]
+
+    in_main, in_branch = tags("public"), tags(branch["schema"])
+    return {
+        "params": {},
+        "phases": [],
+        "branching": {
+            "branch": branch,
+            "late_writer": writer,
+            "sync1": sync1,
+            "unsynced_before_sync2": unsynced_before_sync2.get("unsynced"),
+            "sync2": sync2,
+            "tags_in_main": in_main,
+            "tags_in_branch": in_branch,
+            # F3: committed in main, never reaches the branch.
+            "late_change_missing_in_branch": "bench-late" in in_main and "bench-late" not in in_branch,
+            "late_saved_before_sync1_start": writer.get("saved_epoch", 0) < sync1.get("started_epoch", 0),
+            "late_committed_after_sync1_end": writer.get("committed_epoch", 0) > sync1.get("ended_epoch", 0),
+        },
+    }
+
+
 SCENARIOS = {"branch-merge-race": branch_merge_race, "branch-double-merge": branch_double_merge,
-             "branch-sync-ingest": branch_sync_ingest}
+             "branch-sync-ingest": branch_sync_ingest, "branch-sync-watermark": branch_sync_watermark}
 
 if __name__ == "__main__":
     print(json.dumps(SCENARIOS[sys.argv[1]]()))

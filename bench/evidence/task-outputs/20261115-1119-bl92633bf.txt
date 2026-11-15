@@ -1,0 +1,48 @@
+==> building diode-server 863857b into /home/alatour/repositories/netbox/diode/bench/out/bin/candidate-863857b
+==> [candidate diode=863857b plugin=ae04547 branching=0efb53f] scenario=branch-sync-watermark run 1/1
+bench/results/20261115-111122-candidate-branch-sync-watermark-run1.json
+{
+ "branch": {
+  "id": 1,
+  "schema_id": "uw2cksgq",
+  "schema": "branch_uw2cksgq",
+  "status": "ready"
+ },
+ "late_writer": {
+  "saved_epoch": 1794744972.983214,
+  "committed_epoch": 1794744980.4707088
+ },
+ "sync1": {
+  "unsynced_at_start": 1,
+  "error": null,
+  "status": "ready",
+  "last_sync": "2026-11-15T12:16:13.400944+00:00",
+  "started_epoch": 1794744973.3963332,
+  "ended_epoch": 1794744974.091628
+ },
+ "unsynced_before_sync2": [
+  "bench-after"
+ ],
+ "sync2": {
+  "unsynced_at_start": 1,
+  "error": null,
+  "status": "ready",
+  "last_sync": "2026-11-15T12:18:07.704150+00:00",
+  "started_epoch": 1794745087.7012093,
+  "ended_epoch": 1794745088.379272
+ },
+ "tags_in_main": [
+  "bench-after",
+  "bench-early",
+  "bench-late"
+ ],
+ "tags_in_branch": [
+  "bench-after",
+  "bench-early"
+ ],
+ "late_change_missing_in_branch": true,
+ "late_saved_before_sync1_start": true,
+ "late_committed_after_sync1_end": true
+}
+
+[exited with code 0]
