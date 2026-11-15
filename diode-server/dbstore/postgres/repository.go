@@ -141,13 +141,20 @@ func (r *Repository) UpdateIngestionLogStateWithError(ctx context.Context, id in
 	}
 
 	if err != nil {
-		errJSON, err := json.Marshal(err)
-		if err != nil {
-			return fmt.Errorf("failed to marshal error: %w", err)
-		}
-		params.Error = errJSON
+		params.Error = ingestionLogErrorJSON(err)
 	}
 	return r.queries.UpdateIngestionLogStateWithError(ctx, params)
+}
+
+// ingestionLogErrorJSON encodes err for the ingestion log's error column.
+// The state change must never be lost because the error does not encode:
+// when err cannot be marshalled, its message is stored instead.
+func ingestionLogErrorJSON(err error) []byte {
+	if errJSON, mErr := json.Marshal(err); mErr == nil {
+		return errJSON
+	}
+	errJSON, _ := json.Marshal(map[string]string{"message": err.Error()})
+	return errJSON
 }
 
 // CountIngestionLogsPerState counts ingestion logs per state.
