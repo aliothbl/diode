@@ -252,6 +252,17 @@ func (p *AutoApplyProcessor) processBatch(ctx context.Context, batch []ops.Queue
 
 	results := p.ops.BulkPlanApply(ctx, batch, branchID)
 
+	// NetBox refused the batch before processing it (e.g. the default branch
+	// is syncing): the rows are back in QUEUED. Wait before this worker
+	// claims again, rather than spinning against a NetBox that says no.
+	if len(results) > 0 && results[0].Deferred {
+		select {
+		case <-ctx.Done():
+		case <-time.After(results[0].RetryAfter):
+		}
+		return
+	}
+
 	for i, result := range results {
 		item := batch[i]
 

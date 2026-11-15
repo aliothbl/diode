@@ -3,6 +3,7 @@ package ops
 import (
 	"github.com/netboxlabs/diode/diode-server/gen/diode/v1/reconcilerpb"
 	"github.com/netboxlabs/diode/diode-server/reconciler/changeset"
+	"time"
 )
 
 // CreateIngestionLogResult represents the result of creating an ingestion log.
@@ -78,4 +79,9 @@ type BulkPlanApplyResult struct {
 	ChangeSet      *changeset.ChangeSet
 	PlanErr        error
 	ApplyErr       error
+	// Deferred: NetBox refused the whole batch before processing it (e.g.
+	// the default branch is syncing). Nothing was applied, the row went back
+	// to QUEUED, and the caller should wait RetryAfter before claiming more.
+	Deferred   bool
+	RetryAfter time.Duration
 }

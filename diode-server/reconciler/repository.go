@@ -48,4 +48,7 @@ type Repository interface {
 	ClaimQueuedIngestionLogs(ctx context.Context, batchSize int32) ([]ops.QueuedIngestionLog, error)
 	ClaimQueuedForAutoApply(ctx context.Context, batchSize int32) ([]ops.QueuedIngestionLog, error)
 	ResetApplyingIngestionLogs(ctx context.Context) error
+	// RequeueApplyingIngestionLogs returns the given claimed rows (APPLYING)
+	// to QUEUED, for a batch NetBox refused before processing it.
+	RequeueApplyingIngestionLogs(ctx context.Context, ids []int32) error
 }

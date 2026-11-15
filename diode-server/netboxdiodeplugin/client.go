@@ -220,7 +220,7 @@ func NewClient(options ClientOptions) (*Client, error) {
 	// One token source for both clients, so they share the cached token.
 	tokenSource := oauthConfig.TokenSource(context.Background())
 
-	newRetryableClient := func(responseTimeout time.Duration, checkRetry retryablehttp.CheckRetry) *http.Client {
+	newRetryableClient := func(responseTimeout time.Duration, checkRetry retryablehttp.CheckRetry, errorHandler retryablehttp.ErrorHandler) *http.Client {
 		baseTransport := NewHTTPTransport()
 		// Use per-request timeout on the transport instead of http.Client.Timeout.
 		// Client.Timeout cancels the request context, which prevents retryablehttp
@@ -240,13 +240,17 @@ func NewClient(options ClientOptions) (*Client, error) {
 		rhttp.RetryWaitMax = 2 * time.Second
 		rhttp.Logger = options.Logger
 		rhttp.CheckRetry = checkRetry
+		rhttp.ErrorHandler = errorHandler
 		return rhttp.StandardClient()
 	}
 
 	client := &Client{
-		logger:    options.Logger,
-		http:      newRetryableClient(timeout, retryablehttp.DefaultRetryPolicy),
-		applyHTTP: newRetryableClient(applyTimeout, applyRetryPolicy),
+		logger: options.Logger,
+		http:   newRetryableClient(timeout, retryablehttp.DefaultRetryPolicy, nil),
+		// The apply client hands the last response back once the retries are
+		// spent, instead of a generic "giving up" error, so BulkPlanApply can
+		// still read a 503/429 and its Retry-After (see UnavailableError).
+		applyHTTP: newRetryableClient(applyTimeout, applyRetryPolicy, retryablehttp.PassthroughErrorHandler),
 		baseURL:   u,
 		userAgent: fmt.Sprintf("%s/%s", SDKName, SDKVersion),
 		limiter:   rate.NewLimiter(rate.Limit(options.RateLimitRPS), options.RateLimitBurstRPS),
@@ -519,6 +523,9 @@ func (c *Client) BulkPlanApply(ctx context.Context, payload BulkPlanApplyRequest
 
 	c.logger.Debug("bulk plan-apply", "statusCode", resp.StatusCode, "response", string(respBytes))
 
+	if uErr := unavailableError(resp, respBytes); uErr != nil {
+		return nil, uErr
+	}
 	if resp.StatusCode >= http.StatusBadRequest {
 		return nil, changeset.NewError("bulk plan-apply failed", diodeErrors.ErrCodeOpsApplyChangeSet, respBytes)
 	}
@@ -588,4 +595,62 @@ func (c *Client) GetDefaultBranch(ctx context.Context) (*Branch, error) {
 	}
 
 	return defaultBranchResponse.Branch, nil
+}
+
+// UnavailableError means NetBox refused a /bulk-plan-apply before processing
+// it, so nothing in the batch was applied and the batch can be sent again
+// later instead of being recorded as failed.
+//
+//   - 503 / 429: transient (Retryable). netbox-branching answers 503 with
+//     Retry-After while the selected branch is syncing, merging, migrating,
+//     ... ; granian answers 503 under backpressure; 429 is rate limiting.
+//   - 409 with {"retryable": false}: netbox-branching's answer for a branch
+//     that will not become usable on its own (merged, archived, failed,
+//     pending migrations). Not Retryable: the default branch setting needs
+//     an operator.
+type UnavailableError struct {
+	StatusCode int
+	// RetryAfter is the server's Retry-After, or zero when it sent none.
+	RetryAfter time.Duration
+	Retryable  bool
+	Body       string
+}
+
+func (e *UnavailableError) Error() string {
+	return fmt.Sprintf("bulk plan-apply refused by NetBox: HTTP %d (retryable=%t, retry-after=%s): %s",
+		e.StatusCode, e.Retryable, e.RetryAfter, e.Body)
+}
+
+// unavailableError classifies a /bulk-plan-apply response; nil when the
+// response is not a refusal-before-processing.
+func unavailableError(resp *http.Response, body []byte) *UnavailableError {
+	switch resp.StatusCode {
+	case http.StatusServiceUnavailable, http.StatusTooManyRequests:
+		return &UnavailableError{
+			StatusCode: resp.StatusCode,
+			RetryAfter: retryAfter(resp.Header.Get("Retry-After")),
+			Retryable:  true,
+			Body:       string(body),
+		}
+	case http.StatusConflict:
+		// Only netbox-branching's refusal of an unusable branch; any other
+		// 409 stays an ordinary apply failure.
+		var refusal struct {
+			Retryable *bool `json:"retryable"`
+		}
+		if json.Unmarshal(body, &refusal) == nil && refusal.Retryable != nil && !*refusal.Retryable {
+			return &UnavailableError{StatusCode: resp.StatusCode, Retryable: false, Body: string(body)}
+		}
+	}
+	return nil
+}
+
+// retryAfter parses a Retry-After header given in seconds (the form
+// netbox-branching sends); other forms yield zero.
+func retryAfter(v string) time.Duration {
+	secs, err := strconv.Atoi(strings.TrimSpace(v))
+	if err != nil || secs < 0 {
+		return 0
+	}
+	return time.Duration(secs) * time.Second
 }

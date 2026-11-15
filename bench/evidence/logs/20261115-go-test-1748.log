@@ -1,0 +1,42 @@
+ok  	github.com/netboxlabs/diode/diode-server/auth	(cached)
+?   	github.com/netboxlabs/diode/diode-server/auth/cli	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/auth/mocks	[no test files]
+ok  	github.com/netboxlabs/diode/diode-server/authutil	(cached)
+?   	github.com/netboxlabs/diode/diode-server/cmd/auth	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/cmd/authmanager	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/cmd/ingester	[no test files]
+ok  	github.com/netboxlabs/diode/diode-server/cmd/protograph	(cached)
+?   	github.com/netboxlabs/diode/diode-server/cmd/reconciler	[no test files]
+ok  	github.com/netboxlabs/diode/diode-server/dbstore/postgres	0.376s
+ok  	github.com/netboxlabs/diode/diode-server/entityhash	(cached)
+ok  	github.com/netboxlabs/diode/diode-server/entitymatcher	(cached)
+?   	github.com/netboxlabs/diode/diode-server/entitymatcher/mocks	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/errors	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/gen/dbstore/postgres	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/gen/diode/v1/diodepb	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/gen/diode/v1/reconcilerpb	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/gen/netbox	[no test files]
+ok  	github.com/netboxlabs/diode/diode-server/gen/protograph	(cached)
+ok  	github.com/netboxlabs/diode/diode-server/graph	(cached)
+?   	github.com/netboxlabs/diode/diode-server/graph/mocks	[no test files]
+ok  	github.com/netboxlabs/diode/diode-server/grpckeepalive	(cached)
+ok  	github.com/netboxlabs/diode/diode-server/ingester	0.220s
+?   	github.com/netboxlabs/diode/diode-server/ingester/mocks	[no test files]
+ok  	github.com/netboxlabs/diode/diode-server/matching	(cached)
+ok  	github.com/netboxlabs/diode/diode-server/migrator	(cached)
+ok  	github.com/netboxlabs/diode/diode-server/netboxdiodeplugin	(cached)
+?   	github.com/netboxlabs/diode/diode-server/netboxdiodeplugin/mocks	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/pprof	[no test files]
+ok  	github.com/netboxlabs/diode/diode-server/reconciler	10.621s
+ok  	github.com/netboxlabs/diode/diode-server/reconciler/changeset	(cached)
+ok  	github.com/netboxlabs/diode/diode-server/reconciler/differ	0.017s
+?   	github.com/netboxlabs/diode/diode-server/reconciler/mocks	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/reconciler/ops	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/sentry	[no test files]
+ok  	github.com/netboxlabs/diode/diode-server/server	(cached)
+ok  	github.com/netboxlabs/diode/diode-server/strcase	(cached)
+ok  	github.com/netboxlabs/diode/diode-server/telemetry	(cached)
+?   	github.com/netboxlabs/diode/diode-server/telemetry/mocks	[no test files]
+ok  	github.com/netboxlabs/diode/diode-server/telemetry/otel	(cached)
+ok  	github.com/netboxlabs/diode/diode-server/tls	(cached)
+ok  	github.com/netboxlabs/diode/diode-server/version	(cached)

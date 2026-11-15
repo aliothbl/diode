@@ -2,6 +2,7 @@ package netboxdiodeplugin_test
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -162,4 +163,60 @@ func TestNewClientRejectsInvalidApplyTimeout(t *testing.T) {
 			assert.ErrorIs(t, err, netboxdiodeplugin.ErrInvalidTimeout)
 		})
 	}
+}
+
+// netbox-branching answers 503 + Retry-After while the selected branch is
+// syncing or merging. Once the retries are spent the caller must get that
+// refusal back as an UnavailableError (not a generic transport error), so it
+// can requeue the batch instead of failing it.
+func TestBulkPlanApplyReturnsUnavailableErrorAfterRetries(t *testing.T) {
+	cleanUpEnvVars()
+	var hits atomic.Int32
+	client := newApplyTestClient(t, func(w http.ResponseWriter, _ *http.Request) {
+		hits.Add(1)
+		w.Header().Set("Content-Type", "application/json")
+		w.Header().Set("Retry-After", "1")
+		w.WriteHeader(http.StatusServiceUnavailable)
+		_, _ = w.Write([]byte(`{"detail":"Selected branch is not ready.","retryable":true}`))
+	}, nil)
+
+	_, err := client.BulkPlanApply(context.Background(), applyRequest())
+	var uErr *netboxdiodeplugin.UnavailableError
+	require.ErrorAs(t, err, &uErr)
+	assert.Equal(t, http.StatusServiceUnavailable, uErr.StatusCode)
+	assert.True(t, uErr.Retryable)
+	assert.Equal(t, time.Second, uErr.RetryAfter)
+	assert.Equal(t, int32(4), hits.Load(), "1 attempt + MaxRetries")
+}
+
+// A branch that will not become usable on its own (merged, archived, ...)
+// answers 409 {"retryable": false}: not retried, reported as not retryable.
+func TestBulkPlanApplyTerminalBranchIsUnavailableNotRetryable(t *testing.T) {
+	cleanUpEnvVars()
+	var hits atomic.Int32
+	client := newApplyTestClient(t, func(w http.ResponseWriter, _ *http.Request) {
+		hits.Add(1)
+		w.WriteHeader(http.StatusConflict)
+		_, _ = w.Write([]byte(`{"detail":"Selected branch is not ready.","retryable":false}`))
+	}, nil)
+
+	_, err := client.BulkPlanApply(context.Background(), applyRequest())
+	var uErr *netboxdiodeplugin.UnavailableError
+	require.ErrorAs(t, err, &uErr)
+	assert.False(t, uErr.Retryable)
+	assert.Equal(t, int32(1), hits.Load())
+}
+
+// Any other 409 is an ordinary apply failure.
+func TestBulkPlanApplyOtherConflictIsNotUnavailable(t *testing.T) {
+	cleanUpEnvVars()
+	client := newApplyTestClient(t, func(w http.ResponseWriter, _ *http.Request) {
+		w.WriteHeader(http.StatusConflict)
+		_, _ = w.Write([]byte(`{"errors":{"request":{"__all__":["conflict"]}}}`))
+	}, nil)
+
+	_, err := client.BulkPlanApply(context.Background(), applyRequest())
+	require.Error(t, err)
+	var uErr *netboxdiodeplugin.UnavailableError
+	assert.False(t, errors.As(err, &uErr))
 }

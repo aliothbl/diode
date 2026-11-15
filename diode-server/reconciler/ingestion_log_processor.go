@@ -333,6 +333,12 @@ func (p *IngestionLogProcessor) processBatch(ctx context.Context, batch []ops.Qu
 		item := matched[i]
 		metricsCtx := p.metricsContext(ctx, item)
 		switch {
+		case applyResult.Deferred:
+			// NetBox refused the batch before processing it (e.g. the
+			// default branch is syncing). Nothing was applied; the log keeps
+			// its persisted change set for manual review instead of failing.
+			p.logger.Warn("auto-apply policy matched but NetBox deferred the batch",
+				"ingestionLogID", item.ID, "retryAfter", applyResult.RetryAfter)
 		case applyResult.PlanErr != nil:
 			p.logger.Error("auto-apply policy matched but re-plan failed",
 				"error", applyResult.PlanErr, "ingestionLogID", item.ID)
