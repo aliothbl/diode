@@ -32,6 +32,11 @@
 - **P-5 — Consumo do stream no reconciler é serial** (XReadGroup Count=100, uma mensagem por vez, XAck + XDel em duas idas por mensagem).
 
 ## LOG
+- 2026-11-14 23:24 — **P-9 / Melhoria M-4** (`91ecf9d`): retry em 40P01/40001 (até 5 tentativas, backoff exponencial com jitter) em `WithDedupLocks`, `BulkPersistChangeSets` (transação; o truncate pós-commit fica fora), `BulkCreateDriftDeviations` e nos dois claims. 4 testes em `dbstore/postgres/retry_internal_test.go`; `go test ./...` verde. **Validação ponta a ponta, parcial:**
+  - (a) `std+nobranching`, c=4, ×5: 0 erros, mas também 0 deadlocks detectados, então o retry não foi exercitado e isso não prova nada;
+  - (b) estresse c=8, batch 25, ×5: houve deadlock em 2 execuções. Uma terminou com 0 erros (retry funcionou). A outra teve **25 erros e 25 FAILED (um lote)**, com vítima fora das transações cobertas e não identificada.
+
+  O truncate pós-commit foi descartado: na fase inicial ele não apaga nada, portanto não trava nada. `run.sh` agora grava `error_summary` (mensagens de ERROR do reconciler e statements dos deadlocks) para identificar a vítima na próxima ocorrência. **Pendente.** A causa raiz (ciclo contadores × linhas entre transações) segue; uma correção estrutural seria contadores sem hot rows (tabela de deltas append-only).
 - 2026-11-14 18:20 — **Correção de timestamps deste LOG.** Várias entradas abaixo receberam horário estimado em vez do relógio, e algumas estão até no futuro em relação ao commit que as contém. Por ser append-only, as entradas não são reescritas; os horários reais (evidência: horário dos commits e início das execuções no nome dos arquivos em `bench/results/`) são:
   - "10:30 Seed por snapshot" → ~09:55 (seed às 09:20; smoke `095158`).
   - "11:40 P-1 vira bug de corretude" → ~10:15 (smoke `101157`).

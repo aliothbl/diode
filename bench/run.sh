@@ -174,6 +174,13 @@ for run in $(seq 1 "$RUNS"); do
   # Deadlocks Postgres resolved in the reconciler's DB (P-9). With the retry
   # in dbstore/postgres they still happen but no longer surface as errors.
   DIODE_PG_DEADLOCKS="$(docker logs diode-bench-diode-postgres-1 2>&1 | grep -c 'deadlock detected' || true)"
+  # Distinct reconciler ERROR messages and the statements Postgres reported in
+  # deadlocks, kept with the result so a failed run can be diagnosed later.
+  docker logs diode-bench-diode-reconciler-1 2>&1 | grep '"level":"ERROR"' \
+    | sed -E 's/"time":"[^"]*",//; s/[0-9a-f]{8}-[0-9a-f-]{27}/<uuid>/g; s/\b[0-9]{2,}\b/<n>/g' \
+    | sort | uniq -c | sort -rn | head -10 > "$OUT.errors" || true
+  docker logs diode-bench-diode-postgres-1 2>&1 | grep -A3 'deadlock detected' \
+    | grep -o -- '-- name: [A-Za-z]*' | sort | uniq -c >> "$OUT.errors" || true
   rm -f "$DUMP"
 
   "$VENV/bin/python" - "$OUT" "$OUT.load" "$STATS" <<PY
@@ -184,6 +191,8 @@ doc = {"version": "$VERSION", "diode_rev": "$DIODE_REV", "plugin_rev": "$PLUGIN_
        "plugin_deadlock_retries": int("${DEADLOCKS:-0}" or 0), "reconciler_errors": int("${RECONCILER_ERRORS:-0}" or 0), "diode_pg_deadlocks": int("${DIODE_PG_DEADLOCKS:-0}" or 0),
        "knobs": {k: __import__("os").environ.get(k) for k in
                  ["RATE_RPS","RATE_BURST","BATCH_SIZE","CONCURRENCY","PLUGIN_TIMEOUT","NETBOX_WORKERS"]}}
+try: doc["error_summary"] = open(out + ".errors").read().splitlines()
+except Exception: doc["error_summary"] = []
 try: doc.update(json.load(open(load)))
 except Exception as e: doc["load_error"] = repr(e)
 try: doc["netbox_state"] = json.loads('''$STATE''')
@@ -207,7 +216,7 @@ for p in doc.get("phases", []):
     print(f"   {p['phase']:9s} {p.get('entities','?'):>6} ent  {p.get('elapsed_s','?'):>8}s  "
           f"{p.get('entities_per_s','?'):>8} ent/s  {p.get('states_after','')}")
 PY
-  rm -f "$OUT.load" "$STATS"
+  rm -f "$OUT.load" "$STATS" "$OUT.errors"
   if [[ $KEEP -eq 0 ]]; then "${COMPOSE[@]}" down -v --remove-orphans >/dev/null 2>&1 || true; fi
   [[ $RC -eq 0 ]] || { echo "loadgen failed (rc=$RC), see $OUT" >&2; exit $RC; }
 done
