@@ -1,0 +1,13 @@
+==> building diode-server 519ccec into /home/alatour/repositories/netbox/diode/bench/out/bin/baseline-519ccec
+==> [baseline diode=519ccec plugin=8c3a3bb] scenario=smoke run 1/1
+   initial       50 ent    10.567s      4.73 ent/s  {'APPLIED': 4, 'NO_CHANGES': 46}
+   reingest      50 ent     2.014s     24.83 ent/s  {'APPLIED': 4, 'NO_CHANGES': 46}
+   update        50 ent     5.029s      9.94 ent/s  {'APPLIED': 44, 'NO_CHANGES': 46}
+==> building diode-server e8312fe-dirty into /home/alatour/repositories/netbox/diode/bench/out/bin/candidate-e8312fe-dirty
+==> no NetBox seed for plugin d7a0cc4: first boot runs migrations (~8 min), then it is snapshotted
+==> [candidate diode=e8312fe-dirty plugin=d7a0cc4] scenario=smoke run 1/1
+   initial       50 ent     9.557s      5.23 ent/s  {'NO_CHANGES': 50}
+   reingest      50 ent     2.014s     24.83 ent/s  {'NO_CHANGES': 50}
+   update        50 ent     6.035s      8.29 ent/s  {'APPLIED': 40, 'NO_CHANGES': 50}
+
+[exited with code 0]

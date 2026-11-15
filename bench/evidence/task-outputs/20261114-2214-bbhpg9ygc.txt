@@ -1,0 +1,23 @@
+==> building diode-server 91ecf9d into /home/alatour/repositories/netbox/diode/bench/out/bin/candidate-91ecf9d
+==> [candidate diode=91ecf9d plugin=ed63aff branching=pip-1.2.0] scenario=std run 1/5
+   initial     1800 ent    83.318s      21.6 ent/s  {'APPLIED': 1775, 'NO_CHANGES': 25}
+   reingest    1800 ent    19.787s     90.97 ent/s  {'APPLIED': 1775, 'NO_CHANGES': 25}
+   update      1800 ent    84.485s     21.31 ent/s  {'APPLIED': 3374, 'NO_CHANGES': 26}
+==> [candidate diode=91ecf9d plugin=ed63aff branching=pip-1.2.0] scenario=std run 2/5
+   initial     1800 ent     92.34s     19.49 ent/s  {'APPLIED': 1776, 'NO_CHANGES': 24}
+   reingest    1800 ent    21.769s     82.69 ent/s  {'APPLIED': 1776, 'NO_CHANGES': 24}
+   update      1800 ent    88.479s     20.34 ent/s  {'APPLIED': 3376, 'NO_CHANGES': 24}
+==> [candidate diode=91ecf9d plugin=ed63aff branching=pip-1.2.0] scenario=std run 3/5
+   initial     1800 ent    90.308s     19.93 ent/s  {'APPLIED': 1777, 'NO_CHANGES': 23}
+   reingest    1800 ent    21.814s     82.52 ent/s  {'APPLIED': 1777, 'NO_CHANGES': 23}
+   update      1800 ent    88.965s     20.23 ent/s  {'APPLIED': 3376, 'NO_CHANGES': 24}
+==> [candidate diode=91ecf9d plugin=ed63aff branching=pip-1.2.0] scenario=std run 4/5
+   initial     1800 ent   104.818s     17.17 ent/s  {'APPLIED': 1778, 'NO_CHANGES': 22}
+   reingest    1800 ent    25.287s     71.18 ent/s  {'APPLIED': 1778, 'NO_CHANGES': 22}
+   update      1800 ent   104.424s     17.24 ent/s  {'APPLIED': 3377, 'NO_CHANGES': 23}
+==> [candidate diode=91ecf9d plugin=ed63aff branching=pip-1.2.0] scenario=std run 5/5
+   initial     1800 ent     98.31s     18.31 ent/s  {'APPLIED': 1777, 'NO_CHANGES': 23}
+   reingest    1800 ent    23.256s      77.4 ent/s  {'APPLIED': 1777, 'NO_CHANGES': 23}
+   update      1800 ent   100.489s     17.91 ent/s  {'APPLIED': 3377, 'NO_CHANGES': 23}
+
+[exited with code 0]

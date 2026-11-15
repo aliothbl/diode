@@ -1,0 +1,15 @@
+==> building diode-server 14f4147 into /home/alatour/repositories/netbox/diode/bench/out/bin/candidate-14f4147
+==> [candidate diode=14f4147 plugin=d7a0cc4] scenario=std run 1/3
+   initial     1800 ent   166.521s     10.81 ent/s  {'APPLIED': 1691, 'NO_CHANGES': 109}
+   reingest    1800 ent    36.338s     49.53 ent/s  {'APPLIED': 1691, 'NO_CHANGES': 109}
+   update      1800 ent   171.054s     10.52 ent/s  {'APPLIED': 3291, 'NO_CHANGES': 109}
+==> [candidate diode=14f4147 plugin=d7a0cc4] scenario=std run 2/3
+   initial     1800 ent     160.5s     11.21 ent/s  {'APPLIED': 1654, 'NO_CHANGES': 146}
+   reingest    1800 ent    36.327s     49.55 ent/s  {'APPLIED': 1654, 'NO_CHANGES': 146}
+   update      1800 ent   170.625s     10.55 ent/s  {'APPLIED': 3254, 'NO_CHANGES': 146}
+==> [candidate diode=14f4147 plugin=d7a0cc4] scenario=std run 3/3
+   initial     1800 ent   158.474s     11.36 ent/s  {'APPLIED': 1654, 'NO_CHANGES': 146}
+   reingest    1800 ent    35.306s     50.98 ent/s  {'APPLIED': 1654, 'NO_CHANGES': 146}
+   update      1800 ent   168.616s     10.68 ent/s  {'APPLIED': 3254, 'NO_CHANGES': 146}
+
+[exited with code 0]

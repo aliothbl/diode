@@ -1,0 +1,9 @@
+[FATAL tini (7)] exec ruff failed: No such file or directory
+
+make: *** [Makefile:44: docker-compose-netbox-plugin-test-lint] Error 127
+LINT_DONE
+Ran 1015 tests in 425.435s
+OK
+rc=0
+
+[exited with code 0]

@@ -1,0 +1,41 @@
+==> building diode-server 14ba79f into /home/alatour/repositories/netbox/diode/bench/out/bin/candidate-14ba79f
+==> [candidate diode=14ba79f plugin=d7a0cc4] scenario=std run 1/3
+   initial     1800 ent   161.967s     11.11 ent/s  {'APPLIED': 1800}
+   reingest    1800 ent    35.781s     50.31 ent/s  {'APPLIED': 1800}
+   update      1800 ent   171.599s     10.49 ent/s  {'APPLIED': 3400}
+==> [candidate diode=14ba79f plugin=d7a0cc4] scenario=std run 2/3
+   initial     1800 ent   157.418s     11.43 ent/s  {'APPLIED': 1800}
+   reingest    1800 ent    35.797s     50.28 ent/s  {'APPLIED': 1800}
+   update      1800 ent   170.097s     10.58 ent/s  {'APPLIED': 3400}
+==> [candidate diode=14ba79f plugin=d7a0cc4] scenario=std run 3/3
+   initial     1800 ent   156.922s     11.47 ent/s  {'APPLIED': 1800}
+   reingest    1800 ent    35.287s     51.01 ent/s  {'APPLIED': 1800}
+   update      1800 ent   171.607s     10.49 ent/s  {'APPLIED': 3399, 'NO_CHANGES': 1}
+==> building diode-server 519ccec into /home/alatour/repositories/netbox/diode/bench/out/bin/baseline-519ccec
+==> [baseline diode=519ccec plugin=8c3a3bb] scenario=std run 1/3
+   initial     1800 ent   112.664s     15.98 ent/s  {'FAILED': 1800}
+   reingest    1800 ent   108.275s     16.62 ent/s  {'FAILED': 1600, 'NO_CHANGES': 200}
+   update      1800 ent   111.101s      16.2 ent/s  {'FAILED': 3222, 'NO_CHANGES': 178}
+==> [baseline diode=519ccec plugin=8c3a3bb] scenario=std run 2/3
+   initial     1800 ent   114.703s     15.69 ent/s  {'FAILED': 1800}
+   reingest    1800 ent   110.309s     16.32 ent/s  {'FAILED': 1800}
+   update      1800 ent    110.61s     16.27 ent/s  {'FAILED': 3400}
+==> [baseline diode=519ccec plugin=8c3a3bb] scenario=std run 3/3
+   initial     1800 ent   110.629s     16.27 ent/s  {'FAILED': 1800}
+   reingest    1800 ent   110.287s     16.32 ent/s  {'FAILED': 1700, 'NO_CHANGES': 100}
+   update      1800 ent   110.059s     16.35 ent/s  {'FAILED': 3311, 'NO_CHANGES': 89}
+==> building diode-server 14ba79f into /home/alatour/repositories/netbox/diode/bench/out/bin/candidate-14ba79f
+==> [candidate diode=14ba79f plugin=d7a0cc4] scenario=std run 1/3
+   initial     1800 ent    88.783s     20.27 ent/s  {'APPLIED': 1777, 'NO_CHANGES': 23}
+   reingest    1800 ent    21.265s     84.65 ent/s  {'APPLIED': 1777, 'NO_CHANGES': 23}
+   update      1800 ent    88.432s     20.35 ent/s  {'APPLIED': 3376, 'NO_CHANGES': 24}
+==> [candidate diode=14ba79f plugin=d7a0cc4] scenario=std run 2/3
+   initial     1800 ent    89.836s     20.04 ent/s  {'APPLIED': 1778, 'NO_CHANGES': 22}
+   reingest    1800 ent    21.265s     84.65 ent/s  {'APPLIED': 1778, 'NO_CHANGES': 22}
+   update      1800 ent    91.461s     19.68 ent/s  {'APPLIED': 3377, 'NO_CHANGES': 23}
+==> [candidate diode=14ba79f plugin=d7a0cc4] scenario=std run 3/3
+   initial     1800 ent    90.287s     19.94 ent/s  {'APPLIED': 1775, 'NO_CHANGES': 25}
+   reingest    1800 ent    21.268s     84.64 ent/s  {'APPLIED': 1775, 'NO_CHANGES': 25}
+   update      1800 ent    89.427s     20.13 ent/s  {'APPLIED': 3372, 'NO_CHANGES': 28}
+
+[exited with code 0]

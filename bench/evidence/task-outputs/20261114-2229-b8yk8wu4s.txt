@@ -1,0 +1,10 @@
+   initial     1800 ent    85.858s     20.96 ent/s  {'APPLIED': 1680, 'FAILED': 25, 'NO_CHANGES': 95}
+   reingest    1800 ent    23.304s     77.24 ent/s  {'APPLIED': 1702, 'NO_CHANGES': 98}
+   update      1800 ent    87.646s     20.54 ent/s  {'APPLIED': 3269, 'NO_CHANGES': 131}
+   initial     1800 ent    79.415s     22.67 ent/s  {'APPLIED': 1712, 'NO_CHANGES': 88}
+   reingest    1800 ent    20.309s     88.63 ent/s  {'APPLIED': 1712, 'NO_CHANGES': 88}
+   update      1800 ent    78.057s     23.06 ent/s  {'APPLIED': 3278, 'NO_CHANGES': 122}
+20261114-222007-candidate-std-run1.jso 91ecf9d {'RATE_RPS': None, 'RATE_BURST': None, 'BATCH_SIZE': '25', 'CONCURRENCY': '8', 'PLUGIN_TIMEOUT': None, 'NETBOX_WORKERS': None} rec_err 25 pg_deadlocks 1 maxFAILED 25 ip 800
+20261114-222007-candidate-std-run2.jso 91ecf9d {'RATE_RPS': None, 'RATE_BURST': None, 'BATCH_SIZE': '25', 'CONCURRENCY': '8', 'PLUGIN_TIMEOUT': None, 'NETBOX_WORKERS': None} rec_err 0 pg_deadlocks 1 maxFAILED 0 ip 800
+
+[exited with code 0]

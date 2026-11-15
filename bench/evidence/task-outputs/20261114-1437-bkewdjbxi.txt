@@ -1,0 +1,15 @@
+==> building diode-server 519ccec into /home/alatour/repositories/netbox/diode/bench/out/bin/baseline-519ccec
+==> [baseline diode=519ccec plugin=8c3a3bb] scenario=std run 1/3
+   initial     1800 ent   206.345s      8.72 ent/s  {'APPLIED': 230, 'NO_CHANGES': 1570}
+   reingest    1800 ent    34.305s     52.47 ent/s  {'APPLIED': 230, 'NO_CHANGES': 1570}
+   update      1800 ent    167.18s     10.77 ent/s  {'APPLIED': 418, 'NO_CHANGES': 2982}
+==> [baseline diode=519ccec plugin=8c3a3bb] scenario=std run 2/3
+   initial     1800 ent   188.102s      9.57 ent/s  {'APPLIED': 256, 'NO_CHANGES': 1544}
+   reingest    1800 ent    35.792s     50.29 ent/s  {'APPLIED': 256, 'NO_CHANGES': 1544}
+   update      1800 ent   170.746s     10.54 ent/s  {'APPLIED': 432, 'NO_CHANGES': 2968}
+==> [baseline diode=519ccec plugin=8c3a3bb] scenario=std run 3/3
+   initial     1800 ent    189.63s      9.49 ent/s  {'APPLIED': 258, 'NO_CHANGES': 1542}
+   reingest    1800 ent    35.377s     50.88 ent/s  {'APPLIED': 258, 'NO_CHANGES': 1542}
+   update      1800 ent   173.728s     10.36 ent/s  {'APPLIED': 414, 'NO_CHANGES': 2986}
+
+[exited with code 0]

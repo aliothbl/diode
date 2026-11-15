@@ -1,0 +1,43 @@
+==> no NetBox seed for plugin ed63aff: first boot runs migrations (~8 min), then it is snapshotted
+==> [candidate diode=28f9e75 plugin=ed63aff branching=8ab3b38] scenario=branch-double-merge run 1/1
+   initial      180 ent     14.61s     12.32 ent/s  {'APPLIED': 179, 'NO_CHANGES': 1}
+rc 0 None
+{
+ "merges": [
+  {
+   "status": "merged",
+   "error": null,
+   "merge_s": 13.099,
+   "changes_at_go": 209,
+   "applied_changes": 209
+  },
+  {
+   "status": "ready",
+   "error": "IntegrityError: duplicate key value violates unique constraint \"extras_tag_pkey\"\nDETAIL:  Key (id)=(1) already exists.",
+   "merge_s": 9.824,
+   "changes_at_go": 209,
+   "applied_changes": 209
+  }
+ ],
+ "final_status": "merged",
+ "events": {
+  "merged": 1,
+  "provisioned": 1
+ },
+ "objects_in_branch": {
+  "device": 20,
+  "interface": 80,
+  "ipaddress": 80
+ },
+ "rows_in_main": {
+  "device": 20,
+  "interface": 80,
+  "ipaddress": 80
+ },
+ "objectchanges_in_branch": 209,
+ "objectchanges_in_main": 209,
+ "applied_changes": 209,
+ "merged_then_ready": false
+}
+
+[exited with code 0]

@@ -1,0 +1,14 @@
+==> building diode-server 6dbe897 into /home/alatour/repositories/netbox/diode/bench/out/bin/candidate-6dbe897
+==> no NetBox seed for plugin ed63aff: first boot runs migrations (~8 min), then it is snapshotted
+==> [candidate diode=6dbe897 plugin=ed63aff branching=631943c] scenario=branch-merge-race run 1/5
+   initial      540 ent    35.321s     15.29 ent/s  {'APPLIED': 534, 'NO_CHANGES': 6}
+==> [candidate diode=6dbe897 plugin=ed63aff branching=631943c] scenario=branch-merge-race run 2/5
+   initial      540 ent    39.795s     13.57 ent/s  {'APPLIED': 534, 'NO_CHANGES': 6}
+==> [candidate diode=6dbe897 plugin=ed63aff branching=631943c] scenario=branch-merge-race run 3/5
+   initial      540 ent    37.333s     14.46 ent/s  {'APPLIED': 531, 'NO_CHANGES': 9}
+==> [candidate diode=6dbe897 plugin=ed63aff branching=631943c] scenario=branch-merge-race run 4/5
+   initial      540 ent    35.318s     15.29 ent/s  {'APPLIED': 534, 'FAILED': 1, 'NO_CHANGES': 5}
+==> [candidate diode=6dbe897 plugin=ed63aff branching=631943c] scenario=branch-merge-race run 5/5
+   initial      540 ent    35.818s     15.08 ent/s  {'APPLIED': 535, 'NO_CHANGES': 5}
+
+[exited with code 0]

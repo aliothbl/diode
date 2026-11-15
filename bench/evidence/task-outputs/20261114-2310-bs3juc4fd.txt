@@ -1,0 +1,5 @@
+20261114-225607-candidate-std-run1.jso rec_err 0 pg_deadlocks 0 maxFAILED 0
+20261114-225607-candidate-std-run2.jso rec_err 0 pg_deadlocks 0 maxFAILED 0
+20261114-225607-candidate-std-run3.jso rec_err 0 pg_deadlocks 0 maxFAILED 0
+
+[exited with code 0]

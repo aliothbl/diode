@@ -1,0 +1,28 @@
+==> building diode-server 28f9e75 into /home/alatour/repositories/netbox/diode/bench/out/bin/candidate-28f9e75
+==> [candidate diode=28f9e75 plugin=ed63aff branching=8ab3b38] scenario=std run 1/3
+   initial     1800 ent    113.62s     15.84 ent/s  {'APPLIED': 1776, 'NO_CHANGES': 24}
+   reingest    1800 ent    27.917s     64.48 ent/s  {'APPLIED': 1776, 'NO_CHANGES': 24}
+   update      1800 ent    118.31s     15.21 ent/s  {'APPLIED': 3374, 'NO_CHANGES': 26}
+==> [candidate diode=28f9e75 plugin=ed63aff branching=8ab3b38] scenario=std run 2/3
+   initial     1800 ent    91.844s      19.6 ent/s  {'APPLIED': 1776, 'NO_CHANGES': 24}
+   reingest    1800 ent    20.761s      86.7 ent/s  {'APPLIED': 1776, 'NO_CHANGES': 24}
+   update      1800 ent    91.503s     19.67 ent/s  {'APPLIED': 3376, 'NO_CHANGES': 24}
+==> [candidate diode=28f9e75 plugin=ed63aff branching=8ab3b38] scenario=std run 3/3
+   initial     1800 ent   100.321s     17.94 ent/s  {'APPLIED': 1774, 'NO_CHANGES': 26}
+   reingest    1800 ent    23.767s     75.74 ent/s  {'APPLIED': 1774, 'NO_CHANGES': 26}
+   update      1800 ent   100.459s     17.92 ent/s  {'APPLIED': 3374, 'NO_CHANGES': 26}
+==> building diode-server 28f9e75 into /home/alatour/repositories/netbox/diode/bench/out/bin/candidate-28f9e75
+==> [candidate diode=28f9e75 plugin=ed63aff branching=pip-1.2.0] scenario=std run 1/3
+   initial     1800 ent    87.301s     20.62 ent/s  {'APPLIED': 1679, 'FAILED': 100, 'NO_CHANGES': 21}
+   reingest    1800 ent    25.316s      71.1 ent/s  {'APPLIED': 1776, 'NO_CHANGES': 24}
+   update      1800 ent    91.007s     19.78 ent/s  {'APPLIED': 3375, 'NO_CHANGES': 25}
+==> [candidate diode=28f9e75 plugin=ed63aff branching=pip-1.2.0] scenario=std run 2/3
+   initial     1800 ent    97.288s      18.5 ent/s  {'APPLIED': 1682, 'FAILED': 100, 'NO_CHANGES': 18}
+   reingest    1800 ent    28.315s     63.57 ent/s  {'APPLIED': 1779, 'NO_CHANGES': 21}
+   update      1800 ent   104.474s     17.23 ent/s  {'APPLIED': 3378, 'NO_CHANGES': 22}
+==> [candidate diode=28f9e75 plugin=ed63aff branching=pip-1.2.0] scenario=std run 3/3
+   initial     1800 ent   100.355s     17.94 ent/s  {'APPLIED': 1776, 'NO_CHANGES': 24}
+   reingest    1800 ent    23.804s     75.62 ent/s  {'APPLIED': 1776, 'NO_CHANGES': 24}
+   update      1800 ent   100.953s     17.83 ent/s  {'APPLIED': 3374, 'NO_CHANGES': 26}
+
+[exited with code 0]

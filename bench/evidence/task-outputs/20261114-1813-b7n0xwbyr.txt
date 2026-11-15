@@ -1,0 +1,16 @@
+==> building diode-server ae1e79c into /home/alatour/repositories/netbox/diode/bench/out/bin/candidate-ae1e79c
+==> [candidate diode=ae1e79c plugin=d7a0cc4] scenario=large run 1/2
+   initial    17000 ent   949.826s      17.9 ent/s  {'APPLIED': 16760, 'NO_CHANGES': 240}
+   reingest   17000 ent     238.1s      71.4 ent/s  {'APPLIED': 16760, 'NO_CHANGES': 240}
+   update     17000 ent   1127.29s     15.08 ent/s  {'APPLIED': 32759, 'NO_CHANGES': 241}
+==> [candidate diode=ae1e79c plugin=d7a0cc4] scenario=large run 2/2
+   initial    17000 ent   925.958s     18.36 ent/s  {'APPLIED': 16761, 'NO_CHANGES': 239}
+   reingest   17000 ent   223.891s     75.93 ent/s  {'APPLIED': 16761, 'NO_CHANGES': 239}
+   update     17000 ent  1087.203s     15.64 ent/s  {'APPLIED': 32760, 'NO_CHANGES': 240}
+==> building diode-server ae1e79c into /home/alatour/repositories/netbox/diode/bench/out/bin/candidate-ae1e79c
+==> [candidate diode=ae1e79c plugin=d7a0cc4] scenario=large run 1/1
+   initial    17000 ent  1803.268s      9.43 ent/s  {'APPLIED': 17000}
+   reingest   17000 ent   393.642s     43.19 ent/s  {'APPLIED': 17000}
+   update     17000 ent  2989.755s      5.69 ent/s  {'APPLIED': 33000}
+
+[exited with code 0]

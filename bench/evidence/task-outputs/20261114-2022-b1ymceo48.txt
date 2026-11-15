@@ -1,0 +1,9 @@
+==> [candidate diode=28f9e75 plugin=ed63aff branching=8ab3b38] scenario=branch-double-merge run 1/5
+==> [candidate diode=28f9e75 plugin=ed63aff branching=8ab3b38] scenario=branch-double-merge run 2/5
+==> [candidate diode=28f9e75 plugin=ed63aff branching=8ab3b38] scenario=branch-double-merge run 3/5
+==> [candidate diode=28f9e75 plugin=ed63aff branching=8ab3b38] scenario=branch-double-merge run 4/5
+==> [candidate diode=28f9e75 plugin=ed63aff branching=8ab3b38] scenario=branch-double-merge run 5/5
+==> [candidate diode=28f9e75 plugin=ed63aff branching=8ab3b38] scenario=branch-double-merge run 1/2
+==> [candidate diode=28f9e75 plugin=ed63aff branching=8ab3b38] scenario=branch-double-merge run 2/2
+
+[exited with code 0]

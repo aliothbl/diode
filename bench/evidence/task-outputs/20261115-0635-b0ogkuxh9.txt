@@ -1,0 +1,5 @@
+run 1: 20261115-062506-candidate-std-run1.json rc=0 rec_err=0 pg_deadlocks=0 failed=0 errs=0
+run 2: 20261115-062938-candidate-std-run1.json rc=0 rec_err=25 pg_deadlocks=0 failed=25 errs=12
+STOP: error found in bench/results/20261115-062938-candidate-std-run1.json
+
+[exited with code 0]

@@ -1,0 +1,18 @@
+EXIT=0
+ Container diode-netbox-plugin-v47x-netbox-postgres-1 Stopping 
+ Container diode-netbox-plugin-v47x-netbox-redis-cache-1 Stopping 
+ Container diode-netbox-plugin-v47x-netbox-redis-1 Stopping 
+ Container diode-netbox-plugin-v47x-netbox-redis-1 Stopped 
+ Container diode-netbox-plugin-v47x-netbox-redis-1 Removing 
+ Container diode-netbox-plugin-v47x-netbox-redis-1 Removed 
+ Container diode-netbox-plugin-v47x-netbox-redis-cache-1 Stopped 
+ Container diode-netbox-plugin-v47x-netbox-redis-cache-1 Removing 
+ Container diode-netbox-plugin-v47x-netbox-redis-cache-1 Removed 
+ Container diode-netbox-plugin-v47x-netbox-postgres-1 Stopped 
+ Container diode-netbox-plugin-v47x-netbox-postgres-1 Removing 
+ Container diode-netbox-plugin-v47x-netbox-postgres-1 Removed 
+ Network diode-netbox-plugin-v47x_default Removing 
+ Network diode-netbox-plugin-v47x_default Removed 
+make[1]: Leaving directory '/home/alatour/repositories/netbox/diode-netbox-plugin'
+
+[exited with code 0]

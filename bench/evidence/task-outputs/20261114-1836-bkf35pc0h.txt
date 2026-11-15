@@ -1,0 +1,22 @@
+    raise RuntimeError(f"nbshell failed: rc={out.returncode}\n{out.stdout[-2000:]}\n{out.stderr[-2000:]}")
+RuntimeError: nbshell failed: rc=0
+🧬 loaded config '/etc/netbox/config/configuration.py'
+🧬 loaded config '/etc/netbox/config/extra.py'
+🧬 loaded config '/etc/netbox/config/logging.py'
+🧬 loaded config '/etc/netbox/config/plugins.py'
+>>> >>> >>> >>> >>> >>> >>> >>> >>> >>> >>> >>> >>> >>> BENCH {"id": 1, "schema_id": "iix6ee3b", "schema": "branch_iix6ee3b", "status": "ready"}
+>>> 
+/opt/netbox/netbox/netbox/settings.py:278: FutureWarning: LOGIN_REQUIRED is deprecated and will be removed in NetBox v5.0. Unauthenticated access to the application will no longer be supported. Please plan to require authentication for all users before upgrading.
+  warnings.warn(
+### [1mNetBox interactive shell[0m (eded12ab624b)
+### [32mPython v3.14.4[0m | [32mDjango v6.1[0m | [32mNetBox Community v4.7.0-Docker-5.1.1[0m
+### Plugins: [36mnetbox_branching v1.2.3[0m, [36mnetbox_diode_plugin v0.0.0[0m
+### lsapps() & lsmodels() will show available models. Use help(<model>) for more info.
+Provisioning branch bench-br (branch_iix6ee3b)
+Provisioning completed
+
+now exiting InteractiveConsole...
+
+loadgen failed (rc=1), see /home/alatour/repositories/netbox/diode/bench/results/20261114-183446-candidate-branch-merge-race-run1.json
+
+[exited with code 0]

@@ -1,0 +1,11 @@
+run 1: 20261115-044342-candidate-std-run1.json rc=0 rec_err=0 pg_deadlocks=0 failed=0 errs=0
+run 2: 20261115-044811-candidate-std-run1.json rc=0 rec_err=0 pg_deadlocks=0 failed=0 errs=0
+run 3: 20261115-045238-candidate-std-run1.json rc=0 rec_err=0 pg_deadlocks=0 failed=0 errs=0
+run 4: 20261115-045732-candidate-std-run1.json rc=0 rec_err=0 pg_deadlocks=0 failed=0 errs=0
+run 5: 20261115-050201-candidate-std-run1.json rc=0 rec_err=0 pg_deadlocks=0 failed=0 errs=0
+run 6: 20261115-050639-candidate-std-run1.json rc=0 rec_err=0 pg_deadlocks=0 failed=0 errs=0
+run 7: 20261115-051133-candidate-std-run1.json rc=0 rec_err=0 pg_deadlocks=0 failed=0 errs=0
+run 8: 20261115-051612-candidate-std-run1.json rc=0 rec_err=0 pg_deadlocks=0 failed=0 errs=0
+DONE: no error in 8 runs
+
+[exited with code 0]
