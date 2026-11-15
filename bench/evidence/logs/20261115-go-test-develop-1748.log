@@ -1,0 +1,116 @@
+ok  	github.com/netboxlabs/diode/diode-server/auth	(cached)
+?   	github.com/netboxlabs/diode/diode-server/auth/cli	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/auth/mocks	[no test files]
+ok  	github.com/netboxlabs/diode/diode-server/authutil	(cached)
+?   	github.com/netboxlabs/diode/diode-server/cmd/auth	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/cmd/authmanager	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/cmd/ingester	[no test files]
+ok  	github.com/netboxlabs/diode/diode-server/cmd/protograph	(cached)
+?   	github.com/netboxlabs/diode/diode-server/cmd/reconciler	[no test files]
+ok  	github.com/netboxlabs/diode/diode-server/dbstore/postgres	0.372s
+ok  	github.com/netboxlabs/diode/diode-server/entityhash	(cached)
+ok  	github.com/netboxlabs/diode/diode-server/entitymatcher	(cached)
+?   	github.com/netboxlabs/diode/diode-server/entitymatcher/mocks	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/errors	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/gen/dbstore/postgres	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/gen/diode/v1/diodepb	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/gen/diode/v1/reconcilerpb	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/gen/netbox	[no test files]
+ok  	github.com/netboxlabs/diode/diode-server/gen/protograph	(cached)
+ok  	github.com/netboxlabs/diode/diode-server/graph	(cached)
+?   	github.com/netboxlabs/diode/diode-server/graph/mocks	[no test files]
+ok  	github.com/netboxlabs/diode/diode-server/grpckeepalive	(cached)
+ok  	github.com/netboxlabs/diode/diode-server/ingester	0.241s
+?   	github.com/netboxlabs/diode/diode-server/ingester/mocks	[no test files]
+ok  	github.com/netboxlabs/diode/diode-server/matching	(cached)
+ok  	github.com/netboxlabs/diode/diode-server/migrator	0.026s
+ok  	github.com/netboxlabs/diode/diode-server/netboxdiodeplugin	13.126s
+?   	github.com/netboxlabs/diode/diode-server/netboxdiodeplugin/mocks	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/pprof	[no test files]
+{"time":"2026-11-15T18:07:50.149891123-01:00","level":"DEBUG","msg":"handling ingest request","request":{"entities":[{"Entity":{"Site":{"name":"test-site-name"}}}],"id":"req123"}}
+{"time":"2026-11-15T18:07:50.150771508-01:00","level":"DEBUG","msg":"created new ingestion log","id":1,"externalID":"7a8f6dd5-f3a1-4e6c-a611-8f01cfcd88f1"}
+{"time":"2026-11-15T18:07:50.151796477-01:00","level":"DEBUG","msg":"handling ingest request","request":{"entities":[{"Entity":null}],"id":"req123"}}
+{"time":"2026-11-15T18:07:50.151972816-01:00","level":"WARN","msg":"failed to handle ingest request","request_id":"req123","errors":["entity at index 0 is nil"]}
+{"time":"2026-11-15T18:07:50.152680356-01:00","level":"ERROR","msg":"failed to handle stream message","error":"proto: cannot parse invalid wire-format data","message":{"ID":"1","Values":{"ingestion_ts":"timestamp","request":"invalid-request"}}}
+{"time":"2026-11-15T18:07:50.153148038-01:00","level":"DEBUG","msg":"handling ingest request","request":{"entities":[{"Entity":{"Site":{"name":"legacy-site"}}}],"id":"legacy-req"}}
+{"time":"2026-11-15T18:07:50.153618439-01:00","level":"DEBUG","msg":"created new ingestion log","id":1,"externalID":"70ac9bf4-f849-4df8-83ab-bbc2c13d2bdd"}
+time=2026-11-15T18:07:50.159-01:00 level=INFO msg="starting component" name=reconciler-auto-apply-processor
+time=2026-11-15T18:07:50.159-01:00 level=INFO msg="stopping component" name=reconciler-auto-apply-processor
+time=2026-11-15T18:07:50.311-01:00 level=INFO msg="starting component" name=reconciler-auto-apply-processor
+time=2026-11-15T18:07:50.463-01:00 level=INFO msg="starting component" name=reconciler-auto-apply-processor
+time=2026-11-15T18:07:50.463-01:00 level=INFO msg="stopping component" name=reconciler-auto-apply-processor
+time=2026-11-15T18:07:50.564-01:00 level=WARN msg="auto-apply processor did not drain within timeout, forcing cancel" name=reconciler-auto-apply-processor timeout=100ms
+time=2026-11-15T18:07:50.565-01:00 level=INFO msg="stopping component" name=reconciler-auto-apply-processor
+time=2026-11-15T18:07:50.565-01:00 level=INFO msg="stopping component" name=reconciler-auto-apply-processor
+time=2026-11-15T18:07:50.565-01:00 level=INFO msg="starting component" name=reconciler-ingestion-log-processor
+time=2026-11-15T18:07:50.565-01:00 level=INFO msg="stopping component" name=reconciler-ingestion-log-processor
+time=2026-11-15T18:07:50.716-01:00 level=INFO msg="starting component" name=reconciler-ingestion-log-processor
+time=2026-11-15T18:07:50.868-01:00 level=INFO msg="starting component" name=reconciler-ingestion-log-processor
+time=2026-11-15T18:07:50.869-01:00 level=INFO msg="stopping component" name=reconciler-ingestion-log-processor
+time=2026-11-15T18:07:50.969-01:00 level=WARN msg="ingestion log processor did not drain within timeout, forcing cancel" name=reconciler-ingestion-log-processor timeout=100ms
+time=2026-11-15T18:07:50.970-01:00 level=INFO msg="stopping component" name=reconciler-ingestion-log-processor
+time=2026-11-15T18:07:50.970-01:00 level=INFO msg="stopping component" name=reconciler-ingestion-log-processor
+{"time":"2026-11-15T18:07:50.976565792-01:00","level":"DEBUG","msg":"retrieving only ingestion metrics"}
+time=2026-11-15T18:07:50.984-01:00 level=INFO msg="starting component" name=reconciler-ingestion-log-processor
+time=2026-11-15T18:07:50.985-01:00 level=WARN msg="default branch not yet known; deferring change set generation until it is known"
+time=2026-11-15T18:07:51.235-01:00 level=INFO msg="starting component" name=reconciler-auto-apply-processor
+time=2026-11-15T18:07:51.235-01:00 level=WARN msg="default branch not yet known; deferring auto-apply until it is known"
+time=2026-11-15T18:07:54.687-01:00 level=INFO msg="starting component" name=reconciler-ingestion-log-processor
+time=2026-11-15T18:07:54.687-01:00 level=WARN msg="default branch not yet known; deferring change set generation until it is known"
+time=2026-11-15T18:07:55.688-01:00 level=INFO msg="default branch known; resuming change set generation"
+time=2026-11-15T18:07:56.188-01:00 level=INFO msg="starting component" name=reconciler-ingestion-log-processor
+time=2026-11-15T18:07:56.190-01:00 level=INFO msg="starting component" name=reconciler-ingestion-log-processor
+time=2026-11-15T18:07:56.192-01:00 level=INFO msg="starting component" name=reconciler-ingestion-log-processor
+time=2026-11-15T18:07:56.242-01:00 level=INFO msg="starting component" name=reconciler-ingestion-log-processor
+time=2026-11-15T18:07:56.293-01:00 level=INFO msg="stopping component" name=reconciler-ingestion-log-processor
+time=2026-11-15T18:07:56.293-01:00 level=INFO msg="starting component" name=reconciler-ingestion-log-processor
+time=2026-11-15T18:07:56.496-01:00 level=INFO msg="starting component" name=reconciler-ingestion-log-processor
+time=2026-11-15T18:07:56.496-01:00 level=ERROR msg="error generating changeset" error="netbox error" ingestionLogID=1
+time=2026-11-15T18:07:56.697-01:00 level=INFO msg="starting component" name=reconciler-ingestion-log-processor
+time=2026-11-15T18:07:56.898-01:00 level=INFO msg="starting component" name=reconciler-ingestion-log-processor
+time=2026-11-15T18:07:57.899-01:00 level=INFO msg="starting component" name=reconciler-ingestion-log-processor
+time=2026-11-15T18:07:57.899-01:00 level=INFO msg="starting component" name=reconciler-ingestion-log-processor
+time=2026-11-15T18:07:57.900-01:00 level=ERROR msg="failed to claim queued ingestion logs" error="db connection error"
+{"time":"2026-11-15T18:07:58.101797849-01:00","level":"INFO","msg":"stopping component","name":"reconciler-ingestion-processor"}
+time=2026-11-15T18:07:58.104-01:00 level=INFO msg="starting component" name=reconciler-ingestion-processor
+time=2026-11-15T18:07:58.257-01:00 level=INFO msg="stopping component" name=reconciler-ingestion-processor
+time=2026-11-15T18:07:58.260-01:00 level=INFO msg="starting component" name=reconciler-ingestion-processor
+time=2026-11-15T18:07:58.414-01:00 level=INFO msg="stopping component" name=reconciler-ingestion-processor
+time=2026-11-15T18:07:58.416-01:00 level=INFO msg="starting component" name=reconciler-ingestion-processor
+time=2026-11-15T18:07:58.569-01:00 level=INFO msg="stopping component" name=reconciler-ingestion-processor
+time=2026-11-15T18:07:58.573-01:00 level=INFO msg="starting component" name=reconciler-ingestion-processor
+time=2026-11-15T18:07:58.727-01:00 level=INFO msg="stopping component" name=reconciler-ingestion-processor
+time=2026-11-15T18:07:58.729-01:00 level=INFO msg="starting component" name=reconciler-ingestion-processor
+time=2026-11-15T18:07:58.884-01:00 level=INFO msg="stopping component" name=reconciler-ingestion-processor
+time=2026-11-15T18:07:58.886-01:00 level=INFO msg="starting component" name=reconciler-ingestion-processor
+time=2026-11-15T18:07:59.040-01:00 level=INFO msg="stopping component" name=reconciler-ingestion-processor
+time=2026-11-15T18:07:59.041-01:00 level=INFO msg="starting component" name=reconciler-ingestion-processor
+time=2026-11-15T18:07:59.197-01:00 level=INFO msg="stopping component" name=reconciler-ingestion-processor
+--- FAIL: TestIngestionProcessor_DedupKeysFollowSourceMatch (2.01s)
+    ingestion_processor_test.go:577: timeout waiting for BulkCreateIngestionLogs
+    ingestionprocessorops.go:420: FAIL:	DefaultBranch(string)
+        		at: [/tmp/claude-1001/-home-alatour-repositories-netbox-diode/9ac3caca-5bba-400d-ba9a-4fcf1b01b17f/scratchpad/wt-develop/diode-server/reconciler/ingestion_processor_test.go:534]
+    ingestionprocessorops.go:420: FAIL:	BulkCreateIngestionLogs(string,string,string,string)
+        		at: [/tmp/claude-1001/-home-alatour-repositories-netbox-diode/9ac3caca-5bba-400d-ba9a-4fcf1b01b17f/scratchpad/wt-develop/diode-server/reconciler/ingestion_processor_test.go:535]
+    ingestionprocessorops.go:420: FAIL: 0 out of 2 expectation(s) were met.
+        	The code you are testing needs to make 2 more call(s).
+        	at: [/tmp/claude-1001/-home-alatour-repositories-netbox-diode/9ac3caca-5bba-400d-ba9a-4fcf1b01b17f/scratchpad/wt-develop/diode-server/reconciler/mocks/ingestionprocessorops.go:420 /home/alatour/.local/go-1.27.2/src/testing/testing.go:1462 /home/alatour/.local/go-1.27.2/src/testing/testing.go:1822 /home/alatour/.local/go-1.27.2/src/testing/testing.go:2189 /home/alatour/.local/go-1.27.2/src/runtime/panic.go:694 /home/alatour/.local/go-1.27.2/src/testing/testing.go:1106 /home/alatour/.local/go-1.27.2/src/testing/testing.go:1366 /tmp/claude-1001/-home-alatour-repositories-netbox-diode/9ac3caca-5bba-400d-ba9a-4fcf1b01b17f/scratchpad/wt-develop/diode-server/reconciler/ingestion_processor_test.go:577]
+{"time":"2026-11-15T18:08:01.219008739-01:00","level":"ERROR","msg":"bulk persist failed, falling back to per-item persist","error":"database error"}
+{"time":"2026-11-15T18:08:01.231286073-01:00","level":"WARN","msg":"default branch refresh failed; serving last-known value","error":"get default branch failed with status 403: Invalid token","have_value":false}
+{"time":"2026-11-15T18:08:02.258494921-01:00","level":"WARN","msg":"default branch refresh failed; serving last-known value","error":"transient network error","have_value":true}
+{"time":"2026-11-15T18:08:02.317165823-01:00","level":"INFO","msg":"starting component","name":"reconciler-grpc-server","port":33605}
+FAIL
+FAIL	github.com/netboxlabs/diode/diode-server/reconciler	12.663s
+ok  	github.com/netboxlabs/diode/diode-server/reconciler/changeset	(cached)
+ok  	github.com/netboxlabs/diode/diode-server/reconciler/differ	0.018s
+?   	github.com/netboxlabs/diode/diode-server/reconciler/mocks	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/reconciler/ops	[no test files]
+?   	github.com/netboxlabs/diode/diode-server/sentry	[no test files]
+ok  	github.com/netboxlabs/diode/diode-server/server	(cached)
+ok  	github.com/netboxlabs/diode/diode-server/strcase	(cached)
+ok  	github.com/netboxlabs/diode/diode-server/telemetry	(cached)
+?   	github.com/netboxlabs/diode/diode-server/telemetry/mocks	[no test files]
+ok  	github.com/netboxlabs/diode/diode-server/telemetry/otel	(cached)
+ok  	github.com/netboxlabs/diode/diode-server/tls	(cached)
+ok  	github.com/netboxlabs/diode/diode-server/version	(cached)
+FAIL

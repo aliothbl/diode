@@ -1,0 +1,724 @@
+Using existing test database for alias 'default'...
+.......................................................................................................................F.............Recovering branch API Forced from status 'syncing': resetting to 'ready' (requested by recoverapi_super)
+...Recovering branch API Stuck from status 'migrating': resetting to 'pending-migrations' (requested by recoverapi_super)
+.Recovering branch API No Retry from status 'migrating': resetting to 'pending-migrations' (requested by recoverapi_super)
+.Recovering branch API Retry from status 'migrating': resetting to 'pending-migrations' (requested by recoverapi_super)
+........Recovering branch No Merge Retry from status 'merging': resetting to 'ready' (requested by recoverview_super)
+.Recovering branch Force Via View from status 'merging': resetting to 'ready' (requested by recoverview_super)
+.Recovering branch Recover Me from status 'migrating': resetting to 'pending-migrations' (requested by recoverview_super)
+.Recovering branch Bare Post from status 'migrating': resetting to 'pending-migrations' (requested by recoverview_super)
+.Recovering branch Retry Sync from status 'syncing': resetting to 'ready' (requested by recoverview_super)
+.Recovering branch No Retry from status 'syncing': resetting to 'ready' (requested by recoverview_super)
+...Recovering branch Forced from status 'syncing': resetting to 'ready' (requested by system)
+...Recovering branch Orphaned Job from status 'migrating': resetting to 'pending-migrations' (requested by system)
+.Recovering branch Errored Job from status 'merging': resetting to 'ready' (requested by system)
+.Recovering branch Stuck provisioning from status 'provisioning': resetting to 'failed' (requested by system)
+Recovering branch Stuck syncing from status 'syncing': resetting to 'ready' (requested by system)
+Recovering branch Stuck migrating from status 'migrating': resetting to 'pending-migrations' (requested by system)
+Recovering branch Stuck merging from status 'merging': resetting to 'ready' (requested by system)
+Recovering branch Stuck reverting from status 'reverting': resetting to 'merged' (requested by system)
+..........................Recovering branch Watchdog No Retry from status 'syncing': resetting to 'ready' (requested by system)
+.Recovering branch Bbb Recoverable from status 'syncing': resetting to 'ready' (requested by system)
+.Recovering branch Stuck Migrate from status 'migrating': resetting to 'pending-migrations' (requested by system)
+....................................................................F...............................pg_cancel_backend(0) returned false; that worker may still be running and holding locks, which can delay schema cleanup.
+.ANALYZE of branch_mhw80n3o.this_table_does_not_exist failed; leaving its statistics to autovacuum.
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 103, in _execute
+    return self.cursor.execute(sql)
+           ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+psycopg.errors.UndefinedTable: relation "branch_mhw80n3o.this_table_does_not_exist" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/provisioning.py", line 515, in analyze
+    cursor.execute(sql_text)
+    ~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 103, in _execute
+    return self.cursor.execute(sql)
+           ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+django.db.utils.ProgrammingError: relation "branch_mhw80n3o.this_table_does_not_exist" does not exist
+.simulated worker failure
+..simulated index build failure
+.................................................................................................................FF...FF.F........................EExxFFFFF................................FFFF.FFFFF...................................EE.FFFFFF...........F...F.................................
+======================================================================
+ERROR: test_revert_cable_clear_a_end (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_revert_cable_clear_a_end)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1535, in test_revert_cable_clear_a_end
+    self._revert_cable_clear('A')
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1526, in _revert_cable_clear
+    branch.revert(user=self.user, commit=True)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1213, in revert
+    raise Exception('Only merged branches can be reverted.')
+Exception: Only merged branches can be reverted.
+
+======================================================================
+ERROR: test_revert_cable_clear_b_end (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_revert_cable_clear_b_end)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1541, in test_revert_cable_clear_b_end
+    self._revert_cable_clear('B')
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1526, in _revert_cable_clear
+    branch.revert(user=self.user, commit=True)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1213, in revert
+    raise Exception('Only merged branches can be reverted.')
+Exception: Only merged branches can be reverted.
+
+======================================================================
+ERROR: test_revert_cable_clear_a_end (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_revert_cable_clear_a_end)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1535, in test_revert_cable_clear_a_end
+    self._revert_cable_clear('A')
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1526, in _revert_cable_clear
+    branch.revert(user=self.user, commit=True)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1213, in revert
+    raise Exception('Only merged branches can be reverted.')
+Exception: Only merged branches can be reverted.
+
+======================================================================
+ERROR: test_revert_cable_clear_b_end (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_revert_cable_clear_b_end)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1541, in test_revert_cable_clear_b_end
+    self._revert_cable_clear('B')
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1526, in _revert_cable_clear
+    branch.revert(user=self.user, commit=True)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1213, in revert
+    raise Exception('Only merged branches can be reverted.')
+Exception: Only merged branches can be reverted.
+
+======================================================================
+FAIL: test_background_api_request_activates_branch_from_query_param (netbox_branching.tests.test_request.RequestTestCase.test_background_api_request_activates_branch_from_query_param)
+apply_request_processors() only warns when a processor fails, so the background write lands
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_request.py", line 302, in test_background_api_request_activates_branch_from_query_param
+    self.assertEqual(active_branch.get(), branch)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: None != <Branch: Branch 1>
+
+======================================================================
+FAIL: test_list_objects_with_permission (netbox_branching.tests.test_views.BranchTestCase.test_list_objects_with_permission)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/netbox/utilities/testing/views.py", line 473, in test_list_objects_with_permission
+    with assert_expected_query_count(self, 'list_objects_with_permission'):
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/contextlib.py", line 148, in __exit__
+    next(self.gen)
+    ~~~~^^^^^^^^^^
+  File "/opt/netbox/netbox/utilities/testing/query_counts.py", line 137, in assert_expected_query_count
+    test_case.fail(
+    ~~~~~~~~~~~~~~^
+        f"Query count for {app_label}/{key} changed: "
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        f"to update the baseline.\nObserved queries:\n{sample}"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: Query count for netbox_branching/branch:list_objects_with_permission changed: expected 18, got 19. If this change is intentional, re-run with UPDATE_QUERY_COUNTS=1 to update the baseline.
+Observed queries:
+  1. SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2026-11-15 19:41:03.748747+00:00'::timestamptz AND "django_session"."sessi
+  2. SELECT "users_user"."id", "users_user"."password", "users_user"."last_login", "users_user"."is_superuser", "users_user"."username", "users_user"."first_name", "users_user"."last_name", "users_user"."email", "users_user"."is_active", "users_
+  3. SELECT DISTINCT ON ("users_objectpermission"."id") "users_objectpermission"."id", "users_objectpermission"."name", "users_objectpermission"."description", "users_objectpermission"."enabled", "users_objectpermission"."actions", "users_object
+  4. SELECT ("users_objectpermission_object_types"."objectpermission_id") AS "_prefetch_related_val_objectpermission_id", "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" INN
+  5. SELECT "django_content_type"."app_label" AS "content_type__app_label", "auth_permission"."codename" AS "codename" FROM "auth_permission" INNER JOIN "users_user_user_permissions" ON ("auth_permission"."id" = "users_user_user_permissions"."pe
+  6. SELECT "django_content_type"."app_label" AS "content_type__app_label", "auth_permission"."codename" AS "codename" FROM "auth_permission" INNER JOIN "users_group_permissions" ON ("auth_permission"."id" = "users_group_permissions"."permission
+  7. SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model", "core_objecttype"."contenttype_ptr_id", "core_objecttype"."public", "core_objecttype"."features" FROM "core_objecttype" INNER JOIN "django_
+  8. SELECT "extras_customfield"."id", "extras_customfield"."created", "extras_customfield"."last_updated", "extras_customfield"."owner_id", "extras_customfield"."type", "extras_customfield"."related_object_type_id", "extras_customfield"."name",
+  9. SELECT "extras_customlink"."id", "extras_customlink"."created", "extras_customlink"."last_updated", "extras_customlink"."owner_id", "extras_customlink"."name", "extras_customlink"."enabled", "extras_customlink"."link_text", "extras_customli
+  10. SELECT "users_userconfig"."id", "users_userconfig"."user_id", "users_userconfig"."data" FROM "users_userconfig" WHERE "users_userconfig"."user_id" = 476 LIMIT 21
+  11. SELECT COUNT(*) FROM (SELECT "netbox_branching_branch"."id" AS "col1" FROM "netbox_branching_branch" LEFT OUTER JOIN "netbox_branching_changediff" ON ("netbox_branching_branch"."id" = "netbox_branching_changediff"."branch_id") GROUP BY 1) s
+  12. SELECT 1 AS "a" FROM "netbox_branching_branch" LEFT OUTER JOIN "netbox_branching_changediff" ON ("netbox_branching_branch"."id" = "netbox_branching_changediff"."branch_id") GROUP BY "netbox_branching_branch"."id" LIMIT 1
+  13. SELECT "netbox_branching_branch"."id", "netbox_branching_branch"."created", "netbox_branching_branch"."last_updated", "netbox_branching_branch"."custom_field_data", "netbox_branching_branch"."description", "netbox_branching_branch"."comment
+  14. SELECT 1 AS "a" FROM "extras_notification" WHERE ("extras_notification"."user_id" = 476 AND "extras_notification"."read" IS NULL) LIMIT 1
+  15. SELECT "netbox_branching_branch"."id", "netbox_branching_branch"."created", "netbox_branching_branch"."last_updated", "netbox_branching_branch"."custom_field_data", "netbox_branching_branch"."description", "netbox_branching_branch"."comment
+  16. SELECT 1 AS "a" FROM "extras_notification" WHERE ("extras_notification"."user_id" = 476 AND "extras_notification"."read" IS NULL) LIMIT 1
+  17. SELECT "extras_tableconfig"."id", "extras_tableconfig"."created", "extras_tableconfig"."last_updated", "extras_tableconfig"."object_type_id", "extras_tableconfig"."table", "extras_tableconfig"."name", "extras_tableconfig"."description", "ex
+  18. SELECT "netbox_branching_branch"."id", "netbox_branching_branch"."created", "netbox_branching_branch"."last_updated", "netbox_branching_branch"."custom_field_data", "netbox_branching_branch"."description", "netbox_branching_branch"."comment
+  19. SELECT DISTINCT "extras_tag"."name", "extras_tag"."slug", "extras_tag"."created", "extras_tag"."last_updated", "extras_tag"."owner_id", "extras_tag"."id", "extras_tag"."color", "extras_tag"."description", "extras_tag"."weight", COUNT("extra
+
+======================================================================
+FAIL: test_merge_cable_clear_a_end (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_merge_cable_clear_a_end)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1532, in test_merge_cable_clear_a_end
+    self._merge_cable_clear('A')
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1510, in _merge_cable_clear
+    assert_half_terminated()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1502, in assert_half_terminated
+    self._assert_terminations(cable, **{kept_end.lower(): [(kept, None, None)]})
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 316, in _assert_terminations
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        [(ct.termination_type_id, ct.termination_id, ct.connector, ct.positions) for ct in rows],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        [(interface_ct.id, interface.id, connector, positions) for interface, connector, positions in expected],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        f'Unexpected {end}-end terminations for cable {cable.id}',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: Lists differ: [(208, 200, None, None)] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+(208, 200, None, None)
+
+- [(208, 200, None, None)]
++ [] : Unexpected A-end terminations for cable 48
+
+======================================================================
+FAIL: test_merge_cable_clear_b_end (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_merge_cable_clear_b_end)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1538, in test_merge_cable_clear_b_end
+    self._merge_cable_clear('B')
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1510, in _merge_cable_clear
+    assert_half_terminated()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1502, in assert_half_terminated
+    self._assert_terminations(cable, **{kept_end.lower(): [(kept, None, None)]})
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 316, in _assert_terminations
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        [(ct.termination_type_id, ct.termination_id, ct.connector, ct.positions) for ct in rows],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        [(interface_ct.id, interface.id, connector, positions) for interface, connector, positions in expected],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        f'Unexpected {end}-end terminations for cable {cable.id}',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: Lists differ: [(208, 206, None, None)] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+(208, 206, None, None)
+
+- [(208, 206, None, None)]
++ [] : Unexpected B-end terminations for cable 49
+
+======================================================================
+FAIL: test_merge_cable_move_a_end (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_merge_cable_move_a_end)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1474, in test_merge_cable_move_a_end
+    self._merge_cable_move(move_a=True, move_b=False)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1452, in _merge_cable_move
+    self.assertEqual(CablePath.objects.count(), 2)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 3 != 2
+
+======================================================================
+FAIL: test_merge_cable_move_b_end (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_merge_cable_move_b_end)
+Refs: #469
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1481, in test_merge_cable_move_b_end
+    self._merge_cable_move(move_a=False, move_b=True)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1452, in _merge_cable_move
+    self.assertEqual(CablePath.objects.count(), 2)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 3 != 2
+
+======================================================================
+FAIL: test_merge_cable_reorder_terminations (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_merge_cable_reorder_terminations)
+Merge a branch which swaps the A-end terminations of a 2C1P trunk cable.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1597, in test_merge_cable_reorder_terminations
+    self.assertEqual(CablePath.objects.count(), 4)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 6 != 4
+
+======================================================================
+FAIL: test_revert_cable_move_a_end (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_revert_cable_move_a_end)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1477, in test_revert_cable_move_a_end
+    self._revert_cable_move(move_a=True, move_b=False)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1468, in _revert_cable_move
+    self._assert_connected(cable, ports.a1, ports.b1)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 354, in _assert_connected
+    self._assert_endpoint(a, cable=cable, end='A', connector=connector, positions=positions, peers=[b])
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 338, in _assert_endpoint
+    self.assertIsNotNone(interface._path_id, f'{interface} has no cable path')
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None : eth0 has no cable path
+
+======================================================================
+FAIL: test_revert_cable_move_b_end (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_revert_cable_move_b_end)
+Refs: #469
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1485, in test_revert_cable_move_b_end
+    self._revert_cable_move(move_a=False, move_b=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1468, in _revert_cable_move
+    self._assert_connected(cable, ports.a1, ports.b1)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 354, in _assert_connected
+    self._assert_endpoint(a, cable=cable, end='A', connector=connector, positions=positions, peers=[b])
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 346, in _assert_endpoint
+    self.assertEqual(path.path, route)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [['208:265'], ['217:63'], []] != [['208:265'], ['217:63'], ['208:267']]
+
+First differing element 2:
+[]
+['208:267']
+
+- [['208:265'], ['217:63'], []]
++ [['208:265'], ['217:63'], ['208:267']]
+?                            +++++++++
+
+
+======================================================================
+FAIL: test_revert_cable_move_both_ends (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_revert_cable_move_both_ends)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1491, in test_revert_cable_move_both_ends
+    self._revert_cable_move(move_a=True, move_b=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1468, in _revert_cable_move
+    self._assert_connected(cable, ports.a1, ports.b1)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 354, in _assert_connected
+    self._assert_endpoint(a, cable=cable, end='A', connector=connector, positions=positions, peers=[b])
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 338, in _assert_endpoint
+    self.assertIsNotNone(interface._path_id, f'{interface} has no cable path')
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None : eth0 has no cable path
+
+======================================================================
+FAIL: test_revert_cable_reorder_terminations (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_revert_cable_reorder_terminations)
+Revert a merged branch which swapped the A-end terminations of a 2C1P trunk cable.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1611, in test_revert_cable_reorder_terminations
+    self._assert_trunk(cable, [ports.a1, ports.a2], [ports.b1, ports.b2])
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 365, in _assert_trunk
+    self._assert_endpoint(near, cable=cable, end='A', connector=connector, positions=[1], peers=[far])
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 338, in _assert_endpoint
+    self.assertIsNotNone(interface._path_id, f'{interface} has no cable path')
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None : eth0 has no cable path
+
+======================================================================
+FAIL: test_revert_cable_set_profile (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_revert_cable_set_profile)
+Revert a merged branch which assigned a profile to an existing unprofiled cable. Refs: #688
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1576, in test_revert_cable_set_profile
+    self._assert_connected(cable, ports.a1, ports.b1)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 354, in _assert_connected
+    self._assert_endpoint(a, cable=cable, end='A', connector=connector, positions=positions, peers=[b])
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 338, in _assert_endpoint
+    self.assertIsNotNone(interface._path_id, f'{interface} has no cable path')
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None : eth0 has no cable path
+
+======================================================================
+FAIL: test_merge_cable_clear_a_end (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_merge_cable_clear_a_end)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1532, in test_merge_cable_clear_a_end
+    self._merge_cable_clear('A')
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1510, in _merge_cable_clear
+    assert_half_terminated()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1502, in assert_half_terminated
+    self._assert_terminations(cable, **{kept_end.lower(): [(kept, None, None)]})
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 316, in _assert_terminations
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        [(ct.termination_type_id, ct.termination_id, ct.connector, ct.positions) for ct in rows],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        [(interface_ct.id, interface.id, connector, positions) for interface, connector, positions in expected],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        f'Unexpected {end}-end terminations for cable {cable.id}',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: Lists differ: [(208, 284, None, None)] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+(208, 284, None, None)
+
+- [(208, 284, None, None)]
++ [] : Unexpected A-end terminations for cable 68
+
+======================================================================
+FAIL: test_merge_cable_clear_b_end (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_merge_cable_clear_b_end)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1538, in test_merge_cable_clear_b_end
+    self._merge_cable_clear('B')
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1510, in _merge_cable_clear
+    assert_half_terminated()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1502, in assert_half_terminated
+    self._assert_terminations(cable, **{kept_end.lower(): [(kept, None, None)]})
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 316, in _assert_terminations
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        [(ct.termination_type_id, ct.termination_id, ct.connector, ct.positions) for ct in rows],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        [(interface_ct.id, interface.id, connector, positions) for interface, connector, positions in expected],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        f'Unexpected {end}-end terminations for cable {cable.id}',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: Lists differ: [(208, 290, None, None)] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+(208, 290, None, None)
+
+- [(208, 290, None, None)]
++ [] : Unexpected B-end terminations for cable 69
+
+======================================================================
+FAIL: test_merge_cable_create (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_merge_cable_create)
+Merge a branch which connects two existing interfaces with a new cable. Refs: #150
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1347, in test_merge_cable_create
+    self._assert_connected(cable, ports.a1, ports.b1)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 354, in _assert_connected
+    self._assert_endpoint(a, cable=cable, end='A', connector=connector, positions=positions, peers=[b])
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 338, in _assert_endpoint
+    self.assertIsNotNone(interface._path_id, f'{interface} has no cable path')
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None : eth0 has no cable path
+
+======================================================================
+FAIL: test_merge_cable_create_with_edited_endpoint (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_merge_cable_create_with_edited_endpoint)
+Merge a branch which creates an interface, cables it, then edits it again.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1394, in test_merge_cable_create_with_edited_endpoint
+    self._assert_connected(cable, a3, ports.b1)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 354, in _assert_connected
+    self._assert_endpoint(a, cable=cable, end='A', connector=connector, positions=positions, peers=[b])
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 338, in _assert_endpoint
+    self.assertIsNotNone(interface._path_id, f'{interface} has no cable path')
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None : eth2 has no cable path
+
+======================================================================
+FAIL: test_merge_cable_move_a_end (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_merge_cable_move_a_end)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1474, in test_merge_cable_move_a_end
+    self._merge_cable_move(move_a=True, move_b=False)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1449, in _merge_cable_move
+    self._assert_connected(cable, new_a, new_b)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 354, in _assert_connected
+    self._assert_endpoint(a, cable=cable, end='A', connector=connector, positions=positions, peers=[b])
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 338, in _assert_endpoint
+    self.assertIsNotNone(interface._path_id, f'{interface} has no cable path')
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None : eth1 has no cable path
+
+======================================================================
+FAIL: test_merge_cable_move_b_end (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_merge_cable_move_b_end)
+Refs: #469
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1481, in test_merge_cable_move_b_end
+    self._merge_cable_move(move_a=False, move_b=True)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1449, in _merge_cable_move
+    self._assert_connected(cable, new_a, new_b)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 354, in _assert_connected
+    self._assert_endpoint(a, cable=cable, end='A', connector=connector, positions=positions, peers=[b])
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 346, in _assert_endpoint
+    self.assertEqual(path.path, route)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [['208:309'], ['217:74'], []] != [['208:309'], ['217:74'], ['208:312']]
+
+First differing element 2:
+[]
+['208:312']
+
+- [['208:309'], ['217:74'], []]
++ [['208:309'], ['217:74'], ['208:312']]
+?                            +++++++++
+
+
+======================================================================
+FAIL: test_merge_cable_move_both_ends (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_merge_cable_move_both_ends)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1488, in test_merge_cable_move_both_ends
+    self._merge_cable_move(move_a=True, move_b=True)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1449, in _merge_cable_move
+    self._assert_connected(cable, new_a, new_b)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 354, in _assert_connected
+    self._assert_endpoint(a, cable=cable, end='A', connector=connector, positions=positions, peers=[b])
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 338, in _assert_endpoint
+    self.assertIsNotNone(interface._path_id, f'{interface} has no cable path')
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None : eth1 has no cable path
+
+======================================================================
+FAIL: test_merge_cable_reorder_terminations (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_merge_cable_reorder_terminations)
+Merge a branch which swaps the A-end terminations of a 2C1P trunk cable.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1596, in test_merge_cable_reorder_terminations
+    self._assert_trunk(cable, [ports.a2, ports.a1], [ports.b1, ports.b2])
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 365, in _assert_trunk
+    self._assert_endpoint(near, cable=cable, end='A', connector=connector, positions=[1], peers=[far])
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 338, in _assert_endpoint
+    self.assertIsNotNone(interface._path_id, f'{interface} has no cable path')
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None : eth1 has no cable path
+
+======================================================================
+FAIL: test_merge_cable_set_profile (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_merge_cable_set_profile)
+Merge a branch which assigns a profile to an existing unprofiled cable.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1560, in test_merge_cable_set_profile
+    self._assert_connected(cable, ports.a1, ports.b1, connector=1, positions=[1])
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 354, in _assert_connected
+    self._assert_endpoint(a, cable=cable, end='A', connector=connector, positions=positions, peers=[b])
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 338, in _assert_endpoint
+    self.assertIsNotNone(interface._path_id, f'{interface} has no cable path')
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None : eth0 has no cable path
+
+======================================================================
+FAIL: test_revert_cable_delete (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_revert_cable_delete)
+Revert a merged branch which deleted an existing cable.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1432, in test_revert_cable_delete
+    self._assert_connected(cable, ports.a1, ports.b1)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 354, in _assert_connected
+    self._assert_endpoint(a, cable=cable, end='A', connector=connector, positions=positions, peers=[b])
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 338, in _assert_endpoint
+    self.assertIsNotNone(interface._path_id, f'{interface} has no cable path')
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None : eth0 has no cable path
+
+======================================================================
+FAIL: test_revert_cable_move_a_end (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_revert_cable_move_a_end)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1477, in test_revert_cable_move_a_end
+    self._revert_cable_move(move_a=True, move_b=False)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1468, in _revert_cable_move
+    self._assert_connected(cable, ports.a1, ports.b1)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 354, in _assert_connected
+    self._assert_endpoint(a, cable=cable, end='A', connector=connector, positions=positions, peers=[b])
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 338, in _assert_endpoint
+    self.assertIsNotNone(interface._path_id, f'{interface} has no cable path')
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None : eth0 has no cable path
+
+======================================================================
+FAIL: test_revert_cable_move_b_end (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_revert_cable_move_b_end)
+Refs: #469
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1485, in test_revert_cable_move_b_end
+    self._revert_cable_move(move_a=False, move_b=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1468, in _revert_cable_move
+    self._assert_connected(cable, ports.a1, ports.b1)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 354, in _assert_connected
+    self._assert_endpoint(a, cable=cable, end='A', connector=connector, positions=positions, peers=[b])
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 346, in _assert_endpoint
+    self.assertEqual(path.path, route)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [['208:354'], ['217:83'], []] != [['208:354'], ['217:83'], ['208:356']]
+
+First differing element 2:
+[]
+['208:356']
+
+- [['208:354'], ['217:83'], []]
++ [['208:354'], ['217:83'], ['208:356']]
+?                            +++++++++
+
+
+======================================================================
+FAIL: test_revert_cable_move_both_ends (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_revert_cable_move_both_ends)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1491, in test_revert_cable_move_both_ends
+    self._revert_cable_move(move_a=True, move_b=True)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1468, in _revert_cable_move
+    self._assert_connected(cable, ports.a1, ports.b1)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 354, in _assert_connected
+    self._assert_endpoint(a, cable=cable, end='A', connector=connector, positions=positions, peers=[b])
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 338, in _assert_endpoint
+    self.assertIsNotNone(interface._path_id, f'{interface} has no cable path')
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None : eth0 has no cable path
+
+======================================================================
+FAIL: test_revert_cable_reorder_terminations (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_revert_cable_reorder_terminations)
+Revert a merged branch which swapped the A-end terminations of a 2C1P trunk cable.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1611, in test_revert_cable_reorder_terminations
+    self._assert_trunk(cable, [ports.a1, ports.a2], [ports.b1, ports.b2])
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 365, in _assert_trunk
+    self._assert_endpoint(near, cable=cable, end='A', connector=connector, positions=[1], peers=[far])
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 338, in _assert_endpoint
+    self.assertIsNotNone(interface._path_id, f'{interface} has no cable path')
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None : eth0 has no cable path
+
+======================================================================
+FAIL: test_revert_cable_set_profile (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_revert_cable_set_profile)
+Revert a merged branch which assigned a profile to an existing unprofiled cable. Refs: #688
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1576, in test_revert_cable_set_profile
+    self._assert_connected(cable, ports.a1, ports.b1)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 354, in _assert_connected
+    self._assert_endpoint(a, cable=cable, end='A', connector=connector, positions=positions, peers=[b])
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 338, in _assert_endpoint
+    self.assertIsNotNone(interface._path_id, f'{interface} has no cable path')
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None : eth0 has no cable path
+
+======================================================================
+FAIL: test_sync_cable_clear_end (netbox_branching.tests.test_sync.SyncTestCase.test_sync_cable_clear_end)
+Sync the detachment of one end of a cable from main into the branch.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_sync.py", line 1375, in test_sync_cable_clear_end
+    self._assert_terminations(cable, a=[(ports.a1, None, None)])
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 316, in _assert_terminations
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        [(ct.termination_type_id, ct.termination_id, ct.connector, ct.positions) for ct in rows],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        [(interface_ct.id, interface.id, connector, positions) for interface, connector, positions in expected],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        f'Unexpected {end}-end terminations for cable {cable.id}',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: Lists differ: [(208, 372, None, None)] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+(208, 372, None, None)
+
+- [(208, 372, None, None)]
++ [] : Unexpected B-end terminations for cable 87
+
+======================================================================
+FAIL: test_sync_cable_reorder_terminations (netbox_branching.tests.test_sync.SyncTestCase.test_sync_cable_reorder_terminations)
+Sync the swap of a 2C1P trunk cable's A-end terminations from main into the branch.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_sync.py", line 1407, in test_sync_cable_reorder_terminations
+    self.assertEqual(CablePath.objects.count(), 4)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 6 != 4
+
+----------------------------------------------------------------------
+Ran 581 tests in 1659.010s
+
+FAILED (failures=29, errors=4, expected failures=2)
+Preserving test database for alias 'default'...
+Found 581 test(s).
+System check identified no issues (0 silenced).
+
+    Copying extras_tag_object_types for branch tag-object-types (g4l537ba)... Success.
+ 
+    Copying extras_tag_object_types for branch tag-object-types (q0b3xnbf)... Success.
+ 
+    Copying extras_tag_object_types for branch tag-object-types (3j6ah7cy)... Success.
+ 
