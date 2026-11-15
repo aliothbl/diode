@@ -249,7 +249,125 @@ def branch_double_merge():
     }
 
 
-SCENARIOS = {"branch-merge-race": branch_merge_race, "branch-double-merge": branch_double_merge}
+# F6: objects written in main (with change logging) so the sync has work.
+# event_tracking + a fake request is how runscript gets ObjectChanges.
+SYNC_OBJECTS = int(os.environ.get("SYNC_OBJECTS", "400"))
+MAIN_WRITES = f"""
+import json, uuid
+from django.contrib.auth import get_user_model
+from extras.models import Tag
+from netbox.context_managers import event_tracking
+from utilities.request import NetBoxFakeRequest
+user = get_user_model().objects.get(username='admin')
+req = NetBoxFakeRequest({{'META': {{}}, 'COOKIES': {{}}, 'POST': {{}}, 'GET': {{}}, 'FILES': {{}},
+                         'user': user, 'method': 'POST', 'path': '', 'id': uuid.uuid4()}})
+with event_tracking(req):
+    for i in range({SYNC_OBJECTS}):
+        Tag.objects.create(name=f'bench-sync-{{i}}', slug=f'bench-sync-{{i}}')
+print('BENCH ' + json.dumps({{'tags': Tag.objects.filter(slug__startswith='bench-sync-').count()}}))
+"""
+
+SYNC_GO_FILE = "/tmp/bench-sync-go"
+SYNC = f"""
+import json, os, time
+from django.contrib.auth import get_user_model
+from netbox_branching.models import Branch
+user = get_user_model().objects.get(username='admin')
+while not os.path.exists({SYNC_GO_FILE!r}):
+    time.sleep(0.02)
+b = Branch.objects.get(name={BRANCH_NAME!r})
+unsynced_at_go = b.get_unsynced_changes().count()
+t0 = time.time(); t0_wall = time.time(); err = None
+try:
+    b.sync(user=user)
+except Exception as e:
+    err = f'{{type(e).__name__}}: {{e}}'
+b.refresh_from_db()
+print('BENCH ' + json.dumps({{'status': b.status, 'error': err, 'sync_s': round(time.time() - t0, 3),
+                              'started_epoch': t0_wall, 'ended_epoch': time.time(),
+                              'unsynced_at_go': unsynced_at_go,
+                              'unsynced_after': b.get_unsynced_changes().count()}}))
+"""
+
+
+def branch_sync_ingest():
+    """F6: Diode keeps ingesting into its default branch while the branch syncs.
+
+    While the branch is SYNCING, netbox-branching's middleware answers every
+    request that selects it with 400 "Selected branch is not ready."; the
+    reconciler does not retry and marks each entity of the batch FAILED.
+    Report the FAILED entities (and their error text), the sync duration, and
+    how many dataset objects never reached the branch.
+    """
+    import argparse
+    args = argparse.Namespace(devices=int(os.environ.get("DEVICES", "60")), ifaces=4, batch=50, seed=42,
+                              offset=0, grpc="127.0.0.1:58081", pg_port=55432, redis_port=56379,
+                              poll=0.5, timeout=1800)
+    sync_at = float(os.environ.get("SYNC_AT", "0.3"))
+    branch = nbshell(SETUP, timeout=600)
+    main_writes = nbshell(MAIN_WRITES, timeout=600)  # after the branch: these are unsynced main changes
+    subprocess.run(["docker", "restart", RECONCILER], check=True, capture_output=True)
+    time.sleep(5)
+
+    import grpc
+    from netboxlabs.diode.sdk.diode.v1 import ingester_pb2_grpc
+    stub = ingester_pb2_grpc.IngesterServiceStub(grpc.insecure_channel(args.grpc))
+    md = [("authorization", f"Bearer {loadgen.fake_jwt()}")]
+    pipe = loadgen.Pipeline(args)
+    entities = loadgen.build_dataset(args.devices, args.ifaces, args.seed, "initial")
+
+    sync = {}
+    sync_result = {}
+    shell = threading.Thread(target=lambda: sync_result.update(nbshell(SYNC)), daemon=True)
+    shell.start()
+
+    def syncer():
+        target = int(len(entities) * sync_at)
+        while sum(pipe.states().get(k, 0) for k in loadgen.TERMINAL) < target:
+            time.sleep(0.1)
+        sync["started_at_settled"] = sum(pipe.states().get(k, 0) for k in loadgen.TERMINAL)
+        sync["failed_before"] = pipe.states().get(4, 0)
+        subprocess.run(["docker", "exec", NETBOX, "touch", SYNC_GO_FILE], check=True)
+        sync["started_s"] = round(time.monotonic() - t0, 3)
+        shell.join(timeout=1800)
+        sync["failed_at_end_of_sync"] = pipe.states().get(4, 0)
+        sync.update(sync_result)
+
+    t0 = time.monotonic()
+    th = threading.Thread(target=syncer, daemon=True)
+    th.start()
+    phase = loadgen.run_phase("initial", entities, args, pipe, stub, md)
+    th.join(timeout=1800)
+
+    with pipe.pg.cursor() as cur:
+        cur.execute("SELECT left(coalesce(error::text, ''), 200), count(*) FROM ingestion_logs "
+                    "WHERE state = 4 GROUP BY 1 ORDER BY 2 DESC LIMIT 5")
+        failed_errors = [[e, n] for e, n in cur.fetchall()]
+    in_branch = object_keys(branch["schema"])
+    expected = {"device": args.devices, "interface": args.devices * args.ifaces,
+                "ipaddress": args.devices * args.ifaces}
+    tags_in_branch = int(psql(f"SELECT count(*) FROM {branch['schema']}.extras_tag "
+                              f"WHERE slug LIKE 'bench-sync-%'")[0][0])
+    return {
+        "params": {"devices": args.devices, "ifaces": args.ifaces, "sync_at": sync_at,
+                   "sync_objects": SYNC_OBJECTS},
+        "phases": [phase],
+        "branching": {
+            "branch": branch,
+            "main_writes": main_writes,
+            "sync": sync,
+            "tags_synced_to_branch": tags_in_branch,
+            # F6: entities whose batch hit the branch while it was not READY.
+            "ingest_failed": phase.get("states_after", {}).get("FAILED", 0),
+            "failed_errors": failed_errors,
+            "objects_in_branch": {k: len(v) for k, v in in_branch.items()},
+            "missing_in_branch": {k: expected[k] - len(in_branch[k]) for k in expected},
+        },
+    }
+
+
+SCENARIOS = {"branch-merge-race": branch_merge_race, "branch-double-merge": branch_double_merge,
+             "branch-sync-ingest": branch_sync_ingest}
 
 if __name__ == "__main__":
     print(json.dumps(SCENARIOS[sys.argv[1]]()))

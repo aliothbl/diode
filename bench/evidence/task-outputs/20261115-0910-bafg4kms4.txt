@@ -1,0 +1,42 @@
+rc=0
+bench/results/20261115-090314-candidate-branch-sync-ingest-run1.json
+{
+ "branch": {
+  "id": 1,
+  "schema_id": "cbfjmdct",
+  "schema": "branch_cbfjmdct",
+  "status": "ready"
+ },
+ "main_writes": {
+  "tags": 400
+ },
+ "sync": {
+  "started_at_settled": 200,
+  "failed_before": 0,
+  "started_s": 37.691,
+  "failed_at_end_of_sync": 0,
+  "status": "ready",
+  "error": null,
+  "sync_s": 15.508,
+  "started_epoch": 1794737190.3310769,
+  "ended_epoch": 1794737205.8388448,
+  "unsynced_at_go": 400,
+  "unsynced_after": 0
+ },
+ "tags_synced_to_branch": 400,
+ "ingest_failed": 0,
+ "failed_errors": [],
+ "objects_in_branch": {
+  "device": 60,
+  "interface": 240,
+  "ipaddress": 240
+ },
+ "missing_in_branch": {
+  "device": 0,
+  "interface": 0,
+  "ipaddress": 0
+ }
+}
+{'APPLIED': 540}
+
+[exited with code 0]

@@ -186,6 +186,11 @@ for run in $(seq 1 "$RUNS"); do
   docker logs diode-bench-netbox-1 2>&1 | grep -E 'ERROR|Error:|Exception:|" 50[0-9] ' \
     | sed -E 's/[0-9a-f]{8}-[0-9a-f-]{27}/<uuid>/g; s/\b[0-9]{2,}\b/<n>/g' | cut -c1-300 \
     | sort | uniq -c | sort -rn | head -10 | sed 's/^/netbox: /' >> "$OUT.errors" || true
+  # Full container logs of the run, kept with the result as evidence.
+  LOGDIR="${OUT%.json}.logs"; mkdir -p "$LOGDIR"
+  for c in $(docker ps -a --filter "name=^diode-bench-" --format '{{.Names}}'); do
+    docker logs --timestamps "$c" 2>&1 | gzip > "$LOGDIR/${c#diode-bench-}.log.gz" || true
+  done
   rm -f "$DUMP"
 
   "$VENV/bin/python" - "$OUT" "$OUT.load" "$STATS" <<PY
