@@ -1,0 +1,948 @@
+Using existing test database for alias 'default'...
+...............................Recovering branch API Forced from status 'syncing': resetting to 'ready' (requested by recoverapi_super)
+...Recovering branch API Stuck from status 'migrating': resetting to 'pending-migrations' (requested by recoverapi_super)
+.Recovering branch API No Retry from status 'migrating': resetting to 'pending-migrations' (requested by recoverapi_super)
+.Recovering branch API Retry from status 'migrating': resetting to 'pending-migrations' (requested by recoverapi_super)
+........Recovering branch No Merge Retry from status 'merging': resetting to 'ready' (requested by recoverview_super)
+.Recovering branch Force Via View from status 'merging': resetting to 'ready' (requested by recoverview_super)
+.Recovering branch Recover Me from status 'migrating': resetting to 'pending-migrations' (requested by recoverview_super)
+.Recovering branch Bare Post from status 'migrating': resetting to 'pending-migrations' (requested by recoverview_super)
+.Recovering branch Retry Sync from status 'syncing': resetting to 'ready' (requested by recoverview_super)
+.Recovering branch No Retry from status 'syncing': resetting to 'ready' (requested by recoverview_super)
+...Recovering branch Forced from status 'syncing': resetting to 'ready' (requested by system)
+...Recovering branch Orphaned Job from status 'migrating': resetting to 'pending-migrations' (requested by system)
+.Recovering branch Errored Job from status 'merging': resetting to 'ready' (requested by system)
+.Recovering branch Stuck provisioning from status 'provisioning': resetting to 'failed' (requested by system)
+Recovering branch Stuck syncing from status 'syncing': resetting to 'ready' (requested by system)
+Recovering branch Stuck migrating from status 'migrating': resetting to 'pending-migrations' (requested by system)
+Recovering branch Stuck merging from status 'merging': resetting to 'ready' (requested by system)
+Recovering branch Stuck reverting from status 'reverting': resetting to 'merged' (requested by system)
+..........................Recovering branch Watchdog No Retry from status 'syncing': resetting to 'ready' (requested by system)
+.Recovering branch Bbb Recoverable from status 'syncing': resetting to 'ready' (requested by system)
+.Recovering branch Stuck Migrate from status 'migrating': resetting to 'pending-migrations' (requested by system)
+.......relation "core_objectchange" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "core_objectchange"
+                                          ^
+E.....EE.EEEE
+======================================================================
+ERROR: test_exception_in_post_merge_disconnects_the_applied_change_recorder (netbox_branching.tests.test_status_transitions.StatusTransitionTestCase.test_exception_in_post_merge_disconnects_the_applied_change_recorder)
+A failing post_merge receiver used to leave record_applied_change connected in the worker (F14).
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+psycopg.errors.UndefinedTable: relation "core_objectchange" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "core_objectchange"
+                                          ^
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_status_transitions.py", line 101, in test_exception_in_post_merge_disconnects_the_applied_change_recorder
+    self.branch.merge(user=None)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1282, in merge
+    self._merge_locked(user, commit, logger)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1321, in _merge_locked
+    late = ObjectChange.objects.using(self.connection_name).count() - len(changes)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 693, in count
+    return self.query.get_count(using=self.db)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/sql/query.py", line 656, in get_count
+    return obj.get_aggregation(using, {"__count": Count("*")})["__count"]
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/sql/query.py", line 638, in get_aggregation
+    result = compiler.execute_sql(SINGLE)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/sql/compiler.py", line 1643, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+django.db.utils.ProgrammingError: relation "core_objectchange" does not exist
+LINE 1: SELECT COUNT(*) AS "__count" FROM "core_objectchange"
+                                          ^
+
+======================================================================
+ERROR: test_with_branch_cookie (netbox_branching.tests.test_api.APITestCase.test_with_branch_cookie)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+psycopg.errors.UndefinedTable: relation "django_content_type" does not exist
+LINE 1: ..."."id" = "extras_taggeditem"."tag_id") INNER JOIN "django_co...
+                                                             ^
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_api.py", line 126, in test_with_branch_cookie
+    response = self.client.get(url, **self.header)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 1128, in get
+    response = super().get(
+        path,
+    ...<4 lines>...
+        **extra,
+    )
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 475, in get
+    return self.generic(
+           ~~~~~~~~~~~~^
+        "GET",
+        ^^^^^^
+    ...<4 lines>...
+        **extra,
+        ^^^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 671, in generic
+    return self.request(**r)
+           ~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 1091, in request
+    self.check_exception(response)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 805, in check_exception
+    raise exc_value
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/core/handlers/base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/views/decorators/csrf.py", line 64, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/netbox/api/viewsets/__init__.py", line 267, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 526, in dispatch
+    response = self.handle_exception(exc)
+  File "/opt/netbox/netbox/netbox/api/viewsets/__init__.py", line 71, in handle_exception
+    response = super().handle_exception(exc)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 474, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 485, in raise_uncaught_exception
+    raise exc
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 523, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/opt/netbox/netbox/netbox/api/viewsets/mixins.py", line 438, in list
+    return super().list(request, *args, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/generics.py", line 175, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/netbox/api/pagination.py", line 91, in paginate_queryset
+    return list(queryset[self.offset:self.offset + self.limit])
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 473, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2289, in _fetch_all
+    self._prefetch_related_objects()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 1515, in _prefetch_related_objects
+    prefetch_related_objects(self._result_cache, *self._prefetch_related_lookups)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2749, in prefetch_related_objects
+    obj_list, additional_lookups = prefetch_one_level(
+                                   ~~~~~~~~~~~~~~~~~~^
+        obj_to_fetch,
+        ^^^^^^^^^^^^^
+    ...<2 lines>...
+        level,
+        ^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2924, in prefetch_one_level
+    all_related_objects = list(rel_qs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 473, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2287, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 131, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/sql/compiler.py", line 1643, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+django.db.utils.ProgrammingError: relation "django_content_type" does not exist
+LINE 1: ..."."id" = "extras_taggeditem"."tag_id") INNER JOIN "django_co...
+                                                             ^
+
+======================================================================
+ERROR: test_with_branch_header (netbox_branching.tests.test_api.APITestCase.test_with_branch_header)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+psycopg.errors.UndefinedTable: relation "django_content_type" does not exist
+LINE 1: ..."."id" = "extras_taggeditem"."tag_id") INNER JOIN "django_co...
+                                                             ^
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_api.py", line 104, in test_with_branch_header
+    response = self.client.get(url, **header)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 1128, in get
+    response = super().get(
+        path,
+    ...<4 lines>...
+        **extra,
+    )
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 475, in get
+    return self.generic(
+           ~~~~~~~~~~~~^
+        "GET",
+        ^^^^^^
+    ...<4 lines>...
+        **extra,
+        ^^^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 671, in generic
+    return self.request(**r)
+           ~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 1091, in request
+    self.check_exception(response)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 805, in check_exception
+    raise exc_value
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/core/handlers/base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/views/decorators/csrf.py", line 64, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/netbox/api/viewsets/__init__.py", line 267, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 526, in dispatch
+    response = self.handle_exception(exc)
+  File "/opt/netbox/netbox/netbox/api/viewsets/__init__.py", line 71, in handle_exception
+    response = super().handle_exception(exc)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 474, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 485, in raise_uncaught_exception
+    raise exc
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 523, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/opt/netbox/netbox/netbox/api/viewsets/mixins.py", line 438, in list
+    return super().list(request, *args, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/mixins.py", line 40, in list
+    page = self.paginate_queryset(queryset)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/generics.py", line 175, in paginate_queryset
+    return self.paginator.paginate_queryset(queryset, self.request, view=self)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/netbox/api/pagination.py", line 91, in paginate_queryset
+    return list(queryset[self.offset:self.offset + self.limit])
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 473, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2289, in _fetch_all
+    self._prefetch_related_objects()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 1515, in _prefetch_related_objects
+    prefetch_related_objects(self._result_cache, *self._prefetch_related_lookups)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2749, in prefetch_related_objects
+    obj_list, additional_lookups = prefetch_one_level(
+                                   ~~~~~~~~~~~~~~~~~~^
+        obj_to_fetch,
+        ^^^^^^^^^^^^^
+    ...<2 lines>...
+        level,
+        ^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2924, in prefetch_one_level
+    all_related_objects = list(rel_qs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 473, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2287, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 131, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/sql/compiler.py", line 1643, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+django.db.utils.ProgrammingError: relation "django_content_type" does not exist
+LINE 1: ..."."id" = "extras_taggeditem"."tag_id") INNER JOIN "django_co...
+                                                             ^
+
+======================================================================
+ERROR: test_changediff_list_cable_deleted_in_branch (netbox_branching.tests.test_api.ChangeDiffSerializerTestCase.test_changediff_list_cable_deleted_in_branch)
+Regression test for #498: when a Cable is deleted inside a branch, the
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+psycopg.errors.UndefinedTable: relation "django_content_type" does not exist
+LINE 1: ..."."id" = "extras_taggeditem"."tag_id") INNER JOIN "django_co...
+                                                             ^
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_api.py", line 557, in test_changediff_list_cable_deleted_in_branch
+    response = self.client.delete(
+        reverse('dcim-api:cable-detail', kwargs={'pk': cable_pk}),
+        **{**self.header, 'HTTP_X_NETBOX_BRANCH': branch.schema_id},
+    )
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 1325, in delete
+    response = super().delete(
+        path,
+    ...<5 lines>...
+        **extra,
+    )
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 622, in delete
+    return self.generic(
+           ~~~~~~~~~~~~^
+        "DELETE",
+        ^^^^^^^^^
+    ...<6 lines>...
+        **extra,
+        ^^^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 671, in generic
+    return self.request(**r)
+           ~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 1091, in request
+    self.check_exception(response)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 805, in check_exception
+    raise exc_value
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/core/handlers/base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/views/decorators/csrf.py", line 64, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/netbox/api/viewsets/__init__.py", line 267, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 526, in dispatch
+    response = self.handle_exception(exc)
+  File "/opt/netbox/netbox/netbox/api/viewsets/__init__.py", line 71, in handle_exception
+    response = super().handle_exception(exc)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 474, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 485, in raise_uncaught_exception
+    raise exc
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 523, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/opt/netbox/netbox/netbox/api/viewsets/__init__.py", line 421, in destroy
+    instance = self.get_object_with_snapshot()
+  File "/opt/netbox/netbox/netbox/api/viewsets/__init__.py", line 231, in get_object_with_snapshot
+    obj = super().get_object()
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/generics.py", line 100, in get_object
+    obj = get_object_or_404(queryset, **filter_kwargs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/generics.py", line 19, in get_object_or_404
+    return _get_object_or_404(queryset, *filter_args, **filter_kwargs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/shortcuts.py", line 100, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 718, in get
+    num = len(clone)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 455, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2289, in _fetch_all
+    self._prefetch_related_objects()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 1515, in _prefetch_related_objects
+    prefetch_related_objects(self._result_cache, *self._prefetch_related_lookups)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2749, in prefetch_related_objects
+    obj_list, additional_lookups = prefetch_one_level(
+                                   ~~~~~~~~~~~~~~~~~~^
+        obj_to_fetch,
+        ^^^^^^^^^^^^^
+    ...<2 lines>...
+        level,
+        ^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2924, in prefetch_one_level
+    all_related_objects = list(rel_qs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 473, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2287, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 131, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/sql/compiler.py", line 1643, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+django.db.utils.ProgrammingError: relation "django_content_type" does not exist
+LINE 1: ..."."id" = "extras_taggeditem"."tag_id") INNER JOIN "django_co...
+                                                             ^
+
+======================================================================
+ERROR: test_changediff_list_create_action (netbox_branching.tests.test_api.ChangeDiffSerializerTestCase.test_changediff_list_create_action)
+Creating an object inside a branch produces a ChangeDiff with original=None.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+psycopg.errors.UndefinedTable: relation "django_content_type" does not exist
+LINE 1: ..."."app_label", "django_content_type"."model" FROM "django_co...
+                                                             ^
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_api.py", line 440, in test_changediff_list_create_action
+    response = self.client.post(
+        reverse('dcim-api:site-list'),
+    ...<2 lines>...
+        **self._branch_header(),
+    )
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 1157, in post
+    response = super().post(
+        path,
+    ...<5 lines>...
+        **extra,
+    )
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 499, in post
+    return self.generic(
+           ~~~~~~~~~~~~^
+        "POST",
+        ^^^^^^^
+    ...<6 lines>...
+        **extra,
+        ^^^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 671, in generic
+    return self.request(**r)
+           ~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 1091, in request
+    self.check_exception(response)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 805, in check_exception
+    raise exc_value
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/core/handlers/base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/views/decorators/csrf.py", line 64, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/netbox/api/viewsets/__init__.py", line 267, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 526, in dispatch
+    response = self.handle_exception(exc)
+  File "/opt/netbox/netbox/netbox/api/viewsets/__init__.py", line 71, in handle_exception
+    response = super().handle_exception(exc)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 474, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 485, in raise_uncaught_exception
+    raise exc
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 523, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/opt/netbox/netbox/netbox/api/viewsets/__init__.py", line 332, in create
+    self.perform_create(serializer)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "/opt/netbox/netbox/netbox/api/viewsets/__init__.py", line 358, in perform_create
+    instance = serializer.save()
+  File "/opt/netbox/netbox/netbox/api/serializers/features.py", line 171, in save
+    return super().save(**kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/serializers.py", line 210, in save
+    self.instance = self.create(validated_data)
+                    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/netbox/api/serializers/features.py", line 112, in create
+    instance = super().create(validated_data)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/serializers.py", line 1020, in create
+    instance = ModelClass._default_manager.create(**validated_data)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 752, in create
+    obj.save(force_insert=True, using=self.db)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/netbox/models/features.py", line 354, in save
+    super().save(*args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/netbox/models/__init__.py", line 121, in save
+    super().save(*args, **kwargs)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/base.py", line 904, in save
+    self.save_base(
+    ~~~~~~~~~~~~~~^
+        using=using,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        update_fields=update_fields,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/base.py", line 1011, in save_base
+    post_save.send(
+    ~~~~~~~~~~~~~~^
+        sender=origin,
+        ^^^^^^^^^^^^^^
+    ...<4 lines>...
+        using=using,
+        ^^^^^^^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/dispatch/dispatcher.py", line 249, in send
+    response = receiver(signal=self, sender=sender, **named)
+  File "/opt/netbox/netbox/core/signals.py", line 137, in handle_changed_object
+    objectchange = instance.to_objectchange(action)
+  File "/opt/netbox/netbox/netbox/models/features.py", line 117, in to_objectchange
+    objectchange = ObjectChange(
+        changed_object=self,
+    ...<2 lines>...
+        message=self._changelog_message or '',
+    )
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/base.py", line 607, in __init__
+    _setattr(self, prop, value)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/contrib/contenttypes/fields.py", line 300, in __set__
+    ct = self.field.get_content_type(obj=value)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/contrib/contenttypes/fields.py", line 162, in get_content_type
+    return ContentType.objects.db_manager(obj._state.db).get_for_model(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        obj, for_concrete_model=self.for_concrete_model
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/contrib/contenttypes/models.py", line 52, in get_for_model
+    ct = self.get(app_label=opts.app_label, model=opts.model_name)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 718, in get
+    num = len(clone)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 455, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2287, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 131, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/sql/compiler.py", line 1643, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+django.db.utils.ProgrammingError: relation "django_content_type" does not exist
+LINE 1: ..."."app_label", "django_content_type"."model" FROM "django_co...
+                                                             ^
+
+======================================================================
+ERROR: test_changediff_list_delete_action (netbox_branching.tests.test_api.ChangeDiffSerializerTestCase.test_changediff_list_delete_action)
+Deleting a pre-existing object inside a branch produces a ChangeDiff with modified=None.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+psycopg.errors.UndefinedTable: relation "django_content_type" does not exist
+LINE 1: ..."."id" = "extras_taggeditem"."tag_id") INNER JOIN "django_co...
+                                                             ^
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_api.py", line 506, in test_changediff_list_delete_action
+    response = self.client.delete(
+        reverse('dcim-api:site-detail', kwargs={'pk': site.pk}),
+        **{**self.header, 'HTTP_X_NETBOX_BRANCH': branch.schema_id},
+    )
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 1325, in delete
+    response = super().delete(
+        path,
+    ...<5 lines>...
+        **extra,
+    )
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 622, in delete
+    return self.generic(
+           ~~~~~~~~~~~~^
+        "DELETE",
+        ^^^^^^^^^
+    ...<6 lines>...
+        **extra,
+        ^^^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 671, in generic
+    return self.request(**r)
+           ~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 1091, in request
+    self.check_exception(response)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 805, in check_exception
+    raise exc_value
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/core/handlers/base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/views/decorators/csrf.py", line 64, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/netbox/api/viewsets/__init__.py", line 267, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 526, in dispatch
+    response = self.handle_exception(exc)
+  File "/opt/netbox/netbox/netbox/api/viewsets/__init__.py", line 71, in handle_exception
+    response = super().handle_exception(exc)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 474, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 485, in raise_uncaught_exception
+    raise exc
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 523, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/opt/netbox/netbox/netbox/api/viewsets/__init__.py", line 421, in destroy
+    instance = self.get_object_with_snapshot()
+  File "/opt/netbox/netbox/netbox/api/viewsets/__init__.py", line 231, in get_object_with_snapshot
+    obj = super().get_object()
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/generics.py", line 100, in get_object
+    obj = get_object_or_404(queryset, **filter_kwargs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/generics.py", line 19, in get_object_or_404
+    return _get_object_or_404(queryset, *filter_args, **filter_kwargs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/shortcuts.py", line 100, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 718, in get
+    num = len(clone)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 455, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2289, in _fetch_all
+    self._prefetch_related_objects()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 1515, in _prefetch_related_objects
+    prefetch_related_objects(self._result_cache, *self._prefetch_related_lookups)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2749, in prefetch_related_objects
+    obj_list, additional_lookups = prefetch_one_level(
+                                   ~~~~~~~~~~~~~~~~~~^
+        obj_to_fetch,
+        ^^^^^^^^^^^^^
+    ...<2 lines>...
+        level,
+        ^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2924, in prefetch_one_level
+    all_related_objects = list(rel_qs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 473, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2287, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 131, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/sql/compiler.py", line 1643, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+django.db.utils.ProgrammingError: relation "django_content_type" does not exist
+LINE 1: ..."."id" = "extras_taggeditem"."tag_id") INNER JOIN "django_co...
+                                                             ^
+
+======================================================================
+ERROR: test_changediff_list_update_action (netbox_branching.tests.test_api.ChangeDiffSerializerTestCase.test_changediff_list_update_action)
+Updating an object inside a branch produces a ChangeDiff with both original and modified
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+psycopg.errors.UndefinedTable: relation "django_content_type" does not exist
+LINE 1: ..."."id" = "extras_taggeditem"."tag_id") INNER JOIN "django_co...
+                                                             ^
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_api.py", line 471, in test_changediff_list_update_action
+    response = self.client.patch(
+        reverse('dcim-api:site-detail', kwargs={'pk': site.pk}),
+    ...<2 lines>...
+        **{**self.header, 'HTTP_X_NETBOX_BRANCH': branch.schema_id},
+    )
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 1290, in patch
+    response = super().patch(
+        path,
+    ...<5 lines>...
+        **extra,
+    )
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 598, in patch
+    return self.generic(
+           ~~~~~~~~~~~~^
+        "PATCH",
+        ^^^^^^^^
+    ...<6 lines>...
+        **extra,
+        ^^^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 671, in generic
+    return self.request(**r)
+           ~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 1091, in request
+    self.check_exception(response)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/client.py", line 805, in check_exception
+    raise exc_value
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/core/handlers/base.py", line 199, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/views/decorators/csrf.py", line 64, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/viewsets.py", line 124, in view
+    return self.dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/netbox/api/viewsets/__init__.py", line 267, in dispatch
+    return super().dispatch(request, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 526, in dispatch
+    response = self.handle_exception(exc)
+  File "/opt/netbox/netbox/netbox/api/viewsets/__init__.py", line 71, in handle_exception
+    response = super().handle_exception(exc)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 474, in handle_exception
+    self.raise_uncaught_exception(exc)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 485, in raise_uncaught_exception
+    raise exc
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/views.py", line 523, in dispatch
+    response = handler(request, *args, **kwargs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/mixins.py", line 82, in partial_update
+    return self.update(request, *args, **kwargs)
+           ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/netbox/api/viewsets/__init__.py", line 373, in update
+    instance = self.get_object_with_snapshot()
+  File "/opt/netbox/netbox/netbox/api/viewsets/__init__.py", line 231, in get_object_with_snapshot
+    obj = super().get_object()
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/generics.py", line 100, in get_object
+    obj = get_object_or_404(queryset, **filter_kwargs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/rest_framework/generics.py", line 19, in get_object_or_404
+    return _get_object_or_404(queryset, *filter_args, **filter_kwargs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/shortcuts.py", line 100, in get_object_or_404
+    return queryset.get(*args, **kwargs)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 718, in get
+    num = len(clone)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 455, in __len__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2289, in _fetch_all
+    self._prefetch_related_objects()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 1515, in _prefetch_related_objects
+    prefetch_related_objects(self._result_cache, *self._prefetch_related_lookups)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2749, in prefetch_related_objects
+    obj_list, additional_lookups = prefetch_one_level(
+                                   ~~~~~~~~~~~~~~~~~~^
+        obj_to_fetch,
+        ^^^^^^^^^^^^^
+    ...<2 lines>...
+        level,
+        ^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2924, in prefetch_one_level
+    all_related_objects = list(rel_qs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 473, in __iter__
+    self._fetch_all()
+    ~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 2287, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+                         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/query.py", line 131, in __iter__
+    results = compiler.execute_sql(
+        chunked_fetch=self.chunked_fetch, chunk_size=self.chunk_size
+    )
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/sql/compiler.py", line 1643, in execute_sql
+    cursor.execute(sql, params)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 105, in _execute
+    return self.cursor.execute(sql, params)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+django.db.utils.ProgrammingError: relation "django_content_type" does not exist
+LINE 1: ..."."id" = "extras_taggeditem"."tag_id") INNER JOIN "django_co...
+                                                             ^
+
+----------------------------------------------------------------------
+Ran 105 tests in 92.726s
+
+FAILED (errors=7)
+Preserving test database for alias 'default'...
+Found 105 test(s).
+System check identified no issues (0 silenced).

@@ -72,5 +72,6 @@ edited by hand; files are copied verbatim from where the work produced them.
 | 20261116-1340-bpd9lo58u | SPEC-1737 provision/archive CAS: full suite on NetBox 4.7.5, 612 tests, 2 errors (view tests marking READY before provision; fixed, `logs/20261116-nbb-test-1737-provision-archive-v2.log`) |
 | 20261116-1410-bj08c3b7w | **SPEC-1738 merge check + DROP SCHEMA guard: full suite on NetBox 4.7.5, 616 OK** (`logs/20261116-nbb-test-full-1738-verificacao.log`; follow-up 111 OK in `-v2.log`) |
 | 20261116-1545-sync-reval-f82d2b5 | **Sync/merge scenarios on netbox-branching f82d2b5 (SPEC-1737/1738/1739 final)**: watermark ×3 late change synced, sync-ingest ×2 0 missing, merge-race ×1 0 lost. The first watermark step aborted before any scenario ran: the NetBox seed had to be rebuilt for the new branching code and first boot exceeded the 900 s health start period; re-run after the seed existed (17:05). Step logs in `logs/20261116-1545-sync-reval/` |
+| 20261116-1736-bo217hf8f | **SPEC-1737 API 409 (owner decision): full suite on NetBox 4.7.5, 620 OK** (`logs/20261116-nbb-test-full-1737-api-409.log`); the 7 errors of the test_api+test_stuck_branches+test_status_transitions subset also occur on unmodified main (`logs/20261116-nbb-test-main-ordem-api.log`) |
 
 Helper scripts used for the stress and A/B batteries: `bench/tools/`.
