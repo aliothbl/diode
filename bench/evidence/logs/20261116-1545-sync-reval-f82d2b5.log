@@ -1,0 +1,13 @@
+== watermark (16:10)
+   run.sh rc=1
+== sync-ingest (16:25)
+   20261116-164032-candidate-branch-sync-in nb=v4.7.5 FAILED=0 timeouts=0 rec_err=0 missing=0 sync_s=39.148
+   20261116-164032-candidate-branch-sync-in nb=v4.7.5 FAILED=0 timeouts=0 rec_err=0 missing=0 sync_s=40.187
+== merge-race (16:48)
+   20261116-164831-candidate-branch-merge-r nb=v4.7.5 FAILED=0 timeouts=0 rec_err=0 lost=0 status=merged
+== done (16:51)
+== watermark (17:05)
+   20261116-170543-candidate-branch-sync-wa nb=v4.7.5 FAILED=0 timeouts=0 rec_err=0 late_missing=False
+   20261116-170543-candidate-branch-sync-wa nb=v4.7.5 FAILED=0 timeouts=0 rec_err=0 late_missing=False
+   20261116-170543-candidate-branch-sync-wa nb=v4.7.5 FAILED=0 timeouts=0 rec_err=0 late_missing=False
+== done (17:15)

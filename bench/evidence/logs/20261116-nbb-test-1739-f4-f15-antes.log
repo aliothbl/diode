@@ -1,0 +1,47 @@
+Using existing test database for alias 'default'...
+F{'id': ['Site with this ID already exists.'], 'name': ['Site with this Name already exists.'], 'slug': ['Site with this Slug already exists.']}
+E
+======================================================================
+ERROR: test_replayed_sync_converges (netbox_branching.tests.test_sync_replay.SyncReplayTestCase.test_replayed_sync_converges)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_sync_replay.py", line 74, in test_replayed_sync_converges
+    branch.sync(user=self.user)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1015, in sync
+    self._sync_locked(user, commit, logger)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1081, in _sync_locked
+    self._apply_sync_update(change, logger, touched_object_keys, sync_buffer)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 774, in _apply_sync_update
+    change.apply(self, using=self.connection_name, logger=logger, skip_missing=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/changes.py", line 128, in apply
+    full_clean_with_file_check(instance.object, logger)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/utilities.py", line 399, in full_clean_with_file_check
+    instance.full_clean()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/base.py", line 1745, in full_clean
+    raise ValidationError(errors)
+django.core.exceptions.ValidationError: {'id': ['Site with this ID already exists.'], 'name': ['Site with this Name already exists.'], 'slug': ['Site with this Slug already exists.']}
+
+======================================================================
+FAIL: test_main_change_during_sync_reaches_change_diff (netbox_branching.tests.test_sync_replay.SyncReplayTestCase.test_main_change_during_sync_reaches_change_diff)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_sync_replay.py", line 101, in test_main_change_during_sync_reaches_change_diff
+    self.assertEqual(diff.current['description'], f'changed in main while {status}', status)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '' != 'changed in main while syncing'
++ changed in main while syncing
+ : syncing
+
+----------------------------------------------------------------------
+Ran 2 tests in 24.160s
+
+FAILED (failures=1, errors=1)
+Preserving test database for alias 'default'...
+Found 2 test(s).
+System check identified no issues (0 silenced).

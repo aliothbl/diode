@@ -1,0 +1,10 @@
+Using existing test database for alias 'default'...
+..simulated failure of the default commit
+.
+----------------------------------------------------------------------
+Ran 3 tests in 37.033s
+
+OK
+Preserving test database for alias 'default'...
+Found 3 test(s).
+System check identified no issues (0 silenced).

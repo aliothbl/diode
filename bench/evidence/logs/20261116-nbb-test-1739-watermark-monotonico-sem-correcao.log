@@ -1,0 +1,37 @@
+Using existing test database for alias 'default'...
+{'id': ['Site with this ID already exists.'], 'name': ['Site with this Name already exists.'], 'slug': ['Site with this Slug already exists.']}
+E
+======================================================================
+ERROR: test_sync_right_after_provisioning_does_not_replay_its_snapshot (netbox_branching.tests.test_sync_replay.SyncReplayTestCase.test_sync_right_after_provisioning_does_not_replay_its_snapshot)
+A sync run within the watermark margin of provisioning used to move the watermark before the
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_sync_replay.py", line 113, in test_sync_right_after_provisioning_does_not_replay_its_snapshot
+    branch.sync(user=self.user)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1015, in sync
+    self._sync_locked(user, commit, logger)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1105, in _sync_locked
+    self._apply_sync_update(change, logger, touched_object_keys, sync_buffer)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 774, in _apply_sync_update
+    change.apply(self, using=self.connection_name, logger=logger, skip_missing=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/changes.py", line 128, in apply
+    full_clean_with_file_check(instance.object, logger)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/utilities.py", line 399, in full_clean_with_file_check
+    instance.full_clean()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/base.py", line 1745, in full_clean
+    raise ValidationError(errors)
+django.core.exceptions.ValidationError: {'id': ['Site with this ID already exists.'], 'name': ['Site with this Name already exists.'], 'slug': ['Site with this Slug already exists.']}
+
+----------------------------------------------------------------------
+Ran 1 test in 15.638s
+
+Found 1 test(s).
+System check identified no issues (0 silenced).
+FAILED (errors=1)
+Preserving test database for alias 'default'...

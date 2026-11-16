@@ -1,0 +1,37 @@
+Using existing test database for alias 'default'...
+.simulated failure of the default commit
+{'id': ['Site with this ID already exists.'], 'name': ['Site with this Name already exists.'], 'slug': ['Site with this Slug already exists.']}
+E
+======================================================================
+ERROR: test_sync_survives_a_lost_default_commit (netbox_branching.tests.test_sync_replay.SyncReplayTestCase.test_sync_survives_a_lost_default_commit)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_sync_replay.py", line 94, in test_sync_survives_a_lost_default_commit
+    branch.sync(user=self.user)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1015, in sync
+    self._sync_locked(user, commit, logger)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1101, in _sync_locked
+    self._apply_sync_update(change, logger, touched_object_keys, sync_buffer)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 774, in _apply_sync_update
+    change.apply(self, using=self.connection_name, logger=logger, skip_missing=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/changes.py", line 128, in apply
+    full_clean_with_file_check(instance.object, logger)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/utilities.py", line 399, in full_clean_with_file_check
+    instance.full_clean()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/base.py", line 1745, in full_clean
+    raise ValidationError(errors)
+django.core.exceptions.ValidationError: {'id': ['Site with this ID already exists.'], 'name': ['Site with this Name already exists.'], 'slug': ['Site with this Slug already exists.']}
+
+----------------------------------------------------------------------
+Ran 2 tests in 25.970s
+
+FAILED (errors=1)
+Preserving test database for alias 'default'...
+Found 2 test(s).
+System check identified no issues (0 silenced).
