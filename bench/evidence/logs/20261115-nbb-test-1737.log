@@ -1,0 +1,10 @@
+Using existing test database for alias 'default'...
+......Could not start merge: in-flight writes to the branch did not finish
+.......
+----------------------------------------------------------------------
+Ran 13 tests in 1.780s
+
+OK
+Preserving test database for alias 'default'...
+Found 13 test(s).
+System check identified no issues (0 silenced).

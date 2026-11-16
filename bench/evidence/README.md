@@ -55,5 +55,8 @@ edited by hand; files are copied verbatim from where the work produced them.
 | 20261115-1954-b0qmpa45b | F2 before the fix (current code, F6 fixed): branch-merge-race ×5, 45–112 objects lost per merge |
 | 20261115-2109-bs2p52fkz | **F2 after the fix (SPEC-1738 bd9e7be): branch-merge-race ×5, 0 lost** |
 | 20261115-2111-bg1bemkeo | netbox-branching full suite on SPEC-1738: same 33 failures as main, none new |
+| 20261115-2204-bk526hsnp | F1 before the fix (code with F2 fix): branch-double-merge update ×5 merged twice; create ×3 ended READY after merge |
+| 20261116-0458-b4f8bix2o | **F1 after the fix (SPEC-1737 ee957fe): branch-double-merge ×8, exactly one merge, final MERGED** |
+| 20261116-0459-bxqbg8yuo | netbox-branching full suite on SPEC-1737: same 33 failures as main, none new |
 
 Helper scripts used for the stress and A/B batteries: `bench/tools/`.

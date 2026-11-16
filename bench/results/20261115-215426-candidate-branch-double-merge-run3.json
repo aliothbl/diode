@@ -1,0 +1,530 @@
+{
+ "version": "candidate",
+ "diode_rev": "bb2ce3c",
+ "plugin_rev": "938afa0",
+ "scenario": "branch-double-merge",
+ "branching_rev": "0b23777",
+ "run": 3,
+ "rc": 0,
+ "apply_timeouts": 0,
+ "plugin_deadlock_retries": 0,
+ "reconciler_errors": 0,
+ "diode_pg_deadlocks": 0,
+ "knobs": {
+  "RATE_RPS": null,
+  "RATE_BURST": null,
+  "BATCH_SIZE": null,
+  "CONCURRENCY": null,
+  "PLUGIN_TIMEOUT": null,
+  "NETBOX_WORKERS": null
+ },
+ "error_summary": [],
+ "params": {
+  "devices": 20,
+  "ifaces": 4,
+  "kind": "create"
+ },
+ "phases": [
+  {
+   "phase": "initial",
+   "entities": 180,
+   "requests": 4,
+   "send_s": 0.042,
+   "send_req_p50_ms": 6.16,
+   "send_req_p95_ms": 6.59,
+   "elapsed_s": 28.701,
+   "entities_per_s": 6.27,
+   "states_before": {},
+   "states_after": {
+    "APPLIED": 180
+   },
+   "curve": [
+    [
+     0.05,
+     4,
+     0,
+     0
+    ],
+    [
+     0.553,
+     0,
+     180,
+     0
+    ],
+    [
+     1.055,
+     0,
+     180,
+     0
+    ],
+    [
+     1.559,
+     0,
+     180,
+     0
+    ],
+    [
+     2.062,
+     0,
+     180,
+     0
+    ],
+    [
+     2.564,
+     0,
+     180,
+     0
+    ],
+    [
+     3.067,
+     0,
+     180,
+     0
+    ],
+    [
+     3.573,
+     0,
+     180,
+     0
+    ],
+    [
+     4.075,
+     0,
+     180,
+     0
+    ],
+    [
+     4.578,
+     0,
+     180,
+     0
+    ],
+    [
+     5.08,
+     0,
+     180,
+     0
+    ],
+    [
+     5.583,
+     0,
+     180,
+     0
+    ],
+    [
+     6.085,
+     0,
+     180,
+     0
+    ],
+    [
+     6.588,
+     0,
+     180,
+     0
+    ],
+    [
+     7.09,
+     0,
+     180,
+     0
+    ],
+    [
+     7.592,
+     0,
+     180,
+     0
+    ],
+    [
+     8.095,
+     0,
+     180,
+     0
+    ],
+    [
+     8.597,
+     0,
+     180,
+     0
+    ],
+    [
+     9.099,
+     0,
+     180,
+     0
+    ],
+    [
+     9.602,
+     0,
+     180,
+     0
+    ],
+    [
+     10.104,
+     0,
+     180,
+     0
+    ],
+    [
+     10.607,
+     0,
+     180,
+     0
+    ],
+    [
+     11.11,
+     0,
+     180,
+     0
+    ],
+    [
+     11.612,
+     0,
+     180,
+     0
+    ],
+    [
+     12.114,
+     0,
+     180,
+     0
+    ],
+    [
+     12.618,
+     0,
+     180,
+     0
+    ],
+    [
+     13.121,
+     0,
+     180,
+     0
+    ],
+    [
+     13.623,
+     0,
+     180,
+     0
+    ],
+    [
+     14.125,
+     0,
+     180,
+     0
+    ],
+    [
+     14.628,
+     0,
+     180,
+     0
+    ],
+    [
+     15.132,
+     0,
+     180,
+     0
+    ],
+    [
+     15.635,
+     0,
+     180,
+     0
+    ],
+    [
+     16.137,
+     0,
+     180,
+     0
+    ],
+    [
+     16.641,
+     0,
+     180,
+     0
+    ],
+    [
+     17.144,
+     0,
+     80,
+     100
+    ],
+    [
+     17.646,
+     0,
+     80,
+     100
+    ],
+    [
+     18.149,
+     0,
+     80,
+     100
+    ],
+    [
+     18.651,
+     0,
+     80,
+     100
+    ],
+    [
+     19.154,
+     0,
+     80,
+     100
+    ],
+    [
+     19.656,
+     0,
+     80,
+     100
+    ],
+    [
+     20.159,
+     0,
+     80,
+     100
+    ],
+    [
+     20.663,
+     0,
+     80,
+     100
+    ],
+    [
+     21.165,
+     0,
+     80,
+     100
+    ],
+    [
+     21.668,
+     0,
+     80,
+     100
+    ],
+    [
+     22.17,
+     0,
+     80,
+     100
+    ],
+    [
+     22.673,
+     0,
+     80,
+     100
+    ],
+    [
+     23.175,
+     0,
+     80,
+     100
+    ],
+    [
+     23.677,
+     0,
+     80,
+     100
+    ],
+    [
+     24.179,
+     0,
+     80,
+     100
+    ],
+    [
+     24.681,
+     0,
+     80,
+     100
+    ],
+    [
+     25.184,
+     0,
+     80,
+     100
+    ],
+    [
+     25.686,
+     0,
+     80,
+     100
+    ],
+    [
+     26.188,
+     0,
+     80,
+     100
+    ],
+    [
+     26.69,
+     0,
+     80,
+     100
+    ],
+    [
+     27.193,
+     0,
+     80,
+     100
+    ],
+    [
+     27.696,
+     0,
+     80,
+     100
+    ],
+    [
+     28.198,
+     0,
+     0,
+     180
+    ],
+    [
+     28.701,
+     0,
+     0,
+     180
+    ]
+   ]
+  }
+ ],
+ "branching": {
+  "branch": {
+   "id": 1,
+   "schema_id": "9memtx20",
+   "schema": "branch_9memtx20",
+   "status": "ready"
+  },
+  "kind": "create",
+  "merges": [
+   {
+    "status": "ready",
+    "error": "ValidationError: {'id': ['Site with this ID already exists.'], 'name': ['Site with this Name already exists.'], 'slug': ['Site with this Slug already exists.']}",
+    "merge_s": 18.271,
+    "changes_at_go": 209,
+    "applied_changes": 209
+   },
+   {
+    "status": "merged",
+    "error": null,
+    "merge_s": 17.675,
+    "changes_at_go": 209,
+    "applied_changes": 209
+   }
+  ],
+  "main_objectchanges_from_merge": 209,
+  "final_status": "ready",
+  "events": {
+   "merged": 1,
+   "provisioned": 1
+  },
+  "objects_in_branch": {
+   "device": 20,
+   "interface": 80,
+   "ipaddress": 80
+  },
+  "rows_in_main": {
+   "device": 20,
+   "interface": 80,
+   "ipaddress": 80
+  },
+  "objectchanges_in_branch": 209,
+  "applied_changes": 209,
+  "merged_then_ready": true
+ },
+ "netbox_state": {
+  "dcim.Device": {
+   "count": 20,
+   "sha256": "c15130c9b3195d5b82ee3acffe4c17100cd750890201aae9877b0c7d931a2d23"
+  },
+  "dcim.DeviceRole": {
+   "count": 3,
+   "sha256": "38be7e9cf9e737c0e4bebf113f59e34fd64411b548ee947d35eb580f1016cb57"
+  },
+  "dcim.DeviceType": {
+   "count": 5,
+   "sha256": "6dc9dc778c9781410945c4a422bee5a9d925a6d73fef4b0b56f1862eb1143d36"
+  },
+  "dcim.Interface": {
+   "count": 80,
+   "sha256": "73d1b138f8bb06e1c818671d180cb240ba2a2147464f030090ca4afc23447454"
+  },
+  "dcim.Manufacturer": {
+   "count": 5,
+   "sha256": "2c5c0334774efdf3a67d832daa567cabbf622e142f0e7930668a7f99e5d459cc"
+  },
+  "dcim.Platform": {
+   "count": 5,
+   "sha256": "b91f7c1259197c9f21081af6acc6801a58361de646517b29398c4bcaf6ea2956"
+  },
+  "dcim.Site": {
+   "count": 10,
+   "sha256": "f6e9afac5f5f35f6279710beb902b6e48c31c46525e063dee9304621911dae0d"
+  },
+  "extras.Tag": {
+   "count": 1,
+   "sha256": "ddd9c734ad6992e616dd2d80b03349472bc69e6ff16dc064213addfa3d4585e6"
+  },
+  "ipam.IPAddress": {
+   "count": 80,
+   "sha256": "edb0d416e4a095a8052b696b67c674103a669fe6da2226eda08ac4be537086e9"
+  },
+  "ipam.Prefix": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ipam.VLAN": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+ },
+ "resources": {
+  "bench-auth": {
+   "cpu_avg_pct": 0.0,
+   "cpu_max_pct": 0.3,
+   "mem_max_mib": 11.9
+  },
+  "diode-ingester": {
+   "cpu_avg_pct": 0.1,
+   "cpu_max_pct": 4.3,
+   "mem_max_mib": 8.1
+  },
+  "diode-postgres": {
+   "cpu_avg_pct": 7.4,
+   "cpu_max_pct": 18.2,
+   "mem_max_mib": 48.0
+  },
+  "diode-reconciler": {
+   "cpu_avg_pct": 0.3,
+   "cpu_max_pct": 4.9,
+   "mem_max_mib": 12.8
+  },
+  "diode-redis": {
+   "cpu_avg_pct": 1.0,
+   "cpu_max_pct": 1.4,
+   "mem_max_mib": 3.9
+  },
+  "netbox": {
+   "cpu_avg_pct": 99.9,
+   "cpu_max_pct": 213.9,
+   "mem_max_mib": 1586.2
+  },
+  "netbox-postgres": {
+   "cpu_avg_pct": 28.6,
+   "cpu_max_pct": 186.5,
+   "mem_max_mib": 93.9
+  },
+  "netbox-redis": {
+   "cpu_avg_pct": 1.1,
+   "cpu_max_pct": 1.7,
+   "mem_max_mib": 3.6
+  },
+  "netbox-redis-cache": {
+   "cpu_avg_pct": 1.0,
+   "cpu_max_pct": 1.4,
+   "mem_max_mib": 3.9
+  }
+ }
+}

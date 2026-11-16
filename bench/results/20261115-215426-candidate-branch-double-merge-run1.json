@@ -1,0 +1,574 @@
+{
+ "version": "candidate",
+ "diode_rev": "bb2ce3c",
+ "plugin_rev": "938afa0",
+ "scenario": "branch-double-merge",
+ "branching_rev": "0b23777",
+ "run": 1,
+ "rc": 0,
+ "apply_timeouts": 0,
+ "plugin_deadlock_retries": 0,
+ "reconciler_errors": 1,
+ "diode_pg_deadlocks": 0,
+ "knobs": {
+  "RATE_RPS": null,
+  "RATE_BURST": null,
+  "BATCH_SIZE": null,
+  "CONCURRENCY": null,
+  "PLUGIN_TIMEOUT": null,
+  "NETBOX_WORKERS": null
+ },
+ "error_summary": [
+  "      1 {\"level\":\"ERROR\",\"msg\":\"request failed\",\"error\":\"Get \\\"http://netbox:<n>/netbox/api/plugins/diode/default-branch/\\\": net/http: timeout awaiting response headers\",\"method\":\"GET\",\"url\":\"http://netbox:<n>/netbox/api/plugins/diode/default-branch/\"}"
+ ],
+ "params": {
+  "devices": 20,
+  "ifaces": 4,
+  "kind": "create"
+ },
+ "phases": [
+  {
+   "phase": "initial",
+   "entities": 180,
+   "requests": 4,
+   "send_s": 0.042,
+   "send_req_p50_ms": 6.09,
+   "send_req_p95_ms": 6.8,
+   "elapsed_s": 32.228,
+   "entities_per_s": 5.59,
+   "states_before": {},
+   "states_after": {
+    "APPLIED": 180
+   },
+   "curve": [
+    [
+     0.052,
+     4,
+     0,
+     0
+    ],
+    [
+     0.555,
+     0,
+     180,
+     0
+    ],
+    [
+     1.057,
+     0,
+     180,
+     0
+    ],
+    [
+     1.56,
+     0,
+     180,
+     0
+    ],
+    [
+     2.063,
+     0,
+     180,
+     0
+    ],
+    [
+     2.566,
+     0,
+     180,
+     0
+    ],
+    [
+     3.068,
+     0,
+     180,
+     0
+    ],
+    [
+     3.571,
+     0,
+     180,
+     0
+    ],
+    [
+     4.073,
+     0,
+     180,
+     0
+    ],
+    [
+     4.577,
+     0,
+     180,
+     0
+    ],
+    [
+     5.079,
+     0,
+     180,
+     0
+    ],
+    [
+     5.582,
+     0,
+     180,
+     0
+    ],
+    [
+     6.086,
+     0,
+     180,
+     0
+    ],
+    [
+     6.589,
+     0,
+     180,
+     0
+    ],
+    [
+     7.092,
+     0,
+     180,
+     0
+    ],
+    [
+     7.595,
+     0,
+     180,
+     0
+    ],
+    [
+     8.097,
+     0,
+     180,
+     0
+    ],
+    [
+     8.599,
+     0,
+     180,
+     0
+    ],
+    [
+     9.103,
+     0,
+     180,
+     0
+    ],
+    [
+     9.605,
+     0,
+     180,
+     0
+    ],
+    [
+     10.108,
+     0,
+     180,
+     0
+    ],
+    [
+     10.611,
+     0,
+     180,
+     0
+    ],
+    [
+     11.114,
+     0,
+     180,
+     0
+    ],
+    [
+     11.618,
+     0,
+     180,
+     0
+    ],
+    [
+     12.12,
+     0,
+     180,
+     0
+    ],
+    [
+     12.623,
+     0,
+     180,
+     0
+    ],
+    [
+     13.125,
+     0,
+     180,
+     0
+    ],
+    [
+     13.628,
+     0,
+     180,
+     0
+    ],
+    [
+     14.131,
+     0,
+     180,
+     0
+    ],
+    [
+     14.635,
+     0,
+     180,
+     0
+    ],
+    [
+     15.137,
+     0,
+     180,
+     0
+    ],
+    [
+     15.641,
+     0,
+     180,
+     0
+    ],
+    [
+     16.144,
+     0,
+     180,
+     0
+    ],
+    [
+     16.646,
+     0,
+     180,
+     0
+    ],
+    [
+     17.149,
+     0,
+     80,
+     100
+    ],
+    [
+     17.652,
+     0,
+     80,
+     100
+    ],
+    [
+     18.154,
+     0,
+     80,
+     100
+    ],
+    [
+     18.656,
+     0,
+     80,
+     100
+    ],
+    [
+     19.159,
+     0,
+     80,
+     100
+    ],
+    [
+     19.661,
+     0,
+     80,
+     100
+    ],
+    [
+     20.164,
+     0,
+     80,
+     100
+    ],
+    [
+     20.666,
+     0,
+     80,
+     100
+    ],
+    [
+     21.169,
+     0,
+     80,
+     100
+    ],
+    [
+     21.672,
+     0,
+     80,
+     100
+    ],
+    [
+     22.174,
+     0,
+     80,
+     100
+    ],
+    [
+     22.676,
+     0,
+     80,
+     100
+    ],
+    [
+     23.179,
+     0,
+     80,
+     100
+    ],
+    [
+     23.682,
+     0,
+     80,
+     100
+    ],
+    [
+     24.184,
+     0,
+     80,
+     100
+    ],
+    [
+     24.688,
+     0,
+     80,
+     100
+    ],
+    [
+     25.19,
+     0,
+     80,
+     100
+    ],
+    [
+     25.694,
+     0,
+     80,
+     100
+    ],
+    [
+     26.196,
+     0,
+     80,
+     100
+    ],
+    [
+     26.699,
+     0,
+     80,
+     100
+    ],
+    [
+     27.201,
+     0,
+     80,
+     100
+    ],
+    [
+     27.703,
+     0,
+     80,
+     100
+    ],
+    [
+     28.206,
+     0,
+     80,
+     100
+    ],
+    [
+     28.708,
+     0,
+     80,
+     100
+    ],
+    [
+     29.211,
+     0,
+     80,
+     100
+    ],
+    [
+     29.714,
+     0,
+     80,
+     100
+    ],
+    [
+     30.217,
+     0,
+     80,
+     100
+    ],
+    [
+     30.718,
+     0,
+     80,
+     100
+    ],
+    [
+     31.221,
+     0,
+     80,
+     100
+    ],
+    [
+     31.725,
+     0,
+     0,
+     180
+    ],
+    [
+     32.227,
+     0,
+     0,
+     180
+    ]
+   ]
+  }
+ ],
+ "branching": {
+  "branch": {
+   "id": 1,
+   "schema_id": "was0kit9",
+   "schema": "branch_was0kit9",
+   "status": "ready"
+  },
+  "kind": "create",
+  "merges": [
+   {
+    "status": "ready",
+    "error": "ValidationError: {'name': ['Tag with this Name already exists.'], 'slug': ['Tag with this Slug already exists.'], 'id': ['Tag with this Id already exists.']}",
+    "merge_s": 18.208,
+    "changes_at_go": 209,
+    "applied_changes": 209
+   },
+   {
+    "status": "merged",
+    "error": null,
+    "merge_s": 17.837,
+    "changes_at_go": 209,
+    "applied_changes": 209
+   }
+  ],
+  "main_objectchanges_from_merge": 209,
+  "final_status": "ready",
+  "events": {
+   "merged": 1,
+   "provisioned": 1
+  },
+  "objects_in_branch": {
+   "device": 20,
+   "interface": 80,
+   "ipaddress": 80
+  },
+  "rows_in_main": {
+   "device": 20,
+   "interface": 80,
+   "ipaddress": 80
+  },
+  "objectchanges_in_branch": 209,
+  "applied_changes": 209,
+  "merged_then_ready": true
+ },
+ "netbox_state": {
+  "dcim.Device": {
+   "count": 20,
+   "sha256": "c15130c9b3195d5b82ee3acffe4c17100cd750890201aae9877b0c7d931a2d23"
+  },
+  "dcim.DeviceRole": {
+   "count": 3,
+   "sha256": "38be7e9cf9e737c0e4bebf113f59e34fd64411b548ee947d35eb580f1016cb57"
+  },
+  "dcim.DeviceType": {
+   "count": 5,
+   "sha256": "6dc9dc778c9781410945c4a422bee5a9d925a6d73fef4b0b56f1862eb1143d36"
+  },
+  "dcim.Interface": {
+   "count": 80,
+   "sha256": "73d1b138f8bb06e1c818671d180cb240ba2a2147464f030090ca4afc23447454"
+  },
+  "dcim.Manufacturer": {
+   "count": 5,
+   "sha256": "2c5c0334774efdf3a67d832daa567cabbf622e142f0e7930668a7f99e5d459cc"
+  },
+  "dcim.Platform": {
+   "count": 5,
+   "sha256": "b91f7c1259197c9f21081af6acc6801a58361de646517b29398c4bcaf6ea2956"
+  },
+  "dcim.Site": {
+   "count": 10,
+   "sha256": "f6e9afac5f5f35f6279710beb902b6e48c31c46525e063dee9304621911dae0d"
+  },
+  "extras.Tag": {
+   "count": 1,
+   "sha256": "ddd9c734ad6992e616dd2d80b03349472bc69e6ff16dc064213addfa3d4585e6"
+  },
+  "ipam.IPAddress": {
+   "count": 80,
+   "sha256": "edb0d416e4a095a8052b696b67c674103a669fe6da2226eda08ac4be537086e9"
+  },
+  "ipam.Prefix": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ipam.VLAN": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+ },
+ "resources": {
+  "bench-auth": {
+   "cpu_avg_pct": 0.0,
+   "cpu_max_pct": 0.2,
+   "mem_max_mib": 11.9
+  },
+  "diode-ingester": {
+   "cpu_avg_pct": 0.0,
+   "cpu_max_pct": 0.1,
+   "mem_max_mib": 8.0
+  },
+  "diode-postgres": {
+   "cpu_avg_pct": 8.2,
+   "cpu_max_pct": 17.4,
+   "mem_max_mib": 47.9
+  },
+  "diode-reconciler": {
+   "cpu_avg_pct": 0.3,
+   "cpu_max_pct": 4.4,
+   "mem_max_mib": 12.7
+  },
+  "diode-redis": {
+   "cpu_avg_pct": 1.0,
+   "cpu_max_pct": 1.5,
+   "mem_max_mib": 3.7
+  },
+  "netbox": {
+   "cpu_avg_pct": 98.1,
+   "cpu_max_pct": 212.8,
+   "mem_max_mib": 1586.2
+  },
+  "netbox-postgres": {
+   "cpu_avg_pct": 30.4,
+   "cpu_max_pct": 197.5,
+   "mem_max_mib": 93.3
+  },
+  "netbox-redis": {
+   "cpu_avg_pct": 1.1,
+   "cpu_max_pct": 1.6,
+   "mem_max_mib": 3.6
+  },
+  "netbox-redis-cache": {
+   "cpu_avg_pct": 1.1,
+   "cpu_max_pct": 1.5,
+   "mem_max_mib": 3.9
+  }
+ }
+}
