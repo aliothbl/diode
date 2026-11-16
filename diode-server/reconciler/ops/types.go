@@ -84,4 +84,14 @@ type BulkPlanApplyResult struct {
 	// to QUEUED, and the caller should wait RetryAfter before claiming more.
 	Deferred   bool
 	RetryAfter time.Duration
+	// DeferReason says why a Deferred batch was refused: DeferReasonUnavailable
+	// (retryable 503/429, e.g. the branch is syncing) or DeferReasonBranchUnusable
+	// (409: the default branch is merged, archived, failed or pending migrations).
+	DeferReason string
 }
+
+// Reasons a batch is Deferred (BulkPlanApplyResult.DeferReason).
+const (
+	DeferReasonUnavailable    = "unavailable"
+	DeferReasonBranchUnusable = "branch_unusable"
+)

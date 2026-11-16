@@ -195,6 +195,41 @@ func (_c *Metrics_RecordIngestionLogCreate_Call) RunAndReturn(run func(context.C
 	return _c
 }
 
+// RecordBulkApplyDeferred provides a mock function with given fields: ctx, reason, ingestionLogs
+func (_m *Metrics) RecordBulkApplyDeferred(ctx context.Context, reason string, ingestionLogs int64) {
+	_m.Called(ctx, reason, ingestionLogs)
+}
+
+// Metrics_RecordBulkApplyDeferred_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'RecordBulkApplyDeferred'
+type Metrics_RecordBulkApplyDeferred_Call struct {
+	*mock.Call
+}
+
+// RecordBulkApplyDeferred is a helper method to define mock.On call
+//   - ctx context.Context
+//   - reason string
+//   - ingestionLogs int64
+func (_e *Metrics_Expecter) RecordBulkApplyDeferred(ctx interface{}, reason interface{}, ingestionLogs interface{}) *Metrics_RecordBulkApplyDeferred_Call {
+	return &Metrics_RecordBulkApplyDeferred_Call{Call: _e.mock.On("RecordBulkApplyDeferred", ctx, reason, ingestionLogs)}
+}
+
+func (_c *Metrics_RecordBulkApplyDeferred_Call) Run(run func(ctx context.Context, reason string, ingestionLogs int64)) *Metrics_RecordBulkApplyDeferred_Call {
+	_c.Call.Run(func(args mock.Arguments) {
+		run(args[0].(context.Context), args[1].(string), args[2].(int64))
+	})
+	return _c
+}
+
+func (_c *Metrics_RecordBulkApplyDeferred_Call) Return() *Metrics_RecordBulkApplyDeferred_Call {
+	_c.Call.Return()
+	return _c
+}
+
+func (_c *Metrics_RecordBulkApplyDeferred_Call) RunAndReturn(run func(context.Context, string, int64)) *Metrics_RecordBulkApplyDeferred_Call {
+	_c.Run(run)
+	return _c
+}
+
 // RecordIngestionLogRequeue provides a mock function with given fields: ctx
 func (_m *Metrics) RecordIngestionLogRequeue(ctx context.Context) {
 	_m.Called(ctx)
