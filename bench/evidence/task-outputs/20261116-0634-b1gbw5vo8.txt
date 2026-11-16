@@ -1,0 +1,17 @@
+Ran 605 tests in 2278.521s
+FAILED (failures=41, errors=4, expected failures=2)
+new vs main baseline:
+netbox_branching.tests.test_sync.SyncTestCase.test_sync_cable_create
+netbox_branching.tests.test_sync.SyncTestCase.test_sync_create_with_fk_dependency_in_main
+netbox_branching.tests.test_sync.SyncTestCase.test_sync_crud_in_main
+netbox_branching.tests.test_sync.SyncTestCase.test_sync_delete_in_main_while_updated_in_branch
+netbox_branching.tests.test_sync.SyncTestCase.test_sync_delete_in_main_with_branch_fk_reference
+netbox_branching.tests.test_sync.SyncTestCase.test_sync_m2m_no_false_conflict
+netbox_branching.tests.test_sync.SyncTestCase.test_sync_m2m_tags_concurrent_changes
+netbox_branching.tests.test_sync.SyncTestCase.test_sync_mptt_branch_and_main_extend_tree
+netbox_branching.tests.test_sync.SyncTestCase.test_sync_mptt_create_in_main
+netbox_branching.tests.test_sync.SyncTestCase.test_sync_mptt_delete_in_main_with_branch_extension
+netbox_branching.tests.test_sync.SyncTestCase.test_sync_mptt_update_in_main
+netbox_branching.tests.test_sync.SyncTestCase.test_sync_virtual_chassis_dissociation
+
+[exited with code 0]

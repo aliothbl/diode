@@ -1,0 +1,7 @@
+DROP DATABASE
+Ran 56 tests in 256.515s
+FAILED (failures=2)
+test_sync_cable_clear_end
+test_sync_cable_reorder_terminations
+
+[exited with code 0]

@@ -58,5 +58,11 @@ edited by hand; files are copied verbatim from where the work produced them.
 | 20261115-2204-bk526hsnp | F1 before the fix (code with F2 fix): branch-double-merge update ×5 merged twice; create ×3 ended READY after merge |
 | 20261116-0458-b4f8bix2o | **F1 after the fix (SPEC-1737 ee957fe): branch-double-merge ×8, exactly one merge, final MERGED** |
 | 20261116-0459-bxqbg8yuo | netbox-branching full suite on SPEC-1737: same 33 failures as main, none new |
+| 20261116-0549-bxhfyg7ji | F3 before the fix (code with F1/F2 fixed): branch-sync-watermark ×5, late change lost 5/5 |
+| 20261116-0629-bihwuvt13 | F3 fix v1 (fd67a8a, watermark in last_sync) ×5: fixed 5/5 |
+| 20261116-0634-b1gbw5vo8 | full suite on F3 v1: 12 new failures in test_sync (last_sync moving backwards) |
+| 20261116-0725-b3orhzsgx | sync-related suites on F3 v2 (sync_watermark field): only the 2 main baseline failures |
+| 20261116-0814-buhbfs1qx | **F3 fix v2 (69bdb57) ×5: fixed 5/5** |
+| 20261116-0818-bzmhkkhgv | full suite on F3 v2: main baseline + test_missing_filters (fixed by the sync_watermark filter, ca39c1c) |
 
 Helper scripts used for the stress and A/B batteries: `bench/tools/`.

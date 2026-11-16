@@ -1,0 +1,51 @@
+Using existing test database for alias 'default'...
+............Could not start merge: in-flight writes to the branch did not finish
+...............F...F........................
+======================================================================
+FAIL: test_sync_cable_clear_end (netbox_branching.tests.test_sync.SyncTestCase.test_sync_cable_clear_end)
+Sync the detachment of one end of a cable from main into the branch.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_sync.py", line 1375, in test_sync_cable_clear_end
+    self._assert_terminations(cable, a=[(ports.a1, None, None)])
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 316, in _assert_terminations
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        [(ct.termination_type_id, ct.termination_id, ct.connector, ct.positions) for ct in rows],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        [(interface_ct.id, interface.id, connector, positions) for interface, connector, positions in expected],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        f'Unexpected {end}-end terminations for cable {cable.id}',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: Lists differ: [(8, 3, None, None)] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+(8, 3, None, None)
+
+- [(8, 3, None, None)]
++ [] : Unexpected B-end terminations for cable 1
+
+======================================================================
+FAIL: test_sync_cable_reorder_terminations (netbox_branching.tests.test_sync.SyncTestCase.test_sync_cable_reorder_terminations)
+Sync the swap of a 2C1P trunk cable's A-end terminations from main into the branch.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_sync.py", line 1407, in test_sync_cable_reorder_terminations
+    self.assertEqual(CablePath.objects.count(), 4)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 6 != 4
+
+----------------------------------------------------------------------
+Ran 56 tests in 256.515s
+
+FAILED (failures=2)
+Preserving test database for alias 'default'...
+Found 56 test(s).
+
+ 
+ 
+ System check identified no issues (0 silenced).

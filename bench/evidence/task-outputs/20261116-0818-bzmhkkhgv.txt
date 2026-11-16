@@ -1,0 +1,6 @@
+Ran 605 tests in 2369.427s
+FAILED (failures=30, errors=4, expected failures=2)
+new vs main baseline:
+netbox_branching.tests.test_filtersets.BranchFilterSetTestCase.test_missing_filters
+
+[exited with code 0]

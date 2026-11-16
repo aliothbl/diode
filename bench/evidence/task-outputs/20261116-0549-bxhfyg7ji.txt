@@ -1,0 +1,8 @@
+cff9410 Merge SPEC-20261114-1737: compare-and-set branch status transitions (F1, F14)
+20261116-053257-candid cff9410 missing True saved<sync1 True commit>sync1end True unsynced2 ['bench-after'] branch ['bench-after', 'bench-early'] sync1 
+20261116-053257-candid cff9410 missing True saved<sync1 True commit>sync1end True unsynced2 ['bench-after'] branch ['bench-after', 'bench-early'] sync1 
+20261116-053257-candid cff9410 missing True saved<sync1 True commit>sync1end True unsynced2 ['bench-after'] branch ['bench-after', 'bench-early'] sync1 
+20261116-053257-candid cff9410 missing True saved<sync1 True commit>sync1end True unsynced2 ['bench-after'] branch ['bench-after', 'bench-early'] sync1 
+20261116-053257-candid cff9410 missing True saved<sync1 True commit>sync1end True unsynced2 ['bench-after'] branch ['bench-after', 'bench-early'] sync1 
+
+[exited with code 0]
