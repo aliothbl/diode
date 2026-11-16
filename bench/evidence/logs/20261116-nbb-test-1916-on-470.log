@@ -1,0 +1,45 @@
+/opt/netbox/netbox/netbox/settings.py:981: UserWarning: Unable to load plugin netbox_branching: Plugin netbox_branching requires NetBox minimum version 4.7.4 (current: 4.7.0).
+  warnings.warn(f'Unable to load plugin {plugin_name}: {e}')
+Traceback (most recent call last):
+  File "/opt/netbox/netbox/manage.py", line 10, in <module>
+    execute_from_command_line(sys.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/core/management/__init__.py", line 443, in execute_from_command_line
+    utility.execute()
+    ~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/core/management/__init__.py", line 437, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/core/management/commands/test.py", line 24, in run_from_argv
+    super().run_from_argv(argv)
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/core/management/base.py", line 422, in run_from_argv
+    self.execute(*args, **cmd_options)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/core/management/base.py", line 466, in execute
+    output = self.handle(*args, **options)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/core/management/commands/test.py", line 63, in handle
+    failures = test_runner.run_tests(test_labels)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/runner.py", line 1119, in run_tests
+    suite = self.build_suite(test_labels)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/runner.py", line 975, in build_suite
+    tests = self.load_tests_for_label(label, discover_kwargs)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/test/runner.py", line 933, in load_tests_for_label
+    tests = self.test_loader.loadTestsFromName(label)
+  File "/usr/lib/python3.14/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_config.py", line 4, in <module>
+    from netbox_branching.models import Branch
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/__init__.py", line 1, in <module>
+    from .branches import *
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 67, in <module>
+    from .changes import ChangeDiff, ObjectChange, SyncedChange
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/changes.py", line 63, in <module>
+    class ObjectChange(ObjectChange_):
+    ...<182 lines>...
+        undo.alters_data = True
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/base.py", line 137, in __new__
+    raise RuntimeError(
+    ...<3 lines>...
+    )
+RuntimeError: Model class netbox_branching.models.changes.ObjectChange doesn't declare an explicit app_label and isn't in an application in INSTALLED_APPS.

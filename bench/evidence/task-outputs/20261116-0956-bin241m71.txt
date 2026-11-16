@@ -1,0 +1,56 @@
+[1]   Exit 1                  ( NBB_IMAGE=netboxcommunity/netbox:v$v NBB_PREFIX=nbb${v//./} KEEP_DB=1 bench/tools/nbb-test.sh $LABELS > bench/evidence/logs/20261116-nbb-test-33-netbox$v.log 2>&1 )
+[2]   Exit 1                  ( NBB_IMAGE=netboxcommunity/netbox:v$v NBB_PREFIX=nbb${v//./} KEEP_DB=1 bench/tools/nbb-test.sh $LABELS > bench/evidence/logs/20261116-nbb-test-33-netbox$v.log 2>&1 )
+[3]-  Exit 1                  ( NBB_IMAGE=netboxcommunity/netbox:v$v NBB_PREFIX=nbb${v//./} KEEP_DB=1 bench/tools/nbb-test.sh $LABELS > bench/evidence/logs/20261116-nbb-test-33-netbox$v.log 2>&1 )
+[4]+  Done                    ( NBB_IMAGE=netboxcommunity/netbox:v$v NBB_PREFIX=nbb${v//./} KEEP_DB=1 bench/tools/nbb-test.sh $LABELS > bench/evidence/logs/20261116-nbb-test-33-netbox$v.log 2>&1 )
+== 4.7.1: Ran 33 tests in 508.084s FAILED (failures=29, errors=4) 
+   test_iterative_merge.IterativeMergeTestCase.test_revert_cable_clear_a_end
+   test_iterative_merge.IterativeMergeTestCase.test_revert_cable_clear_b_end
+   test_squash_merge.SquashMergeTestCase.test_revert_cable_clear_a_end
+   test_squash_merge.SquashMergeTestCase.test_revert_cable_clear_b_end
+   test_request.RequestTestCase.test_background_api_request_activates_branch_from_query_param
+   test_views.BranchTestCase.test_list_objects_with_permission
+   test_iterative_merge.IterativeMergeTestCase.test_merge_cable_clear_a_end
+   test_iterative_merge.IterativeMergeTestCase.test_merge_cable_clear_b_end
+   test_iterative_merge.IterativeMergeTestCase.test_merge_cable_move_a_end
+   test_iterative_merge.IterativeMergeTestCase.test_merge_cable_move_b_end
+   test_iterative_merge.IterativeMergeTestCase.test_merge_cable_reorder_terminations
+   test_iterative_merge.IterativeMergeTestCase.test_revert_cable_move_a_end
+   test_iterative_merge.IterativeMergeTestCase.test_revert_cable_move_b_end
+   test_iterative_merge.IterativeMergeTestCase.test_revert_cable_move_both_ends
+   test_iterative_merge.IterativeMergeTestCase.test_revert_cable_reorder_terminations
+   test_iterative_merge.IterativeMergeTestCase.test_revert_cable_set_profile
+   test_squash_merge.SquashMergeTestCase.test_merge_cable_clear_a_end
+   test_squash_merge.SquashMergeTestCase.test_merge_cable_clear_b_end
+   test_squash_merge.SquashMergeTestCase.test_merge_cable_create
+   test_squash_merge.SquashMergeTestCase.test_merge_cable_create_with_edited_endpoint
+   test_squash_merge.SquashMergeTestCase.test_merge_cable_move_a_end
+   test_squash_merge.SquashMergeTestCase.test_merge_cable_move_b_end
+   test_squash_merge.SquashMergeTestCase.test_merge_cable_move_both_ends
+   test_squash_merge.SquashMergeTestCase.test_merge_cable_reorder_terminations
+   test_squash_merge.SquashMergeTestCase.test_merge_cable_set_profile
+   test_squash_merge.SquashMergeTestCase.test_revert_cable_delete
+   test_squash_merge.SquashMergeTestCase.test_revert_cable_move_a_end
+   test_squash_merge.SquashMergeTestCase.test_revert_cable_move_b_end
+   test_squash_merge.SquashMergeTestCase.test_revert_cable_move_both_ends
+   test_squash_merge.SquashMergeTestCase.test_revert_cable_reorder_terminations
+   test_squash_merge.SquashMergeTestCase.test_revert_cable_set_profile
+   test_sync.SyncTestCase.test_sync_cable_clear_end
+   test_sync.SyncTestCase.test_sync_cable_reorder_terminations
+== 4.7.2: Ran 33 tests in 514.364s FAILED (failures=8, errors=4) 
+   test_iterative_merge.IterativeMergeTestCase.test_revert_cable_clear_a_end
+   test_iterative_merge.IterativeMergeTestCase.test_revert_cable_clear_b_end
+   test_squash_merge.SquashMergeTestCase.test_revert_cable_clear_a_end
+   test_squash_merge.SquashMergeTestCase.test_revert_cable_clear_b_end
+   test_request.RequestTestCase.test_background_api_request_activates_branch_from_query_param
+   test_views.BranchTestCase.test_list_objects_with_permission
+   test_iterative_merge.IterativeMergeTestCase.test_merge_cable_clear_a_end
+   test_iterative_merge.IterativeMergeTestCase.test_merge_cable_clear_b_end
+   test_squash_merge.SquashMergeTestCase.test_merge_cable_clear_a_end
+   test_squash_merge.SquashMergeTestCase.test_merge_cable_clear_b_end
+   test_sync.SyncTestCase.test_sync_cable_clear_end
+   test_sync.SyncTestCase.test_sync_cable_reorder_terminations
+== 4.7.3: Ran 33 tests in 530.639s FAILED (failures=1) 
+   test_views.BranchTestCase.test_list_objects_with_permission
+== 4.7.4: Ran 33 tests in 536.530s OK 
+
+[exited with code 0]

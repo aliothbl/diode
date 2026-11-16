@@ -1,0 +1,290 @@
+Using existing test database for alias 'default'...
+FFFF...EE.....FF.......EE......FF
+======================================================================
+ERROR: test_revert_cable_clear_a_end (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_revert_cable_clear_a_end)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1535, in test_revert_cable_clear_a_end
+    self._revert_cable_clear('A')
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1526, in _revert_cable_clear
+    branch.revert(user=self.user, commit=True)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1321, in revert
+    raise Exception('Only merged branches can be reverted.')
+Exception: Only merged branches can be reverted.
+
+======================================================================
+ERROR: test_revert_cable_clear_b_end (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_revert_cable_clear_b_end)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1541, in test_revert_cable_clear_b_end
+    self._revert_cable_clear('B')
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1526, in _revert_cable_clear
+    branch.revert(user=self.user, commit=True)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1321, in revert
+    raise Exception('Only merged branches can be reverted.')
+Exception: Only merged branches can be reverted.
+
+======================================================================
+ERROR: test_revert_cable_clear_a_end (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_revert_cable_clear_a_end)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1535, in test_revert_cable_clear_a_end
+    self._revert_cable_clear('A')
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1526, in _revert_cable_clear
+    branch.revert(user=self.user, commit=True)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1321, in revert
+    raise Exception('Only merged branches can be reverted.')
+Exception: Only merged branches can be reverted.
+
+======================================================================
+ERROR: test_revert_cable_clear_b_end (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_revert_cable_clear_b_end)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1541, in test_revert_cable_clear_b_end
+    self._revert_cable_clear('B')
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1526, in _revert_cable_clear
+    branch.revert(user=self.user, commit=True)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1321, in revert
+    raise Exception('Only merged branches can be reverted.')
+Exception: Only merged branches can be reverted.
+
+======================================================================
+FAIL: test_background_api_request_activates_branch_from_query_param (netbox_branching.tests.test_request.RequestTestCase.test_background_api_request_activates_branch_from_query_param)
+apply_request_processors() only warns when a processor fails, so the background write lands
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_request.py", line 372, in test_background_api_request_activates_branch_from_query_param
+    self.assertEqual(active_branch.get(), branch)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: None != <Branch: Branch 1>
+
+======================================================================
+FAIL: test_list_objects_with_permission (netbox_branching.tests.test_views.BranchTestCase.test_list_objects_with_permission)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/netbox/utilities/testing/views.py", line 474, in test_list_objects_with_permission
+    with assert_expected_query_count(self, 'list_objects_with_permission'):
+         ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/contextlib.py", line 148, in __exit__
+    next(self.gen)
+    ~~~~^^^^^^^^^^
+  File "/opt/netbox/netbox/utilities/testing/query_counts.py", line 137, in assert_expected_query_count
+    test_case.fail(
+    ~~~~~~~~~~~~~~^
+        f"Query count for {app_label}/{key} changed: "
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        f"to update the baseline.\nObserved queries:\n{sample}"
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: Query count for netbox_branching/branch:list_objects_with_permission changed: expected 18, got 19. If this change is intentional, re-run with UPDATE_QUERY_COUNTS=1 to update the baseline.
+Observed queries:
+  1. SELECT "django_session"."session_key", "django_session"."session_data", "django_session"."expire_date" FROM "django_session" WHERE ("django_session"."expire_date" > '2026-11-16 10:47:40.019348+00:00'::timestamptz AND "django_session"."sessi
+  2. SELECT "users_user"."id", "users_user"."password", "users_user"."last_login", "users_user"."is_superuser", "users_user"."username", "users_user"."first_name", "users_user"."last_name", "users_user"."email", "users_user"."is_active", "users_
+  3. SELECT DISTINCT ON ("users_objectpermission"."id") "users_objectpermission"."id", "users_objectpermission"."name", "users_objectpermission"."description", "users_objectpermission"."enabled", "users_objectpermission"."actions", "users_object
+  4. SELECT ("users_objectpermission_object_types"."objectpermission_id") AS "_prefetch_related_val_objectpermission_id", "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model" FROM "django_content_type" INN
+  5. SELECT "django_content_type"."app_label" AS "content_type__app_label", "auth_permission"."codename" AS "codename" FROM "auth_permission" INNER JOIN "users_user_user_permissions" ON ("auth_permission"."id" = "users_user_user_permissions"."pe
+  6. SELECT "django_content_type"."app_label" AS "content_type__app_label", "auth_permission"."codename" AS "codename" FROM "auth_permission" INNER JOIN "users_group_permissions" ON ("auth_permission"."id" = "users_group_permissions"."permission
+  7. SELECT "django_content_type"."id", "django_content_type"."app_label", "django_content_type"."model", "core_objecttype"."contenttype_ptr_id", "core_objecttype"."public", "core_objecttype"."features" FROM "core_objecttype" INNER JOIN "django_
+  8. SELECT "extras_customfield"."id", "extras_customfield"."created", "extras_customfield"."last_updated", "extras_customfield"."owner_id", "extras_customfield"."type", "extras_customfield"."related_object_type_id", "extras_customfield"."name",
+  9. SELECT "extras_customlink"."id", "extras_customlink"."created", "extras_customlink"."last_updated", "extras_customlink"."owner_id", "extras_customlink"."name", "extras_customlink"."enabled", "extras_customlink"."link_text", "extras_customli
+  10. SELECT "users_userconfig"."id", "users_userconfig"."user_id", "users_userconfig"."data" FROM "users_userconfig" WHERE "users_userconfig"."user_id" = 2 LIMIT 21
+  11. SELECT COUNT(*) FROM (SELECT "netbox_branching_branch"."id" AS "col1" FROM "netbox_branching_branch" LEFT OUTER JOIN "netbox_branching_changediff" ON ("netbox_branching_branch"."id" = "netbox_branching_changediff"."branch_id") GROUP BY 1) s
+  12. SELECT 1 AS "a" FROM "netbox_branching_branch" LEFT OUTER JOIN "netbox_branching_changediff" ON ("netbox_branching_branch"."id" = "netbox_branching_changediff"."branch_id") GROUP BY "netbox_branching_branch"."id" LIMIT 1
+  13. SELECT "netbox_branching_branch"."id", "netbox_branching_branch"."created", "netbox_branching_branch"."last_updated", "netbox_branching_branch"."custom_field_data", "netbox_branching_branch"."description", "netbox_branching_branch"."comment
+  14. SELECT 1 AS "a" FROM "extras_notification" WHERE ("extras_notification"."user_id" = 2 AND "extras_notification"."read" IS NULL) LIMIT 1
+  15. SELECT "netbox_branching_branch"."id", "netbox_branching_branch"."created", "netbox_branching_branch"."last_updated", "netbox_branching_branch"."custom_field_data", "netbox_branching_branch"."description", "netbox_branching_branch"."comment
+  16. SELECT 1 AS "a" FROM "extras_notification" WHERE ("extras_notification"."user_id" = 2 AND "extras_notification"."read" IS NULL) LIMIT 1
+  17. SELECT "extras_tableconfig"."id", "extras_tableconfig"."created", "extras_tableconfig"."last_updated", "extras_tableconfig"."object_type_id", "extras_tableconfig"."table", "extras_tableconfig"."name", "extras_tableconfig"."description", "ex
+  18. SELECT "netbox_branching_branch"."id", "netbox_branching_branch"."created", "netbox_branching_branch"."last_updated", "netbox_branching_branch"."custom_field_data", "netbox_branching_branch"."description", "netbox_branching_branch"."comment
+  19. SELECT DISTINCT "extras_tag"."name", "extras_tag"."slug", "extras_tag"."created", "extras_tag"."last_updated", "extras_tag"."owner_id", "extras_tag"."id", "extras_tag"."color", "extras_tag"."description", "extras_tag"."weight", COUNT("extra
+
+======================================================================
+FAIL: test_merge_cable_clear_a_end (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_merge_cable_clear_a_end)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1532, in test_merge_cable_clear_a_end
+    self._merge_cable_clear('A')
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1510, in _merge_cable_clear
+    assert_half_terminated()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1502, in assert_half_terminated
+    self._assert_terminations(cable, **{kept_end.lower(): [(kept, None, None)]})
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 316, in _assert_terminations
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        [(ct.termination_type_id, ct.termination_id, ct.connector, ct.positions) for ct in rows],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        [(interface_ct.id, interface.id, connector, positions) for interface, connector, positions in expected],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        f'Unexpected {end}-end terminations for cable {cable.id}',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: Lists differ: [(8, 1, None, None)] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+(8, 1, None, None)
+
+- [(8, 1, None, None)]
++ [] : Unexpected A-end terminations for cable 1
+
+======================================================================
+FAIL: test_merge_cable_clear_b_end (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_merge_cable_clear_b_end)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1538, in test_merge_cable_clear_b_end
+    self._merge_cable_clear('B')
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1510, in _merge_cable_clear
+    assert_half_terminated()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1502, in assert_half_terminated
+    self._assert_terminations(cable, **{kept_end.lower(): [(kept, None, None)]})
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 316, in _assert_terminations
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        [(ct.termination_type_id, ct.termination_id, ct.connector, ct.positions) for ct in rows],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        [(interface_ct.id, interface.id, connector, positions) for interface, connector, positions in expected],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        f'Unexpected {end}-end terminations for cable {cable.id}',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: Lists differ: [(8, 7, None, None)] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+(8, 7, None, None)
+
+- [(8, 7, None, None)]
++ [] : Unexpected B-end terminations for cable 2
+
+======================================================================
+FAIL: test_merge_cable_clear_a_end (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_merge_cable_clear_a_end)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1532, in test_merge_cable_clear_a_end
+    self._merge_cable_clear('A')
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1510, in _merge_cable_clear
+    assert_half_terminated()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1502, in assert_half_terminated
+    self._assert_terminations(cable, **{kept_end.lower(): [(kept, None, None)]})
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 316, in _assert_terminations
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        [(ct.termination_type_id, ct.termination_id, ct.connector, ct.positions) for ct in rows],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        [(interface_ct.id, interface.id, connector, positions) for interface, connector, positions in expected],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        f'Unexpected {end}-end terminations for cable {cable.id}',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: Lists differ: [(8, 49, None, None)] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+(8, 49, None, None)
+
+- [(8, 49, None, None)]
++ [] : Unexpected A-end terminations for cable 13
+
+======================================================================
+FAIL: test_merge_cable_clear_b_end (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_merge_cable_clear_b_end)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1538, in test_merge_cable_clear_b_end
+    self._merge_cable_clear('B')
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1510, in _merge_cable_clear
+    assert_half_terminated()
+    ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1502, in assert_half_terminated
+    self._assert_terminations(cable, **{kept_end.lower(): [(kept, None, None)]})
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 316, in _assert_terminations
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        [(ct.termination_type_id, ct.termination_id, ct.connector, ct.positions) for ct in rows],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        [(interface_ct.id, interface.id, connector, positions) for interface, connector, positions in expected],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        f'Unexpected {end}-end terminations for cable {cable.id}',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: Lists differ: [(8, 55, None, None)] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+(8, 55, None, None)
+
+- [(8, 55, None, None)]
++ [] : Unexpected B-end terminations for cable 14
+
+======================================================================
+FAIL: test_sync_cable_clear_end (netbox_branching.tests.test_sync.SyncTestCase.test_sync_cable_clear_end)
+Sync the detachment of one end of a cable from main into the branch.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_sync.py", line 1375, in test_sync_cable_clear_end
+    self._assert_terminations(cable, a=[(ports.a1, None, None)])
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/utils.py", line 316, in _assert_terminations
+    self.assertEqual(
+    ~~~~~~~~~~~~~~~~^
+        [(ct.termination_type_id, ct.termination_id, ct.connector, ct.positions) for ct in rows],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        [(interface_ct.id, interface.id, connector, positions) for interface, connector, positions in expected],
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        f'Unexpected {end}-end terminations for cable {cable.id}',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+AssertionError: Lists differ: [(8, 120, None, None)] != []
+
+First list contains 1 additional elements.
+First extra element 0:
+(8, 120, None, None)
+
+- [(8, 120, None, None)]
++ [] : Unexpected B-end terminations for cable 30
+
+======================================================================
+FAIL: test_sync_cable_reorder_terminations (netbox_branching.tests.test_sync.SyncTestCase.test_sync_cable_reorder_terminations)
+Sync the swap of a 2C1P trunk cable's A-end terminations from main into the branch.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_sync.py", line 1407, in test_sync_cable_reorder_terminations
+    self.assertEqual(CablePath.objects.count(), 4)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 6 != 4
+
+----------------------------------------------------------------------
+Ran 33 tests in 514.364s
+
+FAILED (failures=8, errors=4)
+Preserving test database for alias 'default'...
+Found 33 test(s).
+
+ 
+ 
+ System check identified no issues (0 silenced).

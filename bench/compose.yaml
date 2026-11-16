@@ -93,11 +93,11 @@ services:
 
   # ---------------- NetBox + plugin ----------------
   netbox:
-    image: diode-bench/netbox:v4.7.0
+    image: diode-bench/netbox:${BENCH_NETBOX_VERSION:-v4.7.0}
     build:
       context: ${PLUGIN_DOCKER_DIR:?}
       dockerfile: v4.7.x/Dockerfile
-      args: { NETBOX_VERSION: v4.7.0 }
+      args: { NETBOX_VERSION: "${BENCH_NETBOX_VERSION:-v4.7.0}" }
     env_file: ${PLUGIN_DOCKER_DIR:?}/common/netbox/env/netbox.env
     environment:
       DB_HOST: netbox-postgres

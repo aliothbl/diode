@@ -93,6 +93,14 @@ TAG=""; for extra in ${BENCH_COMPOSE_EXTRA:-}; do
   t="$(basename "$extra" .yaml)"; TAG="$TAG+${t#compose.}"
 done
 
+# NetBox version of the image. 4.7.0 by default, so Diode-vs-upstream runs stay comparable with
+# every earlier result; runs with a netbox-branching checkout default to 4.7.5, because netbox-branching
+# requires NetBox 4.7.4+ since its SPEC-20261115-1916 (cable changes not change-logged before 4.7.4).
+if [[ -z "${BENCH_NETBOX_VERSION:-}" ]]; then
+  if [[ -n "${BRANCHING_SRC:-}" ]]; then BENCH_NETBOX_VERSION=v4.7.5; else BENCH_NETBOX_VERSION=v4.7.0; fi
+fi
+export BENCH_NETBOX_VERSION
+
 # netbox-branching from a checkout instead of the image's pip 1.2.0.
 BRANCHING_REV="pip-1.2.0"
 if [[ -n "${BRANCHING_SRC:-}" ]]; then
@@ -109,6 +117,8 @@ fi
 # ~8 min migration boot.
 tree() { git -C "$1" rev-parse --short=10 "HEAD:$2" 2>/dev/null || echo "$3"; }
 SEED_KEY="plugin-$(tree "$PLUGIN_SRC" netbox_diode_plugin "$PLUGIN_REV")"
+# The NetBox version's own migrations are part of the schema too (4.7.0 keeps its historical key).
+[[ "$BENCH_NETBOX_VERSION" != v4.7.0 ]] && SEED_KEY="$SEED_KEY-nb-$BENCH_NETBOX_VERSION"
 [[ -n "${BRANCHING_SRC:-}" ]] && SEED_KEY="$SEED_KEY-nbb-$(tree "$BRANCHING_SRC" netbox_branching "$BRANCHING_REV")"
 SEED="$HERE/out/seed/$SEED_KEY/pgdata.tgz"
 PGVOL=diode-bench-netbox-pgdata
@@ -211,7 +221,7 @@ for run in $(seq 1 "$RUNS"); do
   "$VENV/bin/python" - "$OUT" "$OUT.load" "$STATS" <<PY
 import json, sys, collections
 out, load, stats = sys.argv[1:4]
-doc = {"version": "$VERSION", "diode_rev": "$DIODE_REV", "plugin_rev": "$PLUGIN_REV",
+doc = {"version": "$VERSION", "netbox_version": "$BENCH_NETBOX_VERSION", "diode_rev": "$DIODE_REV", "plugin_rev": "$PLUGIN_REV",
        "scenario": "$SCENARIO$TAG", "branching_rev": "$BRANCHING_REV", "run": $run, "rc": $RC, "apply_timeouts": int("${APPLY_TIMEOUTS:-0}" or 0),
        "plugin_deadlock_retries": int("${DEADLOCKS:-0}" or 0), "reconciler_errors": int("${RECONCILER_ERRORS:-0}" or 0), "diode_pg_deadlocks": int("${DIODE_PG_DEADLOCKS:-0}" or 0),
        "knobs": {k: __import__("os").environ.get(k) for k in

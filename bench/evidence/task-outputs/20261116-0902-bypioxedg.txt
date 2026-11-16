@@ -1,0 +1,5 @@
+89d0b78 Merge SPEC-20261114-1739: sync watermark that respects commit visibility (F3)
+Ran 605 tests in 1462.360s
+OK (expected failures=2)
+
+[exited with code 0]

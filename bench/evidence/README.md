@@ -64,5 +64,9 @@ edited by hand; files are copied verbatim from where the work produced them.
 | 20261116-0725-b3orhzsgx | sync-related suites on F3 v2 (sync_watermark field): only the 2 main baseline failures |
 | 20261116-0814-buhbfs1qx | **F3 fix v2 (69bdb57) ×5: fixed 5/5** |
 | 20261116-0818-bzmhkkhgv | full suite on F3 v2: main baseline + test_missing_filters (fixed by the sync_watermark filter, ca39c1c) |
+| 20261116-0902-bypioxedg | netbox-branching full suite on NetBox **4.7.5**: 605 OK (the 33 failures are NetBox 4.7.0's) |
+| 20261116-0956-bin241m71 | the 33 tests on NetBox 4.7.1 / 4.7.2 / 4.7.3 / 4.7.4: 33 / 12 / 1 / 0 failures |
+| 20261116-1045-bc8gyg26d | full suite on NetBox 4.7.4: 605 OK → netbox-branching min_version 4.7.4 (SPEC-1916) |
+| 20261116-1107-bi9nbtn7d | bench on NetBox 4.7.5 (branch scenarios' new default): branch-merge-race MERGED, 0 lost |
 
 Helper scripts used for the stress and A/B batteries: `bench/tools/`.

@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # Run the netbox-branching test suite (or a subset) from a checkout, inside the
-# bench NetBox image (v4.7.0), the way its CI does: testing/configuration.py via
+# NetBox image (default netboxcommunity/netbox:v4.7.5; NBB_IMAGE overrides), the way its CI does: testing/configuration.py via
 # NETBOX_CONFIGURATION + PYTHONPATH, Postgres and Redis on localhost.
 # Usage: bench/tools/nbb-test.sh [test labels...]   (default: netbox_branching.tests)
 set -euo pipefail
 SRC=${BRANCHING_SRC:-/home/alatour/repositories/netbox/netbox-branching}
-IMG=diode-bench/netbox:v4.7.0
-P=nbb-test
+IMG=${NBB_IMAGE:-netboxcommunity/netbox:v4.7.5}  # netbox-branching requires NetBox 4.7.4+ (its SPEC-1916)
+P=${NBB_PREFIX:-nbb-test}
 LABELS=("${@:-netbox_branching.tests}")
 # KEEP_DB=1 keeps Postgres/Redis between runs and passes --keepdb (the test
 # database migrations take ~10 min); remove them with: docker rm -f nbb-test-pg nbb-test-redis

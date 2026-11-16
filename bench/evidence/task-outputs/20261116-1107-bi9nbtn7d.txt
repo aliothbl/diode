@@ -1,0 +1,4 @@
+rc=0
+20261116-110351-candid v4.7.5 86f9568 status merged lost {'device': 0, 'interface': 0, 'ipaddress': 0} failed 0 waiting 0
+
+[exited with code 0]
