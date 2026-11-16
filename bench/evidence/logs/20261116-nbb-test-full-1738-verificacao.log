@@ -1,0 +1,75 @@
+Using existing test database for alias 'default'...
+..............................................................................................................................................................Recovering branch API Forced from status 'syncing': resetting to 'ready' (requested by recoverapi_super)
+...Recovering branch API Stuck from status 'migrating': resetting to 'pending-migrations' (requested by recoverapi_super)
+.Recovering branch API No Retry from status 'migrating': resetting to 'pending-migrations' (requested by recoverapi_super)
+.Recovering branch API Retry from status 'migrating': resetting to 'pending-migrations' (requested by recoverapi_super)
+........Recovering branch No Merge Retry from status 'merging': resetting to 'ready' (requested by recoverview_super)
+.Recovering branch Force Via View from status 'merging': resetting to 'ready' (requested by recoverview_super)
+.Recovering branch Recover Me from status 'migrating': resetting to 'pending-migrations' (requested by recoverview_super)
+.Recovering branch Bare Post from status 'migrating': resetting to 'pending-migrations' (requested by recoverview_super)
+.Recovering branch Retry Sync from status 'syncing': resetting to 'ready' (requested by recoverview_super)
+.Recovering branch No Retry from status 'syncing': resetting to 'ready' (requested by recoverview_super)
+...Recovering branch Forced from status 'syncing': resetting to 'ready' (requested by system)
+...Recovering branch Orphaned Job from status 'migrating': resetting to 'pending-migrations' (requested by system)
+.Recovering branch Errored Job from status 'merging': resetting to 'ready' (requested by system)
+.Recovering branch Stuck provisioning from status 'provisioning': resetting to 'failed' (requested by system)
+Recovering branch Stuck syncing from status 'syncing': resetting to 'ready' (requested by system)
+Recovering branch Stuck migrating from status 'migrating': resetting to 'pending-migrations' (requested by system)
+Recovering branch Stuck merging from status 'merging': resetting to 'ready' (requested by system)
+Recovering branch Stuck reverting from status 'reverting': resetting to 'merged' (requested by system)
+..........................Recovering branch Watchdog No Retry from status 'syncing': resetting to 'ready' (requested by system)
+.Recovering branch Bbb Recoverable from status 'syncing': resetting to 'ready' (requested by system)
+.Recovering branch Stuck Migrate from status 'migrating': resetting to 'pending-migrations' (requested by system)
+..........................................................................................................pg_cancel_backend(0) returned false; that worker may still be running and holding locks, which can delay schema cleanup.
+.ANALYZE of branch_qx3toun4.this_table_does_not_exist failed; leaving its statistics to autovacuum.
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 103, in _execute
+    return self.cursor.execute(sql)
+           ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+psycopg.errors.UndefinedTable: relation "branch_qx3toun4.this_table_does_not_exist" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/provisioning.py", line 515, in analyze
+    cursor.execute(sql_text)
+    ~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 103, in _execute
+    return self.cursor.execute(sql)
+           ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+django.db.utils.ProgrammingError: relation "branch_qx3toun4.this_table_does_not_exist" does not exist
+.simulated worker failure
+..simulated index build failure
+....................................................................................................................................................xx................................................................................................................................................
+----------------------------------------------------------------------
+Ran 616 tests in 1798.341s
+
+OK (expected failures=2)
+Preserving test database for alias 'default'...
+Found 616 test(s).
+System check identified no issues (0 silenced).
+
+    Copying extras_tag_object_types for branch tag-object-types (ktdhiqhs)... Success.
+ 
+    Copying extras_tag_object_types for branch tag-object-types (6rm7jfp0)... Success.
+ 
+    Copying extras_tag_object_types for branch tag-object-types (k9awjogf)... Success.
+ 

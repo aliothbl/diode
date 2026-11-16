@@ -1,0 +1,12 @@
+Using existing test database for alias 'default'...
+............Could not start merge: in-flight writes to the branch did not finish
+.........1 change(s) were written to branch Branch iterative while it was being merged; the merge has been rolled back. Merge the branch again.
+.1 change(s) were written to branch Branch squash while it was being merged; the merge has been rolled back. Merge the branch again.
+.
+----------------------------------------------------------------------
+Ran 23 tests in 40.751s
+
+OK
+Preserving test database for alias 'default'...
+Found 23 test(s).
+System check identified no issues (0 silenced).

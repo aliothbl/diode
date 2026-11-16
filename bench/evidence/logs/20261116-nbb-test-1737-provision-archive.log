@@ -1,0 +1,13 @@
+Unable to find image 'netboxcommunity/netbox:v4.7.5' locally
+v4.7.5: Pulling from netboxcommunity/netbox
+Digest: sha256:a521748a89c8966565bbf7832fd01caef2a122f46a21ccf7a7b7682dd3428839
+Status: Downloaded newer image for netboxcommunity/netbox:v4.7.5
+Using existing test database for alias 'default'...
+.................
+----------------------------------------------------------------------
+Ran 17 tests in 1.587s
+
+OK
+Preserving test database for alias 'default'...
+Found 17 test(s).
+System check identified no issues (0 silenced).

@@ -1,0 +1,11 @@
+Using existing test database for alias 'default'...
+........................................................................................................1 change(s) were written to branch Branch iterative while it was being merged; the merge has been rolled back. Merge the branch again.
+.1 change(s) were written to branch Branch squash while it was being merged; the merge has been rolled back. Merge the branch again.
+......
+----------------------------------------------------------------------
+Ran 111 tests in 116.237s
+
+OK
+Preserving test database for alias 'default'...
+Found 111 test(s).
+System check identified no issues (0 silenced).
