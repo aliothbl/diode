@@ -1,0 +1,238 @@
+Using existing test database for alias 'default'...
+................................................................................................................................................................Recovering branch API Forced from status 'syncing': resetting to 'ready' (requested by recoverapi_super)
+...Recovering branch API Stuck from status 'migrating': resetting to 'pending-migrations' (requested by recoverapi_super)
+.Recovering branch API No Retry from status 'migrating': resetting to 'pending-migrations' (requested by recoverapi_super)
+.Recovering branch API Retry from status 'migrating': resetting to 'pending-migrations' (requested by recoverapi_super)
+........Recovering branch No Merge Retry from status 'merging': resetting to 'ready' (requested by recoverview_super)
+.Recovering branch Force Via View from status 'merging': resetting to 'ready' (requested by recoverview_super)
+.Recovering branch Recover Me from status 'migrating': resetting to 'pending-migrations' (requested by recoverview_super)
+.Recovering branch Bare Post from status 'migrating': resetting to 'pending-migrations' (requested by recoverview_super)
+.Recovering branch Retry Sync from status 'syncing': resetting to 'ready' (requested by recoverview_super)
+.Recovering branch No Retry from status 'syncing': resetting to 'ready' (requested by recoverview_super)
+...Recovering branch Forced from status 'syncing': resetting to 'ready' (requested by system)
+...Recovering branch Orphaned Job from status 'migrating': resetting to 'pending-migrations' (requested by system)
+.Recovering branch Errored Job from status 'merging': resetting to 'ready' (requested by system)
+.Recovering branch Stuck provisioning from status 'provisioning': resetting to 'failed' (requested by system)
+Recovering branch Stuck syncing from status 'syncing': resetting to 'ready' (requested by system)
+Recovering branch Stuck migrating from status 'migrating': resetting to 'pending-migrations' (requested by system)
+Recovering branch Stuck merging from status 'merging': resetting to 'ready' (requested by system)
+Recovering branch Stuck reverting from status 'reverting': resetting to 'merged' (requested by system)
+..........................Recovering branch Watchdog No Retry from status 'syncing': resetting to 'ready' (requested by system)
+.Recovering branch Bbb Recoverable from status 'syncing': resetting to 'ready' (requested by system)
+.Recovering branch Stuck Migrate from status 'migrating': resetting to 'pending-migrations' (requested by system)
+..........................................................................................................pg_cancel_backend(0) returned false; that worker may still be running and holding locks, which can delay schema cleanup.
+.ANALYZE of branch_876ufozh.this_table_does_not_exist failed; leaving its statistics to autovacuum.
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 103, in _execute
+    return self.cursor.execute(sql)
+           ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+psycopg.errors.UndefinedTable: relation "branch_876ufozh.this_table_does_not_exist" does not exist
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/provisioning.py", line 515, in analyze
+    cursor.execute(sql_text)
+    ~~~~~~~~~~~~~~^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 79, in execute
+    return self._execute_with_wrappers(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sql, params, many=False, executor=self._execute
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+    return executor(sql, params, many, context)
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 100, in _execute
+    with self.db.wrap_database_errors:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/utils.py", line 94, in __exit__
+    raise dj_exc_value.with_traceback(traceback) from exc_value
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/backends/utils.py", line 103, in _execute
+    return self.cursor.execute(sql)
+           ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/psycopg/cursor.py", line 117, in execute
+    raise ex.with_traceback(None)
+django.db.utils.ProgrammingError: relation "branch_876ufozh.this_table_does_not_exist" does not exist
+.simulated worker failure
+..simulated index build failure
+....Not replicating tables missing from main: extras_configcontext, extras_configcontext_sites
+.........................................................................................................FF.E..............................E.........Ex......x............................F.F..F......................................F.....................x...................................................
+======================================================================
+ERROR: test_merge_and_revert_wireless_link_create (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_merge_and_revert_wireless_link_create)
+Merge and revert a branch which links two existing interfaces with a new wireless link.
+----------------------------------------------------------------------
+Found 632 test(s).
+System check identified no issues (0 silenced).
+
+    Copying extras_tag_object_types for branch tag-object-types (cn92ea50)... Success.
+ 
+    Copying extras_tag_object_types for branch tag-object-types (r3ltsxwp)... Success.
+ 
+    Copying extras_tag_object_types for branch tag-object-types (gu35oxw1)... Success.
+ Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 2056, in test_merge_and_revert_wireless_link_create
+    branch.merge(user=self.user, commit=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1282, in merge
+    self._merge_locked(user, commit, logger)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1313, in _merge_locked
+    strategy_class().merge(self, changes, request, logger, user)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/merge_strategies/iterative.py", line 38, in merge
+    change.apply(branch, using=DEFAULT_DB_ALIAS, logger=logger)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/changes.py", line 158, in apply
+    update_object(instance, self.get_merge_data(), using=using)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/utilities.py", line 577, in update_object
+    full_clean_with_file_check(instance, logger)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/utilities.py", line 412, in full_clean_with_file_check
+    instance.full_clean()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/base.py", line 1745, in full_clean
+    raise ValidationError(errors)
+django.core.exceptions.ValidationError: {'wireless_link': ['wireless link instance with id 1 is not a valid choice.']}
+
+======================================================================
+ERROR: test_merge_primary_mac_assignment (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_merge_primary_mac_assignment)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 2096, in test_merge_primary_mac_assignment
+    self._merge_primary_mac_assignment()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 2085, in _merge_primary_mac_assignment
+    branch.merge(user=self.user, commit=True)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1282, in merge
+    self._merge_locked(user, commit, logger)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1313, in _merge_locked
+    strategy_class().merge(self, changes, request, logger, user)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/merge_strategies/iterative.py", line 38, in merge
+    change.apply(branch, using=DEFAULT_DB_ALIAS, logger=logger)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/changes.py", line 158, in apply
+    update_object(instance, self.get_merge_data(), using=using)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/utilities.py", line 577, in update_object
+    full_clean_with_file_check(instance, logger)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/utilities.py", line 412, in full_clean_with_file_check
+    instance.full_clean()
+    ~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/django/db/models/base.py", line 1745, in full_clean
+    raise ValidationError(errors)
+django.core.exceptions.ValidationError: {'assigned_object_id': ['Related object not found using the provided value: 1064.']}
+
+======================================================================
+ERROR: test_revert_cable_create (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_revert_cable_create)
+Revert a merged branch which connected two existing interfaces with a new cable.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1365, in test_revert_cable_create
+    branch.revert(user=self.user, commit=True)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1410, in revert
+    strategy_class().revert(self, changes, request, logger, user)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/merge_strategies/iterative.py", line 64, in revert
+    change.undo(branch, logger=logger)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/changes.py", line 200, in undo
+    update_object(instance, self.get_merge_data(reverse=True), using=using)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/utilities.py", line 575, in update_object
+    setattr(instance, attr, value)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/dcim/models/cables.py", line 289, in a_terminations
+    self._set_x_terminations(CableEndChoices.SIDE_A, value)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/dcim/models/cables.py", line 268, in _set_x_terminations
+    value = list(value)
+TypeError: 'NoneType' object is not iterable
+
+======================================================================
+FAIL: test_merge_and_revert_config_template_sync (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_merge_and_revert_config_template_sync)
+Merge and revert a branch which syncs a config template from its data file.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 2142, in test_merge_and_revert_config_template_sync
+    self.assertEqual(template.description, 'Edited in main')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '' != 'Edited in main'
++ Edited in main
+
+
+======================================================================
+FAIL: test_merge_and_revert_parent_device_move (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_merge_and_revert_parent_device_move)
+Merge and revert a branch which moves a parent device, and with it its child device, to another site.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 2180, in test_merge_and_revert_parent_device_move
+    self.assertEqual(child.description, 'Edited in main')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '' != 'Edited in main'
++ Edited in main
+
+
+======================================================================
+FAIL: test_merge_and_revert_config_template_sync (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_merge_and_revert_config_template_sync)
+Merge and revert a branch which syncs a config template from its data file.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 2142, in test_merge_and_revert_config_template_sync
+    self.assertEqual(template.description, 'Edited in main')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '' != 'Edited in main'
++ Edited in main
+
+
+======================================================================
+FAIL: test_merge_and_revert_parent_device_move (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_merge_and_revert_parent_device_move)
+Merge and revert a branch which moves a parent device, and with it its child device, to another site.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 2180, in test_merge_and_revert_parent_device_move
+    self.assertEqual(child.description, 'Edited in main')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '' != 'Edited in main'
++ Edited in main
+
+
+======================================================================
+FAIL: test_merge_and_revert_wireless_link_create (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_merge_and_revert_wireless_link_create)
+Merge and revert a branch which links two existing interfaces with a new wireless link.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 2061, in test_merge_and_revert_wireless_link_create
+    self.assertEqual(interface.description, 'Edited in main')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '' != 'Edited in main'
++ Edited in main
+
+
+======================================================================
+FAIL: test_merge_primary_mac_assignment (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_merge_primary_mac_assignment)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 2096, in test_merge_primary_mac_assignment
+    self._merge_primary_mac_assignment()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 2091, in _merge_primary_mac_assignment
+    self.assertEqual(mac.description, 'Edited in main')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '' != 'Edited in main'
++ Edited in main
+
+
+----------------------------------------------------------------------
+Ran 632 tests in 2313.152s
+
+FAILED (failures=6, errors=3, expected failures=3)
+Preserving test database for alias 'default'...

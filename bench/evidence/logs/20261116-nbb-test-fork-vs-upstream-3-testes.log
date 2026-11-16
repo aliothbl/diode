@@ -1,0 +1,20 @@
+== fork run 1
+ERROR: test_revert_cable_create 
+FAIL: test_merge_and_revert_wireless_link_create 
+FAIL: test_merge_primary_mac_assignment 
+Ran 3 tests in 31.329s
+== upstream run 1
+ERROR: test_revert_cable_create 
+FAIL: test_merge_and_revert_wireless_link_create 
+FAIL: test_merge_primary_mac_assignment 
+Ran 3 tests in 30.712s
+== fork run 2
+ERROR: test_revert_cable_create 
+FAIL: test_merge_and_revert_wireless_link_create 
+FAIL: test_merge_primary_mac_assignment 
+Ran 3 tests in 31.200s
+== upstream run 2
+ERROR: test_revert_cable_create 
+FAIL: test_merge_and_revert_wireless_link_create 
+FAIL: test_merge_primary_mac_assignment 
+Ran 3 tests in 30.363s

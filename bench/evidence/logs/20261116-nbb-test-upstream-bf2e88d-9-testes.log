@@ -1,0 +1,137 @@
+Using existing test database for alias 'default'...
+FF'NoneType' object is not iterable
+EFFFFFF
+======================================================================
+ERROR: test_revert_cable_create (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_revert_cable_create)
+Revert a merged branch which connected two existing interfaces with a new cable.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 1365, in test_revert_cable_create
+    branch.revert(user=self.user, commit=True)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/branches.py", line 1245, in revert
+    strategy_class().revert(self, changes, request, logger, user)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/merge_strategies/iterative.py", line 64, in revert
+    change.undo(branch, logger=logger)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/models/changes.py", line 199, in undo
+    update_object(instance, self.get_merge_data(reverse=True), using=using)
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/utilities.py", line 571, in update_object
+    setattr(instance, attr, value)
+    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/dcim/models/cables.py", line 289, in a_terminations
+    self._set_x_terminations(CableEndChoices.SIDE_A, value)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/netbox/netbox/dcim/models/cables.py", line 268, in _set_x_terminations
+    value = list(value)
+TypeError: 'NoneType' object is not iterable
+
+======================================================================
+FAIL: test_merge_and_revert_wireless_link_create (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_merge_and_revert_wireless_link_create)
+Merge and revert a branch which links two existing interfaces with a new wireless link.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 2061, in test_merge_and_revert_wireless_link_create
+    self.assertEqual(interface.description, 'Edited in main')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '' != 'Edited in main'
++ Edited in main
+
+
+======================================================================
+FAIL: test_merge_primary_mac_assignment (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_merge_primary_mac_assignment)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 2096, in test_merge_primary_mac_assignment
+    self._merge_primary_mac_assignment()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 2091, in _merge_primary_mac_assignment
+    self.assertEqual(mac.description, 'Edited in main')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '' != 'Edited in main'
++ Edited in main
+
+
+======================================================================
+FAIL: test_merge_and_revert_config_template_sync (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_merge_and_revert_config_template_sync)
+Merge and revert a branch which syncs a config template from its data file.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 2142, in test_merge_and_revert_config_template_sync
+    self.assertEqual(template.description, 'Edited in main')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '' != 'Edited in main'
++ Edited in main
+
+
+======================================================================
+FAIL: test_merge_and_revert_parent_device_move (netbox_branching.tests.test_iterative_merge.IterativeMergeTestCase.test_merge_and_revert_parent_device_move)
+Merge and revert a branch which moves a parent device, and with it its child device, to another site.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 2180, in test_merge_and_revert_parent_device_move
+    self.assertEqual(child.description, 'Edited in main')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '' != 'Edited in main'
++ Edited in main
+
+
+======================================================================
+FAIL: test_merge_and_revert_config_template_sync (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_merge_and_revert_config_template_sync)
+Merge and revert a branch which syncs a config template from its data file.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 2142, in test_merge_and_revert_config_template_sync
+    self.assertEqual(template.description, 'Edited in main')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '' != 'Edited in main'
++ Edited in main
+
+
+======================================================================
+FAIL: test_merge_and_revert_parent_device_move (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_merge_and_revert_parent_device_move)
+Merge and revert a branch which moves a parent device, and with it its child device, to another site.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 2180, in test_merge_and_revert_parent_device_move
+    self.assertEqual(child.description, 'Edited in main')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '' != 'Edited in main'
++ Edited in main
+
+
+======================================================================
+FAIL: test_merge_and_revert_wireless_link_create (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_merge_and_revert_wireless_link_create)
+Merge and revert a branch which links two existing interfaces with a new wireless link.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 2061, in test_merge_and_revert_wireless_link_create
+    self.assertEqual(interface.description, 'Edited in main')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '' != 'Edited in main'
++ Edited in main
+
+
+======================================================================
+FAIL: test_merge_primary_mac_assignment (netbox_branching.tests.test_squash_merge.SquashMergeTestCase.test_merge_primary_mac_assignment)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 2096, in test_merge_primary_mac_assignment
+    self._merge_primary_mac_assignment()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/netbox/venv/lib/python3.14/site-packages/netbox_branching/tests/test_iterative_merge.py", line 2091, in _merge_primary_mac_assignment
+    self.assertEqual(mac.description, 'Edited in main')
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: '' != 'Edited in main'
++ Edited in main
+
+
+----------------------------------------------------------------------
+Ran 9 tests in 84.764s
+
+FAILED (failures=8, errors=1)
+Preserving test database for alias 'default'...
+Found 9 test(s).
+System check identified no issues (0 silenced).
