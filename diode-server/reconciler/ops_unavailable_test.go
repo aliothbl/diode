@@ -48,6 +48,7 @@ func TestOpsBulkPlanApplyTransientUnavailableRequeues(t *testing.T) {
 	for _, r := range results {
 		require.True(t, r.Deferred)
 		require.Equal(t, 7*time.Second, r.RetryAfter)
+		require.Equal(t, reconops.DeferReasonUnavailable, r.DeferReason)
 		require.NoError(t, r.PlanErr)
 		require.NoError(t, r.ApplyErr)
 	}
@@ -87,5 +88,6 @@ func TestOpsBulkPlanApplyUnusableBranchFailsClosed(t *testing.T) {
 	for _, r := range results {
 		require.True(t, r.Deferred)
 		require.Equal(t, 30*time.Second, r.RetryAfter)
+		require.Equal(t, reconops.DeferReasonBranchUnusable, r.DeferReason)
 	}
 }

@@ -33,6 +33,20 @@ var ReconcilerMetricDefinitions = map[string]otel.MetricDefinition{
 		Description: "Total number of duplicate ingestion logs requeued for re-plan due to possible NetBox state drift",
 		Attributes:  []string{},
 	},
+	"bulkapply.deferred": {
+		Name:        "bulk_apply_deferred_total",
+		Type:        otel.Counter,
+		Unit:        otel.Dimensionless,
+		Description: "Total number of bulk-plan-apply batches NetBox refused before processing them and that were requeued; reason is unavailable (retryable, e.g. the branch is syncing) or branch_unusable (the default branch is merged, archived, failed or pending migrations)",
+		Attributes:  []string{"reason"},
+	},
+	"bulkapply.deferred.logs": {
+		Name:        "bulk_apply_deferred_ingestion_logs_total",
+		Type:        otel.Counter,
+		Unit:        otel.Dimensionless,
+		Description: "Total number of ingestion logs in bulk-plan-apply batches that NetBox refused and that were requeued",
+		Attributes:  []string{"reason"},
+	},
 	"changeset.create": {
 		Name:        "change_set_create_total",
 		Type:        otel.Counter,
@@ -83,6 +97,9 @@ type Metrics interface {
 	RecordIngestionLogCreate(ctx context.Context, success bool)
 	// RecordIngestionLogRequeue records the requeue of a duplicate ingestion log for re-plan
 	RecordIngestionLogRequeue(ctx context.Context)
+	// RecordBulkApplyDeferred records a bulk-plan-apply batch of ingestionLogs logs that NetBox
+	// refused before processing it and that was requeued, with the reason (ops.DeferReason*)
+	RecordBulkApplyDeferred(ctx context.Context, reason string, ingestionLogs int64)
 	// RecordChangeSetCreate records the creation of a change set
 	RecordChangeSetCreate(ctx context.Context, success bool, changes int64)
 	// RecordChangeSetApply records the application of a change set
@@ -143,6 +160,16 @@ func (r *MetricRecorder) RecordIngestionLogRequeue(ctx context.Context) {
 	attrs := telemetry.GetAttributesFromContext(ctx, r.contextAttributeKeys...)
 
 	r.mr.RecordCounter(ctx, "ingestionlog.requeue", 1, attrs...)
+}
+
+// RecordBulkApplyDeferred records a refused and requeued bulk-plan-apply batch
+func (r *MetricRecorder) RecordBulkApplyDeferred(ctx context.Context, reason string, ingestionLogs int64) {
+	attrs := append([]attribute.KeyValue{
+		attribute.String("reason", reason),
+	}, telemetry.GetAttributesFromContext(ctx, r.contextAttributeKeys...)...)
+
+	r.mr.RecordCounter(ctx, "bulkapply.deferred", 1, attrs...)
+	r.mr.RecordCounter(ctx, "bulkapply.deferred.logs", ingestionLogs, attrs...)
 }
 
 // RecordChangeSetCreate records the creation of a change set

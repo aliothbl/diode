@@ -30,7 +30,7 @@ Consumir o contrato da SPEC par do netbox-branching:
 - `netboxdiodeplugin/client.go`: expor o status HTTP e o `Retry-After` no erro do `BulkPlanApply`.
 - `ops.BulkPlanApply`: 503 → resultado "adiado" (linhas de volta a QUEUED, sem placeholder FAILED); 409 terminal → invalida o branch padrão.
 - `AutoApplyProcessor`: respeitar o `Retry-After` antes do próximo claim.
-- Métricas: lotes adiados e branch padrão terminal.
+- Métricas: lotes adiados e branch padrão terminal. (Feito em 2026-11-16 16:14: `bulk_apply_deferred_total` e `bulk_apply_deferred_ingestion_logs_total`, atributo `reason`.)
 - Cenário no bench: `branch-sync-ingest` (definido na SPEC-1736 do netbox-branching) com 0 FAILED.
 
 **FORA:**
