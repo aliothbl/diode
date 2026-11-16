@@ -68,5 +68,6 @@ edited by hand; files are copied verbatim from where the work produced them.
 | 20261116-0956-bin241m71 | the 33 tests on NetBox 4.7.1 / 4.7.2 / 4.7.3 / 4.7.4: 33 / 12 / 1 / 0 failures |
 | 20261116-1045-bc8gyg26d | full suite on NetBox 4.7.4: 605 OK → netbox-branching min_version 4.7.4 (SPEC-1916) |
 | 20261116-1107-bi9nbtn7d | bench on NetBox 4.7.5 (branch scenarios' new default): branch-merge-race MERGED, 0 lost |
+| 20261116-1111-regression-battery | **Regression battery** (`bench/tools/regression.sh`, diode 1abd1a8, plugin 938afa0, branching 00f6744): std c=4 ×3 (18–22 ent/s) and c=8 batch 25 ×5 (24–26 ent/s) 0 FAILED/0 timeouts; sync-ingest ×3 0 missing; merge-race ×3 0 lost; double-merge ×3 exactly one merge; watermark ×2 late change synced. Step logs in `logs/20261116-1111-regression/` |
 
 Helper scripts used for the stress and A/B batteries: `bench/tools/`.

@@ -1,0 +1,736 @@
+{
+ "version": "candidate",
+ "netbox_version": "v4.7.5",
+ "diode_rev": "1abd1a8",
+ "plugin_rev": "938afa0",
+ "scenario": "branch-double-merge",
+ "branching_rev": "00f6744",
+ "run": 1,
+ "rc": 0,
+ "apply_timeouts": 0,
+ "plugin_deadlock_retries": 0,
+ "reconciler_errors": 0,
+ "diode_pg_deadlocks": 0,
+ "knobs": {
+  "RATE_RPS": null,
+  "RATE_BURST": null,
+  "BATCH_SIZE": null,
+  "CONCURRENCY": null,
+  "PLUGIN_TIMEOUT": null,
+  "NETBOX_WORKERS": null
+ },
+ "error_summary": [],
+ "params": {
+  "devices": 20,
+  "ifaces": 4,
+  "kind": "update"
+ },
+ "phases": [
+  {
+   "phase": "initial",
+   "entities": 180,
+   "requests": 4,
+   "send_s": 0.027,
+   "send_req_p50_ms": 3.58,
+   "send_req_p95_ms": 3.94,
+   "elapsed_s": 20.623,
+   "entities_per_s": 8.73,
+   "states_before": {},
+   "states_after": {
+    "APPLIED": 180
+   },
+   "curve": [
+    [
+     0.033,
+     4,
+     0,
+     0
+    ],
+    [
+     0.536,
+     0,
+     180,
+     0
+    ],
+    [
+     1.038,
+     0,
+     180,
+     0
+    ],
+    [
+     1.54,
+     0,
+     180,
+     0
+    ],
+    [
+     2.043,
+     0,
+     180,
+     0
+    ],
+    [
+     2.545,
+     0,
+     180,
+     0
+    ],
+    [
+     3.047,
+     0,
+     180,
+     0
+    ],
+    [
+     3.549,
+     0,
+     180,
+     0
+    ],
+    [
+     4.051,
+     0,
+     180,
+     0
+    ],
+    [
+     4.553,
+     0,
+     180,
+     0
+    ],
+    [
+     5.055,
+     0,
+     180,
+     0
+    ],
+    [
+     5.557,
+     0,
+     180,
+     0
+    ],
+    [
+     6.06,
+     0,
+     180,
+     0
+    ],
+    [
+     6.562,
+     0,
+     180,
+     0
+    ],
+    [
+     7.064,
+     0,
+     180,
+     0
+    ],
+    [
+     7.566,
+     0,
+     180,
+     0
+    ],
+    [
+     8.069,
+     0,
+     180,
+     0
+    ],
+    [
+     8.572,
+     0,
+     180,
+     0
+    ],
+    [
+     9.074,
+     0,
+     180,
+     0
+    ],
+    [
+     9.576,
+     0,
+     180,
+     0
+    ],
+    [
+     10.078,
+     0,
+     180,
+     0
+    ],
+    [
+     10.58,
+     0,
+     180,
+     0
+    ],
+    [
+     11.082,
+     0,
+     180,
+     0
+    ],
+    [
+     11.584,
+     0,
+     180,
+     0
+    ],
+    [
+     12.086,
+     0,
+     180,
+     0
+    ],
+    [
+     12.588,
+     0,
+     80,
+     100
+    ],
+    [
+     13.09,
+     0,
+     80,
+     100
+    ],
+    [
+     13.592,
+     0,
+     80,
+     100
+    ],
+    [
+     14.095,
+     0,
+     80,
+     100
+    ],
+    [
+     14.597,
+     0,
+     80,
+     100
+    ],
+    [
+     15.099,
+     0,
+     80,
+     100
+    ],
+    [
+     15.601,
+     0,
+     80,
+     100
+    ],
+    [
+     16.103,
+     0,
+     80,
+     100
+    ],
+    [
+     16.605,
+     0,
+     80,
+     100
+    ],
+    [
+     17.107,
+     0,
+     80,
+     100
+    ],
+    [
+     17.609,
+     0,
+     80,
+     100
+    ],
+    [
+     18.111,
+     0,
+     80,
+     100
+    ],
+    [
+     18.614,
+     0,
+     80,
+     100
+    ],
+    [
+     19.116,
+     0,
+     80,
+     100
+    ],
+    [
+     19.618,
+     0,
+     80,
+     100
+    ],
+    [
+     20.12,
+     0,
+     0,
+     180
+    ],
+    [
+     20.623,
+     0,
+     0,
+     180
+    ]
+   ]
+  },
+  {
+   "phase": "update",
+   "entities": 180,
+   "requests": 4,
+   "send_s": 0.012,
+   "send_req_p50_ms": 2.81,
+   "send_req_p95_ms": 2.83,
+   "elapsed_s": 23.123,
+   "entities_per_s": 7.78,
+   "states_before": {
+    "APPLIED": 180
+   },
+   "states_after": {
+    "APPLIED": 340,
+    "NO_CHANGES": 20
+   },
+   "curve": [
+    [
+     0.014,
+     4,
+     0,
+     180
+    ],
+    [
+     0.517,
+     0,
+     180,
+     180
+    ],
+    [
+     1.02,
+     0,
+     180,
+     180
+    ],
+    [
+     1.523,
+     0,
+     180,
+     180
+    ],
+    [
+     2.027,
+     0,
+     180,
+     180
+    ],
+    [
+     2.53,
+     0,
+     180,
+     180
+    ],
+    [
+     3.032,
+     0,
+     180,
+     180
+    ],
+    [
+     3.534,
+     0,
+     180,
+     180
+    ],
+    [
+     4.036,
+     0,
+     180,
+     180
+    ],
+    [
+     4.538,
+     0,
+     180,
+     180
+    ],
+    [
+     5.04,
+     0,
+     180,
+     180
+    ],
+    [
+     5.542,
+     0,
+     180,
+     180
+    ],
+    [
+     6.044,
+     0,
+     180,
+     180
+    ],
+    [
+     6.547,
+     0,
+     180,
+     180
+    ],
+    [
+     7.049,
+     0,
+     180,
+     180
+    ],
+    [
+     7.551,
+     0,
+     180,
+     180
+    ],
+    [
+     8.054,
+     0,
+     180,
+     180
+    ],
+    [
+     8.556,
+     0,
+     180,
+     180
+    ],
+    [
+     9.058,
+     0,
+     180,
+     180
+    ],
+    [
+     9.56,
+     0,
+     180,
+     180
+    ],
+    [
+     10.062,
+     0,
+     180,
+     180
+    ],
+    [
+     10.564,
+     0,
+     180,
+     180
+    ],
+    [
+     11.066,
+     0,
+     180,
+     180
+    ],
+    [
+     11.568,
+     0,
+     180,
+     180
+    ],
+    [
+     12.07,
+     0,
+     180,
+     180
+    ],
+    [
+     12.572,
+     0,
+     80,
+     280
+    ],
+    [
+     13.074,
+     0,
+     80,
+     280
+    ],
+    [
+     13.577,
+     0,
+     80,
+     280
+    ],
+    [
+     14.079,
+     0,
+     80,
+     280
+    ],
+    [
+     14.581,
+     0,
+     80,
+     280
+    ],
+    [
+     15.083,
+     0,
+     80,
+     280
+    ],
+    [
+     15.586,
+     0,
+     80,
+     280
+    ],
+    [
+     16.088,
+     0,
+     80,
+     280
+    ],
+    [
+     16.591,
+     0,
+     80,
+     280
+    ],
+    [
+     17.093,
+     0,
+     80,
+     280
+    ],
+    [
+     17.596,
+     0,
+     80,
+     280
+    ],
+    [
+     18.098,
+     0,
+     80,
+     280
+    ],
+    [
+     18.6,
+     0,
+     80,
+     280
+    ],
+    [
+     19.102,
+     0,
+     80,
+     280
+    ],
+    [
+     19.604,
+     0,
+     80,
+     280
+    ],
+    [
+     20.106,
+     0,
+     80,
+     280
+    ],
+    [
+     20.608,
+     0,
+     80,
+     280
+    ],
+    [
+     21.11,
+     0,
+     80,
+     280
+    ],
+    [
+     21.613,
+     0,
+     80,
+     280
+    ],
+    [
+     22.115,
+     0,
+     80,
+     280
+    ],
+    [
+     22.619,
+     0,
+     0,
+     360
+    ],
+    [
+     23.123,
+     0,
+     0,
+     360
+    ]
+   ]
+  }
+ ],
+ "branching": {
+  "branch": {
+   "id": 1,
+   "schema_id": "ckrn9cf5",
+   "schema": "branch_ckrn9cf5",
+   "status": "ready"
+  },
+  "kind": "update",
+  "merges": [
+   {
+    "status": "merged",
+    "error": null,
+    "merge_s": 7.806,
+    "changes_at_go": 80,
+    "applied_changes": 80
+   },
+   {
+    "status": "merging",
+    "error": "Exception: Branch bench-br is not ready to merge (its status changed)",
+    "merge_s": 0.011,
+    "changes_at_go": 80,
+    "applied_changes": 0
+   }
+  ],
+  "main_objectchanges_from_merge": 80,
+  "final_status": "merged",
+  "events": {
+   "merged": 1,
+   "provisioned": 1
+  },
+  "objects_in_branch": {
+   "device": 20,
+   "interface": 80,
+   "ipaddress": 80
+  },
+  "rows_in_main": {
+   "device": 20,
+   "interface": 80,
+   "ipaddress": 80
+  },
+  "objectchanges_in_branch": 80,
+  "applied_changes": 80,
+  "merged_then_ready": false
+ },
+ "netbox_state": {
+  "dcim.Device": {
+   "count": 20,
+   "sha256": "c15130c9b3195d5b82ee3acffe4c17100cd750890201aae9877b0c7d931a2d23"
+  },
+  "dcim.DeviceRole": {
+   "count": 3,
+   "sha256": "38be7e9cf9e737c0e4bebf113f59e34fd64411b548ee947d35eb580f1016cb57"
+  },
+  "dcim.DeviceType": {
+   "count": 5,
+   "sha256": "6dc9dc778c9781410945c4a422bee5a9d925a6d73fef4b0b56f1862eb1143d36"
+  },
+  "dcim.Interface": {
+   "count": 80,
+   "sha256": "b887baa425152bf668a8b3b0a7dfdac2260bc99965124f77d315d8fa643b1ec3"
+  },
+  "dcim.Manufacturer": {
+   "count": 5,
+   "sha256": "2c5c0334774efdf3a67d832daa567cabbf622e142f0e7930668a7f99e5d459cc"
+  },
+  "dcim.Platform": {
+   "count": 5,
+   "sha256": "b91f7c1259197c9f21081af6acc6801a58361de646517b29398c4bcaf6ea2956"
+  },
+  "dcim.Site": {
+   "count": 10,
+   "sha256": "f6e9afac5f5f35f6279710beb902b6e48c31c46525e063dee9304621911dae0d"
+  },
+  "extras.Tag": {
+   "count": 1,
+   "sha256": "ddd9c734ad6992e616dd2d80b03349472bc69e6ff16dc064213addfa3d4585e6"
+  },
+  "ipam.IPAddress": {
+   "count": 80,
+   "sha256": "edb0d416e4a095a8052b696b67c674103a669fe6da2226eda08ac4be537086e9"
+  },
+  "ipam.Prefix": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ipam.VLAN": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+ },
+ "resources": {
+  "bench-auth": {
+   "cpu_avg_pct": 0.0,
+   "cpu_max_pct": 0.0,
+   "mem_max_mib": 11.9
+  },
+  "diode-ingester": {
+   "cpu_avg_pct": 0.0,
+   "cpu_max_pct": 0.1,
+   "mem_max_mib": 8.6
+  },
+  "diode-postgres": {
+   "cpu_avg_pct": 6.5,
+   "cpu_max_pct": 18.5,
+   "mem_max_mib": 49.8
+  },
+  "diode-reconciler": {
+   "cpu_avg_pct": 0.2,
+   "cpu_max_pct": 3.9,
+   "mem_max_mib": 20.3
+  },
+  "diode-redis": {
+   "cpu_avg_pct": 0.9,
+   "cpu_max_pct": 1.5,
+   "mem_max_mib": 3.9
+  },
+  "netbox": {
+   "cpu_avg_pct": 79.3,
+   "cpu_max_pct": 202.6,
+   "mem_max_mib": 1625.1
+  },
+  "netbox-postgres": {
+   "cpu_avg_pct": 28.9,
+   "cpu_max_pct": 175.6,
+   "mem_max_mib": 91.6
+  },
+  "netbox-redis": {
+   "cpu_avg_pct": 1.1,
+   "cpu_max_pct": 1.5,
+   "mem_max_mib": 3.8
+  },
+  "netbox-redis-cache": {
+   "cpu_avg_pct": 1.0,
+   "cpu_max_pct": 1.5,
+   "mem_max_mib": 3.9
+  }
+ }
+}
