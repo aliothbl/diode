@@ -256,6 +256,7 @@ func (p *AutoApplyProcessor) processBatch(ctx context.Context, batch []ops.Queue
 	// is syncing): the rows are back in QUEUED. Wait before this worker
 	// claims again, rather than spinning against a NetBox that says no.
 	if len(results) > 0 && results[0].Deferred {
+		p.metrics.RecordBulkApplyDeferred(ctx, results[0].DeferReason, int64(len(results)))
 		select {
 		case <-ctx.Done():
 		case <-time.After(results[0].RetryAfter):

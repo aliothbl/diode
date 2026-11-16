@@ -831,6 +831,7 @@ const (
 //     an operator already changed it, and the condition is logged as an error.
 func (o *Ops) deferBulkPlanApply(ctx context.Context, items []ops.QueuedIngestionLog, branchID string, unavailable *netboxdiodeplugin.UnavailableError) []ops.BulkPlanApplyResult {
 	pause := unavailable.RetryAfter
+	reason := ops.DeferReasonUnavailable
 	if unavailable.Retryable {
 		if pause <= 0 {
 			pause = unavailableDefaultPause
@@ -839,6 +840,7 @@ func (o *Ops) deferBulkPlanApply(ctx context.Context, items []ops.QueuedIngestio
 			"statusCode", unavailable.StatusCode, "branchID", branchID, "retryAfter", pause, "batchSize", len(items))
 	} else {
 		pause = max(pause, unusableBranchPause)
+		reason = ops.DeferReasonBranchUnusable
 		o.logger.Error("default branch is not usable (merged, archived, failed or pending migrations); "+
 			"batch requeued and auto-apply paused until the default branch setting is fixed",
 			"statusCode", unavailable.StatusCode, "branchID", branchID, "retryAfter", pause, "batchSize", len(items))
@@ -859,7 +861,7 @@ func (o *Ops) deferBulkPlanApply(ctx context.Context, items []ops.QueuedIngestio
 
 	results := make([]ops.BulkPlanApplyResult, len(items))
 	for i, item := range items {
-		results[i] = ops.BulkPlanApplyResult{IngestionLogID: item.ID, Deferred: true, RetryAfter: pause}
+		results[i] = ops.BulkPlanApplyResult{IngestionLogID: item.ID, Deferred: true, RetryAfter: pause, DeferReason: reason}
 	}
 	return results
 }

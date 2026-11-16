@@ -329,6 +329,9 @@ func (p *IngestionLogProcessor) processBatch(ctx context.Context, batch []ops.Qu
 	// policy never approved. Accepted until an apply-only endpoint (no
 	// re-plan) exists in the netbox plugin.
 	applyResults := p.ops.BulkPlanApply(ctx, matched, branchID)
+	if len(applyResults) > 0 && applyResults[0].Deferred {
+		p.metrics.RecordBulkApplyDeferred(ctx, applyResults[0].DeferReason, int64(len(applyResults)))
+	}
 	for i, applyResult := range applyResults {
 		item := matched[i]
 		metricsCtx := p.metricsContext(ctx, item)
