@@ -357,6 +357,10 @@ type BulkPlanEntity struct {
 	BranchID   string          `json:"-"`
 	Entity     proto.Message   `json:"-"`
 	EntityJSON json.RawMessage `json:"entity"`
+	// ObservedAt is when the entity was last observed, in epoch milliseconds
+	// (0 = unknown, omitted). /bulk-plan-apply/ uses it to keep a field a
+	// newer observation already wrote; other endpoints ignore it.
+	ObservedAt int64 `json:"observed_at,omitempty"`
 }
 
 // BulkPlanRequest represents a bulk plan request

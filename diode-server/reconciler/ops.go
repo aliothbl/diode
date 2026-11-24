@@ -654,6 +654,9 @@ func (o *Ops) BulkPlanApply(ctx context.Context, items []ops.QueuedIngestionLog,
 			ObjectType: item.IngestionLog.GetObjectType(),
 			Entity:     item.IngestionLog.GetEntity(),
 		}
+		if !item.ObservedAt.IsZero() {
+			entities[i].ObservedAt = item.ObservedAt.UnixMilli()
+		}
 	}
 
 	resp, err := o.nbClient.BulkPlanApply(ctx, netboxdiodeplugin.BulkPlanApplyRequest{

@@ -1,9 +1,9 @@
 # Journal — SPEC-20261124-1134-ordem-versoes-mesma-entidade
 
 ## SNAPSHOT
-- **Fase:** implementação (plugin primeiro, depois reconciler).
+- **Fase:** implementação escrita nos dois repos e commitada; validação incompleta (pausa de 2026-11-24).
 - **Branches:** `spec/20261124-1134-ordem-versoes` no diode e no diode-netbox-plugin. Só local.
-- **Próximo passo:** model + migration de observações no plugin; checagem otimista e ordem por campo no apply do `/bulk-plan-apply/`; testes; `observed_at` no reconciler.
+- **Próximo passo:** rodar a suíte completa do plugin (v4.7.0) e `makemigrations --check`; investigar `TestIngestionProcessor_DedupKeysFollowSourceMatch` (pré-existente); depois `sustained` com c=4/c=8 ×3.
 
 ## Decisões
 - **DEC-1 — opção B (2026-11-24 17:56).** Owner escolheu "B: plugin recusa escrita velha". A identidade vem do matcher do plugin.
@@ -21,3 +21,21 @@
 
 ## LOG
 - 2026-11-24 17:56 — SPEC ativada; branches criados nos dois repos. Causa confirmada antes da ativação (journal da 0648, c=1 → 0/0, c=4 → 25/2).
+- 2026-11-24 18:25 — **Implementação.**
+  - Plugin (branch `spec/20261124-1134-ordem-versoes`):
+    - `api/apply_guard.py` (novo): contextvar `apply_guard`, `StalePlan`, `get_for_update` (select_for_update + comparação do `last_updated` do plan), `drop_superseded_fields`, `still_writes`, `record_observation`.
+    - `models.ObjectObservation` + migration `0009`.
+    - `Change.planned_last_updated`/`Change.asserted` (não serializados), preenchidos em `differ._guard_facts`.
+    - `applier._update_by_id` (o UPDATE por `object_id` passa pelas proteções).
+    - `BulkPlanApplyView._process_entity`: laço de re-plan (até 3; a 4ª tentativa aplica sem a checagem otimista, como antes) com limpeza dos caches de request e do cache entre requests do objeto.
+    - Decisão de implementação: **CREATE não registra observação.** Quando o create-or-find cai num objeto existente, ele pode não aplicar o payload, e registrar a observação bloquearia uma escrita legítima mais tarde.
+  - Reconciler (branch `spec/20261124-1134-ordem-versoes`): `QueuedIngestionLog.ObservedAt` (de `last_seen`, nos dois claims); `BulkPlanEntity.ObservedAt` (`observed_at`, ms, omitempty), enviado só no `BulkPlanApply`.
+  - Testes:
+    - Plugin `test_apply_guard.py`: 7 testes OK (`-k ApplyGuard`, NetBox v4.7.0).
+    - **Sem a correção** (stash de views/applier/differ/common/matcher), os dois testes centrais falham: `'older' != 'newer'` e `1 != 2` (sem re-plan).
+    - Go `TestOpsBulkPlanApplySendsObservedAt` OK.
+  - Em andamento: suíte completa do plugin (v4.7.0) e `go test ./...`.
+- 2026-11-24 18:29 — **Pausa a pedido do owner** ("vamos comitar tudo no meu fork e parar por hoje"). Estado:
+  - `go test ./...` no diode-server: 1 falha, `TestIngestionProcessor_DedupKeysFollowSourceMatch` (expectativas do mock não atendidas em 2 s). **Pré-existente:** falha igual 5/5 sem esta mudança (stash + teste novo removido). Não investigada; os outros pacotes e `TestOpsBulkPlanApplySendsObservedAt` passam.
+  - Suíte completa do plugin (v4.7.0): **interrompida** pela pausa, sem nenhum FAIL/ERROR até ali. Precisa rodar inteira de novo.
+  - Falta: suíte do plugin completa; `makemigrations --check`; `sustained` (0648) com c=4 e c=8 ×3 para 0 descrições erradas; throughput antes/depois; `review/README.md`.

@@ -977,6 +977,7 @@ func (r *Repository) ClaimQueuedIngestionLogs(ctx context.Context, batchSize int
 			ID:                dbLog.ID,
 			IngestionLog:      log,
 			RequeuedFromState: reconcilerpb.State(dbLog.RequeuedFromState.Int32),
+			ObservedAt:        observedAt(dbLog.LastSeen),
 		})
 	}
 	sortQueuedByID(result)
@@ -1008,10 +1009,19 @@ func (r *Repository) ClaimQueuedForAutoApply(ctx context.Context, batchSize int3
 			ID:                dbLog.ID,
 			IngestionLog:      log,
 			RequeuedFromState: reconcilerpb.State(dbLog.RequeuedFromState.Int32),
+			ObservedAt:        observedAt(dbLog.LastSeen),
 		})
 	}
 	sortQueuedByID(result)
 	return result, nil
+}
+
+// observedAt is the row's last_seen, or the zero time when it is NULL.
+func observedAt(lastSeen pgtype.Timestamptz) time.Time {
+	if !lastSeen.Valid {
+		return time.Time{}
+	}
+	return lastSeen.Time
 }
 
 // sortQueuedByID puts a claimed batch back in ingestion order.

@@ -30,6 +30,11 @@ type QueuedIngestionLog struct {
 	// first-time plan). A log requeued from APPLIED spawns a new deviation on
 	// drift and is restored to APPLIED, preserving its history.
 	RequeuedFromState reconcilerpb.State
+	// ObservedAt is when the entity's content was last observed: the row's
+	// last_seen, which a duplicate observation moves forward. Sent to the
+	// plugin so an older observation never overwrites a newer one
+	// (SPEC-20261124-1134). Zero when unknown.
+	ObservedAt time.Time
 }
 
 // DriftDeviationItem describes a new deviation to create for an entity whose
