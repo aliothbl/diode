@@ -1,16 +1,16 @@
 # SPEC-20261124-1134: Versão mais velha da mesma entidade não pode sobrescrever a mais nova
 
-**Status:** draft
+**Status:** active
 **Porte:** G
 **Owner:** @aliothbl
 **Criada:** 2026-11-24 11:34
-**Ativada:** —
+**Ativada:** 2026-11-24 17:56
 **Pausada em:** —
 **Concluída:** —
 **Commit final:** —
 **Keywords:** lost update, ordem de aplicação, concorrência, AUTO_APPLY_PROCESSOR_CONCURRENCY, ClaimQueuedForAutoApply, bulk-plan-apply, last_seen, observed_at, stale write, matcher
 **Features:** reconciler, persistence
-**Branch:** _(a definir na ativação)_
+**Branch:** `spec/20261124-1134-ordem-versoes` no diode (a partir de `perf/17k-por-minuto` @ `b2c8cc0`) e no diode-netbox-plugin (a partir de `perf/bench-vs-upstream` @ `938afa0`); só local
 **Depende de:** — (cross-repo: SPEC par no `diode-netbox-plugin`, a criar na ativação se a opção B for a escolhida)
 **Programa:** —
 **Relacionadas:** SPEC-20261124-0648-carga-17k-eventos-por-minuto (onde o problema apareceu); `review/README.md` (recomendação de concorrência 4 como default).
@@ -68,7 +68,7 @@ Garantir que, para cada objeto do NetBox, o estado final corresponde à observa�
 - Opção A: chave de identidade errada falha em silêncio. Mitigação: teste que confronta a chave com o matcher do plugin.
 
 ## Critério de aceite
-- [ ] Opção escolhida (A ou B) registrada como DEC pelo owner | evidence: manual @aliothbl
+- [x] Opção escolhida (A ou B) registrada como DEC pelo owner | evidence: manual @aliothbl — 2026-11-24 17:56, DEC-1 (opção B) no journal
 - [ ] Teste que reproduz a gravação fora de ordem falha antes e passa depois | evidence: manual @aliothbl
 - [ ] Suítes verdes (diode-server; plugin se B) | verify: `cd diode-server && go test ./...`
 - [ ] `sustained` (0648) com c=4 e c=8: 0 descrições erradas, 3/3 execuções cada | evidence: manual @aliothbl
