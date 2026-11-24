@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 # Diode end-to-end benchmark runner.
 #
-#   bench/run.sh --version baseline|candidate [--scenario smoke|std|large] [--runs N]
+#   bench/run.sh --version baseline|candidate [--scenario smoke|std|large|sustained|sustained-smoke] [--runs N]
+#   (sustained: SUSTAINED_RATE events/min, SUSTAINED_MIX repeat:update:create,
+#    SUSTAINED_DURATION s, SUSTAINED_DEVICES/IFACES for the base inventory)
 #
 # baseline  = netboxlabs commits pinned below (git worktrees, see BASELINE_ROOT)
 # candidate = this checkout + the sibling diode-netbox-plugin checkout
@@ -35,6 +37,19 @@ case "$SCENARIO" in
   smoke) LOAD_ARGS=(--devices 10 --ifaces 2);;
   std)   LOAD_ARGS=(--devices 200 --ifaces 4);;
   large) LOAD_ARGS=(--devices 1000 --ifaces 8 --timeout 7200);;
+  # SPEC-20261124-0648: base inventory (the `large` one by default), then a
+  # fixed-rate load with a repeat:update:create mix, then the drain.
+  sustained*) LOAD_ARGS=(--devices "${SUSTAINED_DEVICES:-1000}" --ifaces "${SUSTAINED_IFACES:-8}"
+                         --phases initial,sustained --rate "${SUSTAINED_RATE:-17000}"
+                         --mix "${SUSTAINED_MIX:-90:7:3}" --duration "${SUSTAINED_DURATION:-600}"
+                         --timeout "${SUSTAINED_TIMEOUT:-7200}")
+              case "$SCENARIO" in
+                sustained) ;;
+                # quick check of the harness itself, not a measurement
+                sustained-smoke) LOAD_ARGS=(--devices 20 --ifaces 2 --phases initial,sustained
+                                            --rate 600 --mix 90:7:3 --duration 60 --timeout 900);;
+                *) echo "unknown scenario $SCENARIO" >&2; exit 2;;
+              esac;;
   # netbox-branching scenarios: driven by branch_scenarios.py instead of
   # loadgen.py, always with the netbox-branching overlay.
   branch-*) LOAD_ARGS=()
@@ -251,6 +266,9 @@ for p in doc.get("phases", []):
     print(f"   {p['phase']:9s} {p.get('entities','?'):>6} ent  {p.get('elapsed_s','?'):>8}s  "
           f"{p.get('entities_per_s','?'):>8} ent/s  {p.get('states_after','')}")
 PY
+  if [[ "$SCENARIO" == sustained* ]]; then
+    "$VENV/bin/python" "$HERE/verify_sustained.py" "$OUT" "${OUT%.json}.rows.json.gz" | sed 's/^/   check: /' || true
+  fi
   rm -f "$OUT.load" "$STATS" "$OUT.errors"
   if [[ $KEEP -eq 0 ]]; then "${COMPOSE[@]}" down -v --remove-orphans >/dev/null 2>&1 || true; fi
   [[ $RC -eq 0 ]] || { echo "loadgen failed (rc=$RC), see $OUT" >&2; exit $RC; }
