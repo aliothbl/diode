@@ -1,0 +1,6820 @@
+{
+ "version": "candidate",
+ "netbox_version": "v4.7.0",
+ "diode_rev": "ad15923",
+ "plugin_rev": "938afa0",
+ "scenario": "sustained",
+ "branching_rev": "pip-1.2.0",
+ "run": 2,
+ "rc": 0,
+ "apply_timeouts": 0,
+ "plugin_deadlock_retries": 0,
+ "reconciler_errors": 0,
+ "diode_pg_deadlocks": 1,
+ "knobs": {
+  "RATE_RPS": null,
+  "RATE_BURST": null,
+  "BATCH_SIZE": null,
+  "CONCURRENCY": "4",
+  "PLUGIN_TIMEOUT": null,
+  "NETBOX_WORKERS": null
+ },
+ "error_summary": [
+  "      1 -- name: BulkUpdateIngestionLogStates"
+ ],
+ "params": {
+  "devices": 200,
+  "ifaces": 4,
+  "batch": 50,
+  "seed": 42,
+  "offset": 0,
+  "phases": "initial,sustained",
+  "grpc": "127.0.0.1:58081",
+  "pg_port": 55432,
+  "redis_port": 56379,
+  "poll": 0.5,
+  "timeout": 3600.0,
+  "rate": 3000.0,
+  "mix": "90:7:3",
+  "duration": 300.0,
+  "tick": 1.0
+ },
+ "phases": [
+  {
+   "phase": "initial",
+   "entities": 1800,
+   "requests": 36,
+   "send_s": 0.185,
+   "send_req_p50_ms": 4.57,
+   "send_req_p95_ms": 5.8,
+   "elapsed_s": 106.483,
+   "entities_per_s": 16.9,
+   "states_before": {},
+   "states_after": {
+    "APPLIED": 1784,
+    "NO_CHANGES": 16
+   },
+   "curve": [
+    [
+     0.192,
+     32,
+     200,
+     0
+    ],
+    [
+     0.696,
+     0,
+     1800,
+     0
+    ],
+    [
+     1.2,
+     0,
+     1800,
+     0
+    ],
+    [
+     1.707,
+     0,
+     1800,
+     0
+    ],
+    [
+     2.215,
+     0,
+     1800,
+     0
+    ],
+    [
+     2.718,
+     0,
+     1800,
+     0
+    ],
+    [
+     3.223,
+     0,
+     1800,
+     0
+    ],
+    [
+     3.728,
+     0,
+     1800,
+     0
+    ],
+    [
+     4.233,
+     0,
+     1800,
+     0
+    ],
+    [
+     4.737,
+     0,
+     1800,
+     0
+    ],
+    [
+     5.243,
+     0,
+     1800,
+     0
+    ],
+    [
+     5.748,
+     0,
+     1800,
+     0
+    ],
+    [
+     6.252,
+     0,
+     1800,
+     0
+    ],
+    [
+     6.756,
+     0,
+     1800,
+     0
+    ],
+    [
+     7.26,
+     0,
+     1800,
+     0
+    ],
+    [
+     7.765,
+     0,
+     1800,
+     0
+    ],
+    [
+     8.269,
+     0,
+     1800,
+     0
+    ],
+    [
+     8.774,
+     0,
+     1800,
+     0
+    ],
+    [
+     9.279,
+     0,
+     1800,
+     0
+    ],
+    [
+     9.783,
+     0,
+     1800,
+     0
+    ],
+    [
+     10.287,
+     0,
+     1800,
+     0
+    ],
+    [
+     10.791,
+     0,
+     1800,
+     0
+    ],
+    [
+     11.296,
+     0,
+     1800,
+     0
+    ],
+    [
+     11.799,
+     0,
+     1800,
+     0
+    ],
+    [
+     12.303,
+     0,
+     1800,
+     0
+    ],
+    [
+     12.807,
+     0,
+     1800,
+     0
+    ],
+    [
+     13.312,
+     0,
+     1800,
+     0
+    ],
+    [
+     13.816,
+     0,
+     1800,
+     0
+    ],
+    [
+     14.321,
+     0,
+     1800,
+     0
+    ],
+    [
+     14.826,
+     0,
+     1800,
+     0
+    ],
+    [
+     15.33,
+     0,
+     1800,
+     0
+    ],
+    [
+     15.834,
+     0,
+     1750,
+     50
+    ],
+    [
+     16.338,
+     0,
+     1750,
+     50
+    ],
+    [
+     16.843,
+     0,
+     1750,
+     50
+    ],
+    [
+     17.347,
+     0,
+     1750,
+     50
+    ],
+    [
+     17.852,
+     0,
+     1750,
+     50
+    ],
+    [
+     18.356,
+     0,
+     1750,
+     50
+    ],
+    [
+     18.86,
+     0,
+     1750,
+     50
+    ],
+    [
+     19.363,
+     0,
+     1750,
+     50
+    ],
+    [
+     19.868,
+     0,
+     1750,
+     50
+    ],
+    [
+     20.373,
+     0,
+     1750,
+     50
+    ],
+    [
+     20.877,
+     0,
+     1650,
+     150
+    ],
+    [
+     21.38,
+     0,
+     1650,
+     150
+    ],
+    [
+     21.884,
+     0,
+     1650,
+     150
+    ],
+    [
+     22.388,
+     0,
+     1650,
+     150
+    ],
+    [
+     22.892,
+     0,
+     1650,
+     150
+    ],
+    [
+     23.396,
+     0,
+     1650,
+     150
+    ],
+    [
+     23.9,
+     0,
+     1650,
+     150
+    ],
+    [
+     24.404,
+     0,
+     1650,
+     150
+    ],
+    [
+     24.908,
+     0,
+     1650,
+     150
+    ],
+    [
+     25.412,
+     0,
+     1650,
+     150
+    ],
+    [
+     25.917,
+     0,
+     1650,
+     150
+    ],
+    [
+     26.423,
+     0,
+     1550,
+     250
+    ],
+    [
+     26.927,
+     0,
+     1550,
+     250
+    ],
+    [
+     27.432,
+     0,
+     1550,
+     250
+    ],
+    [
+     27.937,
+     0,
+     1550,
+     250
+    ],
+    [
+     28.442,
+     0,
+     1550,
+     250
+    ],
+    [
+     28.946,
+     0,
+     1550,
+     250
+    ],
+    [
+     29.451,
+     0,
+     1550,
+     250
+    ],
+    [
+     29.955,
+     0,
+     1550,
+     250
+    ],
+    [
+     30.458,
+     0,
+     1550,
+     250
+    ],
+    [
+     30.964,
+     0,
+     1450,
+     350
+    ],
+    [
+     31.468,
+     0,
+     1450,
+     350
+    ],
+    [
+     31.972,
+     0,
+     1450,
+     350
+    ],
+    [
+     32.477,
+     0,
+     1450,
+     350
+    ],
+    [
+     32.982,
+     0,
+     1450,
+     350
+    ],
+    [
+     33.487,
+     0,
+     1450,
+     350
+    ],
+    [
+     33.991,
+     0,
+     1450,
+     350
+    ],
+    [
+     34.497,
+     0,
+     1450,
+     350
+    ],
+    [
+     35.002,
+     0,
+     1450,
+     350
+    ],
+    [
+     35.509,
+     0,
+     1450,
+     350
+    ],
+    [
+     36.017,
+     0,
+     1450,
+     350
+    ],
+    [
+     36.521,
+     0,
+     1450,
+     350
+    ],
+    [
+     37.025,
+     0,
+     1450,
+     350
+    ],
+    [
+     37.528,
+     0,
+     1450,
+     350
+    ],
+    [
+     38.033,
+     0,
+     1350,
+     450
+    ],
+    [
+     38.537,
+     0,
+     1250,
+     550
+    ],
+    [
+     39.041,
+     0,
+     1250,
+     550
+    ],
+    [
+     39.544,
+     0,
+     1250,
+     550
+    ],
+    [
+     40.048,
+     0,
+     1250,
+     550
+    ],
+    [
+     40.551,
+     0,
+     1250,
+     550
+    ],
+    [
+     41.056,
+     0,
+     1250,
+     550
+    ],
+    [
+     41.559,
+     0,
+     1250,
+     550
+    ],
+    [
+     42.063,
+     0,
+     1250,
+     550
+    ],
+    [
+     42.566,
+     0,
+     1250,
+     550
+    ],
+    [
+     43.07,
+     0,
+     1250,
+     550
+    ],
+    [
+     43.573,
+     0,
+     1150,
+     650
+    ],
+    [
+     44.076,
+     0,
+     1150,
+     650
+    ],
+    [
+     44.579,
+     0,
+     1150,
+     650
+    ],
+    [
+     45.083,
+     0,
+     1150,
+     650
+    ],
+    [
+     45.586,
+     0,
+     1150,
+     650
+    ],
+    [
+     46.089,
+     0,
+     1150,
+     650
+    ],
+    [
+     46.592,
+     0,
+     1150,
+     650
+    ],
+    [
+     47.096,
+     0,
+     1150,
+     650
+    ],
+    [
+     47.6,
+     0,
+     1150,
+     650
+    ],
+    [
+     48.102,
+     0,
+     1150,
+     650
+    ],
+    [
+     48.605,
+     0,
+     1150,
+     650
+    ],
+    [
+     49.108,
+     0,
+     1150,
+     650
+    ],
+    [
+     49.611,
+     0,
+     1150,
+     650
+    ],
+    [
+     50.114,
+     0,
+     1150,
+     650
+    ],
+    [
+     50.617,
+     0,
+     1150,
+     650
+    ],
+    [
+     51.119,
+     0,
+     1150,
+     650
+    ],
+    [
+     51.622,
+     0,
+     1150,
+     650
+    ],
+    [
+     52.125,
+     0,
+     1150,
+     650
+    ],
+    [
+     52.627,
+     0,
+     1050,
+     750
+    ],
+    [
+     53.129,
+     0,
+     1050,
+     750
+    ],
+    [
+     53.632,
+     0,
+     1050,
+     750
+    ],
+    [
+     54.135,
+     0,
+     1050,
+     750
+    ],
+    [
+     54.638,
+     0,
+     1050,
+     750
+    ],
+    [
+     55.141,
+     0,
+     950,
+     850
+    ],
+    [
+     55.644,
+     0,
+     950,
+     850
+    ],
+    [
+     56.147,
+     0,
+     950,
+     850
+    ],
+    [
+     56.65,
+     0,
+     950,
+     850
+    ],
+    [
+     57.154,
+     0,
+     950,
+     850
+    ],
+    [
+     57.659,
+     0,
+     950,
+     850
+    ],
+    [
+     58.163,
+     0,
+     950,
+     850
+    ],
+    [
+     58.666,
+     0,
+     950,
+     850
+    ],
+    [
+     59.169,
+     0,
+     950,
+     850
+    ],
+    [
+     59.672,
+     0,
+     950,
+     850
+    ],
+    [
+     60.176,
+     0,
+     950,
+     850
+    ],
+    [
+     60.679,
+     0,
+     950,
+     850
+    ],
+    [
+     61.182,
+     0,
+     950,
+     850
+    ],
+    [
+     61.686,
+     0,
+     950,
+     850
+    ],
+    [
+     62.189,
+     0,
+     950,
+     850
+    ],
+    [
+     62.692,
+     0,
+     950,
+     850
+    ],
+    [
+     63.195,
+     0,
+     950,
+     850
+    ],
+    [
+     63.698,
+     0,
+     950,
+     850
+    ],
+    [
+     64.201,
+     0,
+     950,
+     850
+    ],
+    [
+     64.704,
+     0,
+     950,
+     850
+    ],
+    [
+     65.207,
+     0,
+     950,
+     850
+    ],
+    [
+     65.711,
+     0,
+     950,
+     850
+    ],
+    [
+     66.214,
+     0,
+     950,
+     850
+    ],
+    [
+     66.718,
+     0,
+     850,
+     950
+    ],
+    [
+     67.221,
+     0,
+     850,
+     950
+    ],
+    [
+     67.725,
+     0,
+     850,
+     950
+    ],
+    [
+     68.228,
+     0,
+     850,
+     950
+    ],
+    [
+     68.732,
+     0,
+     850,
+     950
+    ],
+    [
+     69.235,
+     0,
+     750,
+     1050
+    ],
+    [
+     69.739,
+     0,
+     750,
+     1050
+    ],
+    [
+     70.242,
+     0,
+     750,
+     1050
+    ],
+    [
+     70.745,
+     0,
+     750,
+     1050
+    ],
+    [
+     71.248,
+     0,
+     750,
+     1050
+    ],
+    [
+     71.751,
+     0,
+     750,
+     1050
+    ],
+    [
+     72.254,
+     0,
+     750,
+     1050
+    ],
+    [
+     72.757,
+     0,
+     750,
+     1050
+    ],
+    [
+     73.261,
+     0,
+     650,
+     1150
+    ],
+    [
+     73.764,
+     0,
+     650,
+     1150
+    ],
+    [
+     74.267,
+     0,
+     650,
+     1150
+    ],
+    [
+     74.77,
+     0,
+     650,
+     1150
+    ],
+    [
+     75.273,
+     0,
+     650,
+     1150
+    ],
+    [
+     75.777,
+     0,
+     650,
+     1150
+    ],
+    [
+     76.28,
+     0,
+     650,
+     1150
+    ],
+    [
+     76.783,
+     0,
+     650,
+     1150
+    ],
+    [
+     77.286,
+     0,
+     650,
+     1150
+    ],
+    [
+     77.79,
+     0,
+     650,
+     1150
+    ],
+    [
+     78.295,
+     0,
+     650,
+     1150
+    ],
+    [
+     78.798,
+     0,
+     650,
+     1150
+    ],
+    [
+     79.302,
+     0,
+     650,
+     1150
+    ],
+    [
+     79.805,
+     0,
+     650,
+     1150
+    ],
+    [
+     80.309,
+     0,
+     650,
+     1150
+    ],
+    [
+     80.813,
+     0,
+     650,
+     1150
+    ],
+    [
+     81.317,
+     0,
+     550,
+     1250
+    ],
+    [
+     81.821,
+     0,
+     450,
+     1350
+    ],
+    [
+     82.326,
+     0,
+     450,
+     1350
+    ],
+    [
+     82.83,
+     0,
+     450,
+     1350
+    ],
+    [
+     83.333,
+     0,
+     450,
+     1350
+    ],
+    [
+     83.836,
+     0,
+     450,
+     1350
+    ],
+    [
+     84.34,
+     0,
+     450,
+     1350
+    ],
+    [
+     84.844,
+     0,
+     450,
+     1350
+    ],
+    [
+     85.347,
+     0,
+     450,
+     1350
+    ],
+    [
+     85.85,
+     0,
+     450,
+     1350
+    ],
+    [
+     86.354,
+     0,
+     450,
+     1350
+    ],
+    [
+     86.858,
+     0,
+     450,
+     1350
+    ],
+    [
+     87.361,
+     0,
+     450,
+     1350
+    ],
+    [
+     87.866,
+     0,
+     450,
+     1350
+    ],
+    [
+     88.369,
+     0,
+     450,
+     1350
+    ],
+    [
+     88.873,
+     0,
+     450,
+     1350
+    ],
+    [
+     89.376,
+     0,
+     450,
+     1350
+    ],
+    [
+     89.879,
+     0,
+     450,
+     1350
+    ],
+    [
+     90.384,
+     0,
+     450,
+     1350
+    ],
+    [
+     90.888,
+     0,
+     450,
+     1350
+    ],
+    [
+     91.391,
+     0,
+     450,
+     1350
+    ],
+    [
+     91.895,
+     0,
+     450,
+     1350
+    ],
+    [
+     92.4,
+     0,
+     450,
+     1350
+    ],
+    [
+     92.903,
+     0,
+     450,
+     1350
+    ],
+    [
+     93.406,
+     0,
+     450,
+     1350
+    ],
+    [
+     93.91,
+     0,
+     450,
+     1350
+    ],
+    [
+     94.413,
+     0,
+     450,
+     1350
+    ],
+    [
+     94.917,
+     0,
+     350,
+     1450
+    ],
+    [
+     95.42,
+     0,
+     350,
+     1450
+    ],
+    [
+     95.926,
+     0,
+     350,
+     1450
+    ],
+    [
+     96.429,
+     0,
+     250,
+     1550
+    ],
+    [
+     96.931,
+     0,
+     250,
+     1550
+    ],
+    [
+     97.435,
+     0,
+     250,
+     1550
+    ],
+    [
+     97.937,
+     0,
+     250,
+     1550
+    ],
+    [
+     98.44,
+     0,
+     250,
+     1550
+    ],
+    [
+     98.942,
+     0,
+     250,
+     1550
+    ],
+    [
+     99.445,
+     0,
+     250,
+     1550
+    ],
+    [
+     99.947,
+     0,
+     250,
+     1550
+    ],
+    [
+     100.45,
+     0,
+     250,
+     1550
+    ],
+    [
+     100.952,
+     0,
+     250,
+     1550
+    ],
+    [
+     101.454,
+     0,
+     250,
+     1550
+    ],
+    [
+     101.957,
+     0,
+     250,
+     1550
+    ],
+    [
+     102.46,
+     0,
+     250,
+     1550
+    ],
+    [
+     102.963,
+     0,
+     250,
+     1550
+    ],
+    [
+     103.466,
+     0,
+     150,
+     1650
+    ],
+    [
+     103.969,
+     0,
+     150,
+     1650
+    ],
+    [
+     104.472,
+     0,
+     150,
+     1650
+    ],
+    [
+     104.974,
+     0,
+     50,
+     1750
+    ],
+    [
+     105.477,
+     0,
+     50,
+     1750
+    ],
+    [
+     105.979,
+     0,
+     0,
+     1800
+    ],
+    [
+     106.483,
+     0,
+     0,
+     1800
+    ]
+   ]
+  },
+  {
+   "phase": "sustained",
+   "rate_per_min": 3000.0,
+   "mix": "90:7:3",
+   "duration_s": 300.0,
+   "tick_s": 1.0,
+   "entities": 15000,
+   "sent": {
+    "repeat": 13500,
+    "update": 1050,
+    "create": 450
+   },
+   "sent_rate_per_min": 3000.0,
+   "late_ticks": 0,
+   "elapsed_s": 331.01,
+   "entities_per_s": 50.0,
+   "drain_s": 31.0,
+   "timeout": false,
+   "unfinished_requests": 0,
+   "backlog_max_window": 927,
+   "backlog_max_last5min": 927,
+   "backlog_slope_last5min_per_s": 1.178,
+   "latency": {
+    "create": {
+     "requests": 300,
+     "p50_s": 50.976,
+     "p95_s": 72.986,
+     "max_s": 87.004,
+     "p95_first_half_s": 62.999,
+     "p95_second_half_s": 79.006
+    },
+    "update": {
+     "requests": 300,
+     "p50_s": 51.985,
+     "p95_s": 77.005,
+     "max_s": 108.0,
+     "p95_first_half_s": 66.006,
+     "p95_second_half_s": 80.006
+    }
+   },
+   "failed_rows": {
+    "create": 0,
+    "update": 0
+   },
+   "states_before": {
+    "APPLIED": 1784,
+    "NO_CHANGES": 16
+   },
+   "states_after": {
+    "APPLIED": 3278,
+    "NO_CHANGES": 26
+   },
+   "expected": {
+    "counts": {
+     "device": 250,
+     "interface": 1000,
+     "ip_address": 1000
+    },
+    "iface_desc": {
+     "bench-dev-00039/eth2": "uplink 2 (rev799)",
+     "bench-dev-00060/eth2": "uplink 2 (rev2)",
+     "bench-dev-00041/eth2": "uplink 2 (rev697)",
+     "bench-dev-00130/eth1": "uplink 1 (rev4)",
+     "bench-dev-00102/eth1": "uplink 1 (rev1005)",
+     "bench-dev-00173/eth3": "uplink 3 (rev736)",
+     "bench-dev-00137/eth1": "uplink 1 (rev260)",
+     "bench-dev-00031/eth3": "uplink 3 (rev880)",
+     "bench-dev-00184/eth1": "uplink 1 (rev221)",
+     "bench-dev-00076/eth3": "uplink 3 (rev156)",
+     "bench-dev-00021/eth2": "uplink 2 (rev636)",
+     "bench-dev-00072/eth2": "uplink 2 (rev791)",
+     "bench-dev-00131/eth3": "uplink 3 (rev1023)",
+     "bench-dev-00169/eth3": "uplink 3 (rev555)",
+     "bench-dev-00178/eth0": "uplink 0 (rev625)",
+     "bench-dev-00132/eth2": "uplink 2 (rev16)",
+     "bench-dev-00118/eth3": "uplink 3 (rev165)",
+     "bench-dev-00073/eth0": "uplink 0 (rev415)",
+     "bench-dev-00060/eth0": "uplink 0 (rev623)",
+     "bench-dev-00069/eth2": "uplink 2 (rev301)",
+     "bench-dev-00085/eth3": "uplink 3 (rev299)",
+     "bench-dev-00154/eth1": "uplink 1 (rev888)",
+     "bench-dev-00056/eth1": "uplink 1 (rev435)",
+     "bench-dev-00124/eth3": "uplink 3 (rev68)",
+     "bench-dev-00020/eth3": "uplink 3 (rev25)",
+     "bench-dev-00120/eth1": "uplink 1 (rev55)",
+     "bench-dev-00004/eth3": "uplink 3 (rev814)",
+     "bench-dev-00191/eth3": "uplink 3 (rev963)",
+     "bench-dev-00096/eth0": "uplink 0 (rev466)",
+     "bench-dev-00101/eth2": "uplink 2 (rev230)",
+     "bench-dev-00183/eth0": "uplink 0 (rev837)",
+     "bench-dev-00133/eth2": "uplink 2 (rev676)",
+     "bench-dev-00166/eth2": "uplink 2 (rev884)",
+     "bench-dev-00069/eth0": "uplink 0 (rev569)",
+     "bench-dev-00157/eth2": "uplink 2 (rev86)",
+     "bench-dev-00061/eth3": "uplink 3 (rev836)",
+     "bench-dev-00104/eth0": "uplink 0 (rev861)",
+     "bench-dev-00176/eth2": "uplink 2 (rev932)",
+     "bench-dev-00047/eth1": "uplink 1 (rev583)",
+     "bench-dev-00049/eth0": "uplink 0 (rev966)",
+     "bench-dev-00055/eth1": "uplink 1 (rev678)",
+     "bench-dev-00122/eth1": "uplink 1 (rev986)",
+     "bench-dev-00029/eth0": "uplink 0 (rev113)",
+     "bench-dev-00016/eth2": "uplink 2 (rev946)",
+     "bench-dev-00061/eth1": "uplink 1 (rev46)",
+     "bench-dev-00044/eth1": "uplink 1 (rev359)",
+     "bench-dev-00141/eth1": "uplink 1 (rev48)",
+     "bench-dev-00019/eth0": "uplink 0 (rev49)",
+     "bench-dev-00073/eth3": "uplink 3 (rev640)",
+     "bench-dev-00112/eth1": "uplink 1 (rev1028)",
+     "bench-dev-00125/eth3": "uplink 3 (rev947)",
+     "bench-dev-00023/eth1": "uplink 1 (rev923)",
+     "bench-dev-00089/eth0": "uplink 0 (rev479)",
+     "bench-dev-00013/eth0": "uplink 0 (rev579)",
+     "bench-dev-00052/eth0": "uplink 0 (rev790)",
+     "bench-dev-00068/eth1": "uplink 1 (rev229)",
+     "bench-dev-00130/eth0": "uplink 0 (rev60)",
+     "bench-dev-00191/eth0": "uplink 0 (rev437)",
+     "bench-dev-00034/eth3": "uplink 3 (rev436)",
+     "bench-dev-00017/eth3": "uplink 3 (rev948)",
+     "bench-dev-00121/eth0": "uplink 0 (rev968)",
+     "bench-dev-00180/eth2": "uplink 2 (rev854)",
+     "bench-dev-00097/eth2": "uplink 2 (rev916)",
+     "bench-dev-00194/eth1": "uplink 1 (rev965)",
+     "bench-dev-00138/eth2": "uplink 2 (rev69)",
+     "bench-dev-00009/eth0": "uplink 0 (rev1024)",
+     "bench-dev-00061/eth2": "uplink 2 (rev538)",
+     "bench-dev-00127/eth1": "uplink 1 (rev974)",
+     "bench-dev-00149/eth1": "uplink 1 (rev370)",
+     "bench-dev-00002/eth0": "uplink 0 (rev642)",
+     "bench-dev-00144/eth3": "uplink 3 (rev754)",
+     "bench-dev-00175/eth2": "uplink 2 (rev491)",
+     "bench-dev-00199/eth0": "uplink 0 (rev1011)",
+     "bench-dev-00051/eth1": "uplink 1 (rev78)",
+     "bench-dev-00033/eth3": "uplink 3 (rev682)",
+     "bench-dev-00138/eth0": "uplink 0 (rev80)",
+     "bench-dev-00163/eth1": "uplink 1 (rev82)",
+     "bench-dev-00095/eth0": "uplink 0 (rev373)",
+     "bench-dev-00027/eth2": "uplink 2 (rev84)",
+     "bench-dev-00125/eth1": "uplink 1 (rev842)",
+     "bench-dev-00104/eth1": "uplink 1 (rev87)",
+     "bench-dev-00059/eth2": "uplink 2 (rev734)",
+     "bench-dev-00084/eth0": "uplink 0 (rev89)",
+     "bench-dev-00198/eth0": "uplink 0 (rev549)",
+     "bench-dev-00037/eth3": "uplink 3 (rev957)",
+     "bench-dev-00011/eth0": "uplink 0 (rev92)",
+     "bench-dev-00186/eth0": "uplink 0 (rev988)",
+     "bench-dev-00168/eth2": "uplink 2 (rev164)",
+     "bench-dev-00196/eth3": "uplink 3 (rev238)",
+     "bench-dev-00141/eth0": "uplink 0 (rev96)",
+     "bench-dev-00184/eth2": "uplink 2 (rev100)",
+     "bench-dev-00055/eth0": "uplink 0 (rev704)",
+     "bench-dev-00108/eth1": "uplink 1 (rev982)",
+     "bench-dev-00079/eth0": "uplink 0 (rev887)",
+     "bench-dev-00086/eth3": "uplink 3 (rev895)",
+     "bench-dev-00089/eth3": "uplink 3 (rev150)",
+     "bench-dev-00001/eth2": "uplink 2 (rev105)",
+     "bench-dev-00193/eth1": "uplink 1 (rev618)",
+     "bench-dev-00131/eth0": "uplink 0 (rev108)",
+     "bench-dev-00189/eth3": "uplink 3 (rev707)",
+     "bench-dev-00010/eth3": "uplink 3 (rev890)",
+     "bench-dev-00111/eth2": "uplink 2 (rev1044)",
+     "bench-dev-00135/eth3": "uplink 3 (rev750)",
+     "bench-dev-00130/eth2": "uplink 2 (rev253)",
+     "bench-dev-00161/eth2": "uplink 2 (rev987)",
+     "bench-dev-00077/eth2": "uplink 2 (rev871)",
+     "bench-dev-00070/eth1": "uplink 1 (rev851)",
+     "bench-dev-00151/eth1": "uplink 1 (rev679)",
+     "bench-dev-00129/eth0": "uplink 0 (rev120)",
+     "bench-dev-00165/eth1": "uplink 1 (rev121)",
+     "bench-dev-00044/eth0": "uplink 0 (rev122)",
+     "bench-dev-00178/eth3": "uplink 3 (rev123)",
+     "bench-dev-00169/eth2": "uplink 2 (rev365)",
+     "bench-dev-00100/eth1": "uplink 1 (rev125)",
+     "bench-dev-00033/eth0": "uplink 0 (rev920)",
+     "bench-dev-00134/eth3": "uplink 3 (rev801)",
+     "bench-dev-00009/eth2": "uplink 2 (rev943)",
+     "bench-dev-00169/eth1": "uplink 1 (rev1019)",
+     "bench-dev-00128/eth2": "uplink 2 (rev1036)",
+     "bench-dev-00135/eth0": "uplink 0 (rev1020)",
+     "bench-dev-00107/eth0": "uplink 0 (rev1038)",
+     "bench-dev-00041/eth1": "uplink 1 (rev819)",
+     "bench-dev-00007/eth0": "uplink 0 (rev480)",
+     "bench-dev-00081/eth2": "uplink 2 (rev605)",
+     "bench-dev-00025/eth1": "uplink 1 (rev823)",
+     "bench-dev-00028/eth1": "uplink 1 (rev919)",
+     "bench-dev-00127/eth3": "uplink 3 (rev657)",
+     "bench-dev-00152/eth3": "uplink 3 (rev139)",
+     "bench-dev-00137/eth0": "uplink 0 (rev140)",
+     "bench-dev-00168/eth0": "uplink 0 (rev1029)",
+     "bench-dev-00160/eth3": "uplink 3 (rev792)",
+     "bench-dev-00026/eth2": "uplink 2 (rev333)",
+     "bench-dev-00048/eth3": "uplink 3 (rev179)",
+     "bench-dev-00091/eth1": "uplink 1 (rev146)",
+     "bench-dev-00199/eth3": "uplink 3 (rev147)",
+     "bench-dev-00113/eth2": "uplink 2 (rev934)",
+     "bench-dev-00019/eth2": "uplink 2 (rev151)",
+     "bench-dev-00146/eth3": "uplink 3 (rev985)",
+     "bench-dev-00035/eth0": "uplink 0 (rev225)",
+     "bench-dev-00135/eth2": "uplink 2 (rev154)",
+     "bench-dev-00074/eth1": "uplink 1 (rev392)",
+     "bench-dev-00040/eth1": "uplink 1 (rev157)",
+     "bench-dev-00119/eth1": "uplink 1 (rev158)",
+     "bench-dev-00174/eth0": "uplink 0 (rev173)",
+     "bench-dev-00132/eth1": "uplink 1 (rev630)",
+     "bench-dev-00088/eth0": "uplink 0 (rev161)",
+     "bench-dev-00039/eth1": "uplink 1 (rev824)",
+     "bench-dev-00043/eth3": "uplink 3 (rev725)",
+     "bench-dev-00087/eth0": "uplink 0 (rev821)",
+     "bench-dev-00155/eth1": "uplink 1 (rev168)",
+     "bench-dev-00078/eth3": "uplink 3 (rev933)",
+     "bench-dev-00005/eth3": "uplink 3 (rev775)",
+     "bench-dev-00159/eth2": "uplink 2 (rev848)",
+     "bench-dev-00156/eth1": "uplink 1 (rev831)",
+     "bench-dev-00030/eth1": "uplink 1 (rev723)",
+     "bench-dev-00181/eth1": "uplink 1 (rev371)",
+     "bench-dev-00144/eth0": "uplink 0 (rev864)",
+     "bench-dev-00076/eth2": "uplink 2 (rev178)",
+     "bench-dev-00112/eth3": "uplink 3 (rev181)",
+     "bench-dev-00080/eth1": "uplink 1 (rev182)",
+     "bench-dev-00071/eth1": "uplink 1 (rev183)",
+     "bench-dev-00142/eth3": "uplink 3 (rev776)",
+     "bench-dev-00076/eth1": "uplink 1 (rev857)",
+     "bench-dev-00027/eth3": "uplink 3 (rev1027)",
+     "bench-dev-00044/eth3": "uplink 3 (rev592)",
+     "bench-dev-00106/eth3": "uplink 3 (rev913)",
+     "bench-dev-00193/eth3": "uplink 3 (rev969)",
+     "bench-dev-00049/eth1": "uplink 1 (rev534)",
+     "bench-dev-00079/eth2": "uplink 2 (rev355)",
+     "bench-dev-00030/eth0": "uplink 0 (rev272)",
+     "bench-dev-00038/eth1": "uplink 1 (rev352)",
+     "bench-dev-00042/eth0": "uplink 0 (rev739)",
+     "bench-dev-00083/eth3": "uplink 3 (rev203)",
+     "bench-dev-00008/eth0": "uplink 0 (rev204)",
+     "bench-dev-00073/eth1": "uplink 1 (rev205)",
+     "bench-dev-00104/eth2": "uplink 2 (rev906)",
+     "bench-dev-00063/eth1": "uplink 1 (rev560)",
+     "bench-dev-00117/eth3": "uplink 3 (rev208)",
+     "bench-dev-00088/eth2": "uplink 2 (rev209)",
+     "bench-dev-00147/eth3": "uplink 3 (rev211)",
+     "bench-dev-00153/eth0": "uplink 0 (rev784)",
+     "bench-dev-00197/eth3": "uplink 3 (rev307)",
+     "bench-dev-00118/eth2": "uplink 2 (rev1025)",
+     "bench-dev-00014/eth3": "uplink 3 (rev856)",
+     "bench-dev-00143/eth3": "uplink 3 (rev216)",
+     "bench-dev-00105/eth2": "uplink 2 (rev570)",
+     "bench-dev-00193/eth0": "uplink 0 (rev726)",
+     "bench-dev-00075/eth2": "uplink 2 (rev223)",
+     "bench-dev-00039/eth0": "uplink 0 (rev809)",
+     "bench-dev-00161/eth1": "uplink 1 (rev226)",
+     "bench-dev-00059/eth0": "uplink 0 (rev227)",
+     "bench-dev-00090/eth2": "uplink 2 (rev781)",
+     "bench-dev-00020/eth0": "uplink 0 (rev400)",
+     "bench-dev-00121/eth2": "uplink 2 (rev764)",
+     "bench-dev-00069/eth1": "uplink 1 (rev717)",
+     "bench-dev-00011/eth3": "uplink 3 (rev1002)",
+     "bench-dev-00019/eth1": "uplink 1 (rev235)",
+     "bench-dev-00154/eth3": "uplink 3 (rev959)",
+     "bench-dev-00113/eth3": "uplink 3 (rev812)",
+     "bench-dev-00092/eth0": "uplink 0 (rev817)",
+     "bench-dev-00194/eth3": "uplink 3 (rev787)",
+     "bench-dev-00042/eth3": "uplink 3 (rev520)",
+     "bench-dev-00111/eth1": "uplink 1 (rev671)",
+     "bench-dev-00070/eth2": "uplink 2 (rev521)",
+     "bench-dev-00107/eth3": "uplink 3 (rev845)",
+     "bench-dev-00074/eth2": "uplink 2 (rev246)",
+     "bench-dev-00188/eth0": "uplink 0 (rev950)",
+     "bench-dev-00177/eth3": "uplink 3 (rev902)",
+     "bench-dev-00096/eth2": "uplink 2 (rev421)",
+     "bench-dev-00132/eth3": "uplink 3 (rev1003)",
+     "bench-dev-00029/eth1": "uplink 1 (rev440)",
+     "bench-dev-00087/eth3": "uplink 3 (rev889)",
+     "bench-dev-00165/eth3": "uplink 3 (rev259)",
+     "bench-dev-00047/eth3": "uplink 3 (rev261)",
+     "bench-dev-00093/eth2": "uplink 2 (rev292)",
+     "bench-dev-00152/eth2": "uplink 2 (rev666)",
+     "bench-dev-00035/eth1": "uplink 1 (rev411)",
+     "bench-dev-00147/eth0": "uplink 0 (rev433)",
+     "bench-dev-00098/eth0": "uplink 0 (rev381)",
+     "bench-dev-00074/eth3": "uplink 3 (rev587)",
+     "bench-dev-00008/eth1": "uplink 1 (rev634)",
+     "bench-dev-00022/eth1": "uplink 1 (rev1043)",
+     "bench-dev-00198/eth2": "uplink 2 (rev602)",
+     "bench-dev-00070/eth3": "uplink 3 (rev647)",
+     "bench-dev-00167/eth3": "uplink 3 (rev303)",
+     "bench-dev-00032/eth1": "uplink 1 (rev276)",
+     "bench-dev-00091/eth2": "uplink 2 (rev312)",
+     "bench-dev-00016/eth0": "uplink 0 (rev278)",
+     "bench-dev-00136/eth3": "uplink 3 (rev596)",
+     "bench-dev-00101/eth3": "uplink 3 (rev280)",
+     "bench-dev-00167/eth2": "uplink 2 (rev467)",
+     "bench-dev-00092/eth1": "uplink 1 (rev282)",
+     "bench-dev-00064/eth0": "uplink 0 (rev515)",
+     "bench-dev-00026/eth0": "uplink 0 (rev284)",
+     "bench-dev-00026/eth1": "uplink 1 (rev1033)",
+     "bench-dev-00080/eth0": "uplink 0 (rev1017)",
+     "bench-dev-00094/eth0": "uplink 0 (rev766)",
+     "bench-dev-00165/eth0": "uplink 0 (rev956)",
+     "bench-dev-00107/eth2": "uplink 2 (rev291)",
+     "bench-dev-00139/eth3": "uplink 3 (rev293)",
+     "bench-dev-00174/eth3": "uplink 3 (rev294)",
+     "bench-dev-00166/eth1": "uplink 1 (rev295)",
+     "bench-dev-00174/eth1": "uplink 1 (rev296)",
+     "bench-dev-00164/eth2": "uplink 2 (rev655)",
+     "bench-dev-00007/eth2": "uplink 2 (rev829)",
+     "bench-dev-00109/eth3": "uplink 3 (rev897)",
+     "bench-dev-00189/eth2": "uplink 2 (rev302)",
+     "bench-dev-00107/eth1": "uplink 1 (rev580)",
+     "bench-dev-00126/eth1": "uplink 1 (rev306)",
+     "bench-dev-00117/eth1": "uplink 1 (rev309)",
+     "bench-dev-00191/eth1": "uplink 1 (rev543)",
+     "bench-dev-00197/eth0": "uplink 0 (rev911)",
+     "bench-dev-00053/eth0": "uplink 0 (rev314)",
+     "bench-dev-00115/eth2": "uplink 2 (rev378)",
+     "bench-dev-00035/eth3": "uplink 3 (rev930)",
+     "bench-dev-00031/eth0": "uplink 0 (rev997)",
+     "bench-dev-00003/eth0": "uplink 0 (rev644)",
+     "bench-dev-00071/eth2": "uplink 2 (rev628)",
+     "bench-dev-00114/eth0": "uplink 0 (rev321)",
+     "bench-dev-00038/eth0": "uplink 0 (rev322)",
+     "bench-dev-00056/eth0": "uplink 0 (rev892)",
+     "bench-dev-00199/eth1": "uplink 1 (rev627)",
+     "bench-dev-00036/eth1": "uplink 1 (rev326)",
+     "bench-dev-00048/eth0": "uplink 0 (rev972)",
+     "bench-dev-00126/eth0": "uplink 0 (rev329)",
+     "bench-dev-00086/eth0": "uplink 0 (rev330)",
+     "bench-dev-00077/eth1": "uplink 1 (rev710)",
+     "bench-dev-00082/eth2": "uplink 2 (rev332)",
+     "bench-dev-00127/eth0": "uplink 0 (rev690)",
+     "bench-dev-00036/eth0": "uplink 0 (rev335)",
+     "bench-dev-00084/eth3": "uplink 3 (rev427)",
+     "bench-dev-00194/eth0": "uplink 0 (rev338)",
+     "bench-dev-00175/eth3": "uplink 3 (rev339)",
+     "bench-dev-00076/eth0": "uplink 0 (rev340)",
+     "bench-dev-00060/eth3": "uplink 3 (rev944)",
+     "bench-dev-00024/eth2": "uplink 2 (rev993)",
+     "bench-dev-00012/eth2": "uplink 2 (rev582)",
+     "bench-dev-00011/eth1": "uplink 1 (rev550)",
+     "bench-dev-00067/eth1": "uplink 1 (rev785)",
+     "bench-dev-00112/eth2": "uplink 2 (rev346)",
+     "bench-dev-00146/eth1": "uplink 1 (rev876)",
+     "bench-dev-00173/eth1": "uplink 1 (rev364)",
+     "bench-dev-00158/eth3": "uplink 3 (rev349)",
+     "bench-dev-00037/eth2": "uplink 2 (rev832)",
+     "bench-dev-00106/eth0": "uplink 0 (rev351)",
+     "bench-dev-00071/eth3": "uplink 3 (rev356)",
+     "bench-dev-00007/eth1": "uplink 1 (rev358)",
+     "bench-dev-00056/eth2": "uplink 2 (rev424)",
+     "bench-dev-00165/eth2": "uplink 2 (rev825)",
+     "bench-dev-00057/eth2": "uplink 2 (rev688)",
+     "bench-dev-00095/eth3": "uplink 3 (rev366)",
+     "bench-dev-00143/eth2": "uplink 2 (rev511)",
+     "bench-dev-00188/eth2": "uplink 2 (rev922)",
+     "bench-dev-00066/eth2": "uplink 2 (rev696)",
+     "bench-dev-00162/eth1": "uplink 1 (rev375)",
+     "bench-dev-00001/eth0": "uplink 0 (rev728)",
+     "bench-dev-00197/eth1": "uplink 1 (rev1016)",
+     "bench-dev-00012/eth1": "uplink 1 (rev846)",
+     "bench-dev-00027/eth0": "uplink 0 (rev386)",
+     "bench-dev-00050/eth3": "uplink 3 (rev388)",
+     "bench-dev-00025/eth2": "uplink 2 (rev748)",
+     "bench-dev-00044/eth2": "uplink 2 (rev894)",
+     "bench-dev-00010/eth0": "uplink 0 (rev921)",
+     "bench-dev-00185/eth3": "uplink 3 (rev395)",
+     "bench-dev-00086/eth2": "uplink 2 (rev595)",
+     "bench-dev-00133/eth3": "uplink 3 (rev872)",
+     "bench-dev-00176/eth0": "uplink 0 (rev469)",
+     "bench-dev-00117/eth2": "uplink 2 (rev401)",
+     "bench-dev-00093/eth0": "uplink 0 (rev826)",
+     "bench-dev-00183/eth1": "uplink 1 (rev908)",
+     "bench-dev-00115/eth3": "uplink 3 (rev406)",
+     "bench-dev-00162/eth0": "uplink 0 (rev407)",
+     "bench-dev-00172/eth0": "uplink 0 (rev839)",
+     "bench-dev-00150/eth2": "uplink 2 (rev409)",
+     "bench-dev-00034/eth0": "uplink 0 (rev940)",
+     "bench-dev-00154/eth0": "uplink 0 (rev545)",
+     "bench-dev-00136/eth2": "uplink 2 (rev863)",
+     "bench-dev-00108/eth0": "uplink 0 (rev815)",
+     "bench-dev-00073/eth2": "uplink 2 (rev924)",
+     "bench-dev-00177/eth1": "uplink 1 (rev419)",
+     "bench-dev-00170/eth0": "uplink 0 (rev420)",
+     "bench-dev-00010/eth1": "uplink 1 (rev422)",
+     "bench-dev-00109/eth2": "uplink 2 (rev936)",
+     "bench-dev-00054/eth2": "uplink 2 (rev425)",
+     "bench-dev-00166/eth3": "uplink 3 (rev428)",
+     "bench-dev-00082/eth0": "uplink 0 (rev689)",
+     "bench-dev-00018/eth0": "uplink 0 (rev649)",
+     "bench-dev-00058/eth1": "uplink 1 (rev434)",
+     "bench-dev-00064/eth2": "uplink 2 (rev438)",
+     "bench-dev-00049/eth2": "uplink 2 (rev593)",
+     "bench-dev-00046/eth1": "uplink 1 (rev441)",
+     "bench-dev-00080/eth3": "uplink 3 (rev442)",
+     "bench-dev-00043/eth0": "uplink 0 (rev991)",
+     "bench-dev-00007/eth3": "uplink 3 (rev622)",
+     "bench-dev-00148/eth3": "uplink 3 (rev446)",
+     "bench-dev-00148/eth0": "uplink 0 (rev879)",
+     "bench-dev-00103/eth2": "uplink 2 (rev448)",
+     "bench-dev-00037/eth1": "uplink 1 (rev449)",
+     "bench-dev-00188/eth1": "uplink 1 (rev731)",
+     "bench-dev-00187/eth1": "uplink 1 (rev843)",
+     "bench-dev-00064/eth1": "uplink 1 (rev763)",
+     "bench-dev-00096/eth1": "uplink 1 (rev454)",
+     "bench-dev-00057/eth0": "uplink 0 (rev455)",
+     "bench-dev-00105/eth0": "uplink 0 (rev456)",
+     "bench-dev-00005/eth2": "uplink 2 (rev558)",
+     "bench-dev-00062/eth1": "uplink 1 (rev458)",
+     "bench-dev-00168/eth3": "uplink 3 (rev460)",
+     "bench-dev-00130/eth3": "uplink 3 (rev461)",
+     "bench-dev-00067/eth2": "uplink 2 (rev462)",
+     "bench-dev-00166/eth0": "uplink 0 (rev463)",
+     "bench-dev-00110/eth1": "uplink 1 (rev778)",
+     "bench-dev-00052/eth2": "uplink 2 (rev852)",
+     "bench-dev-00058/eth3": "uplink 3 (rev471)",
+     "bench-dev-00114/eth1": "uplink 1 (rev472)",
+     "bench-dev-00163/eth3": "uplink 3 (rev475)",
+     "bench-dev-00126/eth2": "uplink 2 (rev476)",
+     "bench-dev-00143/eth0": "uplink 0 (rev477)",
+     "bench-dev-00149/eth0": "uplink 0 (rev554)",
+     "bench-dev-00123/eth1": "uplink 1 (rev481)",
+     "bench-dev-00029/eth3": "uplink 3 (rev995)",
+     "bench-dev-00066/eth0": "uplink 0 (rev835)",
+     "bench-dev-00067/eth3": "uplink 3 (rev484)",
+     "bench-dev-00052/eth3": "uplink 3 (rev779)",
+     "bench-dev-00058/eth2": "uplink 2 (rev492)",
+     "bench-dev-00100/eth3": "uplink 3 (rev487)",
+     "bench-dev-00115/eth0": "uplink 0 (rev495)",
+     "bench-dev-00190/eth2": "uplink 2 (rev496)",
+     "bench-dev-00085/eth2": "uplink 2 (rev497)",
+     "bench-dev-00156/eth3": "uplink 3 (rev786)",
+     "bench-dev-00140/eth1": "uplink 1 (rev502)",
+     "bench-dev-00013/eth3": "uplink 3 (rev674)",
+     "bench-dev-00006/eth2": "uplink 2 (rev504)",
+     "bench-dev-00191/eth2": "uplink 2 (rev506)",
+     "bench-dev-00162/eth3": "uplink 3 (rev960)",
+     "bench-dev-00095/eth2": "uplink 2 (rev900)",
+     "bench-dev-00048/eth1": "uplink 1 (rev509)",
+     "bench-dev-00105/eth1": "uplink 1 (rev510)",
+     "bench-dev-00003/eth3": "uplink 3 (rev568)",
+     "bench-dev-00187/eth2": "uplink 2 (rev599)",
+     "bench-dev-00005/eth1": "uplink 1 (rev774)",
+     "bench-dev-00187/eth3": "uplink 3 (rev526)",
+     "bench-dev-00134/eth2": "uplink 2 (rev901)",
+     "bench-dev-00179/eth2": "uplink 2 (rev532)",
+     "bench-dev-00048/eth2": "uplink 2 (rev533)",
+     "bench-dev-00082/eth3": "uplink 3 (rev536)",
+     "bench-dev-00155/eth3": "uplink 3 (rev1022)",
+     "bench-dev-00093/eth3": "uplink 3 (rev540)",
+     "bench-dev-00063/eth3": "uplink 3 (rev542)",
+     "bench-dev-00167/eth0": "uplink 0 (rev544)",
+     "bench-dev-00002/eth3": "uplink 3 (rev546)",
+     "bench-dev-00128/eth1": "uplink 1 (rev547)",
+     "bench-dev-00111/eth0": "uplink 0 (rev753)",
+     "bench-dev-00059/eth3": "uplink 3 (rev551)",
+     "bench-dev-00051/eth0": "uplink 0 (rev773)",
+     "bench-dev-00175/eth1": "uplink 1 (rev715)",
+     "bench-dev-00182/eth1": "uplink 1 (rev578)",
+     "bench-dev-00146/eth2": "uplink 2 (rev961)",
+     "bench-dev-00109/eth0": "uplink 0 (rev563)",
+     "bench-dev-00190/eth3": "uplink 3 (rev564)",
+     "bench-dev-00163/eth0": "uplink 0 (rev565)",
+     "bench-dev-00189/eth0": "uplink 0 (rev862)",
+     "bench-dev-00070/eth0": "uplink 0 (rev874)",
+     "bench-dev-00062/eth3": "uplink 3 (rev853)",
+     "bench-dev-00137/eth2": "uplink 2 (rev727)",
+     "bench-dev-00101/eth1": "uplink 1 (rev574)",
+     "bench-dev-00116/eth0": "uplink 0 (rev646)",
+     "bench-dev-00151/eth0": "uplink 0 (rev576)",
+     "bench-dev-00140/eth3": "uplink 3 (rev585)",
+     "bench-dev-00120/eth2": "uplink 2 (rev931)",
+     "bench-dev-00046/eth0": "uplink 0 (rev667)",
+     "bench-dev-00156/eth0": "uplink 0 (rev949)",
+     "bench-dev-00084/eth2": "uplink 2 (rev612)",
+     "bench-dev-00042/eth1": "uplink 1 (rev597)",
+     "bench-dev-00146/eth0": "uplink 0 (rev598)",
+     "bench-dev-00134/eth0": "uplink 0 (rev600)",
+     "bench-dev-00079/eth1": "uplink 1 (rev601)",
+     "bench-dev-00136/eth1": "uplink 1 (rev604)",
+     "bench-dev-00045/eth3": "uplink 3 (rev606)",
+     "bench-dev-00180/eth1": "uplink 1 (rev607)",
+     "bench-dev-00151/eth2": "uplink 2 (rev1015)",
+     "bench-dev-00179/eth0": "uplink 0 (rev610)",
+     "bench-dev-00170/eth1": "uplink 1 (rev611)",
+     "bench-dev-00177/eth2": "uplink 2 (rev939)",
+     "bench-dev-00148/eth2": "uplink 2 (rev760)",
+     "bench-dev-00028/eth0": "uplink 0 (rev1032)",
+     "bench-dev-00072/eth0": "uplink 0 (rev621)",
+     "bench-dev-00116/eth2": "uplink 2 (rev1049)",
+     "bench-dev-00154/eth2": "uplink 2 (rev626)",
+     "bench-dev-00119/eth0": "uplink 0 (rev629)",
+     "bench-dev-00015/eth2": "uplink 2 (rev882)",
+     "bench-dev-00161/eth0": "uplink 0 (rev632)",
+     "bench-dev-00037/eth0": "uplink 0 (rev637)",
+     "bench-dev-00017/eth1": "uplink 1 (rev1045)",
+     "bench-dev-00163/eth2": "uplink 2 (rev645)",
+     "bench-dev-00018/eth2": "uplink 2 (rev648)",
+     "bench-dev-00186/eth1": "uplink 1 (rev705)",
+     "bench-dev-00174/eth2": "uplink 2 (rev827)",
+     "bench-dev-00102/eth2": "uplink 2 (rev772)",
+     "bench-dev-00078/eth2": "uplink 2 (rev659)",
+     "bench-dev-00024/eth3": "uplink 3 (rev660)",
+     "bench-dev-00116/eth3": "uplink 3 (rev1006)",
+     "bench-dev-00178/eth1": "uplink 1 (rev865)",
+     "bench-dev-00094/eth2": "uplink 2 (rev664)",
+     "bench-dev-00141/eth2": "uplink 2 (rev926)",
+     "bench-dev-00183/eth2": "uplink 2 (rev668)",
+     "bench-dev-00072/eth3": "uplink 3 (rev669)",
+     "bench-dev-00053/eth2": "uplink 2 (rev670)",
+     "bench-dev-00124/eth0": "uplink 0 (rev673)",
+     "bench-dev-00125/eth0": "uplink 0 (rev867)",
+     "bench-dev-00055/eth3": "uplink 3 (rev681)",
+     "bench-dev-00178/eth2": "uplink 2 (rev912)",
+     "bench-dev-00138/eth3": "uplink 3 (rev685)",
+     "bench-dev-00147/eth1": "uplink 1 (rev978)",
+     "bench-dev-00038/eth2": "uplink 2 (rev691)",
+     "bench-dev-00052/eth1": "uplink 1 (rev917)",
+     "bench-dev-00133/eth1": "uplink 1 (rev693)",
+     "bench-dev-00078/eth1": "uplink 1 (rev694)",
+     "bench-dev-00077/eth0": "uplink 0 (rev976)",
+     "bench-dev-00083/eth2": "uplink 2 (rev737)",
+     "bench-dev-00014/eth0": "uplink 0 (rev702)",
+     "bench-dev-00155/eth2": "uplink 2 (rev703)",
+     "bench-dev-00125/eth2": "uplink 2 (rev708)",
+     "bench-dev-00121/eth3": "uplink 3 (rev711)",
+     "bench-dev-00030/eth2": "uplink 2 (rev713)",
+     "bench-dev-00079/eth3": "uplink 3 (rev718)",
+     "bench-dev-00176/eth3": "uplink 3 (rev749)",
+     "bench-dev-00092/eth3": "uplink 3 (rev1009)",
+     "bench-dev-00035/eth2": "uplink 2 (rev721)",
+     "bench-dev-00120/eth0": "uplink 0 (rev886)",
+     "bench-dev-00064/eth3": "uplink 3 (rev724)",
+     "bench-dev-00153/eth2": "uplink 2 (rev780)",
+     "bench-dev-00103/eth1": "uplink 1 (rev732)",
+     "bench-dev-00031/eth1": "uplink 1 (rev733)",
+     "bench-dev-00108/eth2": "uplink 2 (rev735)",
+     "bench-dev-00034/eth1": "uplink 1 (rev742)",
+     "bench-dev-00160/eth0": "uplink 0 (rev870)",
+     "bench-dev-00087/eth1": "uplink 1 (rev744)",
+     "bench-dev-00097/eth1": "uplink 1 (rev745)",
+     "bench-dev-00025/eth0": "uplink 0 (rev746)",
+     "bench-dev-00109/eth1": "uplink 1 (rev752)",
+     "bench-dev-00160/eth1": "uplink 1 (rev756)",
+     "bench-dev-00198/eth1": "uplink 1 (rev761)",
+     "bench-dev-00134/eth1": "uplink 1 (rev762)",
+     "bench-dev-00081/eth0": "uplink 0 (rev767)",
+     "bench-dev-00196/eth1": "uplink 1 (rev768)",
+     "bench-dev-00164/eth3": "uplink 3 (rev769)",
+     "bench-dev-00000/eth3": "uplink 3 (rev973)",
+     "bench-dev-00155/eth0": "uplink 0 (rev782)",
+     "bench-dev-00171/eth2": "uplink 2 (rev783)",
+     "bench-dev-00089/eth1": "uplink 1 (rev788)",
+     "bench-dev-00023/eth3": "uplink 3 (rev789)",
+     "bench-dev-00068/eth3": "uplink 3 (rev1026)",
+     "bench-dev-00152/eth0": "uplink 0 (rev1012)",
+     "bench-dev-00192/eth2": "uplink 2 (rev907)",
+     "bench-dev-00167/eth1": "uplink 1 (rev796)",
+     "bench-dev-00030/eth3": "uplink 3 (rev937)",
+     "bench-dev-00126/eth3": "uplink 3 (rev891)",
+     "bench-dev-00046/eth2": "uplink 2 (rev802)",
+     "bench-dev-00100/eth2": "uplink 2 (rev803)",
+     "bench-dev-00011/eth2": "uplink 2 (rev804)",
+     "bench-dev-00021/eth1": "uplink 1 (rev1007)",
+     "bench-dev-00124/eth2": "uplink 2 (rev806)",
+     "bench-dev-00158/eth1": "uplink 1 (rev808)",
+     "bench-dev-00179/eth3": "uplink 3 (rev811)",
+     "bench-dev-00120/eth3": "uplink 3 (rev818)",
+     "bench-dev-00090/eth3": "uplink 3 (rev822)",
+     "bench-dev-00092/eth2": "uplink 2 (rev828)",
+     "bench-dev-00179/eth1": "uplink 1 (rev1034)",
+     "bench-dev-00176/eth1": "uplink 1 (rev841)",
+     "bench-dev-00150/eth3": "uplink 3 (rev844)",
+     "bench-dev-00078/eth0": "uplink 0 (rev847)",
+     "bench-dev-00104/eth3": "uplink 3 (rev849)",
+     "bench-dev-00099/eth0": "uplink 0 (rev850)",
+     "bench-dev-00182/eth2": "uplink 2 (rev928)",
+     "bench-dev-00032/eth0": "uplink 0 (rev858)",
+     "bench-dev-00077/eth3": "uplink 3 (rev859)",
+     "bench-dev-00145/eth1": "uplink 1 (rev860)",
+     "bench-dev-00180/eth0": "uplink 0 (rev866)",
+     "bench-dev-00195/eth0": "uplink 0 (rev925)",
+     "bench-dev-00157/eth0": "uplink 0 (rev869)",
+     "bench-dev-00186/eth2": "uplink 2 (rev873)",
+     "bench-dev-00006/eth1": "uplink 1 (rev877)",
+     "bench-dev-00188/eth3": "uplink 3 (rev878)",
+     "bench-dev-00021/eth3": "uplink 3 (rev881)",
+     "bench-dev-00172/eth3": "uplink 3 (rev885)",
+     "bench-dev-00184/eth0": "uplink 0 (rev893)",
+     "bench-dev-00141/eth3": "uplink 3 (rev896)",
+     "bench-dev-00062/eth2": "uplink 2 (rev899)",
+     "bench-dev-00123/eth2": "uplink 2 (rev1046)",
+     "bench-dev-00119/eth2": "uplink 2 (rev904)",
+     "bench-dev-00110/eth2": "uplink 2 (rev905)",
+     "bench-dev-00189/eth1": "uplink 1 (rev909)",
+     "bench-dev-00139/eth0": "uplink 0 (rev910)",
+     "bench-dev-00100/eth0": "uplink 0 (rev915)",
+     "bench-dev-00040/eth0": "uplink 0 (rev918)",
+     "bench-dev-00112/eth0": "uplink 0 (rev929)",
+     "bench-dev-00101/eth0": "uplink 0 (rev954)",
+     "bench-dev-00059/eth1": "uplink 1 (rev938)",
+     "bench-dev-00085/eth0": "uplink 0 (rev941)",
+     "bench-dev-00164/eth1": "uplink 1 (rev942)",
+     "bench-dev-00185/eth2": "uplink 2 (rev945)",
+     "bench-dev-00110/eth3": "uplink 3 (rev951)",
+     "bench-dev-00194/eth2": "uplink 2 (rev952)",
+     "bench-dev-00106/eth1": "uplink 1 (rev953)",
+     "bench-dev-00190/eth0": "uplink 0 (rev955)",
+     "bench-dev-00066/eth3": "uplink 3 (rev958)",
+     "bench-dev-00198/eth3": "uplink 3 (rev962)",
+     "bench-dev-00046/eth3": "uplink 3 (rev964)",
+     "bench-dev-00124/eth1": "uplink 1 (rev967)",
+     "bench-dev-00105/eth3": "uplink 3 (rev970)",
+     "bench-dev-00169/eth0": "uplink 0 (rev971)",
+     "bench-dev-00057/eth1": "uplink 1 (rev977)",
+     "bench-dev-00196/eth0": "uplink 0 (rev979)",
+     "bench-dev-00153/eth3": "uplink 3 (rev980)",
+     "bench-dev-00099/eth1": "uplink 1 (rev981)",
+     "bench-dev-00081/eth3": "uplink 3 (rev983)",
+     "bench-dev-00180/eth3": "uplink 3 (rev984)",
+     "bench-dev-00072/eth1": "uplink 1 (rev990)",
+     "bench-dev-00014/eth1": "uplink 1 (rev992)",
+     "bench-dev-00091/eth0": "uplink 0 (rev994)",
+     "bench-dev-00021/eth0": "uplink 0 (rev996)",
+     "bench-dev-00016/eth1": "uplink 1 (rev998)",
+     "bench-dev-00149/eth2": "uplink 2 (rev1041)",
+     "bench-dev-00137/eth3": "uplink 3 (rev1001)",
+     "bench-dev-00075/eth0": "uplink 0 (rev1004)",
+     "bench-dev-00065/eth0": "uplink 0 (rev1008)",
+     "bench-dev-00085/eth1": "uplink 1 (rev1010)",
+     "bench-dev-00103/eth0": "uplink 0 (rev1013)",
+     "bench-dev-00122/eth0": "uplink 0 (rev1014)",
+     "bench-dev-00023/eth0": "uplink 0 (rev1018)",
+     "bench-dev-00175/eth0": "uplink 0 (rev1021)",
+     "bench-dev-00099/eth2": "uplink 2 (rev1030)",
+     "bench-dev-00033/eth2": "uplink 2 (rev1031)",
+     "bench-dev-00186/eth3": "uplink 3 (rev1035)",
+     "bench-dev-00182/eth0": "uplink 0 (rev1037)",
+     "bench-dev-00063/eth0": "uplink 0 (rev1039)",
+     "bench-dev-00053/eth3": "uplink 3 (rev1040)",
+     "bench-dev-00098/eth1": "uplink 1 (rev1042)",
+     "bench-dev-00002/eth1": "uplink 1 (rev1047)",
+     "bench-dev-00131/eth1": "uplink 1 (rev1048)",
+     "bench-dev-00128/eth3": "uplink 3 (rev1050)"
+    }
+   },
+   "curve": [
+    [
+     1.0,
+     49,
+     3,
+     0,
+     2
+    ],
+    [
+     2.0,
+     100,
+     3,
+     49,
+     4
+    ],
+    [
+     3.0,
+     149,
+     3,
+     100,
+     6
+    ],
+    [
+     4.0,
+     200,
+     3,
+     146,
+     8
+    ],
+    [
+     5.0,
+     249,
+     3,
+     191,
+     10
+    ],
+    [
+     6.0,
+     300,
+     3,
+     188,
+     10
+    ],
+    [
+     7.0,
+     349,
+     3,
+     236,
+     12
+    ],
+    [
+     8.0,
+     400,
+     3,
+     284,
+     14
+    ],
+    [
+     9.0,
+     449,
+     3,
+     279,
+     14
+    ],
+    [
+     10.0,
+     500,
+     3,
+     272,
+     14
+    ],
+    [
+     11.0,
+     549,
+     3,
+     272,
+     14
+    ],
+    [
+     12.0,
+     600,
+     3,
+     314,
+     16
+    ],
+    [
+     13.0,
+     649,
+     3,
+     311,
+     16
+    ],
+    [
+     14.0,
+     700,
+     3,
+     351,
+     18
+    ],
+    [
+     15.0,
+     749,
+     3,
+     397,
+     20
+    ],
+    [
+     16.0,
+     800,
+     3,
+     336,
+     22
+    ],
+    [
+     17.0,
+     849,
+     3,
+     378,
+     24
+    ],
+    [
+     18.0,
+     900,
+     3,
+     420,
+     26
+    ],
+    [
+     19.0,
+     949,
+     3,
+     464,
+     28
+    ],
+    [
+     20.0,
+     1000,
+     3,
+     498,
+     30
+    ],
+    [
+     21.0,
+     1049,
+     3,
+     456,
+     28
+    ],
+    [
+     22.0,
+     1100,
+     3,
+     494,
+     30
+    ],
+    [
+     23.0,
+     1149,
+     3,
+     536,
+     32
+    ],
+    [
+     24.0,
+     1200,
+     3,
+     573,
+     34
+    ],
+    [
+     25.0,
+     1249,
+     3,
+     605,
+     36
+    ],
+    [
+     26.0,
+     1300,
+     3,
+     642,
+     38
+    ],
+    [
+     27.0,
+     1349,
+     3,
+     509,
+     28
+    ],
+    [
+     28.0,
+     1400,
+     3,
+     547,
+     30
+    ],
+    [
+     29.0,
+     1449,
+     3,
+     588,
+     32
+    ],
+    [
+     30.0,
+     1500,
+     3,
+     540,
+     30
+    ],
+    [
+     31.0,
+     1549,
+     3,
+     572,
+     32
+    ],
+    [
+     32.0,
+     1600,
+     3,
+     402,
+     34
+    ],
+    [
+     33.0,
+     1649,
+     3,
+     441,
+     36
+    ],
+    [
+     34.0,
+     1700,
+     3,
+     477,
+     38
+    ],
+    [
+     35.0,
+     1749,
+     3,
+     520,
+     40
+    ],
+    [
+     36.0,
+     1800,
+     3,
+     558,
+     42
+    ],
+    [
+     37.0,
+     1849,
+     3,
+     600,
+     44
+    ],
+    [
+     38.0,
+     1900,
+     3,
+     432,
+     46
+    ],
+    [
+     39.0,
+     1949,
+     3,
+     469,
+     48
+    ],
+    [
+     40.0,
+     2000,
+     3,
+     509,
+     50
+    ],
+    [
+     41.0,
+     2049,
+     3,
+     544,
+     52
+    ],
+    [
+     42.0,
+     2100,
+     3,
+     481,
+     54
+    ],
+    [
+     43.0,
+     2149,
+     3,
+     522,
+     56
+    ],
+    [
+     44.0,
+     2200,
+     3,
+     559,
+     58
+    ],
+    [
+     45.0,
+     2249,
+     3,
+     599,
+     60
+    ],
+    [
+     46.0,
+     2300,
+     3,
+     440,
+     62
+    ],
+    [
+     47.0,
+     2349,
+     3,
+     474,
+     64
+    ],
+    [
+     48.0,
+     2400,
+     3,
+     510,
+     66
+    ],
+    [
+     49.0,
+     2449,
+     3,
+     551,
+     68
+    ],
+    [
+     50.0,
+     2500,
+     3,
+     585,
+     70
+    ],
+    [
+     51.0,
+     2549,
+     3,
+     628,
+     72
+    ],
+    [
+     52.0,
+     2600,
+     2,
+     665,
+     74
+    ],
+    [
+     53.0,
+     2649,
+     3,
+     505,
+     76
+    ],
+    [
+     54.0,
+     2700,
+     3,
+     542,
+     78
+    ],
+    [
+     55.0,
+     2749,
+     3,
+     481,
+     50
+    ],
+    [
+     56.0,
+     2800,
+     3,
+     522,
+     52
+    ],
+    [
+     57.0,
+     2849,
+     3,
+     560,
+     54
+    ],
+    [
+     58.0,
+     2900,
+     3,
+     600,
+     56
+    ],
+    [
+     59.0,
+     2949,
+     3,
+     535,
+     58
+    ],
+    [
+     60.0,
+     3000,
+     3,
+     477,
+     60
+    ],
+    [
+     61.0,
+     3049,
+     3,
+     517,
+     62
+    ],
+    [
+     62.0,
+     3100,
+     3,
+     553,
+     64
+    ],
+    [
+     63.0,
+     3149,
+     3,
+     594,
+     66
+    ],
+    [
+     64.0,
+     3200,
+     3,
+     530,
+     55
+    ],
+    [
+     65.0,
+     3249,
+     3,
+     567,
+     57
+    ],
+    [
+     66.0,
+     3300,
+     3,
+     601,
+     59
+    ],
+    [
+     67.0,
+     3349,
+     3,
+     541,
+     60
+    ],
+    [
+     68.0,
+     3400,
+     3,
+     576,
+     62
+    ],
+    [
+     69.0,
+     3449,
+     3,
+     513,
+     64
+    ],
+    [
+     70.0,
+     3500,
+     3,
+     554,
+     66
+    ],
+    [
+     71.0,
+     3549,
+     3,
+     592,
+     68
+    ],
+    [
+     72.0,
+     3600,
+     3,
+     631,
+     70
+    ],
+    [
+     73.0,
+     3649,
+     3,
+     568,
+     60
+    ],
+    [
+     74.0,
+     3700,
+     3,
+     404,
+     62
+    ],
+    [
+     75.0,
+     3749,
+     3,
+     444,
+     64
+    ],
+    [
+     76.0,
+     3800,
+     3,
+     480,
+     66
+    ],
+    [
+     77.0,
+     3849,
+     3,
+     516,
+     68
+    ],
+    [
+     78.0,
+     3900,
+     3,
+     448,
+     67
+    ],
+    [
+     79.0,
+     3949,
+     2,
+     490,
+     69
+    ],
+    [
+     80.0,
+     4000,
+     3,
+     521,
+     71
+    ],
+    [
+     81.0,
+     4049,
+     3,
+     560,
+     73
+    ],
+    [
+     82.0,
+     4100,
+     3,
+     502,
+     75
+    ],
+    [
+     83.0,
+     4149,
+     3,
+     542,
+     77
+    ],
+    [
+     84.0,
+     4200,
+     3,
+     576,
+     79
+    ],
+    [
+     85.0,
+     4249,
+     3,
+     614,
+     81
+    ],
+    [
+     86.0,
+     4300,
+     3,
+     554,
+     83
+    ],
+    [
+     87.0,
+     4349,
+     3,
+     597,
+     85
+    ],
+    [
+     88.0,
+     4400,
+     3,
+     532,
+     74
+    ],
+    [
+     89.0,
+     4449,
+     3,
+     571,
+     76
+    ],
+    [
+     90.0,
+     4500,
+     3,
+     613,
+     78
+    ],
+    [
+     91.0,
+     4549,
+     3,
+     657,
+     80
+    ],
+    [
+     92.0,
+     4600,
+     2,
+     591,
+     82
+    ],
+    [
+     93.0,
+     4649,
+     3,
+     633,
+     84
+    ],
+    [
+     94.0,
+     4700,
+     3,
+     675,
+     86
+    ],
+    [
+     95.0,
+     4749,
+     3,
+     611,
+     88
+    ],
+    [
+     96.0,
+     4800,
+     3,
+     648,
+     90
+    ],
+    [
+     97.0,
+     4849,
+     2,
+     585,
+     92
+    ],
+    [
+     98.0,
+     4900,
+     3,
+     619,
+     94
+    ],
+    [
+     99.0,
+     4949,
+     3,
+     655,
+     96
+    ],
+    [
+     100.0,
+     5000,
+     3,
+     694,
+     98
+    ],
+    [
+     101.0,
+     5049,
+     3,
+     540,
+     62
+    ],
+    [
+     102.0,
+     5100,
+     3,
+     576,
+     64
+    ],
+    [
+     103.0,
+     5149,
+     2,
+     617,
+     66
+    ],
+    [
+     104.0,
+     5200,
+     3,
+     453,
+     68
+    ],
+    [
+     105.0,
+     5249,
+     2,
+     496,
+     70
+    ],
+    [
+     106.0,
+     5300,
+     3,
+     534,
+     72
+    ],
+    [
+     107.0,
+     5349,
+     3,
+     573,
+     74
+    ],
+    [
+     108.0,
+     5400,
+     3,
+     607,
+     76
+    ],
+    [
+     109.0,
+     5449,
+     3,
+     546,
+     78
+    ],
+    [
+     110.0,
+     5500,
+     3,
+     581,
+     80
+    ],
+    [
+     111.0,
+     5549,
+     3,
+     516,
+     82
+    ],
+    [
+     112.0,
+     5600,
+     3,
+     550,
+     84
+    ],
+    [
+     113.0,
+     5649,
+     3,
+     590,
+     86
+    ],
+    [
+     114.0,
+     5700,
+     3,
+     622,
+     88
+    ],
+    [
+     115.0,
+     5749,
+     2,
+     562,
+     90
+    ],
+    [
+     116.0,
+     5800,
+     2,
+     598,
+     92
+    ],
+    [
+     117.0,
+     5849,
+     3,
+     634,
+     94
+    ],
+    [
+     118.0,
+     5900,
+     3,
+     668,
+     96
+    ],
+    [
+     119.0,
+     5949,
+     3,
+     701,
+     98
+    ],
+    [
+     120.0,
+     6000,
+     3,
+     737,
+     100
+    ],
+    [
+     121.0,
+     6049,
+     2,
+     511,
+     85
+    ],
+    [
+     122.0,
+     6100,
+     3,
+     515,
+     87
+    ],
+    [
+     123.0,
+     6149,
+     2,
+     558,
+     89
+    ],
+    [
+     124.0,
+     6200,
+     3,
+     595,
+     91
+    ],
+    [
+     125.0,
+     6249,
+     3,
+     631,
+     93
+    ],
+    [
+     126.0,
+     6300,
+     3,
+     668,
+     95
+    ],
+    [
+     127.0,
+     6349,
+     2,
+     704,
+     97
+    ],
+    [
+     128.0,
+     6400,
+     3,
+     537,
+     99
+    ],
+    [
+     129.0,
+     6449,
+     3,
+     477,
+     76
+    ],
+    [
+     130.0,
+     6500,
+     3,
+     515,
+     78
+    ],
+    [
+     131.0,
+     6549,
+     3,
+     554,
+     80
+    ],
+    [
+     132.0,
+     6600,
+     3,
+     587,
+     82
+    ],
+    [
+     133.0,
+     6649,
+     3,
+     625,
+     84
+    ],
+    [
+     134.0,
+     6700,
+     3,
+     660,
+     86
+    ],
+    [
+     135.0,
+     6749,
+     3,
+     697,
+     88
+    ],
+    [
+     136.0,
+     6800,
+     2,
+     730,
+     90
+    ],
+    [
+     137.0,
+     6849,
+     3,
+     765,
+     92
+    ],
+    [
+     138.0,
+     6900,
+     2,
+     794,
+     94
+    ],
+    [
+     139.0,
+     6949,
+     3,
+     729,
+     69
+    ],
+    [
+     140.0,
+     7000,
+     3,
+     564,
+     71
+    ],
+    [
+     141.0,
+     7049,
+     2,
+     602,
+     73
+    ],
+    [
+     142.0,
+     7100,
+     3,
+     635,
+     75
+    ],
+    [
+     143.0,
+     7149,
+     2,
+     671,
+     77
+    ],
+    [
+     144.0,
+     7200,
+     3,
+     699,
+     79
+    ],
+    [
+     145.0,
+     7249,
+     2,
+     738,
+     81
+    ],
+    [
+     146.0,
+     7300,
+     3,
+     668,
+     83
+    ],
+    [
+     147.0,
+     7349,
+     3,
+     702,
+     85
+    ],
+    [
+     148.0,
+     7400,
+     3,
+     737,
+     87
+    ],
+    [
+     149.0,
+     7449,
+     2,
+     771,
+     89
+    ],
+    [
+     150.0,
+     7500,
+     2,
+     805,
+     91
+    ],
+    [
+     151.0,
+     7549,
+     2,
+     732,
+     93
+    ],
+    [
+     152.0,
+     7600,
+     2,
+     665,
+     95
+    ],
+    [
+     153.0,
+     7649,
+     2,
+     597,
+     97
+    ],
+    [
+     154.0,
+     7700,
+     2,
+     539,
+     83
+    ],
+    [
+     155.0,
+     7749,
+     3,
+     576,
+     85
+    ],
+    [
+     156.0,
+     7800,
+     3,
+     614,
+     87
+    ],
+    [
+     157.0,
+     7849,
+     3,
+     647,
+     89
+    ],
+    [
+     158.0,
+     7900,
+     3,
+     688,
+     91
+    ],
+    [
+     159.0,
+     7949,
+     3,
+     725,
+     93
+    ],
+    [
+     160.0,
+     8000,
+     3,
+     759,
+     95
+    ],
+    [
+     161.0,
+     8049,
+     2,
+     796,
+     97
+    ],
+    [
+     162.0,
+     8100,
+     3,
+     830,
+     99
+    ],
+    [
+     163.0,
+     8149,
+     2,
+     762,
+     101
+    ],
+    [
+     164.0,
+     8200,
+     2,
+     694,
+     103
+    ],
+    [
+     165.0,
+     8249,
+     2,
+     632,
+     105
+    ],
+    [
+     166.0,
+     8300,
+     3,
+     667,
+     107
+    ],
+    [
+     167.0,
+     8349,
+     3,
+     706,
+     109
+    ],
+    [
+     168.0,
+     8400,
+     2,
+     640,
+     86
+    ],
+    [
+     169.0,
+     8449,
+     3,
+     677,
+     88
+    ],
+    [
+     170.0,
+     8500,
+     3,
+     711,
+     90
+    ],
+    [
+     171.0,
+     8549,
+     2,
+     777,
+     92
+    ],
+    [
+     172.0,
+     8600,
+     2,
+     581,
+     94
+    ],
+    [
+     173.0,
+     8649,
+     2,
+     516,
+     96
+    ],
+    [
+     174.0,
+     8700,
+     3,
+     550,
+     98
+    ],
+    [
+     175.0,
+     8749,
+     2,
+     590,
+     100
+    ],
+    [
+     176.0,
+     8800,
+     2,
+     626,
+     102
+    ],
+    [
+     177.0,
+     8849,
+     3,
+     667,
+     104
+    ],
+    [
+     178.0,
+     8900,
+     2,
+     601,
+     106
+    ],
+    [
+     179.0,
+     8949,
+     3,
+     646,
+     108
+    ],
+    [
+     180.0,
+     9000,
+     3,
+     584,
+     110
+    ],
+    [
+     181.0,
+     9049,
+     2,
+     627,
+     112
+    ],
+    [
+     182.0,
+     9100,
+     3,
+     665,
+     114
+    ],
+    [
+     183.0,
+     9149,
+     3,
+     707,
+     116
+    ],
+    [
+     184.0,
+     9200,
+     2,
+     739,
+     118
+    ],
+    [
+     185.0,
+     9249,
+     2,
+     675,
+     120
+    ],
+    [
+     186.0,
+     9300,
+     2,
+     712,
+     122
+    ],
+    [
+     187.0,
+     9349,
+     2,
+     653,
+     124
+    ],
+    [
+     188.0,
+     9400,
+     3,
+     694,
+     126
+    ],
+    [
+     189.0,
+     9449,
+     3,
+     732,
+     128
+    ],
+    [
+     190.0,
+     9500,
+     2,
+     767,
+     130
+    ],
+    [
+     191.0,
+     9549,
+     3,
+     803,
+     132
+    ],
+    [
+     192.0,
+     9600,
+     3,
+     840,
+     134
+    ],
+    [
+     193.0,
+     9649,
+     3,
+     775,
+     136
+    ],
+    [
+     194.0,
+     9700,
+     2,
+     708,
+     120
+    ],
+    [
+     195.0,
+     9749,
+     3,
+     643,
+     122
+    ],
+    [
+     196.0,
+     9800,
+     3,
+     686,
+     124
+    ],
+    [
+     197.0,
+     9849,
+     2,
+     718,
+     126
+    ],
+    [
+     198.0,
+     9900,
+     3,
+     746,
+     128
+    ],
+    [
+     199.0,
+     9949,
+     3,
+     686,
+     102
+    ],
+    [
+     200.0,
+     10000,
+     3,
+     617,
+     104
+    ],
+    [
+     201.0,
+     10049,
+     3,
+     657,
+     106
+    ],
+    [
+     202.0,
+     10100,
+     3,
+     690,
+     108
+    ],
+    [
+     203.0,
+     10149,
+     3,
+     721,
+     110
+    ],
+    [
+     204.0,
+     10200,
+     2,
+     659,
+     112
+    ],
+    [
+     205.0,
+     10249,
+     2,
+     603,
+     114
+    ],
+    [
+     206.0,
+     10300,
+     3,
+     539,
+     116
+    ],
+    [
+     207.0,
+     10349,
+     3,
+     573,
+     118
+    ],
+    [
+     208.0,
+     10400,
+     3,
+     616,
+     120
+    ],
+    [
+     209.0,
+     10449,
+     2,
+     654,
+     122
+    ],
+    [
+     210.0,
+     10500,
+     3,
+     692,
+     124
+    ],
+    [
+     211.0,
+     10549,
+     3,
+     729,
+     126
+    ],
+    [
+     212.0,
+     10600,
+     3,
+     754,
+     128
+    ],
+    [
+     213.0,
+     10649,
+     3,
+     794,
+     130
+    ],
+    [
+     214.0,
+     10700,
+     3,
+     824,
+     132
+    ],
+    [
+     215.0,
+     10749,
+     2,
+     856,
+     134
+    ],
+    [
+     216.0,
+     10800,
+     2,
+     892,
+     136
+    ],
+    [
+     217.0,
+     10849,
+     2,
+     825,
+     138
+    ],
+    [
+     218.0,
+     10900,
+     3,
+     858,
+     140
+    ],
+    [
+     219.0,
+     10949,
+     3,
+     892,
+     142
+    ],
+    [
+     220.0,
+     11000,
+     3,
+     924,
+     144
+    ],
+    [
+     221.0,
+     11049,
+     3,
+     861,
+     133
+    ],
+    [
+     222.0,
+     11100,
+     3,
+     895,
+     135
+    ],
+    [
+     223.0,
+     11149,
+     3,
+     924,
+     137
+    ],
+    [
+     224.0,
+     11200,
+     6,
+     824,
+     112
+    ],
+    [
+     225.0,
+     11249,
+     3,
+     785,
+     98
+    ],
+    [
+     226.0,
+     11300,
+     3,
+     818,
+     100
+    ],
+    [
+     227.0,
+     11349,
+     3,
+     747,
+     102
+    ],
+    [
+     228.0,
+     11400,
+     3,
+     778,
+     104
+    ],
+    [
+     229.0,
+     11449,
+     3,
+     810,
+     106
+    ],
+    [
+     230.0,
+     11500,
+     3,
+     841,
+     108
+    ],
+    [
+     231.0,
+     11549,
+     2,
+     767,
+     110
+    ],
+    [
+     232.0,
+     11600,
+     2,
+     791,
+     112
+    ],
+    [
+     233.0,
+     11649,
+     2,
+     726,
+     114
+    ],
+    [
+     234.0,
+     11700,
+     2,
+     762,
+     116
+    ],
+    [
+     235.0,
+     11749,
+     2,
+     797,
+     118
+    ],
+    [
+     236.0,
+     11800,
+     3,
+     727,
+     120
+    ],
+    [
+     237.0,
+     11849,
+     2,
+     767,
+     122
+    ],
+    [
+     238.0,
+     11900,
+     3,
+     598,
+     124
+    ],
+    [
+     239.0,
+     11949,
+     2,
+     636,
+     126
+    ],
+    [
+     240.0,
+     12000,
+     3,
+     674,
+     128
+    ],
+    [
+     241.0,
+     12049,
+     2,
+     638,
+     130
+    ],
+    [
+     242.0,
+     12100,
+     3,
+     642,
+     132
+    ],
+    [
+     243.0,
+     12149,
+     2,
+     675,
+     134
+    ],
+    [
+     244.0,
+     12200,
+     2,
+     745,
+     136
+    ],
+    [
+     245.0,
+     12249,
+     3,
+     653,
+     136
+    ],
+    [
+     246.0,
+     12300,
+     3,
+     589,
+     138
+    ],
+    [
+     247.0,
+     12349,
+     3,
+     623,
+     140
+    ],
+    [
+     248.0,
+     12400,
+     3,
+     659,
+     142
+    ],
+    [
+     249.0,
+     12449,
+     2,
+     698,
+     144
+    ],
+    [
+     250.0,
+     12500,
+     2,
+     738,
+     146
+    ],
+    [
+     251.0,
+     12549,
+     2,
+     673,
+     147
+    ],
+    [
+     252.0,
+     12600,
+     3,
+     711,
+     149
+    ],
+    [
+     253.0,
+     12649,
+     3,
+     751,
+     151
+    ],
+    [
+     254.0,
+     12700,
+     2,
+     779,
+     153
+    ],
+    [
+     255.0,
+     12749,
+     3,
+     710,
+     155
+    ],
+    [
+     256.0,
+     12800,
+     3,
+     749,
+     157
+    ],
+    [
+     257.0,
+     12849,
+     2,
+     782,
+     159
+    ],
+    [
+     258.0,
+     12900,
+     1,
+     840,
+     161
+    ],
+    [
+     259.0,
+     12949,
+     3,
+     646,
+     145
+    ],
+    [
+     260.0,
+     13000,
+     2,
+     682,
+     147
+    ],
+    [
+     261.0,
+     13049,
+     2,
+     720,
+     149
+    ],
+    [
+     262.0,
+     13100,
+     3,
+     756,
+     151
+    ],
+    [
+     263.0,
+     13149,
+     2,
+     791,
+     153
+    ],
+    [
+     264.0,
+     13200,
+     3,
+     822,
+     155
+    ],
+    [
+     265.0,
+     13249,
+     2,
+     659,
+     118
+    ],
+    [
+     266.0,
+     13300,
+     2,
+     696,
+     120
+    ],
+    [
+     267.0,
+     13349,
+     3,
+     732,
+     122
+    ],
+    [
+     268.0,
+     13400,
+     2,
+     667,
+     119
+    ],
+    [
+     269.0,
+     13449,
+     3,
+     709,
+     121
+    ],
+    [
+     270.0,
+     13500,
+     2,
+     644,
+     123
+    ],
+    [
+     271.0,
+     13549,
+     2,
+     685,
+     125
+    ],
+    [
+     272.0,
+     13600,
+     2,
+     622,
+     127
+    ],
+    [
+     273.0,
+     13649,
+     3,
+     659,
+     129
+    ],
+    [
+     274.0,
+     13700,
+     3,
+     695,
+     131
+    ],
+    [
+     275.0,
+     13749,
+     1,
+     757,
+     133
+    ],
+    [
+     276.0,
+     13800,
+     3,
+     761,
+     135
+    ],
+    [
+     277.0,
+     13849,
+     2,
+     596,
+     128
+    ],
+    [
+     278.0,
+     13900,
+     3,
+     626,
+     130
+    ],
+    [
+     279.0,
+     13949,
+     3,
+     668,
+     132
+    ],
+    [
+     280.0,
+     14000,
+     3,
+     700,
+     134
+    ],
+    [
+     281.0,
+     14049,
+     2,
+     733,
+     136
+    ],
+    [
+     282.0,
+     14100,
+     3,
+     770,
+     138
+    ],
+    [
+     283.0,
+     14149,
+     2,
+     803,
+     140
+    ],
+    [
+     284.0,
+     14200,
+     3,
+     732,
+     128
+    ],
+    [
+     285.0,
+     14249,
+     3,
+     760,
+     130
+    ],
+    [
+     286.0,
+     14300,
+     3,
+     793,
+     132
+    ],
+    [
+     287.0,
+     14349,
+     2,
+     726,
+     134
+    ],
+    [
+     288.0,
+     14400,
+     2,
+     661,
+     123
+    ],
+    [
+     289.0,
+     14449,
+     3,
+     696,
+     125
+    ],
+    [
+     290.0,
+     14500,
+     3,
+     737,
+     127
+    ],
+    [
+     291.0,
+     14549,
+     3,
+     770,
+     129
+    ],
+    [
+     292.0,
+     14600,
+     2,
+     803,
+     131
+    ],
+    [
+     293.0,
+     14649,
+     2,
+     738,
+     133
+    ],
+    [
+     294.0,
+     14700,
+     2,
+     678,
+     135
+    ],
+    [
+     295.0,
+     14749,
+     2,
+     617,
+     116
+    ],
+    [
+     296.0,
+     14800,
+     3,
+     650,
+     118
+    ],
+    [
+     297.0,
+     14849,
+     3,
+     583,
+     120
+    ],
+    [
+     298.0,
+     14900,
+     3,
+     623,
+     122
+    ],
+    [
+     299.0,
+     14949,
+     2,
+     660,
+     124
+    ],
+    [
+     300.0,
+     15000,
+     2,
+     698,
+     126
+    ],
+    [
+     301.0,
+     15000,
+     0,
+     736,
+     126
+    ],
+    [
+     302.0,
+     15000,
+     0,
+     736,
+     126
+    ],
+    [
+     303.0,
+     15000,
+     0,
+     736,
+     126
+    ],
+    [
+     304.0,
+     15000,
+     0,
+     736,
+     126
+    ],
+    [
+     305.0,
+     15000,
+     0,
+     736,
+     126
+    ],
+    [
+     306.0,
+     15000,
+     0,
+     636,
+     126
+    ],
+    [
+     307.0,
+     15000,
+     0,
+     636,
+     126
+    ],
+    [
+     308.0,
+     15000,
+     0,
+     436,
+     99
+    ],
+    [
+     309.0,
+     15000,
+     0,
+     436,
+     99
+    ],
+    [
+     310.0,
+     15000,
+     0,
+     436,
+     99
+    ],
+    [
+     311.0,
+     15000,
+     0,
+     436,
+     99
+    ],
+    [
+     312.0,
+     15000,
+     0,
+     436,
+     99
+    ],
+    [
+     313.0,
+     15000,
+     0,
+     436,
+     99
+    ],
+    [
+     314.0,
+     15000,
+     0,
+     436,
+     99
+    ],
+    [
+     315.0,
+     15000,
+     0,
+     436,
+     99
+    ],
+    [
+     316.0,
+     15000,
+     0,
+     436,
+     99
+    ],
+    [
+     317.0,
+     15000,
+     0,
+     436,
+     99
+    ],
+    [
+     318.0,
+     15000,
+     0,
+     336,
+     99
+    ],
+    [
+     319.0,
+     15000,
+     0,
+     336,
+     99
+    ],
+    [
+     320.0,
+     15000,
+     0,
+     336,
+     99
+    ],
+    [
+     321.0,
+     15000,
+     0,
+     336,
+     99
+    ],
+    [
+     322.0,
+     15000,
+     0,
+     336,
+     99
+    ],
+    [
+     323.0,
+     15000,
+     0,
+     336,
+     99
+    ],
+    [
+     324.0,
+     15000,
+     0,
+     236,
+     82
+    ],
+    [
+     325.0,
+     15000,
+     0,
+     236,
+     82
+    ],
+    [
+     326.0,
+     15000,
+     0,
+     136,
+     42
+    ],
+    [
+     327.0,
+     15000,
+     0,
+     136,
+     42
+    ],
+    [
+     328.0,
+     15000,
+     0,
+     136,
+     42
+    ],
+    [
+     329.0,
+     15000,
+     0,
+     100,
+     28
+    ],
+    [
+     330.0,
+     15000,
+     0,
+     100,
+     28
+    ],
+    [
+     331.0,
+     15000,
+     0,
+     0,
+     0
+    ]
+   ],
+   "latency_samples": {
+    "create": [
+     [
+      1.0,
+      5.001
+     ],
+     [
+      2.0,
+      7.007
+     ],
+     [
+      3.0,
+      7.005
+     ],
+     [
+      4.0,
+      6.998
+     ],
+     [
+      5.0,
+      8.008
+     ],
+     [
+      12.0,
+      9.0
+     ],
+     [
+      13.0,
+      7.992
+     ],
+     [
+      6.0,
+      21.004
+     ],
+     [
+      7.0,
+      20.003
+     ],
+     [
+      10.0,
+      17.003
+     ],
+     [
+      9.0,
+      17.999
+     ],
+     [
+      8.0,
+      18.997
+     ],
+     [
+      11.0,
+      16.004
+     ],
+     [
+      15.0,
+      14.993
+     ],
+     [
+      14.0,
+      16.001
+     ],
+     [
+      29.0,
+      26.002
+     ],
+     [
+      26.0,
+      29.009
+     ],
+     [
+      18.0,
+      37.005
+     ],
+     [
+      23.0,
+      32.006
+     ],
+     [
+      25.0,
+      29.998
+     ],
+     [
+      24.0,
+      31.004
+     ],
+     [
+      17.0,
+      38.003
+     ],
+     [
+      16.0,
+      39.005
+     ],
+     [
+      27.0,
+      28.002
+     ],
+     [
+      22.0,
+      33.008
+     ],
+     [
+      30.0,
+      25.004
+     ],
+     [
+      19.0,
+      35.995
+     ],
+     [
+      21.0,
+      34.007
+     ],
+     [
+      28.0,
+      27.007
+     ],
+     [
+      20.0,
+      35.003
+     ],
+     [
+      32.0,
+      31.997
+     ],
+     [
+      35.0,
+      29.003
+     ],
+     [
+      33.0,
+      30.998
+     ],
+     [
+      34.0,
+      30.002
+     ],
+     [
+      37.0,
+      27.001
+     ],
+     [
+      36.0,
+      27.997
+     ],
+     [
+      31.0,
+      32.998
+     ],
+     [
+      38.0,
+      35.002
+     ],
+     [
+      42.0,
+      31.004
+     ],
+     [
+      39.0,
+      34.004
+     ],
+     [
+      41.0,
+      32.0
+     ],
+     [
+      40.0,
+      32.997
+     ],
+     [
+      43.0,
+      30.003
+     ],
+     [
+      44.0,
+      34.003
+     ],
+     [
+      45.0,
+      32.983
+     ],
+     [
+      48.0,
+      40.002
+     ],
+     [
+      49.0,
+      38.998
+     ],
+     [
+      52.0,
+      35.998
+     ],
+     [
+      51.0,
+      36.998
+     ],
+     [
+      47.0,
+      41.0
+     ],
+     [
+      50.0,
+      37.995
+     ],
+     [
+      46.0,
+      41.998
+     ],
+     [
+      59.0,
+      42.002
+     ],
+     [
+      53.0,
+      48.0
+     ],
+     [
+      57.0,
+      43.999
+     ],
+     [
+      61.0,
+      40.001
+     ],
+     [
+      69.0,
+      31.998
+     ],
+     [
+      72.0,
+      28.997
+     ],
+     [
+      63.0,
+      38.002
+     ],
+     [
+      60.0,
+      41.003
+     ],
+     [
+      64.0,
+      37.001
+     ],
+     [
+      54.0,
+      46.995
+     ],
+     [
+      67.0,
+      33.994
+     ],
+     [
+      66.0,
+      35.001
+     ],
+     [
+      70.0,
+      30.999
+     ],
+     [
+      55.0,
+      45.996
+     ],
+     [
+      58.0,
+      42.998
+     ],
+     [
+      71.0,
+      29.999
+     ],
+     [
+      68.0,
+      32.999
+     ],
+     [
+      65.0,
+      36.001
+     ],
+     [
+      56.0,
+      44.998
+     ],
+     [
+      62.0,
+      39.003
+     ],
+     [
+      76.0,
+      45.001
+     ],
+     [
+      73.0,
+      47.998
+     ],
+     [
+      80.0,
+      40.999
+     ],
+     [
+      79.0,
+      41.997
+     ],
+     [
+      75.0,
+      46.004
+     ],
+     [
+      74.0,
+      47.004
+     ],
+     [
+      78.0,
+      42.999
+     ],
+     [
+      77.0,
+      44.002
+     ],
+     [
+      90.0,
+      39.002
+     ],
+     [
+      82.0,
+      46.997
+     ],
+     [
+      81.0,
+      47.985
+     ],
+     [
+      84.0,
+      44.999
+     ],
+     [
+      89.0,
+      40.0
+     ],
+     [
+      92.0,
+      36.999
+     ],
+     [
+      87.0,
+      41.996
+     ],
+     [
+      86.0,
+      42.999
+     ],
+     [
+      91.0,
+      37.993
+     ],
+     [
+      83.0,
+      45.998
+     ],
+     [
+      85.0,
+      43.992
+     ],
+     [
+      88.0,
+      40.997
+     ],
+     [
+      95.0,
+      43.993
+     ],
+     [
+      99.0,
+      39.997
+     ],
+     [
+      94.0,
+      44.997
+     ],
+     [
+      103.0,
+      35.991
+     ],
+     [
+      96.0,
+      42.995
+     ],
+     [
+      93.0,
+      45.999
+     ],
+     [
+      101.0,
+      37.997
+     ],
+     [
+      98.0,
+      40.997
+     ],
+     [
+      105.0,
+      33.993
+     ],
+     [
+      102.0,
+      36.997
+     ],
+     [
+      97.0,
+      41.99
+     ],
+     [
+      100.0,
+      38.996
+     ],
+     [
+      104.0,
+      34.994
+     ],
+     [
+      112.0,
+      41.991
+     ],
+     [
+      111.0,
+      43.004
+     ],
+     [
+      109.0,
+      44.997
+     ],
+     [
+      107.0,
+      47.0
+     ],
+     [
+      106.0,
+      47.997
+     ],
+     [
+      110.0,
+      43.998
+     ],
+     [
+      108.0,
+      46.0
+     ],
+     [
+      117.0,
+      51.001
+     ],
+     [
+      113.0,
+      54.997
+     ],
+     [
+      114.0,
+      54.001
+     ],
+     [
+      121.0,
+      46.998
+     ],
+     [
+      115.0,
+      53.001
+     ],
+     [
+      124.0,
+      44.001
+     ],
+     [
+      125.0,
+      43.001
+     ],
+     [
+      119.0,
+      49.003
+     ],
+     [
+      116.0,
+      52.0
+     ],
+     [
+      123.0,
+      44.996
+     ],
+     [
+      118.0,
+      50.0
+     ],
+     [
+      120.0,
+      48.0
+     ],
+     [
+      122.0,
+      45.996
+     ],
+     [
+      132.0,
+      62.005
+     ],
+     [
+      131.0,
+      63.003
+     ],
+     [
+      133.0,
+      60.997
+     ],
+     [
+      126.0,
+      68.001
+     ],
+     [
+      130.0,
+      64.006
+     ],
+     [
+      129.0,
+      65.005
+     ],
+     [
+      128.0,
+      66.003
+     ],
+     [
+      134.0,
+      60.005
+     ],
+     [
+      127.0,
+      66.992
+     ],
+     [
+      141.0,
+      58.004
+     ],
+     [
+      142.0,
+      57.003
+     ],
+     [
+      137.0,
+      62.0
+     ],
+     [
+      147.0,
+      51.995
+     ],
+     [
+      138.0,
+      61.001
+     ],
+     [
+      139.0,
+      60.003
+     ],
+     [
+      135.0,
+      64.003
+     ],
+     [
+      149.0,
+      50.0
+     ],
+     [
+      145.0,
+      53.998
+     ],
+     [
+      148.0,
+      51.002
+     ],
+     [
+      140.0,
+      58.998
+     ],
+     [
+      143.0,
+      56.0
+     ],
+     [
+      146.0,
+      53.0
+     ],
+     [
+      144.0,
+      55.004
+     ],
+     [
+      136.0,
+      62.999
+     ],
+     [
+      154.0,
+      66.998
+     ],
+     [
+      153.0,
+      67.995
+     ],
+     [
+      152.0,
+      68.999
+     ],
+     [
+      155.0,
+      66.001
+     ],
+     [
+      150.0,
+      71.002
+     ],
+     [
+      151.0,
+      69.996
+     ],
+     [
+      170.0,
+      53.999
+     ],
+     [
+      177.0,
+      47.0
+     ],
+     [
+      172.0,
+      51.996
+     ],
+     [
+      167.0,
+      56.997
+     ],
+     [
+      174.0,
+      49.999
+     ],
+     [
+      175.0,
+      48.99
+     ],
+     [
+      173.0,
+      50.999
+     ],
+     [
+      165.0,
+      58.983
+     ],
+     [
+      164.0,
+      59.999
+     ],
+     [
+      171.0,
+      52.997
+     ],
+     [
+      176.0,
+      47.991
+     ],
+     [
+      169.0,
+      54.995
+     ],
+     [
+      168.0,
+      55.997
+     ],
+     [
+      166.0,
+      57.995
+     ],
+     [
+      160.0,
+      65.008
+     ],
+     [
+      158.0,
+      67.008
+     ],
+     [
+      159.0,
+      66.013
+     ],
+     [
+      163.0,
+      62.0
+     ],
+     [
+      157.0,
+      68.006
+     ],
+     [
+      156.0,
+      69.012
+     ],
+     [
+      162.0,
+      63.012
+     ],
+     [
+      161.0,
+      64.01
+     ],
+     [
+      198.0,
+      53.001
+     ],
+     [
+      199.0,
+      60.004
+     ],
+     [
+      201.0,
+      58.006
+     ],
+     [
+      202.0,
+      57.008
+     ],
+     [
+      200.0,
+      59.001
+     ],
+     [
+      207.0,
+      52.005
+     ],
+     [
+      204.0,
+      55.004
+     ],
+     [
+      206.0,
+      53.004
+     ],
+     [
+      203.0,
+      56.005
+     ],
+     [
+      205.0,
+      54.008
+     ],
+     [
+      183.0,
+      82.002
+     ],
+     [
+      190.0,
+      75.002
+     ],
+     [
+      178.0,
+      87.004
+     ],
+     [
+      181.0,
+      84.002
+     ],
+     [
+      189.0,
+      76.005
+     ],
+     [
+      184.0,
+      81.003
+     ],
+     [
+      188.0,
+      77.006
+     ],
+     [
+      182.0,
+      82.998
+     ],
+     [
+      192.0,
+      73.002
+     ],
+     [
+      191.0,
+      74.006
+     ],
+     [
+      195.0,
+      69.999
+     ],
+     [
+      180.0,
+      84.997
+     ],
+     [
+      197.0,
+      68.006
+     ],
+     [
+      194.0,
+      71.002
+     ],
+     [
+      187.0,
+      77.999
+     ],
+     [
+      185.0,
+      80.0
+     ],
+     [
+      179.0,
+      86.006
+     ],
+     [
+      186.0,
+      79.006
+     ],
+     [
+      196.0,
+      69.006
+     ],
+     [
+      193.0,
+      72.005
+     ],
+     [
+      208.0,
+      60.003
+     ],
+     [
+      209.0,
+      59.0
+     ],
+     [
+      211.0,
+      65.996
+     ],
+     [
+      213.0,
+      63.999
+     ],
+     [
+      210.0,
+      67.002
+     ],
+     [
+      212.0,
+      64.999
+     ],
+     [
+      220.0,
+      64.0
+     ],
+     [
+      218.0,
+      65.997
+     ],
+     [
+      219.0,
+      65.0
+     ],
+     [
+      214.0,
+      69.997
+     ],
+     [
+      217.0,
+      66.997
+     ],
+     [
+      216.0,
+      67.998
+     ],
+     [
+      215.0,
+      69.0
+     ],
+     [
+      224.0,
+      64.007
+     ],
+     [
+      222.0,
+      66.005
+     ],
+     [
+      223.0,
+      65.006
+     ],
+     [
+      226.0,
+      62.006
+     ],
+     [
+      225.0,
+      62.996
+     ],
+     [
+      221.0,
+      67.005
+     ],
+     [
+      229.0,
+      65.996
+     ],
+     [
+      227.0,
+      68.002
+     ],
+     [
+      233.0,
+      61.998
+     ],
+     [
+      237.0,
+      57.996
+     ],
+     [
+      231.0,
+      64.0
+     ],
+     [
+      230.0,
+      65.0
+     ],
+     [
+      232.0,
+      63.0
+     ],
+     [
+      235.0,
+      59.998
+     ],
+     [
+      236.0,
+      58.997
+     ],
+     [
+      228.0,
+      66.999
+     ],
+     [
+      234.0,
+      60.997
+     ],
+     [
+      239.0,
+      68.988
+     ],
+     [
+      241.0,
+      66.983
+     ],
+     [
+      248.0,
+      59.987
+     ],
+     [
+      246.0,
+      61.981
+     ],
+     [
+      245.0,
+      62.987
+     ],
+     [
+      244.0,
+      63.978
+     ],
+     [
+      238.0,
+      69.986
+     ],
+     [
+      242.0,
+      65.98
+     ],
+     [
+      240.0,
+      67.985
+     ],
+     [
+      250.0,
+      57.985
+     ],
+     [
+      247.0,
+      60.987
+     ],
+     [
+      243.0,
+      64.987
+     ],
+     [
+      249.0,
+      58.987
+     ],
+     [
+      252.0,
+      71.987
+     ],
+     [
+      255.0,
+      68.988
+     ],
+     [
+      258.0,
+      65.985
+     ],
+     [
+      259.0,
+      64.982
+     ],
+     [
+      251.0,
+      72.986
+     ],
+     [
+      254.0,
+      69.985
+     ],
+     [
+      253.0,
+      70.983
+     ],
+     [
+      257.0,
+      66.984
+     ],
+     [
+      256.0,
+      67.986
+     ],
+     [
+      284.0,
+      41.989
+     ],
+     [
+      280.0,
+      45.987
+     ],
+     [
+      287.0,
+      38.987
+     ],
+     [
+      283.0,
+      42.984
+     ],
+     [
+      289.0,
+      36.983
+     ],
+     [
+      277.0,
+      48.987
+     ],
+     [
+      285.0,
+      40.982
+     ],
+     [
+      281.0,
+      44.989
+     ],
+     [
+      291.0,
+      34.986
+     ],
+     [
+      274.0,
+      51.982
+     ],
+     [
+      290.0,
+      35.98
+     ],
+     [
+      288.0,
+      37.983
+     ],
+     [
+      276.0,
+      49.986
+     ],
+     [
+      293.0,
+      32.982
+     ],
+     [
+      286.0,
+      39.986
+     ],
+     [
+      275.0,
+      50.976
+     ],
+     [
+      282.0,
+      43.986
+     ],
+     [
+      278.0,
+      47.988
+     ],
+     [
+      279.0,
+      46.99
+     ],
+     [
+      292.0,
+      33.985
+     ],
+     [
+      300.0,
+      28.986
+     ],
+     [
+      298.0,
+      30.98
+     ],
+     [
+      296.0,
+      32.982
+     ],
+     [
+      297.0,
+      31.988
+     ],
+     [
+      299.0,
+      29.988
+     ],
+     [
+      295.0,
+      33.988
+     ],
+     [
+      294.0,
+      34.988
+     ],
+     [
+      260.0,
+      70.984
+     ],
+     [
+      270.0,
+      60.988
+     ],
+     [
+      266.0,
+      64.986
+     ],
+     [
+      273.0,
+      57.984
+     ],
+     [
+      261.0,
+      69.986
+     ],
+     [
+      269.0,
+      61.979
+     ],
+     [
+      272.0,
+      58.986
+     ],
+     [
+      267.0,
+      63.986
+     ],
+     [
+      265.0,
+      65.982
+     ],
+     [
+      268.0,
+      62.987
+     ],
+     [
+      263.0,
+      67.987
+     ],
+     [
+      271.0,
+      59.968
+     ],
+     [
+      264.0,
+      66.985
+     ],
+     [
+      262.0,
+      68.984
+     ]
+    ],
+    "update": [
+     [
+      1.0,
+      5.005
+     ],
+     [
+      2.0,
+      7.009
+     ],
+     [
+      3.0,
+      7.007
+     ],
+     [
+      4.0,
+      7.001
+     ],
+     [
+      5.0,
+      8.01
+     ],
+     [
+      13.0,
+      7.998
+     ],
+     [
+      12.0,
+      9.003
+     ],
+     [
+      11.0,
+      16.007
+     ],
+     [
+      7.0,
+      20.007
+     ],
+     [
+      10.0,
+      17.005
+     ],
+     [
+      6.0,
+      21.006
+     ],
+     [
+      8.0,
+      19.001
+     ],
+     [
+      9.0,
+      18.002
+     ],
+     [
+      15.0,
+      14.997
+     ],
+     [
+      14.0,
+      16.004
+     ],
+     [
+      18.0,
+      37.009
+     ],
+     [
+      27.0,
+      28.006
+     ],
+     [
+      24.0,
+      31.007
+     ],
+     [
+      26.0,
+      29.011
+     ],
+     [
+      22.0,
+      33.01
+     ],
+     [
+      17.0,
+      38.006
+     ],
+     [
+      16.0,
+      39.008
+     ],
+     [
+      19.0,
+      36.006
+     ],
+     [
+      21.0,
+      34.009
+     ],
+     [
+      20.0,
+      35.006
+     ],
+     [
+      28.0,
+      27.009
+     ],
+     [
+      23.0,
+      32.009
+     ],
+     [
+      29.0,
+      26.006
+     ],
+     [
+      30.0,
+      25.007
+     ],
+     [
+      25.0,
+      30.004
+     ],
+     [
+      33.0,
+      31.002
+     ],
+     [
+      37.0,
+      27.005
+     ],
+     [
+      32.0,
+      32.0
+     ],
+     [
+      36.0,
+      28.001
+     ],
+     [
+      34.0,
+      30.004
+     ],
+     [
+      35.0,
+      29.005
+     ],
+     [
+      38.0,
+      29.009
+     ],
+     [
+      39.0,
+      34.007
+     ],
+     [
+      42.0,
+      31.007
+     ],
+     [
+      43.0,
+      30.008
+     ],
+     [
+      40.0,
+      33.001
+     ],
+     [
+      41.0,
+      32.005
+     ],
+     [
+      31.0,
+      42.007
+     ],
+     [
+      45.0,
+      32.987
+     ],
+     [
+      50.0,
+      37.999
+     ],
+     [
+      47.0,
+      41.003
+     ],
+     [
+      48.0,
+      40.005
+     ],
+     [
+      51.0,
+      37.002
+     ],
+     [
+      49.0,
+      39.004
+     ],
+     [
+      52.0,
+      36.003
+     ],
+     [
+      53.0,
+      48.003
+     ],
+     [
+      65.0,
+      36.003
+     ],
+     [
+      54.0,
+      47.0
+     ],
+     [
+      61.0,
+      40.006
+     ],
+     [
+      63.0,
+      38.005
+     ],
+     [
+      58.0,
+      43.003
+     ],
+     [
+      62.0,
+      39.006
+     ],
+     [
+      70.0,
+      31.002
+     ],
+     [
+      67.0,
+      34.001
+     ],
+     [
+      66.0,
+      35.003
+     ],
+     [
+      59.0,
+      42.005
+     ],
+     [
+      69.0,
+      32.002
+     ],
+     [
+      64.0,
+      37.004
+     ],
+     [
+      55.0,
+      46.002
+     ],
+     [
+      68.0,
+      33.002
+     ],
+     [
+      60.0,
+      41.006
+     ],
+     [
+      57.0,
+      44.002
+     ],
+     [
+      71.0,
+      30.002
+     ],
+     [
+      74.0,
+      47.007
+     ],
+     [
+      75.0,
+      46.007
+     ],
+     [
+      44.0,
+      77.005
+     ],
+     [
+      80.0,
+      41.003
+     ],
+     [
+      79.0,
+      42.003
+     ],
+     [
+      78.0,
+      43.003
+     ],
+     [
+      77.0,
+      44.005
+     ],
+     [
+      73.0,
+      48.005
+     ],
+     [
+      76.0,
+      45.004
+     ],
+     [
+      81.0,
+      47.993
+     ],
+     [
+      82.0,
+      47.002
+     ],
+     [
+      88.0,
+      41.0
+     ],
+     [
+      90.0,
+      39.004
+     ],
+     [
+      87.0,
+      42.0
+     ],
+     [
+      56.0,
+      72.999
+     ],
+     [
+      84.0,
+      45.002
+     ],
+     [
+      89.0,
+      40.002
+     ],
+     [
+      91.0,
+      37.999
+     ],
+     [
+      92.0,
+      37.002
+     ],
+     [
+      86.0,
+      43.002
+     ],
+     [
+      85.0,
+      43.999
+     ],
+     [
+      83.0,
+      46.001
+     ],
+     [
+      100.0,
+      38.999
+     ],
+     [
+      102.0,
+      37.001
+     ],
+     [
+      72.0,
+      66.998
+     ],
+     [
+      98.0,
+      41.001
+     ],
+     [
+      105.0,
+      33.996
+     ],
+     [
+      97.0,
+      41.998
+     ],
+     [
+      93.0,
+      46.002
+     ],
+     [
+      101.0,
+      38.001
+     ],
+     [
+      103.0,
+      35.998
+     ],
+     [
+      104.0,
+      34.998
+     ],
+     [
+      96.0,
+      42.999
+     ],
+     [
+      99.0,
+      40.001
+     ],
+     [
+      95.0,
+      43.998
+     ],
+     [
+      94.0,
+      45.0
+     ],
+     [
+      46.0,
+      108.0
+     ],
+     [
+      109.0,
+      45.003
+     ],
+     [
+      110.0,
+      44.002
+     ],
+     [
+      106.0,
+      48.001
+     ],
+     [
+      112.0,
+      41.995
+     ],
+     [
+      108.0,
+      46.003
+     ],
+     [
+      113.0,
+      41.0
+     ],
+     [
+      107.0,
+      47.003
+     ],
+     [
+      111.0,
+      43.006
+     ],
+     [
+      117.0,
+      51.004
+     ],
+     [
+      118.0,
+      50.003
+     ],
+     [
+      123.0,
+      45.0
+     ],
+     [
+      115.0,
+      53.006
+     ],
+     [
+      125.0,
+      43.004
+     ],
+     [
+      121.0,
+      47.004
+     ],
+     [
+      116.0,
+      52.003
+     ],
+     [
+      114.0,
+      54.004
+     ],
+     [
+      122.0,
+      45.999
+     ],
+     [
+      124.0,
+      44.005
+     ],
+     [
+      119.0,
+      49.006
+     ],
+     [
+      120.0,
+      48.004
+     ],
+     [
+      127.0,
+      67.0
+     ],
+     [
+      130.0,
+      64.008
+     ],
+     [
+      128.0,
+      66.006
+     ],
+     [
+      132.0,
+      62.007
+     ],
+     [
+      129.0,
+      65.007
+     ],
+     [
+      135.0,
+      59.008
+     ],
+     [
+      133.0,
+      61.005
+     ],
+     [
+      134.0,
+      60.008
+     ],
+     [
+      131.0,
+      63.006
+     ],
+     [
+      142.0,
+      57.007
+     ],
+     [
+      138.0,
+      61.005
+     ],
+     [
+      139.0,
+      60.007
+     ],
+     [
+      144.0,
+      55.006
+     ],
+     [
+      141.0,
+      58.007
+     ],
+     [
+      140.0,
+      59.001
+     ],
+     [
+      143.0,
+      56.004
+     ],
+     [
+      137.0,
+      62.004
+     ],
+     [
+      136.0,
+      63.003
+     ],
+     [
+      145.0,
+      54.003
+     ],
+     [
+      147.0,
+      51.998
+     ],
+     [
+      146.0,
+      53.003
+     ],
+     [
+      148.0,
+      51.005
+     ],
+     [
+      154.0,
+      67.002
+     ],
+     [
+      152.0,
+      69.002
+     ],
+     [
+      155.0,
+      66.003
+     ],
+     [
+      153.0,
+      67.999
+     ],
+     [
+      126.0,
+      95.001
+     ],
+     [
+      150.0,
+      71.005
+     ],
+     [
+      151.0,
+      70.002
+     ],
+     [
+      169.0,
+      55.001
+     ],
+     [
+      165.0,
+      58.987
+     ],
+     [
+      173.0,
+      51.002
+     ],
+     [
+      175.0,
+      48.996
+     ],
+     [
+      170.0,
+      54.002
+     ],
+     [
+      171.0,
+      53.001
+     ],
+     [
+      172.0,
+      52.0
+     ],
+     [
+      177.0,
+      47.003
+     ],
+     [
+      176.0,
+      47.995
+     ],
+     [
+      174.0,
+      50.001
+     ],
+     [
+      166.0,
+      57.999
+     ],
+     [
+      168.0,
+      56.0
+     ],
+     [
+      167.0,
+      57.0
+     ],
+     [
+      164.0,
+      61.013
+     ],
+     [
+      160.0,
+      65.011
+     ],
+     [
+      158.0,
+      67.012
+     ],
+     [
+      157.0,
+      68.011
+     ],
+     [
+      161.0,
+      64.012
+     ],
+     [
+      159.0,
+      66.015
+     ],
+     [
+      162.0,
+      63.014
+     ],
+     [
+      163.0,
+      62.011
+     ],
+     [
+      149.0,
+      96.003
+     ],
+     [
+      156.0,
+      89.006
+     ],
+     [
+      203.0,
+      56.008
+     ],
+     [
+      200.0,
+      59.006
+     ],
+     [
+      204.0,
+      55.008
+     ],
+     [
+      207.0,
+      52.009
+     ],
+     [
+      206.0,
+      53.007
+     ],
+     [
+      202.0,
+      57.011
+     ],
+     [
+      205.0,
+      54.012
+     ],
+     [
+      199.0,
+      60.01
+     ],
+     [
+      201.0,
+      58.009
+     ],
+     [
+      191.0,
+      74.009
+     ],
+     [
+      182.0,
+      83.002
+     ],
+     [
+      179.0,
+      86.01
+     ],
+     [
+      192.0,
+      73.006
+     ],
+     [
+      196.0,
+      69.008
+     ],
+     [
+      195.0,
+      70.004
+     ],
+     [
+      194.0,
+      71.006
+     ],
+     [
+      189.0,
+      76.008
+     ],
+     [
+      184.0,
+      81.007
+     ],
+     [
+      186.0,
+      79.01
+     ],
+     [
+      193.0,
+      72.009
+     ],
+     [
+      187.0,
+      78.007
+     ],
+     [
+      197.0,
+      68.009
+     ],
+     [
+      188.0,
+      77.009
+     ],
+     [
+      185.0,
+      80.006
+     ],
+     [
+      180.0,
+      85.002
+     ],
+     [
+      183.0,
+      82.006
+     ],
+     [
+      190.0,
+      75.005
+     ],
+     [
+      181.0,
+      84.008
+     ],
+     [
+      208.0,
+      60.005
+     ],
+     [
+      209.0,
+      59.004
+     ],
+     [
+      198.0,
+      70.003
+     ],
+     [
+      213.0,
+      64.002
+     ],
+     [
+      211.0,
+      66.003
+     ],
+     [
+      210.0,
+      67.005
+     ],
+     [
+      212.0,
+      65.002
+     ],
+     [
+      178.0,
+      99.003
+     ],
+     [
+      219.0,
+      65.003
+     ],
+     [
+      216.0,
+      68.002
+     ],
+     [
+      217.0,
+      67.003
+     ],
+     [
+      218.0,
+      66.0
+     ],
+     [
+      214.0,
+      70.0
+     ],
+     [
+      220.0,
+      64.003
+     ],
+     [
+      215.0,
+      69.002
+     ],
+     [
+      226.0,
+      62.008
+     ],
+     [
+      222.0,
+      66.008
+     ],
+     [
+      221.0,
+      67.008
+     ],
+     [
+      225.0,
+      63.0
+     ],
+     [
+      224.0,
+      64.009
+     ],
+     [
+      227.0,
+      61.01
+     ],
+     [
+      223.0,
+      65.01
+     ],
+     [
+      235.0,
+      60.004
+     ],
+     [
+      230.0,
+      65.003
+     ],
+     [
+      237.0,
+      57.999
+     ],
+     [
+      228.0,
+      67.002
+     ],
+     [
+      229.0,
+      66.002
+     ],
+     [
+      236.0,
+      59.0
+     ],
+     [
+      234.0,
+      61.001
+     ],
+     [
+      231.0,
+      64.004
+     ],
+     [
+      233.0,
+      62.001
+     ],
+     [
+      232.0,
+      63.003
+     ],
+     [
+      248.0,
+      59.991
+     ],
+     [
+      243.0,
+      64.991
+     ],
+     [
+      239.0,
+      68.991
+     ],
+     [
+      240.0,
+      67.989
+     ],
+     [
+      242.0,
+      65.986
+     ],
+     [
+      246.0,
+      61.984
+     ],
+     [
+      245.0,
+      62.99
+     ],
+     [
+      247.0,
+      60.992
+     ],
+     [
+      238.0,
+      69.989
+     ],
+     [
+      244.0,
+      63.987
+     ],
+     [
+      250.0,
+      57.988
+     ],
+     [
+      251.0,
+      56.99
+     ],
+     [
+      241.0,
+      66.989
+     ],
+     [
+      249.0,
+      58.99
+     ],
+     [
+      259.0,
+      64.988
+     ],
+     [
+      255.0,
+      68.99
+     ],
+     [
+      257.0,
+      66.988
+     ],
+     [
+      258.0,
+      65.989
+     ],
+     [
+      252.0,
+      71.991
+     ],
+     [
+      254.0,
+      69.988
+     ],
+     [
+      256.0,
+      67.989
+     ],
+     [
+      253.0,
+      70.989
+     ],
+     [
+      285.0,
+      40.987
+     ],
+     [
+      287.0,
+      38.99
+     ],
+     [
+      288.0,
+      37.987
+     ],
+     [
+      291.0,
+      34.99
+     ],
+     [
+      274.0,
+      51.985
+     ],
+     [
+      282.0,
+      43.99
+     ],
+     [
+      284.0,
+      41.991
+     ],
+     [
+      276.0,
+      49.989
+     ],
+     [
+      277.0,
+      48.992
+     ],
+     [
+      290.0,
+      35.984
+     ],
+     [
+      279.0,
+      46.992
+     ],
+     [
+      275.0,
+      50.987
+     ],
+     [
+      293.0,
+      32.986
+     ],
+     [
+      283.0,
+      42.99
+     ],
+     [
+      286.0,
+      39.99
+     ],
+     [
+      292.0,
+      33.989
+     ],
+     [
+      278.0,
+      47.991
+     ],
+     [
+      280.0,
+      45.99
+     ],
+     [
+      281.0,
+      44.992
+     ],
+     [
+      289.0,
+      36.989
+     ],
+     [
+      299.0,
+      29.991
+     ],
+     [
+      296.0,
+      32.986
+     ],
+     [
+      297.0,
+      31.991
+     ],
+     [
+      298.0,
+      30.984
+     ],
+     [
+      295.0,
+      33.993
+     ],
+     [
+      294.0,
+      34.991
+     ],
+     [
+      300.0,
+      28.989
+     ],
+     [
+      267.0,
+      63.99
+     ],
+     [
+      264.0,
+      66.988
+     ],
+     [
+      265.0,
+      65.989
+     ],
+     [
+      272.0,
+      58.989
+     ],
+     [
+      263.0,
+      67.99
+     ],
+     [
+      269.0,
+      61.984
+     ],
+     [
+      261.0,
+      69.989
+     ],
+     [
+      270.0,
+      60.991
+     ],
+     [
+      273.0,
+      57.989
+     ],
+     [
+      262.0,
+      68.988
+     ],
+     [
+      271.0,
+      59.98
+     ],
+     [
+      266.0,
+      64.99
+     ],
+     [
+      268.0,
+      62.99
+     ],
+     [
+      260.0,
+      70.989
+     ]
+    ]
+   }
+  }
+ ],
+ "netbox_state": {
+  "dcim.Device": {
+   "count": 250,
+   "sha256": "e783d1cc57881699ceb6fe83890bea6bb92e32806a9635ef7f923afce48097b0"
+  },
+  "dcim.DeviceRole": {
+   "count": 3,
+   "sha256": "38be7e9cf9e737c0e4bebf113f59e34fd64411b548ee947d35eb580f1016cb57"
+  },
+  "dcim.DeviceType": {
+   "count": 5,
+   "sha256": "90b1fd775d22a5a5c06052b9c4f8969f31a9341fe2fc5967636ecaa43fd0363a"
+  },
+  "dcim.Interface": {
+   "count": 1000,
+   "sha256": "41f54b1ad7f315b411b413b62f3d7b72f683c23c59a757274133278c2be4414d"
+  },
+  "dcim.Manufacturer": {
+   "count": 5,
+   "sha256": "2c5c0334774efdf3a67d832daa567cabbf622e142f0e7930668a7f99e5d459cc"
+  },
+  "dcim.Platform": {
+   "count": 5,
+   "sha256": "b91f7c1259197c9f21081af6acc6801a58361de646517b29398c4bcaf6ea2956"
+  },
+  "dcim.Site": {
+   "count": 10,
+   "sha256": "f6e9afac5f5f35f6279710beb902b6e48c31c46525e063dee9304621911dae0d"
+  },
+  "extras.Tag": {
+   "count": 1,
+   "sha256": "ddd9c734ad6992e616dd2d80b03349472bc69e6ff16dc064213addfa3d4585e6"
+  },
+  "ipam.IPAddress": {
+   "count": 1000,
+   "sha256": "7f0901d487e6a07fa1e4127f53f3b72a6e282af2ce0307514a99bc3a37a74e6b"
+  },
+  "ipam.Prefix": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ipam.VLAN": {
+   "count": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+ },
+ "resources": {
+  "bench-auth": {
+   "cpu_avg_pct": 0.0,
+   "cpu_max_pct": 0.0,
+   "mem_max_mib": 14.7
+  },
+  "diode-ingester": {
+   "cpu_avg_pct": 0.6,
+   "cpu_max_pct": 2.5,
+   "mem_max_mib": 10.9
+  },
+  "diode-postgres": {
+   "cpu_avg_pct": 13.0,
+   "cpu_max_pct": 84.3,
+   "mem_max_mib": 98.0
+  },
+  "diode-reconciler": {
+   "cpu_avg_pct": 2.3,
+   "cpu_max_pct": 18.5,
+   "mem_max_mib": 18.7
+  },
+  "diode-redis": {
+   "cpu_avg_pct": 1.2,
+   "cpu_max_pct": 1.6,
+   "mem_max_mib": 3.9
+  },
+  "netbox": {
+   "cpu_avg_pct": 219.1,
+   "cpu_max_pct": 375.6,
+   "mem_max_mib": 1534.0
+  },
+  "netbox-postgres": {
+   "cpu_avg_pct": 76.7,
+   "cpu_max_pct": 117.3,
+   "mem_max_mib": 161.3
+  },
+  "netbox-redis": {
+   "cpu_avg_pct": 1.6,
+   "cpu_max_pct": 3.3,
+   "mem_max_mib": 5.1
+  },
+  "netbox-redis-cache": {
+   "cpu_avg_pct": 3.2,
+   "cpu_max_pct": 5.5,
+   "mem_max_mib": 4.6
+  }
+ },
+ "sustained_check": {
+  "counts_expected": {
+   "device": 250,
+   "interface": 1000,
+   "ip_address": 1000
+  },
+  "counts_netbox": {
+   "device": 250,
+   "interface": 1000,
+   "ip_address": 1000
+  },
+  "duplicate_ip_addresses": 0,
+  "updated_interfaces": 581,
+  "wrong_descriptions": 2,
+  "wrong_description_examples": {
+   "bench-dev-00031/eth0": {
+    "expected": "uplink 0 (rev997)",
+    "netbox": "uplink 0 (rev927)"
+   },
+   "bench-dev-00162/eth3": {
+    "expected": "uplink 3 (rev960)",
+    "netbox": "uplink 3 (rev898)"
+   }
+  },
+  "ok": false
+ }
+}

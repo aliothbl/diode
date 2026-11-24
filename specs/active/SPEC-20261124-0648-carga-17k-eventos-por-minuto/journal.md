@@ -33,3 +33,9 @@
   - Os cenários `std`/`large` não pegaram isso porque cada entidade tem no máximo uma versão em voo. O `review/README.md` recomenda concorrência 4 como default (o item "mais discutível"); este achado pesa contra, até haver correção.
   - O reconciler não tem chave de identidade da entidade (só o hash do conteúdo; `external_id` é UUID por linha). A correção exige uma: ordem por entidade no claim ou "superseded" da versão velha ao chegar uma nova. Fora do escopo desta SPEC como escrita; decisão do owner.
 - 2026-11-24 11:56 — SPEC-20261124-1134-ordem-versoes-mesma-entidade criada em `specs/future/` (draft) para o update perdido. Recomendação: opção B (o plugin rejeita escrita com `observed_at` mais velho, usando a identidade do próprio matcher). Confirmação da causa em andamento: `sustained` reduzido (200 devices × 4, 3.000/min, 300 s), 2 execuções com c=1 e 2 com c=4.
+- 2026-11-24 17:52 — **Causa do update perdido confirmada.** `sustained` reduzido (200 devices × 4 = 1.800 entidades base, 3.000/min por 300 s, 90/7/3; 581 interfaces atualizadas por execução, mesma semente):
+  - c=1 (`20261124-113136`, run1/run2): **0 e 0** descrições erradas; p95 de update 335 s / 351 s; NetBox 77% CPU.
+  - c=4 (`20261124-121002`, run1/run2): **25 e 2** descrições erradas; p95 de update 340 s / 77 s; NetBox 197% / 219% CPU.
+  - Contagens certas, 0 IPs duplicados e 0 FAILED em todas. Diode `550254b` (c=1) e `ad15923` (c=4): entre os dois só mudaram `specs/` e `bench/`, sem código.
+  - Conclusão: a gravação fora de ordem só aparece com batches concorrentes. Segue para a SPEC-20261124-1134; escolha entre as opções A e B pendente com o owner.
+  - Variância alta entre execuções iguais com c=4 (p95 340 s vs 77 s; carga base 140 s vs 106 s). Fica anotado para a fase 2, que precisa de ≥3 execuções por ponto.

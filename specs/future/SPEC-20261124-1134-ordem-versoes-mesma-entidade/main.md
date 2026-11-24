@@ -16,7 +16,7 @@
 **Relacionadas:** SPEC-20261124-0648-carga-17k-eventos-por-minuto (onde o problema apareceu); `review/README.md` (recomendação de concorrência 4 como default).
 **Impacto:** alto · **Complexidade:** alta
 **Estratégia upstream:** upstream-first. O upstream tem o mesmo risco com `AUTO_APPLY_PROCESSOR_CONCURRENCY > 1`. Proposta para a NetBox Labs só depois do retorno ao review atual e com novo OK do owner.
-**Origem:** SPEC-0648, 1ª execução `sustained` a 17.000/min com c=4 (`bench/results/20261124-083224-candidate-sustained-run1.json`, journal da 0648 em 2026-11-24 09:52).
+**Origem:** SPEC-0648, 1ª execução `sustained` a 17.000/min com c=4 (`bench/results/20261124-083224-candidate-sustained-run1.json`, journal da 0648 em 2026-11-24 09:52). Causa confirmada no `sustained` reduzido: c=1 → 0 e 0 descrições erradas; c=4 → 25 e 2 (`bench/results/20261124-113136-*`, `20261124-121002-*`).
 **Resumo:** Com c=4, o reconciler aplica batches vizinhos da fila em paralelo. Quando duas versões da mesma entidade (conteúdos diferentes, então linhas diferentes) caem em batches concorrentes, a mais velha pode gravar por último no NetBox. No bench, 24 de 6.241 interfaces atualizadas terminaram com uma descrição mais antiga que a última enviada. Em todos os casos as duas versões chegaram a ≤ ~9 s uma da outra, o que cabe nas 400 linhas em voo (c=4 × batch 100).
 
 ## Objetivo
