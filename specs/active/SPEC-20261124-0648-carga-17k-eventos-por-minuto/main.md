@@ -24,7 +24,7 @@ Responder com medição, não com estimativa, a duas perguntas:
 1. Qual o teto de ponta a ponta nesta máquina (12 núcleos, 31 GB) com o código atual?
 2. Que mudanças levam esse teto a 283 ent/s sustentados na mistura de carga definida pelo owner?
 
-O resultado esperado é o cenário de 17k/min rodando no `bench/` com o backlog estável (não cresce durante a janela de carga) e o estado final do NetBox correto.
+O resultado esperado é o cenário de 17k/min rodando no `bench/` dentro do critério de "sustentado" do DEC-3 (journal): create e update aplicados com latência p95 ≤ 60 s (envio → todas as ingestion logs do request em estado terminal), p95 da 2ª metade da janela ≤ 1,5 × p95 da 1ª metade, backlog (QUEUED + APPLYING + stream do Redis) sem crescer nos últimos 5 min, drenagem completa e estado final correto.
 
 ## Contexto medido (ponto de partida)
 
@@ -47,7 +47,7 @@ Limites de configuração que também entram na conta: `DIODE_TO_NETBOX_RATE_LIM
 
 *Fase 0: definir a carga (decisão do owner)*
 - Mistura de eventos: fração de create, update e repetido. Proposta, se o owner não tiver dado real: 90% repetido, 7% update, 3% create, que é o perfil típico de discovery (Orb) reenviando o inventário.
-- Duração da janela de carga (proposta: 10 min sustentados) e critério de "sustentado": o backlog (QUEUED + Redis stream) no fim da janela é ≤ 1 minuto de carga e não cresce nos últimos 5 minutos.
+- Duração da janela de carga: 10 min. Critério de "sustentado" (DEC-3, substitui o DEC-2): create e update aplicados com latência p95 ≤ 60 s (envio → todas as ingestion logs do request em estado terminal), p95 da 2ª metade da janela ≤ 1,5 × p95 da 1ª metade, backlog (QUEUED + APPLYING + stream do Redis) sem crescer nos últimos 5 min, drenagem completa e estado final correto. O backlog sozinho não serve: um repetido de linha ainda QUEUED só incrementa `duplicate_count`, então o backlog fica limitado ao número de entidades distintas mesmo com o pipeline atrasado.
 
 *Fase 1: gerador de carga com taxa fixa*
 - `bench/loadgen.py`: novo modo `--rate <eventos/min>` com `--mix create:update:repeat` e `--duration`. Ele envia na taxa pedida, independente da vazão do pipeline, e registra a taxa realmente enviada.
@@ -99,16 +99,16 @@ Limites de configuração que também entram na conta: `DIODE_TO_NETBOX_RATE_LIM
 - **A fase 4 é grande.** Otimizar o caminho DRF sem quebrar a semântica do NetBox leva dias, não horas. Por isso ela depende do número da fase 3.
 
 ## Sinais de sucesso
-- O cenário `sustained` a 17.000/min, na mistura da fase 0, roda 10 minutos com o backlog estável e termina com o estado final correto, 3 de 3 execuções.
+- O cenário `sustained` a 17.000/min, na mistura da fase 0, roda 10 minutos dentro do critério do DEC-3 e termina com o estado final correto, 3 de 3 execuções.
 
 ## Critério de aceite
-- [x] Mistura de carga e critério de "sustentado" definidos pelo owner (DEC no journal) | evidence: manual @aliothbl — 2026-11-24 06:54, DEC-1 e DEC-2 no journal
+- [x] Mistura de carga e critério de "sustentado" definidos pelo owner (DEC no journal) | evidence: manual @aliothbl — 2026-11-24 06:54, DEC-1 e DEC-2 no journal; critério trocado pelo DEC-3 em 2026-11-24 08:50
 - [ ] `loadgen.py --rate/--mix/--duration` sustenta a taxa pedida (enviada ≥ 98% da pedida) | evidence: manual @aliothbl
 - [ ] Cenário `sustained` grava backlog por segundo e verifica o estado final | verify: `bench/run.sh --version candidate --scenario sustained --runs 1`
 - [ ] Teto desta máquina medido na varredura da fase 2 (≥3 execuções por ponto) e registrado no journal | evidence: manual @aliothbl
 - [ ] Janela de frescor com testes: default 0 sem mudança; dentro da janela não reenfileira; fora da janela e FAILED reenfileiram | verify: `cd diode-server && go test -race -run 'Duplicate|Recheck' ./reconciler/... ./dbstore/...`
 - [ ] Suíte completa verde com o default | verify: `cd diode-server && go test ./...`
-- [ ] 17.000/min sustentados por 10 min, estado final correto, 3/3 execuções | evidence: manual @aliothbl
+- [ ] 17.000/min sustentados por 10 min (critério do DEC-3: latência p95 de create/update ≤ 60 s e estável, backlog sem crescer), estado final correto, 3/3 execuções | evidence: manual @aliothbl
 - [ ] N réplicas do NetBox (3–4) atrás de balanceador com c=16–32: estado final idêntico ao de uma réplica, 0 FAILED, 0 duplicatas, 3/3 execuções (com e sem netbox-branching) | evidence: manual @aliothbl
 - [ ] `search_path` do netbox-branching testado com PgBouncer por transação e por sessão; modo suportado registrado como DEC | evidence: manual @aliothbl
 - [ ] Estimativa de réplicas e núcleos para 17.000/min, com a curva de escala medida, e nota de requisitos para Kubernetes | evidence: manual @aliothbl
